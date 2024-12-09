@@ -136,13 +136,12 @@ const LoginPage = () => {
           alignContent={"flex-start"}
           width={below400 ? "100%" : "45%"}
           sx={{ textAlign: "center" }}
-          pb={8}
+          pb={4}
           flexDirection={"column"}
         >
           <Grid
             container
             justifyContent={"flex-start"}
-            mt={2}
             maxWidth={"100%"}
             pt={4}
             pl={6}
@@ -150,6 +149,7 @@ const LoginPage = () => {
             <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
           <Grid
+            mt={1.5}
             width={"100%"}
             height={"500px"}
             container
@@ -256,7 +256,6 @@ const LoginPage = () => {
               </Button>
             </Grid>
           </Grid>
-
           <Grid
             container
             justifyContent={"space-between"}

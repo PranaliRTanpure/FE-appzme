@@ -109,19 +109,18 @@ const VerifyEmailPage = () => {
       <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"} p={2}>
         {/* Login Form */}
         <Grid
-          border={1}
           container
           justifyContent={"flex-start"}
           alignContent={"flex-start"}
-          width={"50%"}
+          width={"45%"}
           sx={{ textAlign: "center" }}
-          pb={8}
+          pb={4}
           flexDirection={"column"}
         >
           <Grid
             container
             justifyContent={"flex-start"}
-            mt={2}
+            // mt={2}
             maxWidth={"100%"}
             pt={4}
             pl={6}
@@ -129,7 +128,7 @@ const VerifyEmailPage = () => {
             <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
           <Grid
-            // boxShadow={`0px 0px 16px 0px #021D2614`}
+            mt={1.5}
             width={"100%"}
             height={"330px"}
             container
@@ -137,7 +136,7 @@ const VerifyEmailPage = () => {
             pr={6}
             pl={6}
             flexDirection={"column"}
-            rowGap={3}
+            rowGap={5}
           >
             <Grid container flexDirection={"column"} rowGap={0.5} mt={6}>
               <Typography
@@ -178,7 +177,12 @@ const VerifyEmailPage = () => {
             </Grid>
 
             <Grid width={"100%"}>
-              <Button variant="contained" fullWidth type="submit">
+              <Button
+                variant="contained"
+                fullWidth
+                style={{ background: "#106DCC" }}
+                type="submit"
+              >
                 Send Verification Link
               </Button>
             </Grid>
@@ -219,7 +223,7 @@ const VerifyEmailPage = () => {
         {/* Image */}
         <Grid
           p={2}
-          width={"50%"}
+          width={"70%"}
           // bgcolor={theme.palette.secondary.main}
           bgcolor="#EFF0F2"
           container
@@ -231,8 +235,8 @@ const VerifyEmailPage = () => {
           </Grid> */}
           <Grid
             container
-            justifyContent={"center"}
-            alignContent={"center"}
+            // justifyContent={"center"}
+            alignSelf={"center"}
             height={"100%"}
           >
             <Box
@@ -242,20 +246,6 @@ const VerifyEmailPage = () => {
               src={EmailVerification}
             ></Box>
           </Grid>
-          {/* <Grid container justifyContent={"space-between"} padding={"0px 50px"}>
-            <Grid container columnGap={0.5} alignItems={"center"}>
-              <CopyrightIcon fontSize="small" color={"primary"} />
-              <Typography color={"primary"} variant="bodySmall">
-                apzmeapzme 2024
-              </Typography>
-            </Grid>
-            <Grid container columnGap={1} alignItems={"center"}>
-              <MailOutlineIcon fontSize="small" color={"primary"} />
-              <Typography variant="bodySmall" color="primary">
-                support@apzme.com
-              </Typography>
-            </Grid>
-          </Grid> */}
         </Grid>
       </Grid>
     </form>
