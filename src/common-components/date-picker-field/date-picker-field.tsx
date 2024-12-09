@@ -1,9 +1,8 @@
 import { Typography } from "@mui/material";
-import { Grid } from "@mui/system";
+import { alpha, Grid } from "@mui/system";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateRangeIcon } from "@mui/x-date-pickers/icons";
 import {
   DateValidationError,
   PickerChangeHandlerContext,
@@ -11,6 +10,7 @@ import {
 import { format, parse } from "date-fns";
 import { enUS } from "date-fns/locale";
 import React, { useEffect, useState } from "react";
+import { theme } from "../../utils/theme";
 import {
   customInputStyles,
   errorStyle,
@@ -69,30 +69,22 @@ const DatePicker: React.FC<DatePickerProps> = ({
           value={inputValue}
           closeOnSelect={true}
           onChange={handleChange}
-          format="MM-dd-yyyy" // Specify the format
-          slotProps={{
-            // textField: textFieldProps,
-            // field: { clearable: true, onClear: () => setCleared(true) },
-            openPickerIcon: DateRangeIcon,
-            inputAdornment: {
-              position: "start",
-            },
-          }}
+          format="MM-dd-yyyy"
           sx={{
             width: "100%",
             ...(hasError && customInputStyles.textFieldError),
             "& .MuiOutlinedInput-root": {
-              borderRadius: "5px",
+              borderRadius: "16px",
               width: "100%",
+              border: `1px solid ${alpha(theme.palette.grey[500], 0.3)}`,
               background: bgWhite ? "white" : "inherit",
-              boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "none",
               },
             },
             "& .MuiInputBase-input": {
               fontSize: "14px",
-              padding: "11px 0px",
+              padding: "11px 10px",
               outline: "none",
             },
           }}

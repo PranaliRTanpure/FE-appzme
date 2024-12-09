@@ -50,3 +50,7 @@ export const licenseExpiryDateRequiredErrorMsg = "Expiry date is required";
 export const licenseStateReqiredErrorMsg = "Licensed state is required";
 export const messageRequiredErrorMsg = "Message is required";
 export const subjectRequiredErrorMsg = "Subject is required";
+export const primaryLanguageRequiredErrorMsg = "Primary language is required.";
+export const heightRequiredErrorMsg = "Height is required";
+export const weightRequiredErrorMsg = "Weight is required";
+export const specialNeedsRequiredErrorMsg = "Special needs required";

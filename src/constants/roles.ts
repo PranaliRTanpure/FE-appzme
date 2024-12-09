@@ -62,3 +62,8 @@ export const RolesOfPGUsers = [
   { value: Roles.BILLER, label: "Biller" },
   { value: Roles.FRONTDESK, label: "Front desk" },
 ];
+
+export const PrimaryLanguages = [
+  { value: "ENGLISH", label: "English" },
+  { value: "SPANISH", label: "Spanish" },
+];
