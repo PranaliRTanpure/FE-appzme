@@ -14,6 +14,7 @@ import PatientProfile from "../components/provider-portal/patients/patient-chart
 import NotAuthorized from "../pages/errors/not-authorised";
 import NotFound from "../pages/errors/not-found";
 import PrivateRoute from "./private-route";
+import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -31,6 +32,20 @@ export const router = createBrowserRouter([
       { path: "verify-email", element: <VerifyEmailPage /> },
       { path: "set-password", element: <SetPasswordPage /> },
       { path: "verify-otp", element: <VerifyOtpPage /> },
+    ],
+  },
+
+  {
+    path: "super-user",
+    element: (
+      <PrivateRoute>
+        <MainLayout>
+          <Outlet />
+        </MainLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      { path: "patient-registration", element: <PatientsRegistration /> },
     ],
   },
 

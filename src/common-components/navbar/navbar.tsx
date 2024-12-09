@@ -20,7 +20,7 @@ import { Grid } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileImage from "../../assets/image_svg/icons/account_circle.svg";
-import Logo from "../../assets/image_svg/logo/navbar-logo.svg";
+import Logo from "../../assets/image_svg/logo/logo.svg";
 import useLogout from "../../hooks/use-logout";
 import { theme } from "../../utils/theme";
 import TopMenu from "./top-menu";
@@ -72,7 +72,7 @@ const Navbar = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: `${theme.palette.primary.light}`, height: "40px" }}
+      sx={{ backgroundColor: `${theme.palette.primary.main}`, height: "40px" }}
     >
       <Toolbar variant="dense" sx={toolBarContainer}>
         <Grid container width={"100%"}>

@@ -45,7 +45,6 @@ const useAuthority = () => {
 
   // Compute respective user portal based on role
   const portal = (role && RolesPortalMap[role.toString()]) || "";
-
   const isEnvDevelopment = ENV === ENVIRONMENTS.DEVELOPMENT;
   const isEnvProduction = ENV === ENVIRONMENTS.PRODUCTION;
   const isEnvStage = ENV === ENVIRONMENTS.STAGE;

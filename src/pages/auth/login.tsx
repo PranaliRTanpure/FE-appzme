@@ -87,7 +87,7 @@ const LoginPage = () => {
       // } else {
       // 	navigate(`/provider/patients`);
       // }
-      navigate(`/provider/patients`);
+      navigate(`/super-user/patient-registration`);
     }
   }, [isSuccess, data]);
 
@@ -100,7 +100,7 @@ const LoginPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        })
+        }),
       );
     }
   }, [dispatch, isError, error]);

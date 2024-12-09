@@ -1,11 +1,9 @@
 import GridViewIcon from "@mui/icons-material/GridView";
 import { useLocation } from "react-router-dom";
-import { PROVIDER_LOWER } from "../constants/constants";
-import useAuthority from "./use-authority";
+import { SUPER_USER } from "../constants/constants";
 
 const useMenu = () => {
   const location = useLocation();
-  const { isProvider } = useAuthority();
 
   const pathArr = location.pathname
     ?.trim()
@@ -13,31 +11,17 @@ const useMenu = () => {
     .filter((path) => path?.length);
   const pathPrefix = (pathArr && pathArr[0]) || "";
 
-  const providerSideMenu = [
+  const superUserSideMenu = [
     {
       title: "Patients",
-      route: "/provider/patients",
-      icon: <GridViewIcon />,
-      hide: false,
-      disabled: false,
-    },
-    {
-      title: "Users",
-      route: "/provider/users",
-      icon: <GridViewIcon />,
-      hide: isProvider,
-      disabled: false,
-    },
-    {
-      title: "Settings",
-      route: "/provider/settings",
+      route: "/super-user/patient-registration",
       icon: <GridViewIcon />,
       hide: false,
       disabled: false,
     },
   ];
 
-  return pathPrefix === PROVIDER_LOWER ? providerSideMenu : [];
+  return pathPrefix === SUPER_USER ? superUserSideMenu : [];
 };
 
 export default useMenu;
