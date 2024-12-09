@@ -1,16 +1,17 @@
 import { Navigate } from "react-router-dom";
 import useAuthority from "../hooks/use-authority";
 import { PortalStartingRoute } from "../constants/portals";
+import React from "react";
 
 const PublicRoute = (props: React.PropsWithChildren) => {
-	const { token } = useAuthority();
-	const isLoggedIn = !!token;
+  const { token } = useAuthority();
+  const isLoggedIn = !!token;
 
-	return !isLoggedIn ? (
-		props.children
-	) : (
-		<Navigate to={PortalStartingRoute["provider"]} />
-	);
+  return !isLoggedIn ? (
+    props.children
+  ) : (
+    <Navigate to={PortalStartingRoute["patient-registration"]} />
+  );
 };
 
 export default PublicRoute;

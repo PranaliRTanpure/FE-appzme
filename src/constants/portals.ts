@@ -1,9 +1,10 @@
 import { StringMap } from "./constants";
 
 export const Portals: StringMap = {
-	provider: "provider",
+  provider: "provider",
+  superUser: "super-user",
 };
 
 export const PortalStartingRoute: StringMap = {
-	provider: `/${Portals.provider}/patients`,
+  provider: `/${Portals.superUser}/patients`,
 };

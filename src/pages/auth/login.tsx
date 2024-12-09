@@ -96,7 +96,7 @@ const LoginPage = () => {
       // } else {
       // 	navigate(`/provider/patients`);
       // }
-      navigate(`/provider/patients`);
+      navigate(`/super-user/patient-registration`);
     }
   }, [isSuccess, data]);
 
