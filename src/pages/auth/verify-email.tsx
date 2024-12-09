@@ -107,7 +107,7 @@ const VerifyEmailPage = () => {
       style={{ width: "100%", height: "100%" }}
     >
       <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"} p={2}>
-        {/* Login Form */}
+        {/* Verify email Form */}
         <Grid
           container
           justifyContent={"flex-start"}
@@ -120,7 +120,6 @@ const VerifyEmailPage = () => {
           <Grid
             container
             justifyContent={"flex-start"}
-            // mt={2}
             maxWidth={"100%"}
             pt={4}
             pl={6}
@@ -224,21 +223,12 @@ const VerifyEmailPage = () => {
         <Grid
           p={2}
           width={"70%"}
-          // bgcolor={theme.palette.secondary.main}
           bgcolor="#EFF0F2"
           container
           flexDirection={"column"}
           borderRadius={5}
         >
-          {/* <Grid container justifyContent={"center"} mt={2}>
-            <Box component={"img"} src={Logo}></Box>
-          </Grid> */}
-          <Grid
-            container
-            // justifyContent={"center"}
-            alignSelf={"center"}
-            height={"100%"}
-          >
+          <Grid container alignSelf={"center"} height={"100%"}>
             <Box
               width={"fit-content"}
               height={"fit-content"}
