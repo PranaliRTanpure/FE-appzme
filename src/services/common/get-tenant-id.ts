@@ -6,12 +6,12 @@ export function GetTenantId() {
 
   const regex =
     ENV === ENVIRONMENTS.DEVELOPMENT
-      ? /https:\/\/(.*?)\.dev\.care\.eamata\.com/
+      ? /https:\/\/(.*?)\.dev\.care\.apzme\.com/
       : ENV === ENVIRONMENTS.QA
-        ? /https:\/\/(.*?)\.qa\.care\.eamata\.com/
+        ? /https:\/\/(.*?)\.qa\.care\.apzme\.com/
         : ENV === ENVIRONMENTS.UAT
-          ? /https:\/\/(.*?)\.uat\.care\.eamata\.com/
-          : /https:\/\/(.*?)\.dev\.care\.eamata\.com/;
+          ? /https:\/\/(.*?)\.uat\.care\.apzme\.com/
+          : /https:\/\/(.*?)\.dev\.care\.apzme\.com/;
 
   const match = url.match(regex);
   let xTenantId = "";

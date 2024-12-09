@@ -60,7 +60,7 @@ const InvitePatientForm = (props: PatientInviteType) => {
     { key: string; value: string }[]
   >([{ key: "", value: "" }]);
   const [invitePatientData, setInvitePatientData] = useState<Patient>(
-    {} as Patient,
+    {} as Patient
   );
 
   const [isLoadingGetPatientData, setIsLoadingGetPatientdata] = useState(false);
@@ -113,7 +113,7 @@ const InvitePatientForm = (props: PatientInviteType) => {
         invitePatientData?.birthDate &&
         invitePatientData?.birthDate != "-"
         ? format(new Date(invitePatientData?.birthDate), "MM-dd-yyyy")
-        : "",
+        : ""
     );
     setValue("status", invitePatientData?.active ? "active" : "inactive" || "");
     setValue("schemaType", invitePatientData.schemaType || "INTERNAL");
@@ -121,25 +121,25 @@ const InvitePatientForm = (props: PatientInviteType) => {
       "primaryProvider",
       invitePatientData?.providerId
         ? Object.keys(invitePatientData?.providerId)[0]
-        : "" || "",
+        : "" || ""
     );
     setValue(
       "prefix",
       invitePatientData?.mobileNumber
         ? splitPhoneNumber(invitePatientData?.mobileNumber)?.countryCode
-        : "+1",
+        : "+1"
     );
     setValue(
       "phone",
       invitePatientData?.mobileNumber
         ? splitPhoneNumber(invitePatientData?.mobileNumber)?.number
-        : "" || "",
+        : "" || ""
     );
     setValue(
       "nurse",
       invitePatientData?.nurseId
         ? Object.keys(invitePatientData?.nurseId)[0]
-        : "" || "",
+        : "" || ""
     );
     setValue("mrn", invitePatientData.mrn);
     setValue("email", invitePatientData.email);
@@ -207,7 +207,7 @@ const InvitePatientForm = (props: PatientInviteType) => {
     isError,
     error,
     isSuccessCreate,
-    (data?.message || "Created updated successfully!") as string,
+    (data?.message || "Created updated successfully!") as string
   );
 
   //Put
@@ -224,7 +224,7 @@ const InvitePatientForm = (props: PatientInviteType) => {
     isErrorUpdate,
     errorUpdate,
     isSuccessUpdate,
-    (dataUpdate?.message || "Updated successfully!") as string,
+    (dataUpdate?.message || "Updated successfully!") as string
   );
 
   const {
@@ -313,7 +313,7 @@ const InvitePatientForm = (props: PatientInviteType) => {
       role === ProviderRole.PROVIDER
         ? xTenantId
         : role === ProviderRole.NURSE && schemaTypeVal === "EXTERNAL"
-          ? "eamata"
+          ? "apZme"
           : xTenantId;
 
     try {
@@ -368,8 +368,8 @@ const InvitePatientForm = (props: PatientInviteType) => {
           isPendingAvatar ||
           isPendingEdit ||
           isLoadingProviderNurses ||
-          isLoadingGetPatientData,
-      ),
+          isLoadingGetPatientData
+      )
     );
   }, [
     dispatch,
@@ -619,7 +619,7 @@ const InvitePatientForm = (props: PatientInviteType) => {
                         value: "INTERNAL",
                         label: `${"Provider Group Nurses"}`,
                       },
-                      { value: "EXTERNAL", label: "Eamata Nurses" },
+                      { value: "EXTERNAL", label: "apZme Nurses" },
                     ]}
                     {...field}
                     value={field.value || invitePatientData?.schemaType || ""}

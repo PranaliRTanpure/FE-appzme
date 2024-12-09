@@ -37,7 +37,7 @@ export const setPasswordSchema = yup.object().shape({
     .string()
     .oneOf(
       [yup.ref("newPassword") as unknown as string],
-      passwordMustMatchErrorMsg,
+      passwordMustMatchErrorMsg
     )
     .required(confirmNewPaswordErrorMsg),
 });
@@ -60,7 +60,7 @@ const SetPasswordPage = () => {
     isError,
     error,
     isSuccess,
-    (data?.message || "Password set successsfully") as string,
+    (data?.message || "Password set successsfully") as string
   );
 
   const initialValues = {
@@ -77,7 +77,7 @@ const SetPasswordPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isError, error]);
@@ -146,13 +146,13 @@ const SetPasswordPage = () => {
             <Grid container columnGap={0.5} alignItems={"center"}>
               <CopyrightIcon fontSize="small" color={"primary"} />
               <Typography color={"primary"} variant="bodySmall">
-                eAmata 2024
+                apzme 2024
               </Typography>
             </Grid>
             <Grid container columnGap={1} alignItems={"center"}>
               <MailOutlineIcon fontSize="small" color={"primary"} />
               <Typography variant="bodySmall" color="primary">
-                support@eAmata.com
+                support@apzme.com
               </Typography>
             </Grid>
           </Grid>

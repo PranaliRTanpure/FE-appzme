@@ -71,7 +71,7 @@ const VerifyOtpPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isErrorVerifyOtp, errorVerifyOtp]);
@@ -114,7 +114,7 @@ const VerifyOtpPage = () => {
           setSnackbarOn({
             severity: AlertSeverity.ERROR,
             message: "Invalid OTP. Please try again.",
-          }),
+          })
         );
       }
     }
@@ -132,7 +132,7 @@ const VerifyOtpPage = () => {
     isError,
     error,
     isSuccess,
-    ((dataOtpResend?.message || "") as string) || "OTP sent successfully",
+    ((dataOtpResend?.message || "") as string) || "OTP sent successfully"
   );
 
   const handleOnClickLink = async () => {
@@ -156,7 +156,7 @@ const VerifyOtpPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isError, error]);
@@ -189,13 +189,13 @@ const VerifyOtpPage = () => {
             <Grid container columnGap={0.5} alignItems={"center"}>
               <CopyrightIcon fontSize="small" color={"primary"} />
               <Typography color={"primary"} variant="bodySmall">
-                eAmata 2024
+                apZme 2024
               </Typography>
             </Grid>
             <Grid container columnGap={1} alignItems={"center"}>
               <MailOutlineIcon fontSize="small" color={"primary"} />
               <Typography variant="bodySmall" color="primary">
-                support@eAmata.com
+                support@apzme.com
               </Typography>
             </Grid>
           </Grid>

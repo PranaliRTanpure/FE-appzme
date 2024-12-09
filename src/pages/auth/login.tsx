@@ -100,7 +100,7 @@ const LoginPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isError, error]);
@@ -120,60 +120,7 @@ const LoginPage = () => {
       style={{ width: "100%", height: "100%" }}
     >
       <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"}>
-        {!below400 && (
-          // <Grid
-          // 	p={2}
-          // 	flexWrap={"nowrap"}
-          // 	width={"50%"}
-          // 	bgcolor={theme.palette.secondary.main}
-          // 	container
-          // 	flexDirection={"column"}
-          // >
-          // 	<Grid container justifyContent={"center"} mt={2} maxWidth={"100%"}>
-          // 		<Box width={"fit-content"} component={"img"} src={Logo}></Box>
-          // 	</Grid>
-          // 	<Grid
-          // 		container
-          // 		justifyContent={"center"}
-          // 		alignContent={"center"}
-          // 		height={"70%"}
-          // 	>
-          // 		<Box width={"90%"} component={"img"} src={LoginImage}></Box>
-          // 	</Grid>
-          // 	<Grid
-          // 		container
-          // 		justifyContent={"space-between"}
-          // 		// alignSelf={"flex-end"}
-          // 		flex={1}
-          // 		flexWrap={"nowrap"}
-          // 		padding={below800 ? "0px 10px" : "0px 50px"}
-          // 	>
-          // 		<Grid
-          // 			container
-          // 			columnGap={0.5}
-          // 			alignItems={"flex-end"}
-          // 			flexWrap={"nowrap"}
-          // 		>
-          // 			<CopyrightIcon fontSize="small" color={"primary"} />
-          // 			<Typography color={"primary"} variant="bodySmall">
-          // 				eAmata 2024
-          // 			</Typography>
-          // 		</Grid>
-          // 		<Grid
-          // 			container
-          // 			flexWrap={"nowrap"}
-          // 			columnGap={1}
-          // 			alignItems={"flex-end"}
-          // 		>
-          // 			<MailOutlineIcon fontSize="small" color={"primary"} />
-          // 			<Typography variant="bodySmall" color="primary">
-          // 				support@eamata.comexample.com
-          // 			</Typography>
-          // 		</Grid>
-          // 	</Grid>
-          // </Grid>
-          <AuthImage logo={LoginImage} />
-        )}
+        {!below400 && <AuthImage logo={LoginImage} />}
 
         {/* Login Form */}
         <Grid

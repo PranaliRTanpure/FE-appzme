@@ -55,7 +55,7 @@ const StaffDetails = (props: StaffDetailsProps) => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: (error as ErrorResponseEntity).body.message,
-        }),
+        })
       );
     }
   };
@@ -72,7 +72,7 @@ const StaffDetails = (props: StaffDetailsProps) => {
           role === "Provider"
             ? xTenantId
             : role === "Nurse" && nurseType === "EXTERNAL"
-              ? "eamata"
+              ? "apZme"
               : xTenantId,
       });
       if (response) {
@@ -84,7 +84,7 @@ const StaffDetails = (props: StaffDetailsProps) => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: (error as ErrorResponseEntity).body.message,
-        }),
+        })
       );
     }
   };

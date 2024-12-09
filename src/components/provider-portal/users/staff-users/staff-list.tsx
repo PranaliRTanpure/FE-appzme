@@ -97,7 +97,7 @@ const StaffList = (props: StaffListProps) => {
   const [totalPages, setTotalPages] = useState(0);
   const [selectedStaff, setSelectedStaff] = useState<User>();
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(
-    null,
+    null
   );
   const [openWarningPopUp, setOpenWarningPopUp] = useState(false);
   const [selectedAction, setSelectedAction] = useState("");
@@ -115,7 +115,7 @@ const StaffList = (props: StaffListProps) => {
   const [status] = useState<boolean | undefined>(undefined);
   const [archive] = useState<boolean | undefined>(undefined);
   const [selectedFilterOpt, setSelectedFilterOpt] = useState(
-    listType === "Staff" ? "Provider Group Admin" : "Nurse",
+    listType === "Staff" ? "Provider Group Admin" : "Nurse"
   );
   const [nurseType, setNurseType] = useState("INTERNAL");
   const [openAddStaffDialog, setOpenAddStaffDialog] = useState(false);
@@ -229,7 +229,7 @@ const StaffList = (props: StaffListProps) => {
             ? xTenantId
             : getRole(selectedFilterOpt) === Roles.NURSE &&
                 nurseType === "EXTERNAL"
-              ? "eamata"
+              ? "apZme"
               : xTenantId,
       }),
   });
@@ -375,18 +375,18 @@ const StaffList = (props: StaffListProps) => {
     isErrorArchive,
     errorArchive,
     isSuccessArchive,
-    (dataArchive?.message || "User archive status updated!") as string,
+    (dataArchive?.message || "User archive status updated!") as string
   );
   useApiFeedback(
     isErrorArchiveProvider,
     errorArchiveProvider,
     isSuccessArchiveProvider,
-    (dataArchiveProvider?.message || "User archive status updated!") as string,
+    (dataArchiveProvider?.message || "User archive status updated!") as string
   );
 
   const handlePageChange = (
     event: ChangeEvent<unknown> | null,
-    page: number,
+    page: number
   ) => {
     event;
     setPage(page);
@@ -420,8 +420,8 @@ const StaffList = (props: StaffListProps) => {
           isPendingArchive ||
           isLoadingProviderList ||
           isRefetching ||
-          isPendingArchiveProvider,
-      ),
+          isPendingArchiveProvider
+      )
     );
   }, [
     dispatch,
@@ -475,7 +475,7 @@ const StaffList = (props: StaffListProps) => {
                 <CustomSelect
                   placeholder={"Select Nurse"}
                   items={[
-                    { value: "EXTERNAL", label: "eAmata" },
+                    { value: "EXTERNAL", label: "apZme" },
                     { value: "INTERNAL", label: "Provider Group" },
                   ]}
                   name={"nurseType"}
@@ -864,7 +864,7 @@ const StaffList = (props: StaffListProps) => {
                                       {item.expiryDate
                                         ? format(
                                             new Date(item.expiryDate || ""),
-                                            "MM-dd-yyyy",
+                                            "MM-dd-yyyy"
                                           )
                                         : "-"}{" "}
                                     </Typography>

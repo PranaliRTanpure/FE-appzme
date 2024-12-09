@@ -71,7 +71,7 @@ const VerifyEmailPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isError, error]);
@@ -129,13 +129,13 @@ const VerifyEmailPage = () => {
             <Grid container columnGap={0.5} alignItems={"center"}>
               <CopyrightIcon fontSize="small" color={"primary"} />
               <Typography color={"primary"} variant="bodySmall">
-                eAmata 2024
+                apzmeapzme 2024
               </Typography>
             </Grid>
             <Grid container columnGap={1} alignItems={"center"}>
               <MailOutlineIcon fontSize="small" color={"primary"} />
               <Typography variant="bodySmall" color="primary">
-                support@eAmata.com
+                support@apzme.com
               </Typography>
             </Grid>
           </Grid>
