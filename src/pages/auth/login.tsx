@@ -246,10 +246,11 @@ const LoginPage = () => {
             </Grid>
             <Grid width={"100%"}>
               <Button
+                // disabled
                 variant="contained"
                 fullWidth
                 type="submit"
-                style={{ background: "#DBDBDB" }}
+                style={{ background: "#106DCC" }}
               >
                 Login
               </Button>

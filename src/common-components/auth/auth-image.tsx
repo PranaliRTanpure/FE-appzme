@@ -18,7 +18,6 @@ const AuthImage = (props: { logo: string }) => {
         mt={2}
         maxWidth={"100%"}
         height={"100%"}
-        border={1}
       >
         <Box width={"fit-content"} component={"img"} src={logo}></Box>
       </Grid>
