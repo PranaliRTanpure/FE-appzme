@@ -1,0 +1,73 @@
+{
+	"name": "eamata",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build --mode development",
+		"build:qa": "tsc && vite build --mode qa",
+		"build:UAT": "tsc && vite build --mode UAT",
+		"lint": "eslint .",
+		"preview": "vite preview",
+		"prepare": "husky install"
+	},
+	"lint-staged": {
+		"*.{css,scss}": [
+			"npx prettier --write"
+		],
+		"*.{js,jsx,ts,tsx}": [
+			"eslint --fix",
+			"npx prettier --write"
+		]
+	},
+	"dependencies": {
+		"@date-fns/tz": "^1.2.0",
+		"@emotion/react": "^11.13.3",
+		"@emotion/styled": "^11.13.0",
+		"@fontsource/roboto": "^5.1.0",
+		"@hookform/resolvers": "^3.9.0",
+		"@mui/base": "^5.0.0-beta.58",
+		"@mui/icons-material": "^6.1.7",
+		"@mui/material": "^6.1.1",
+		"@mui/system": "^6.1.1",
+		"@mui/x-date-pickers": "^7.22.3",
+		"@mui/x-date-pickers-pro": "^7.22.3",
+		"@reduxjs/toolkit": "^2.2.7",
+		"@tanstack/react-query": "^5.59.0",
+		"apexcharts": "^4.0.0",
+		"axios": "^1.7.7",
+		"crypto-js": "^4.2.0",
+		"date-fns": "^4.1.0",
+		"date-fns-tz": "^3.2.0",
+		"jwt-decode": "^4.0.0",
+		"react": "^18.3.1",
+		"react-apexcharts": "^1.6.0",
+		"react-dom": "^18.3.1",
+		"react-dropzone": "^14.3.5",
+		"react-hook-form": "^7.53.0",
+		"react-infinite-scroll-component": "^6.1.0",
+		"react-redux": "^9.1.2",
+		"react-router-dom": "^6.26.2",
+		"use-debounce": "^10.0.3",
+		"yup": "^1.4.0"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.9.0",
+		"@types/crypto-js": "^4.2.2",
+		"@types/react": "^18.3.3",
+		"@types/react-dom": "^18.3.0",
+		"@vitejs/plugin-react-swc": "^3.5.0",
+		"eslint": "^9.9.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-react-hooks": "^5.1.0-rc.0",
+		"eslint-plugin-react-refresh": "^0.4.9",
+		"globals": "^15.9.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^15.2.10",
+		"prettier": "^3.3.3",
+		"typescript": "^5.5.3",
+		"typescript-eslint": "^8.0.1",
+		"vite": "^5.4.1"
+	}
+}

@@ -1,0 +1,14 @@
+/* eslint-disable no-unused-vars */
+
+export enum ProviderRole {
+  SUPER_ADMIN = "SUPER_ADMIN",
+  FRONTDESK = "FRONTDESK",
+  BILLER = "BILLER",
+  NURSE = "NURSE",
+  PATIENT = "PATIENT",
+  ANONYMOUS = "ANONYMOUS",
+  PROVIDER_GROUP_ADMIN = "PROVIDER_GROUP_ADMIN",
+  ADMIN = "ADMIN",
+  SITE_ADMIN = "SITE_ADMIN",
+  PROVIDER = "PROVIDER",
+}
