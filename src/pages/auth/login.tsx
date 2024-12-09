@@ -1,6 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Link, Typography } from "@mui/material";
-import { Grid, useMediaQuery } from "@mui/system";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Link,
+  Typography,
+} from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import { AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -25,6 +31,9 @@ import {
   passwordIsRequired,
   passwordRegexErrorMsg,
 } from "../../constants/error-messages";
+import Logo from "../../assets/image_svg/logo/logo.svg";
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 export const loginSchema = yup.object().shape({
   password: yup
@@ -119,30 +128,44 @@ const LoginPage = () => {
       onSubmit={handleSubmit(onSubmit)}
       style={{ width: "100%", height: "100%" }}
     >
-      <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"}>
-        {!below400 && <AuthImage logo={LoginImage} />}
-
+      <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"} p={2}>
         {/* Login Form */}
         <Grid
           container
-          justifyContent={"center"}
-          alignContent={"center"}
-          width={below400 ? "100%" : "50%"}
+          justifyContent={"flex-start"}
+          alignContent={"flex-start"}
+          width={below400 ? "100%" : "45%"}
           sx={{ textAlign: "center" }}
           pb={8}
+          flexDirection={"column"}
         >
           <Grid
-            boxShadow={`0px 0px 16px 0px #021D2614`}
-            width={"456px"}
+            container
+            justifyContent={"flex-start"}
+            mt={2}
+            maxWidth={"100%"}
+            pt={4}
+            pl={6}
+          >
+            <Box width={"fit-content"} component={"img"} src={Logo}></Box>
+          </Grid>
+          <Grid
+            width={"100%"}
             height={"500px"}
             container
-            borderRadius={"8px"}
             justifyContent={"center"}
-            p={5}
+            pl={6}
+            pr={6}
             flexDirection={"column"}
-            rowGap={2}
+            rowGap={3.5}
           >
-            <Grid container flexDirection={"column"} rowGap={0.5}>
+            <Grid
+              container
+              flexDirection={"column"}
+              rowGap={0.5}
+              alignItems={"flex-start"}
+              pb={2}
+            >
               <Typography fontWeight={600} fontSize={"30px"}>
                 Log in to your account
               </Typography>
@@ -152,7 +175,6 @@ const LoginPage = () => {
             </Grid>
             <Grid container>
               <CustomLabel label="Email" />
-
               <Controller
                 control={control}
                 name="email"
@@ -194,33 +216,81 @@ const LoginPage = () => {
                 )}
               ></Controller>
             </Grid>
-            <Grid container justifyContent={"flex-end"} alignItems={"center"}>
-              {/* <FormControlLabel
-								control={<Checkbox value="remember" color="primary" />}
-								label="Remember me"
-								sx={{
-									"& .MuiFormControlLabel-label": {
-										fontSize: "14px", // Change font size here
-									},
-								}}
-							/> */}
+            <Grid
+              container
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
 
               <Link
                 sx={{ textDecoration: "none", cursor: "pointer" }}
                 onClick={() => handleOnClickLink()}
               >
-                <Typography fontWeight={550} variant="bodySmall">
+                <Typography
+                  fontWeight={550}
+                  variant="bodySmall"
+                  color="#106DCC"
+                >
                   {"Forgot password"}
                 </Typography>
               </Link>
             </Grid>
             <Grid width={"100%"}>
-              <Button variant="contained" fullWidth type="submit">
+              <Button
+                // disabled
+                variant="contained"
+                fullWidth
+                type="submit"
+                style={{ background: "#106DCC" }}
+              >
                 Login
               </Button>
             </Grid>
           </Grid>
+
+          <Grid
+            container
+            justifyContent={"space-between"}
+            pl={6}
+            pr={6}
+            // alignSelf={"flex-end"}
+            flex={1}
+            flexWrap={"nowrap"}
+            // padding={below800 ? "0px 10px" : "0px 50px"}
+          >
+            <Grid
+              container
+              columnGap={0.5}
+              alignItems={"flex-end"}
+              flexWrap={"nowrap"}
+            >
+              <CopyrightIcon fontSize="small" />
+              <Typography variant="bodySmall">ZCloud 2025</Typography>
+            </Grid>
+            <Grid
+              container
+              flexWrap={"nowrap"}
+              columnGap={1}
+              alignItems={"flex-end"}
+            >
+              <MailOutlineIcon fontSize="small" sx={{ color: "#106DCC" }} />
+              <Typography variant="bodySmall" color="#106DCC">
+                help@zcloud.technology
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
+        {/* Login image */}
+        {!below400 && <AuthImage logo={LoginImage} />}
       </Grid>
     </form>
   );
