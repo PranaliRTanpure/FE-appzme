@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import Image from "../../assets/image_svg/auth/otp-verify.svg";
-import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomLabel from "../../common-components/custom-label/custom-label";
 import CustomOtp from "../../common-components/custom-otp/custom-otp";
 import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
@@ -21,8 +20,8 @@ import {
   useUserControllerServiceVerifyOtp,
 } from "../../sdk/queries";
 import { GetTenantId } from "../../services/common/get-tenant-id";
-import { theme } from "../../utils/theme";
 import useApiFeedback from "../../hooks/useApiFeedback";
+import Logo from "../../assets/image_svg/logo/logo.svg";
 import {
   otpMax6DigitErrorMsg,
   otpRegexErrorMsg,
@@ -71,7 +70,7 @@ const VerifyOtpPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        })
+        }),
       );
     }
   }, [dispatch, isErrorVerifyOtp, errorVerifyOtp]);
@@ -114,7 +113,7 @@ const VerifyOtpPage = () => {
           setSnackbarOn({
             severity: AlertSeverity.ERROR,
             message: "Invalid OTP. Please try again.",
-          })
+          }),
         );
       }
     }
@@ -132,7 +131,7 @@ const VerifyOtpPage = () => {
     isError,
     error,
     isSuccess,
-    ((dataOtpResend?.message || "") as string) || "OTP sent successfully"
+    ((dataOtpResend?.message || "") as string) || "OTP sent successfully",
   );
 
   const handleOnClickLink = async () => {
@@ -156,7 +155,7 @@ const VerifyOtpPage = () => {
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        })
+        }),
       );
     }
   }, [dispatch, isError, error]);
@@ -166,61 +165,38 @@ const VerifyOtpPage = () => {
       onSubmit={handleSubmit(onSubmit)}
       style={{ width: "100%", height: "100%" }}
     >
-      <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"}>
+      <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"} p={2}>
+        {/* OTP verification Form */}
         <Grid
-          p={2}
-          width={"50%"}
-          bgcolor={theme.palette.secondary.main}
           container
+          justifyContent={"flex-start"}
+          alignContent={"flex-start"}
+          width={"45%"}
+          sx={{ textAlign: "center" }}
+          pb={4}
           flexDirection={"column"}
         >
-          <Grid container justifyContent={"center"} mt={2}>
-            <Box component={"img"} src={Logo}></Box>
-          </Grid>
           <Grid
             container
-            justifyContent={"center"}
-            alignContent={"center"}
-            height={"90%"}
+            justifyContent={"flex-start"}
+            maxWidth={"100%"}
+            pt={4}
+            pl={6}
           >
-            <Box component={"img"} src={Image}></Box>
+            <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
-          <Grid container justifyContent={"space-between"} padding={"0px 50px"}>
-            <Grid container columnGap={0.5} alignItems={"center"}>
-              <CopyrightIcon fontSize="small" color={"primary"} />
-              <Typography color={"primary"} variant="bodySmall">
-                apZme 2024
-              </Typography>
-            </Grid>
-            <Grid container columnGap={1} alignItems={"center"}>
-              <MailOutlineIcon fontSize="small" color={"primary"} />
-              <Typography variant="bodySmall" color="primary">
-                support@apzme.com
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-
-        {/* Login Form */}
-        <Grid
-          container
-          justifyContent={"center"}
-          alignContent={"center"}
-          width={"50%"}
-          sx={{ textAlign: "center" }}
-          pb={8}
-        >
           <Grid
-            boxShadow={`0px 0px 16px 0px #021D2614`}
-            width={"456px"}
-            height={"390px"}
+            mt={1.5}
+            width={"100%"}
+            // height={"390px"}
             container
             borderRadius={"8px"}
-            p={5}
+            pr={6}
+            pl={6}
             flexDirection={"column"}
-            rowGap={3}
+            rowGap={5}
           >
-            <Grid container flexDirection={"column"} rowGap={0.5}>
+            <Grid container flexDirection={"column"} rowGap={0.5} mt={6}>
               <Typography
                 fontWeight={600}
                 textAlign={"start"}
@@ -275,8 +251,13 @@ const VerifyOtpPage = () => {
             </Grid>
 
             <Grid width={"100%"}>
-              <Button variant="contained" fullWidth type="submit">
-                Verify OTP
+              <Button
+                variant="contained"
+                fullWidth
+                type="submit"
+                style={{ background: "#106DCC" }}
+              >
+                Confirm and Login
               </Button>
             </Grid>
             <Grid container columnGap={1}>
@@ -288,12 +269,67 @@ const VerifyOtpPage = () => {
               <Link
                 style={{ cursor: "pointer" }}
                 onClick={() => handleOnClickLink()}
+                underline="always"
+                sx={{
+                  textDecoration: "underline",
+                  textDecorationColor: "#106DCC",
+                }}
               >
-                <Typography fontWeight={550} variant="bodyMedium">
+                <Typography variant="bodyMedium" color="#106DCC">
                   {"Resend"}
                 </Typography>
               </Link>
             </Grid>
+          </Grid>
+          <Grid
+            container
+            justifyContent={"space-between"}
+            pl={6}
+            pr={6}
+            // alignSelf={"flex-end"}
+            flex={1}
+            flexWrap={"nowrap"}
+            // padding={below800 ? "0px 10px" : "0px 50px"}
+          >
+            <Grid
+              container
+              columnGap={0.5}
+              alignItems={"flex-end"}
+              flexWrap={"nowrap"}
+            >
+              <CopyrightIcon fontSize="small" />
+              <Typography variant="bodySmall">ZCloud 2025</Typography>
+            </Grid>
+            <Grid
+              container
+              flexWrap={"nowrap"}
+              columnGap={1}
+              alignItems={"flex-end"}
+            >
+              <MailOutlineIcon fontSize="small" sx={{ color: "#106DCC" }} />
+              <Typography variant="bodySmall" color="#106DCC">
+                help@zcloud.technology
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {/* Image */}
+        <Grid
+          p={2}
+          width={"70%"}
+          bgcolor="#EFF0F2"
+          container
+          flexDirection={"column"}
+          borderRadius={5}
+        >
+          <Grid container alignSelf={"center"} height={"100%"}>
+            <Box
+              width={"fit-content"}
+              height={"fit-content"}
+              component={"img"}
+              src={Image}
+            ></Box>
           </Grid>
         </Grid>
       </Grid>

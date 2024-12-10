@@ -145,7 +145,7 @@ const SetPasswordPage = () => {
           </Grid>
           <Grid
             width={"100%"}
-            height={"420px"}
+            // height={"420px"}
             container
             borderRadius={"8px"}
             pr={6}
