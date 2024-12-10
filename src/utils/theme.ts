@@ -49,8 +49,7 @@ const palette = {
     light: "#00506B", //hover shade
   },
   secondary: {
-    main: "#EAF3FF",
-
+    main: "#2D7AE5",
     light: "#F2F7F9",
   },
 
@@ -68,7 +67,7 @@ export const theme = createTheme({
       xs1: 390, //
       sm: 744, //
       sm1: 834, //
-      md: 1024, //
+      md: 1025, //
       md1: 1133, //
       lg: 1194, //
       lg1: 1280, // //
@@ -123,11 +122,11 @@ export const theme = createTheme({
 
           "&.MuiButton-outlined": {
             borderRadius: "8px",
-            border: "1px solid #CBD4E1",
+            border: `1px solid${palette.secondary.main}`,
             boxShadow: "none",
-            color: "#3B4554",
+            color: "#2D7AE5",
             "&:hover": {
-              backgroundColor: alpha(palette.primary.light, 0.3),
+              backgroundColor: alpha(palette.secondary.main, 0.3),
             },
           },
         },

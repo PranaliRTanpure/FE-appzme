@@ -71,7 +71,7 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{ backgroundColor: `${theme.palette.primary.main}`, height: "40px" }}
     >
       <Toolbar variant="dense" sx={toolBarContainer}>

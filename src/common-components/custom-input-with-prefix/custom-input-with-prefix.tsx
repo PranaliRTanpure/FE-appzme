@@ -1,22 +1,14 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  alpha,
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
-  Typography,
-} from "@mui/material";
-import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import { InputAdornment, InputBase, Typography } from "@mui/material";
+import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 // import { errorStyle, customInputStyles } from "./widgets/customInputStyles";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ClearIcon from "@mui/icons-material/Clear";
-import SearchIcon from "@mui/icons-material/Search";
+import { alpha, Grid } from "@mui/system";
 import { useDebounce } from "use-debounce";
-import { customInputStyles, errorStyle } from "./widgets/custom-input-styles";
+import {
+  customInputStyles,
+  errorStyle,
+} from "../custom-input/widgets/custom-input-styles";
 
-interface CustomInputProps {
+interface CustomInputWihPrefixProps {
   placeholder: string;
   name: string;
   value: string | number;
@@ -44,38 +36,24 @@ interface CustomInputProps {
   maxValue?: number;
   maxDecimalPlaces?: number;
   paddingRight?: string;
-  bgGrey?: boolean;
+  prefix: string;
 }
 
-export default function CustomInput(props: CustomInputProps) {
-  // const classes = customInputStyles;
+export default function CustomInputWithPrefix(
+  props: CustomInputWihPrefixProps,
+) {
   const {
-    paddingRight,
     bgWhite,
-    onClickNotify,
     onDebounceCall,
     onInputEmpty,
     maxLength,
-    hasStartSearchIcon,
-    hasCrossIcon,
-    startSearchIconOnRight,
-    hasOpenListArrow,
     required = false,
+    prefix,
   } = props;
-  const [showPassword, setShowPassword] = useState(false);
   const [inputValue, setInputValue] = useState(props.value ? props.value : "");
 
   const [selectedOptionState, setSelectedOptionState] = useState("");
   const [selectedOptionDebounce] = useDebounce(selectedOptionState, 1000);
-
-  // useEffect(() => {
-  //   if (
-  //     selectedOptionDebounce &&
-  //     (selectedOptionDebounce.length > 3 || selectedOptionDebounce === "")
-  //   ) {
-  //     onDebounceCall && onDebounceCall(selectedOptionDebounce);
-  //   }
-  // }, [selectedOptionDebounce]);
 
   useEffect(() => {
     if (selectedOptionDebounce) {
@@ -96,20 +74,6 @@ export default function CustomInput(props: CustomInputProps) {
   useEffect(() => {
     setInputValue(props.value);
   }, [props.value]);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleClickArrow = () => {
-    onClickNotify && onClickNotify();
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -161,16 +125,11 @@ export default function CustomInput(props: CustomInputProps) {
         fullWidth
         className="popper-area"
         name={props.name}
-        type={showPassword ? "text" : props.isPassword ? "password" : "text"}
+        type={"text"}
         placeholder={props.placeholder}
         value={inputValue}
         sx={{
-          paddingRight: paddingRight ? paddingRight : "0px",
-          background: props.disableField
-            ? alpha("#C9CBCC", 0.3)
-            : bgWhite
-              ? "white"
-              : "inherit",
+          background: bgWhite ? "white" : "inherit",
           height: props.multiline ? "fit-content" : "40px",
           ...customInputStyles.textFieldRoot,
           ...(props.hasError && customInputStyles.textFieldError),
@@ -183,17 +142,9 @@ export default function CustomInput(props: CustomInputProps) {
         required={required}
         disabled={props.disableField}
         autoComplete="false"
-        // inputMode={props.isNumeric ? "number" : "text"}
         inputMode={
           props.isNumeric ? "numeric" : props.isDecimal ? "decimal" : "text"
         }
-        // onInput={
-        //   props.isNumeric
-        //     ? (e: ChangeEvent<HTMLInputElement>) => {
-        //         e.target.value = e.target.value.replace(/[^0-9]/g, "");
-        //       }
-        //     : undefined
-        // }
         onInput={
           props.isNumeric
             ? (e: ChangeEvent<HTMLInputElement>) => {
@@ -208,43 +159,26 @@ export default function CustomInput(props: CustomInputProps) {
         classes={{
           root: `${customInputStyles.textFieldRoot}`,
           input: `${customInputStyles.textFieldInput}`,
-          // focused: `${customInputStyles.textFieldActive}`,
           error: `${customInputStyles.textFieldError}`,
         }}
         multiline={props.multiline}
         rows={props.rows}
         startAdornment={
           <InputAdornment position="end">
-            {hasStartSearchIcon && !startSearchIconOnRight && <SearchIcon />}
-          </InputAdornment>
-        }
-        endAdornment={
-          <InputAdornment position="end">
-            {props.isPassword && (
-              <IconButton
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
+            {
+              <Grid
+                position={"relative"}
+                left={"-24%"}
+                minWidth={"42px"}
+                borderRadius={"14px 0px 0px 14px"}
+                bgcolor={alpha("#C9CBCC", 0.3)}
+                p={1.2}
+                container
+                justifyContent={"center"}
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            )}
-
-            {hasOpenListArrow && (
-              <IconButton onClick={handleClickArrow}>
-                {showPassword ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-              </IconButton>
-            )}
-
-            {hasCrossIcon && (
-              <IconButton onClick={handleClickArrow}>
-                {showPassword ? <ClearIcon /> : <ClearIcon />}
-              </IconButton>
-            )}
-            <InputAdornment position="end">
-              {hasStartSearchIcon && startSearchIconOnRight && (
-                <SearchIcon sx={{ marginRight: "10px" }} />
-              )}
-            </InputAdornment>
+                {prefix}
+              </Grid>
+            }
           </InputAdornment>
         }
       />

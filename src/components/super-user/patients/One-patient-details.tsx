@@ -1,11 +1,14 @@
-import { Divider, SelectChangeEvent, Typography } from "@mui/material";
-import { Grid } from "@mui/system";
+import { Divider, SelectChangeEvent } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/system";
+import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import CustomInputWithPrefix from "../../../common-components/custom-input-with-prefix/custom-input-with-prefix";
 import CustomInput from "../../../common-components/custom-input/custom-input";
 import CustomLabel from "../../../common-components/custom-label/custom-label";
 import CustomSelect from "../../../common-components/custom-select/customSelect";
 import DatePicker from "../../../common-components/date-picker-field/date-picker-field";
 import UploadLogo from "../../../common-components/image-upload/custom-image-upload";
+import CustomRadioButton from "../../../common-components/radio-button/radio-button";
 import { Gender, PrimaryLanguages } from "../../../constants/roles";
 import { theme } from "../../../utils/theme";
 export const customStyle = {
@@ -13,6 +16,12 @@ export const customStyle = {
   width: "8rem",
 };
 const OnePatientDetails = () => {
+  const belowmd = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [isSpecialNeeds, setIsSpecialNeeds] = useState("");
+  const [isEmployed, setIsEmployed] = useState("");
+  const [isPetientPortal, setIsPatientPortal] = useState("");
+
   const {
     control,
     formState: { errors },
@@ -24,6 +33,7 @@ const OnePatientDetails = () => {
       width={"100%"}
       container
       p={2}
+      rowGap={2}
       flexDirection={"column"}
       border={`1px solid ${theme.palette.grey[300]}`}
       borderRadius={"0px 0px 16px 16px"}
@@ -31,13 +41,19 @@ const OnePatientDetails = () => {
       <Grid container>
         <Grid width={"160px"} container justifyContent={"center"}>
           <UploadLogo customStyle={customStyle} />
-          <Typography variant="bodySmall" color="#74797B">
-            Max. 800x400px
-          </Typography>
         </Grid>
         <Grid flex={1} rowGap={2} container flexDirection={"column"}>
-          <Grid container flex={1} justifyContent={"space-between"}>
-            <Grid width={"49%"} container justifyContent={"space-between"}>
+          <Grid
+            container
+            flex={1}
+            flexDirection={belowmd ? "column" : "row"}
+            justifyContent={"space-between"}
+          >
+            <Grid
+              width={belowmd ? "100%" : "49%"}
+              container
+              justifyContent={"space-between"}
+            >
               <Grid width={"40%"}>
                 <CustomLabel label="First Name" isRequired />
                 <Controller
@@ -87,7 +103,11 @@ const OnePatientDetails = () => {
                 />
               </Grid>
             </Grid>
-            <Grid width={"49%"} container justifyContent={"space-between"}>
+            <Grid
+              width={belowmd ? "100%" : "49%"}
+              container
+              justifyContent={"space-between"}
+            >
               <Grid width={"32%"}>
                 <CustomLabel label="Date of Birth" isRequired />
                 <Controller
@@ -145,6 +165,7 @@ const OnePatientDetails = () => {
                       placeholder={"Select Language"}
                       name={field.name}
                       bgWhite={false}
+                      enableAdd
                       value={field.value}
                       items={PrimaryLanguages}
                       hasError={!!errors.primaryLanguage}
@@ -161,15 +182,16 @@ const OnePatientDetails = () => {
             </Grid>
           </Grid>
           <Grid container flex={1} justifyContent={"space-between"}>
-            <Grid width={"50%"} container columnGap={1}>
+            <Grid width={belowmd ? "100%" : "50%"} container columnGap={1}>
               <Grid width={"39%"}>
                 <CustomLabel label="Height (inches)" isRequired />
                 <Controller
                   control={control}
                   name="firstName"
                   render={({ field }) => (
-                    <CustomInput
+                    <CustomInputWithPrefix
                       {...field}
+                      prefix={`"`}
                       value={field.value.trim() || ""}
                       placeholder={"Enter First Name"}
                       hasError={!!errors.firstName}
@@ -184,8 +206,9 @@ const OnePatientDetails = () => {
                   control={control}
                   name="middleNameInitial"
                   render={({ field }) => (
-                    <CustomInput
+                    <CustomInputWithPrefix
                       {...field}
+                      prefix={`lbs`}
                       value={field.value.trim() || ""}
                       placeholder={"Enter Initial"}
                       hasError={!!errors.middleNameInitial}
@@ -199,7 +222,78 @@ const OnePatientDetails = () => {
         </Grid>
       </Grid>
       <Divider variant="middle" />
-      <Grid>Down</Grid>
+      <Grid container p={1.5} rowGap={3}>
+        <Grid container flexDirection={"column"} width={"100%"}>
+          <CustomLabel label="Special Needs" isRequired />
+          <Grid container width={"100%"} columnGap={1}>
+            <CustomRadioButton
+              optionsArray={["Yes", "No"]}
+              selectedvalue={isSpecialNeeds}
+              onChange={function (opt: string): void {
+                setIsSpecialNeeds(opt);
+              }}
+            />
+            <Grid flex={1}>
+              <Controller
+                control={control}
+                name="firstName"
+                render={({ field }) => (
+                  <CustomInput
+                    {...field}
+                    disableField={isSpecialNeeds === "Yes" ? false : true}
+                    value={field.value.trim() || ""}
+                    placeholder={"Enter Details"}
+                    hasError={!!errors.firstName}
+                    errorMessage={errors.firstName?.message as string}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container flexDirection={"column"} width={"100%"}>
+          <CustomLabel label="Employed" />
+          <Grid container width={"100%"} columnGap={1}>
+            <CustomRadioButton
+              optionsArray={["Yes", "No"]}
+              selectedvalue={isEmployed}
+              onChange={function (opt: string): void {
+                setIsEmployed(opt);
+              }}
+            />
+            <Grid flex={1}>
+              <Controller
+                control={control}
+                name="firstName"
+                render={({ field }) => (
+                  <CustomInput
+                    {...field}
+                    disableField={isEmployed === "Yes" ? false : true}
+                    value={field.value.trim() || ""}
+                    placeholder={"Enter Employer"}
+                    hasError={!!errors.firstName}
+                    errorMessage={errors.firstName?.message as string}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container flexDirection={"column"} width={"100%"}>
+          <CustomLabel label="Patient Portal" />
+          <Grid container width={"100%"} columnGap={1}>
+            <CustomRadioButton
+              optionsArray={["Yes", "No"]}
+              selectedvalue={isPetientPortal}
+              onChange={function (opt: string): void {
+                setIsPatientPortal(opt);
+              }}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };

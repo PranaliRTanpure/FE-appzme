@@ -1,4 +1,16 @@
-import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import {
+  Button,
+  MenuItem,
+  Popover,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
+
+import DoneIcon from "@mui/icons-material/Done";
+import { Grid } from "@mui/system";
+import React, { useState } from "react";
 import { theme } from "../../utils/theme";
 import { errorStyle } from "../custom-input/widgets/custom-input-styles";
 import { selectInputStyle } from "./widgets/customSelectStyles";
@@ -15,6 +27,7 @@ interface CustomSelectProps {
   isDisabled?: boolean;
   bgWhite?: boolean;
   enableDeselect?: boolean;
+  enableAdd?: boolean;
   menuProps?: {
     PaperProps?: {
       style?: {
@@ -26,7 +39,8 @@ interface CustomSelectProps {
 }
 
 function CustomSelect(props: CustomSelectProps) {
-  const { items, enableDeselect } = props;
+  const { items, enableDeselect, enableAdd } = props;
+  const [isOpen, setIsOpen] = useState(false); // State to control dropdown open/close
 
   const handleValue = (e: SelectChangeEvent<string>) => {
     const selectedLabel = e.target.value;
@@ -41,14 +55,48 @@ function CustomSelect(props: CustomSelectProps) {
     return items.find((item) => item.value === value)?.label || "";
   };
 
+  const closeDropdown = () => {
+    setIsOpen(false); // Programmatically close dropdown
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null,
+  );
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    closeDropdown();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openAddOther = Boolean(anchorEl);
+  const id = openAddOther ? "simple-popover" : undefined;
+
   return (
     <>
       <Select
+        // ref={selectRef}
+        // ref={anchorEl}
         disabled={props.isDisabled && props.isDisabled}
-        MenuProps={props.menuProps}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              borderRadius: "12px", // Add border radius here
+              overflow: "hidden", // Ensure corners are properly rounded
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Optional shadow for a polished look
+            },
+          },
+          ...(props.menuProps || {}), // Merge with existing menuProps if passed
+        }}
         sx={{
           ...selectInputStyle,
         }}
+        open={isOpen} // Control dropdown state with open prop
+        onClose={() => setIsOpen(false)} // Handle close event
+        onOpen={() => setIsOpen(true)} // Handle open event
         displayEmpty
         name={props?.name}
         value={getLabel(props.value)}
@@ -80,13 +128,48 @@ function CustomSelect(props: CustomSelectProps) {
               value={option.label}
               disabled={option.disabled}
             >
-              <Typography variant="bodySmall">{option.label}</Typography>
+              <Grid container justifyContent={"space-between"} width={"100%"}>
+                <Typography variant="bodySmall">{option.label}</Typography>
+                {option.value === props.value && (
+                  <DoneIcon fontSize="small" color="secondary" />
+                )}
+              </Grid>
             </MenuItem>
           ))}
+        {enableAdd && (
+          <Grid width={"100%"}>
+            <Button
+              onClick={handleClick}
+              sx={{
+                margin: "10px",
+                width: "90%",
+              }}
+              variant="outlined"
+              startIcon={<AddIcon />}
+            >
+              Add Other
+            </Button>
+          </Grid>
+        )}
       </Select>
       <Typography sx={errorStyle} variant="caption">
         {props.hasError ? props.errorMessage : ""}
       </Typography>
+      <Popover
+        id={id}
+        open={openAddOther}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover>
     </>
   );
 }

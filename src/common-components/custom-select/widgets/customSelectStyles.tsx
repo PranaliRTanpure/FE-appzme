@@ -11,6 +11,7 @@ export const selectInputStyle = {
   ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": {
     display: "flex",
     alignItems: "center",
+    background: "pink",
   },
   "&.Mui-error": {
     border: `1px solid ${theme.palette.warning.dark}`,

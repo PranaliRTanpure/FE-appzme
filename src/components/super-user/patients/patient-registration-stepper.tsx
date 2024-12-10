@@ -47,6 +47,10 @@ const PatientRegistrationStepper = () => {
   };
 
   const handleNext = () => {
+    // if (activeStep === 0) {
+    //   //check if required fields has values
+    //   handleComplete();
+    // }
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
@@ -54,6 +58,7 @@ const PatientRegistrationStepper = () => {
           steps.findIndex((_step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
+    handleComplete();
   };
 
   const handleBack = () => {
@@ -250,7 +255,7 @@ const PatientRegistrationStepper = () => {
                 endIcon={<ArrowForwardIcon />}
                 onClick={() => {
                   handleNext();
-                  handleComplete();
+                  // handleComplete();
                 }}
                 sx={{ mr: 1 }}
               >
