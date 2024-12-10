@@ -19,6 +19,13 @@ const useMenu = () => {
       hide: false,
       disabled: false,
     },
+    {
+      title: "Devices",
+      route: "/super-user/devices",
+      icon: <GridViewIcon />,
+      hide: false,
+      disabled: false,
+    },
   ];
 
   return pathPrefix === SUPER_USER ? superUserSideMenu : [];

@@ -15,6 +15,7 @@ import NotAuthorized from "../pages/errors/not-authorised";
 import NotFound from "../pages/errors/not-found";
 import PrivateRoute from "./private-route";
 import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
+import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -46,6 +47,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "patient-registration", element: <PatientsRegistration /> },
+      { path: "devices", element: <DevicesRegistration /> },
     ],
   },
 
