@@ -148,7 +148,6 @@ const LoginPage = () => {
             <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
           <Grid
-            border={1}
             mt={1.5}
             width={"100%"}
             height={"500px"}

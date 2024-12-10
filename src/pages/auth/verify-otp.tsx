@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { Button, Link, Typography } from "@mui/material";
-import { Box, Grid } from "@mui/system";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -49,6 +49,8 @@ const VerifyOtpPage = () => {
     error: errorVerifyOtp,
     data,
   } = useUserControllerServiceVerifyOtp();
+
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
 
   const initialValues = {
     otp: "",
@@ -317,6 +319,7 @@ const VerifyOtpPage = () => {
         {/* Image */}
         <Grid
           p={2}
+          maxHeight={"100%"}
           width={"70%"}
           bgcolor="#EFF0F2"
           container
@@ -325,8 +328,9 @@ const VerifyOtpPage = () => {
         >
           <Grid container alignSelf={"center"} height={"100%"}>
             <Box
-              width={"fit-content"}
-              height={"fit-content"}
+              width={"100%"}
+              height={"auto"}
+              maxHeight={belowHeight768 ? "700px" : "800px"}
               component={"img"}
               src={Image}
             ></Box>

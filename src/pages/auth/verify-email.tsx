@@ -224,7 +224,8 @@ const VerifyEmailPage = () => {
         {/* Image */}
         <Grid
           p={2}
-          width={"70%"}
+          // width={"70%"}
+          width={belowWidth1024 ? "45%" : "55%"}
           maxHeight={"100%"}
           bgcolor="#EFF0F2"
           container
