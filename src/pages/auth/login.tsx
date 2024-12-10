@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import LoginImage from "../../assets/image_svg/auth/Login-Image.svg";
-// import AuthImage from "../../common-components/auth/auth-image";
 import CustomInput from "../../common-components/custom-input/custom-input";
 import CustomLabel from "../../common-components/custom-label/custom-label";
 import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
@@ -149,6 +148,7 @@ const LoginPage = () => {
             <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
           <Grid
+            border={1}
             mt={1.5}
             width={"100%"}
             height={"500px"}

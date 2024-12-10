@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { Button, Typography } from "@mui/material";
-import { Box, Grid } from "@mui/system";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -55,6 +55,8 @@ const VerifyEmailPage = () => {
     defaultValues: initialValues,
     resolver: yupResolver(verifySchema),
   });
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
 
   const onSubmit = async (values: typeof initialValues) => {
     const xTenantId = GetTenantId();
@@ -112,7 +114,7 @@ const VerifyEmailPage = () => {
           container
           justifyContent={"flex-start"}
           alignContent={"flex-start"}
-          width={"45%"}
+          width={belowWidth1024 ? "55%" : "45%"}
           sx={{ textAlign: "center" }}
           pb={4}
           flexDirection={"column"}
@@ -223,6 +225,7 @@ const VerifyEmailPage = () => {
         <Grid
           p={2}
           width={"70%"}
+          maxHeight={"100%"}
           bgcolor="#EFF0F2"
           container
           flexDirection={"column"}
@@ -230,8 +233,9 @@ const VerifyEmailPage = () => {
         >
           <Grid container alignSelf={"center"} height={"100%"}>
             <Box
-              width={"fit-content"}
-              height={"fit-content"}
+              width={"100%"}
+              maxHeight={belowHeight768 ? "700px" : "800px"}
+              height={"auto"}
               component={"img"}
               src={EmailVerification}
             ></Box>
