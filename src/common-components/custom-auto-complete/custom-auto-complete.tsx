@@ -147,11 +147,11 @@ const CustomAutoComplete = (props: CustomAutoCompleteProps) => {
   const inputStyles = {
     border: "none",
     outline: "none",
-    borderRadius: "4px",
+    borderRadius: "16px",
     boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
     "& .MuiOutlinedInput-root": {
       background: bgWhite ? "white" : "inherit",
-      borderRadius: "4px",
+      borderRadius: "16px",
 
       fontSize: "14px",
       // border: "1px solid #F1F1F1 !important",

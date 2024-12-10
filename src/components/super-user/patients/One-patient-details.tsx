@@ -216,7 +216,7 @@ const OnePatientDetails = () => {
                     />
                   )}
                 />
-              </Grid>{" "}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
