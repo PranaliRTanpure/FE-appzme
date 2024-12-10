@@ -8,7 +8,7 @@ export const errorStyle = {
 export const customInputStyles = {
   textFieldRoot: {
     border: `1px solid ${alpha(theme.palette.grey[500], 0.3)}`,
-    padding: "6px, 8px, 6px, 8px",
+    // padding: "6px, 8px, 6px, 8px",
     borderRadius: "12px",
   },
   textFieldInput: {
@@ -23,7 +23,7 @@ export const customInputStyles = {
       fontSize: "10px",
       fontStyle: "inter sans-serif",
       fontWeight: "400",
-      padding: "2.5px",
+      // padding: "2.5px",
     },
   },
 
