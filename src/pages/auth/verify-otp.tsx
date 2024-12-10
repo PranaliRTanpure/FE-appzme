@@ -174,7 +174,7 @@ const VerifyOtpPage = () => {
           container
           justifyContent={"flex-start"}
           alignContent={"flex-start"}
-          width={below1024 ? "50%" : "45%"}
+          width={below1024 ? "48%" : "45%"}
           sx={{ textAlign: "center" }}
           pb={4}
           flexDirection={"column"}
@@ -238,9 +238,8 @@ const VerifyOtpPage = () => {
               <Controller
                 control={control}
                 name="otp"
-                render={({ field }) => (
+                render={() => (
                   <CustomOtp
-                    {...field}
                     onChange={function (otp: string): void {
                       setOtp(otp);
                       setValue("otp", otp, { shouldValidate: true });
@@ -321,7 +320,7 @@ const VerifyOtpPage = () => {
         <Grid
           p={2}
           maxHeight={"100%"}
-          width={below1024 ? "50%" : "55%"}
+          width={below1024 ? "52%" : "55%"}
           bgcolor="#EFF0F2"
           container
           flexDirection={"column"}

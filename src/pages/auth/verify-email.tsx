@@ -164,7 +164,6 @@ const VerifyEmailPage = () => {
                 render={({ field }) => (
                   <CustomInput
                     placeholder={"Enter Your Email"}
-                    {...field}
                     hasError={!!errors.email}
                     errorMessage={errors.email?.message}
                     onChange={(event) => {
@@ -172,6 +171,8 @@ const VerifyEmailPage = () => {
                         shouldValidate: true,
                       });
                     }}
+                    name={field.name}
+                    value={field.value}
                   />
                 )}
               ></Controller>
