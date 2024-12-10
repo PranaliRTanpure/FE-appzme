@@ -195,7 +195,6 @@ const LoginPage = () => {
             </Grid>
             <Grid container>
               <CustomLabel label="Password" />
-
               <Controller
                 control={control}
                 name="password"

@@ -1,12 +1,14 @@
 import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  Divider,
+  // Divider,
   Menu,
   MenuItem,
   Typography,
@@ -90,21 +92,35 @@ const Navbar = () => {
             <TopMenu />
           </Grid>
           <Grid flex={1} container justifyContent={"flex-end"} mb={0.5}>
-            <Grid columnGap={1.5} container>
-              <IconButton
-                sx={{
-                  padding: "0px",
-                  color: theme.palette.common.white,
-                }}
-              >
-                <SearchIcon />
-              </IconButton>
-              <IconButton
-                sx={{ padding: "0px", color: theme.palette.common.white }}
-              >
-                <NotificationsNoneIcon />
-              </IconButton>
-              <Divider
+            <Grid columnGap={3.5} container>
+              <Grid container columnGap={4}>
+                <IconButton
+                  sx={{
+                    padding: "0px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  <SearchIcon sx={{ height: "20px", width: "20px" }} />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    padding: "0px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  <HelpOutlineOutlinedIcon
+                    sx={{ height: "20px", width: "20px" }}
+                  />
+                </IconButton>
+                <IconButton
+                  sx={{ padding: "0px", color: theme.palette.common.white }}
+                >
+                  <NotificationsNoneIcon
+                    sx={{ height: "20px", width: "20px" }}
+                  />
+                </IconButton>
+              </Grid>
+              {/* <Divider
                 sx={{
                   margin: "2px",
                   background: theme.palette.common.white,
@@ -112,112 +128,131 @@ const Navbar = () => {
                 orientation="vertical"
                 variant="middle"
                 flexItem
-              />
-              <Grid container justifyContent={"center"} alignContent={"center"}>
-                <Grid>
-                  <Avatar
-                    src={profileData?.avatar}
-                    style={{
-                      cursor: "pointer",
-                      width: "24px",
-                      height: "24px",
-                    }}
-                    onClick={(event) => {
-                      setAnchorEl(event.currentTarget);
-                      setMenuOpen(true);
-                    }}
-                  />
-                  <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={menuOpen}
-                    onClose={() => setMenuOpen(false)}
-                    MenuListProps={{
-                      "aria-labelledby": "basic-button",
-                    }}
-                  >
-                    <MenuItem onClick={handleProfileClick}>
-                      <img
-                        src={profileData?.avatar || ProfileImage}
-                        width={"20px"}
-                        height={"20px"}
-                        style={{ borderRadius: "20px" }}
-                        alt="description"
-                      />
-                      <Typography ml={1}>Profile</Typography>
-                    </MenuItem>
-
-                    <MenuItem onClick={handleLogoutDialogOpen}>
-                      <LogoutIcon style={{ width: "18px", height: "18px" }} />
-                      <Typography ml={1}>Logout</Typography>
-                    </MenuItem>
-                  </Menu>
-                  <Dialog
-                    open={logoutDialogOpen}
-                    onClose={handleLogoutDialogClose}
-                  >
-                    <DialogContent
+              /> */}
+              <Grid container columnGap={1.5}>
+                <Grid
+                  container
+                  justifyContent={"center"}
+                  alignContent={"center"}
+                >
+                  <Grid>
+                    <Avatar
+                      src={profileData?.avatar}
                       style={{
-                        width: "400px",
-                        padding: "0 20px 20px 20px",
+                        cursor: "pointer",
+                        width: "20px",
+                        height: "20px",
+                      }}
+                      onClick={(event) => {
+                        setAnchorEl(event.currentTarget);
+                        setMenuOpen(true);
+                      }}
+                    />
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={anchorEl}
+                      open={menuOpen}
+                      onClose={() => setMenuOpen(false)}
+                      MenuListProps={{
+                        "aria-labelledby": "basic-button",
                       }}
                     >
-                      <Grid container flexDirection={"column"}>
-                        <Typography
-                          textAlign={"left"}
-                          variant="h5"
-                          fontWeight={550}
-                          mt={2}
-                        >
-                          Logging Out
-                        </Typography>
-                        <Typography variant="bodyMedium" mt={1}>
-                          Are you sure you want to Log Out?
-                        </Typography>
-                      </Grid>
-                    </DialogContent>
-                    <DialogActions
-                      sx={{
-                        display: "flex",
-                        padding: " 0  20px 20px 20px",
-                      }}
-                    >
-                      <Grid>
-                        <Button
-                          onClick={handleLogoutDialogClose}
-                          sx={{
-                            width: "78px",
-                            border: "1px solid grey",
-                            height: "37px",
-                            borderRadius: "8px",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          <Typography
-                            color={theme.palette.common.black}
-                            textTransform={"none"}
-                          >
-                            Cancel
-                          </Typography>
-                        </Button>
-                      </Grid>
-                      <Grid>
-                        <Button
-                          variant="contained"
-                          onClick={logoutHandler}
-                          sx={{
-                            width: "78px",
-                            borderRadius: "8px",
+                      <MenuItem onClick={handleProfileClick}>
+                        <img
+                          src={profileData?.avatar || ProfileImage}
+                          width={"20px"}
+                          height={"20px"}
+                          style={{ borderRadius: "20px" }}
+                          alt="description"
+                        />
+                        <Typography ml={1}>Profile</Typography>
+                      </MenuItem>
 
-                            fontWeight: "bold",
-                          }}
-                        >
-                          <Typography textTransform={"none"}>Yes</Typography>
-                        </Button>
-                      </Grid>
-                    </DialogActions>
-                  </Dialog>
+                      <MenuItem onClick={handleLogoutDialogOpen}>
+                        <LogoutIcon style={{ width: "18px", height: "18px" }} />
+                        <Typography ml={1}>Logout</Typography>
+                      </MenuItem>
+                    </Menu>
+                    <Dialog
+                      open={logoutDialogOpen}
+                      onClose={handleLogoutDialogClose}
+                    >
+                      <DialogContent
+                        style={{
+                          width: "400px",
+                          padding: "0 20px 20px 20px",
+                        }}
+                      >
+                        <Grid container flexDirection={"column"}>
+                          <Typography
+                            textAlign={"left"}
+                            variant="h5"
+                            fontWeight={550}
+                            mt={2}
+                          >
+                            Logging Out
+                          </Typography>
+                          <Typography variant="bodyMedium" mt={1}>
+                            Are you sure you want to Log Out?
+                          </Typography>
+                        </Grid>
+                      </DialogContent>
+                      <DialogActions
+                        sx={{
+                          display: "flex",
+                          padding: " 0  20px 20px 20px",
+                        }}
+                      >
+                        <Grid>
+                          <Button
+                            onClick={handleLogoutDialogClose}
+                            sx={{
+                              width: "78px",
+                              border: "1px solid grey",
+                              height: "37px",
+                              borderRadius: "8px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            <Typography
+                              color={theme.palette.common.black}
+                              textTransform={"none"}
+                            >
+                              Cancel
+                            </Typography>
+                          </Button>
+                        </Grid>
+                        <Grid>
+                          <Button
+                            variant="contained"
+                            onClick={logoutHandler}
+                            sx={{
+                              width: "78px",
+                              borderRadius: "8px",
+
+                              fontWeight: "bold",
+                            }}
+                          >
+                            <Typography textTransform={"none"}>Yes</Typography>
+                          </Button>
+                        </Grid>
+                      </DialogActions>
+                    </Dialog>
+                  </Grid>
                 </Grid>
+                <Grid container alignItems={"center"} justifyContent={"center"}>
+                  <Typography sx={{ fontSize: "14px" }}>John Doe</Typography>
+                </Grid>
+                <IconButton
+                  sx={{
+                    padding: "0px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  <KeyboardArrowDownOutlinedIcon
+                    sx={{ height: "20px", width: "20px" }}
+                  />
+                </IconButton>
               </Grid>
             </Grid>
           </Grid>
