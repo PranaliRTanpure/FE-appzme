@@ -180,7 +180,6 @@ const LoginPage = () => {
                 render={({ field }) => (
                   <CustomInput
                     placeholder={"Enter Your Email"}
-                    {...field}
                     hasError={!!errors.email}
                     errorMessage={(errors.email?.message as string) || ""}
                     onChange={(event) => {
@@ -188,6 +187,8 @@ const LoginPage = () => {
                         shouldValidate: true,
                       });
                     }}
+                    name={field.name}
+                    value={field.value}
                   />
                 )}
               ></Controller>
@@ -205,12 +206,13 @@ const LoginPage = () => {
                     isPassword={true}
                     hasError={!!errors.password}
                     errorMessage={errors.password?.message}
-                    {...field}
                     onChange={(event) => {
                       setValue("password", event.target.value, {
                         shouldValidate: true,
                       });
                     }}
+                    name={field.name}
+                    value={field.value}
                   />
                 )}
               ></Controller>

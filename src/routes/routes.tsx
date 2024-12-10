@@ -14,8 +14,9 @@ import PatientProfile from "../components/provider-portal/patients/patient-chart
 import NotAuthorized from "../pages/errors/not-authorised";
 import NotFound from "../pages/errors/not-found";
 import PrivateRoute from "./private-route";
-import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
+// import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
+import PatientsList from "../components/provider-portal/patients/patients-list";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { path: "patient-registration", element: <PatientsRegistration /> },
+      { path: "patient-registration", element: <PatientsList /> },
       { path: "devices", element: <DevicesRegistration /> },
     ],
   },

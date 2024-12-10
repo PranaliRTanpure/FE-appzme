@@ -175,7 +175,6 @@ const SetPasswordPage = () => {
                 render={({ field }) => (
                   <CustomInput
                     placeholder={"Enter Your Password"}
-                    {...field}
                     hasError={!!errors.newPassword}
                     errorMessage={errors.newPassword?.message}
                     onChange={(event) => {
@@ -184,6 +183,8 @@ const SetPasswordPage = () => {
                       });
                     }}
                     isPassword
+                    name={field.name}
+                    value={field.value}
                   />
                 )}
               ></Controller>
@@ -197,7 +198,6 @@ const SetPasswordPage = () => {
                 render={({ field }) => (
                   <CustomInput
                     placeholder={"Confirm Your Password"}
-                    {...field}
                     hasError={!!errors.confirmNewPassword}
                     errorMessage={errors.confirmNewPassword?.message}
                     onChange={(event) => {
@@ -206,6 +206,8 @@ const SetPasswordPage = () => {
                       });
                     }}
                     isPassword
+                    name={field.name}
+                    value={field.value}
                   />
                 )}
               ></Controller>
