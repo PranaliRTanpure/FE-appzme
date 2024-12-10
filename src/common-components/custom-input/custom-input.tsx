@@ -166,10 +166,8 @@ export default function CustomInput(props: CustomInputProps) {
           paddingRight: paddingRight ? paddingRight : "0px",
           background: bgWhite ? "white" : "inherit",
           height: props.multiline ? "fit-content" : "40px",
-          // borderRadius: props.multiline ? "25px" : "40px",
           ...customInputStyles.textFieldRoot,
           ...(props.hasError && customInputStyles.textFieldError),
-          ...(props.isPassword && customInputStyles.textFieldActive),
           ...customInputStyles.textFieldInput,
         }}
         inputProps={{ maxLength: maxLength ? maxLength : "" }}
@@ -204,7 +202,7 @@ export default function CustomInput(props: CustomInputProps) {
         classes={{
           root: `${customInputStyles.textFieldRoot}`,
           input: `${customInputStyles.textFieldInput}`,
-          focused: `${customInputStyles.textFieldActive}`,
+          // focused: `${customInputStyles.textFieldActive}`,
           error: `${customInputStyles.textFieldError}`,
         }}
         multiline={props.multiline}

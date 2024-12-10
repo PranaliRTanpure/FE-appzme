@@ -6,11 +6,13 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     bodySmall: true;
     bodyMedium: true;
+    bodyLarge: true;
   }
 }
 interface ExtendedTypographyOptions extends TypographyOptions {
   bodySmall: React.CSSProperties;
   bodyMedium: React.CSSProperties;
+  bodyLarge: React.CSSProperties;
 }
 
 // Typescript module augmentation
@@ -91,6 +93,10 @@ export const theme = createTheme({
     },
   },
   typography: {
+    bodyLarge: {
+      fontSize: "18px",
+      fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    },
     bodyMedium: {
       fontSize: "16px",
       fontFamily: "Roboto, Helvetica, Arial, sans-serif",

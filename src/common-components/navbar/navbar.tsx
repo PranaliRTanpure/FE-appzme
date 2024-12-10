@@ -20,7 +20,7 @@ import { Grid } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileImage from "../../assets/image_svg/icons/account_circle.svg";
-import Logo from "../../assets/image_svg/logo/logo.svg";
+import Logo from "../../assets/image_svg/logo/navbar_logo.svg";
 import useLogout from "../../hooks/use-logout";
 import { theme } from "../../utils/theme";
 import TopMenu from "./top-menu";
