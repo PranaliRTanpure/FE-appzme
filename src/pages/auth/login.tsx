@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import LoginImage from "../../assets/image_svg/auth/Login-Image.svg";
-import AuthImage from "../../common-components/auth/auth-image";
 import CustomInput from "../../common-components/custom-input/custom-input";
 import CustomLabel from "../../common-components/custom-label/custom-label";
 import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
@@ -47,7 +46,7 @@ export const loginSchema = yup.object().shape({
 });
 
 const LoginPage = () => {
-  const below400 = useMediaQuery("(max-width:400px)");
+  const below1024 = useMediaQuery("(max-width:1024px)");
   const navigate = useNavigate();
   const storeLoginDataInStore = useStoreLoginData();
   const dispatch = useDispatch();
@@ -134,7 +133,7 @@ const LoginPage = () => {
           container
           justifyContent={"flex-start"}
           alignContent={"flex-start"}
-          width={below400 ? "100%" : "45%"}
+          width={below1024 ? "53%" : "45%"}
           sx={{ textAlign: "center" }}
           pb={4}
           flexDirection={"column"}
@@ -288,8 +287,30 @@ const LoginPage = () => {
             </Grid>
           </Grid>
         </Grid>
+
         {/* Login image */}
-        {!below400 && <AuthImage logo={LoginImage} />}
+        <Grid
+          p={2}
+          width={below1024 ? "47%" : "55%"}
+          bgcolor="#EFF0F2"
+          container
+          flexDirection={"column"}
+          borderRadius={5}
+        >
+          <Grid
+            container
+            alignItems={"center"}
+            justifyContent={"center"}
+            height={"100%"}
+          >
+            <Box
+              width={"100%"}
+              height={"100%"}
+              component={"img"}
+              src={LoginImage}
+            ></Box>
+          </Grid>
+        </Grid>
       </Grid>
     </form>
   );
