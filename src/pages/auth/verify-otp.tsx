@@ -41,6 +41,7 @@ const VerifyOtpPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const below1024 = useMediaQuery("(max-width:1024px)");
 
   const {
     mutateAsync,
@@ -173,7 +174,7 @@ const VerifyOtpPage = () => {
           container
           justifyContent={"flex-start"}
           alignContent={"flex-start"}
-          width={"45%"}
+          width={below1024 ? "50%" : "45%"}
           sx={{ textAlign: "center" }}
           pb={4}
           flexDirection={"column"}
@@ -320,7 +321,7 @@ const VerifyOtpPage = () => {
         <Grid
           p={2}
           maxHeight={"100%"}
-          width={"70%"}
+          width={below1024 ? "50%" : "55%"}
           bgcolor="#EFF0F2"
           container
           flexDirection={"column"}
