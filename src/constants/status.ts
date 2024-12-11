@@ -50,6 +50,8 @@ export const Status = {
   HOLD: "HOLD",
   SETTLED: "SETTLED",
   SIGNED_OFF: "SIGNED_OFF",
+  PRIMARY: "PRIMARY",
+  SECONDARY: "SECONDARY",
 };
 
 export const StatusColorMap: { [key: string]: string } = {
