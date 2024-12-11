@@ -1,0 +1,26 @@
+[
+    {
+        "deviceName": "ET200-747",
+        "serialNumber": "#DE656D1350",
+        "pool": "STL",
+        "status": "IN_USE"       
+    },
+    {
+        "deviceName": "CDMAPLUS_test_04912",
+        "serialNumber": "#DE656D1387",
+        "pool": "HOUSOM",
+        "status": "LOST"       
+    },
+    {
+        "deviceName": "ET200-785",
+        "serialNumber": "#DE656D1323",
+        "pool": "Remote",
+        "status": "READY"       
+    },
+    {
+        "deviceName": "ET200-785",
+        "serialNumber": "#DE656D1323",
+        "pool": "Remote",
+        "status": "BROKEN"       
+    }
+]
