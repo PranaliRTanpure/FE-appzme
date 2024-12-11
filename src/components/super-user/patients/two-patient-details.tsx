@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
-import { alpha, Grid } from "@mui/system";
+import { alpha, Grid, useMediaQuery } from "@mui/system";
 import { Controller, useFormContext } from "react-hook-form";
 import CustomAutoComplete from "../../../common-components/custom-auto-complete/custom-auto-complete";
 import CustomInputWithPrefix from "../../../common-components/custom-input-with-prefix/custom-input-with-prefix";
@@ -23,6 +23,9 @@ const TwoPatientContacts = () => {
     formState: { errors },
     setValue,
   } = useFormContext();
+
+  const belowmd = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Grid
       width={"100%"}
@@ -239,7 +242,7 @@ const TwoPatientContacts = () => {
           p={2}
           bgcolor={alpha(theme.palette.secondary.main, 0.06)}
         >
-          <Grid width={"300px"}>
+          <Grid width={belowmd ? "250px" : "300px"}>
             <CustomLabel label="Relationship With Patient" isRequired />
             <Controller
               control={control}
@@ -266,7 +269,7 @@ const TwoPatientContacts = () => {
               )}
             />
           </Grid>
-          <Grid width={"300px"}>
+          <Grid width={belowmd ? "250px" : "300px"}>
             <CustomLabel label="Full Name" isRequired />
             <Controller
               control={control}
@@ -291,7 +294,7 @@ const TwoPatientContacts = () => {
               )}
             />
           </Grid>
-          <Grid width={"300px"}>
+          <Grid width={belowmd ? "250px" : "300px"}>
             <CustomLabel label="Mobile Number" />
             <Controller
               control={control}

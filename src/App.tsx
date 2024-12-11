@@ -13,6 +13,8 @@ import { reduxStore } from "./redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RefreshToken from "./components/refresh-token/refresh-token";
 import Loader from "./common-components/loader/loader";
+import "@fontsource/poppins";
+import "@fontsource/montserrat-alternates";
 
 function App() {
   // const [count, setCount] = useState(0);
