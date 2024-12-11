@@ -1,4 +1,4 @@
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import { theme } from "../../../utils/theme";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
@@ -36,6 +36,7 @@ export const mockHeaders: TableHeaders[] = [
 
 const DevicesInventory = () => {
   const [selectedDevice] = useState("");
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
     READY: "#E1FCDE",
@@ -144,9 +145,13 @@ const DevicesInventory = () => {
             </Grid>
           </Grid>
         </Grid>
-
         <Grid width={"100%"}>
-          <TableContainer sx={{ maxHeight: "78vh", overflowY: "scroll" }}>
+          <TableContainer
+            sx={{
+              maxHeight: belowHeight768 ? "63vh" : "76vh",
+              overflowY: "scroll",
+            }}
+          >
             <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
               <TableHead>
                 <TableRow>
