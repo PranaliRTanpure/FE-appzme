@@ -3,7 +3,7 @@ import {
   Pagination,
   PaginationItem,
   Select,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { theme } from "../../utils/theme";
@@ -22,8 +22,12 @@ type PaginatorProps = {
 };
 
 const Paginator = (props: PaginatorProps) => {
-  const { onPageChange, onRecordsPerPageChange, defaultSize, totalRecord } =
-    props;
+  const {
+    onPageChange,
+    onRecordsPerPageChange,
+    defaultSize,
+    //  totalRecord
+  } = props;
 
   const [page, setPage] = useState(props.page);
   const [size, setSize] = useState(10);
@@ -41,14 +45,14 @@ const Paginator = (props: PaginatorProps) => {
     setPage(props.page);
   }, [props.page]);
 
-  const startRecord = page * size + 1;
-  const endRecord = Math.min((page + 1) * size, totalRecord);
+  // const startRecord = page * size + 1;
+  // const endRecord = Math.min((page + 1) * size, totalRecord);
 
   return (
     <Grid width={"100%"} p={"10px  25px"}>
       {totalPages !== 0 && (
-        <Grid container justifyContent={"space-between"} width={"100%"}>
-          <Grid>
+        <Grid container justifyContent={"flex-end"} width={"100%"}>
+          {/* <Grid>
             <Typography sx={{ fontSize: "14px" }}>
               {" "}
               <span style={{ fontWeight: 550 }}>
@@ -57,8 +61,41 @@ const Paginator = (props: PaginatorProps) => {
               &nbsp;out of&nbsp;
               <span style={{ fontWeight: 550 }}>{totalRecord}</span>
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid sx={{ display: "flex", flexDirection: "row" }}>
+            {onRecordsPerPageChange && (
+              <Select
+                size="small"
+                defaultValue={10}
+                value={size}
+                onChange={(e) => {
+                  onRecordsPerPageChange(+e.target.value);
+                  onPageChange(null, 0);
+                  setSize(e.target.value as number);
+                }}
+                sx={{
+                  fontSize: "14px",
+                  width: "fit-content",
+                  height: "32px",
+                  color: theme.palette.primary.main,
+                  backgroundColor: theme.palette.common.white,
+                  "&:hover": {
+                    "&& fieldset": {
+                      border: `1px solid ${theme.palette.grey[400]}`,
+                    },
+                  },
+                  ".MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                }}
+              >
+                <MenuItem value={10}>Rows per page: 10</MenuItem>
+                <MenuItem value={15}>Rows per page: 15</MenuItem>
+                <MenuItem value={20}>Rows per page: 20</MenuItem>
+                <MenuItem value={25}>Rows per page: 25</MenuItem>
+              </Select>
+            )}
+
             <Pagination
               page={page + 1}
               count={totalPages}
@@ -72,7 +109,7 @@ const Paginator = (props: PaginatorProps) => {
                     padding: "8px",
                     minWidth: "40px",
                     "&.Mui-selected": {
-                      background: theme.palette.secondary.light,
+                      background: "#F1F8FF",
                       color: theme.palette.common.black,
                     },
                     margin: "0",
@@ -81,9 +118,9 @@ const Paginator = (props: PaginatorProps) => {
                     },
 
                     ...(item.type === "previous" && {
-                      boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+                      // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
                       outline: "none",
-                      border: `1px solid ${theme.palette.grey[200]}`,
+                      border: `1px solid ${theme.palette.grey[300]}`,
                       margin: "0px",
                       padding: "8px 12px",
                       "& .MuiSvgIcon-root": {
@@ -92,9 +129,9 @@ const Paginator = (props: PaginatorProps) => {
                       borderRadius: "6px 0px 0px 6px",
                     }),
                     ...(item.type === "next" && {
-                      boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+                      // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
                       outline: "none",
-                      border: `1px solid ${theme.palette.grey[200]}`,
+                      border: `1px solid ${theme.palette.grey[300]}`,
                       margin: "0px",
                       padding: "8px 12px",
                       "& .MuiSvgIcon-root": {
@@ -111,7 +148,7 @@ const Paginator = (props: PaginatorProps) => {
               onChange={(e, page) => onPageChange(e, +page - 1)}
             />
 
-            {onRecordsPerPageChange && (
+            {/* {onRecordsPerPageChange && (
               <Select
                 size="small"
                 defaultValue={10}
@@ -133,12 +170,12 @@ const Paginator = (props: PaginatorProps) => {
                   },
                 }}
               >
-                <MenuItem value={10}>10 per page</MenuItem>
-                <MenuItem value={15}>15 per page</MenuItem>
-                <MenuItem value={20}>20 per page</MenuItem>
-                <MenuItem value={25}>25 per page</MenuItem>
+                <MenuItem value={10}>Rows per page: 10</MenuItem>
+                <MenuItem value={15}>Rows per page: 15</MenuItem>
+                <MenuItem value={20}>Rows per page: 20</MenuItem>
+                <MenuItem value={25}>Rows per page: 25</MenuItem>
               </Select>
-            )}
+            )} */}
           </Grid>
         </Grid>
       )}
@@ -152,9 +189,9 @@ const PreviousBtn = () => {
   return (
     <Grid container gap={1} bgcolor={theme.palette.common.white}>
       <ArrowBackIcon sx={{ marginRight: "8px", marginTop: "2px" }} />
-      <Typography variant="body1" sx={{ color: theme.palette.common.black }}>
+      {/* <Typography variant="body1" sx={{ color: theme.palette.common.black }}>
         Previous
-      </Typography>
+      </Typography> */}
     </Grid>
   );
 };
@@ -162,9 +199,9 @@ const PreviousBtn = () => {
 const NextBtn = () => {
   return (
     <Grid container gap={1} bgcolor={theme.palette.common.white}>
-      <Typography variant="body1" sx={{ color: theme.palette.common.black }}>
+      {/* <Typography variant="body1" sx={{ color: theme.palette.common.black }}>
         Next
-      </Typography>
+      </Typography> */}
       <ArrowForwardIcon sx={{ marginLeft: "8px", marginTop: "2px" }} />
     </Grid>
   );
