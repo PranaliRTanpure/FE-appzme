@@ -9,11 +9,10 @@ import {
 } from "@mui/material";
 
 import DoneIcon from "@mui/icons-material/Done";
-import { Grid } from "@mui/system";
+import { alpha, Grid } from "@mui/system";
 import React, { useState } from "react";
 import { theme } from "../../utils/theme";
 import { errorStyle } from "../custom-input/widgets/custom-input-styles";
-import { selectInputStyle } from "./widgets/customSelectStyles";
 
 interface CustomSelectProps {
   placeholder: string;
@@ -92,7 +91,25 @@ function CustomSelect(props: CustomSelectProps) {
           ...(props.menuProps || {}), // Merge with existing menuProps if passed
         }}
         sx={{
-          ...selectInputStyle,
+          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+          border: `1px solid ${alpha(theme.palette.grey[500], 0.3)}`,
+          height: "40px !important",
+          width: "100%",
+          borderRadius: "16px",
+          background: props.bgWhite ? "#F5F6F8" : "inherit",
+          ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
+            {
+              display: "flex",
+              alignItems: "center",
+              background: "pink",
+            },
+          "&.Mui-error": {
+            border: `1px solid ${theme.palette.warning.dark}`,
+            padding: "0px!important",
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(228, 219, 233, 0.25)",
+          },
         }}
         open={isOpen} // Control dropdown state with open prop
         onClose={() => setIsOpen(false)} // Handle close event

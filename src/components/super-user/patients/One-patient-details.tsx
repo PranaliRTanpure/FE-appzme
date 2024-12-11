@@ -33,8 +33,12 @@ const OnePatientDetails = () => {
       width={"100%"}
       container
       p={2}
+      maxHeight={belowmd ? "500px" : "100%"}
+      overflow={"auto"}
       rowGap={2}
       flexDirection={"column"}
+      // border={2}
+      flexWrap={"nowrap"}
       border={`1px solid ${theme.palette.grey[300]}`}
       borderRadius={"0px 0px 16px 16px"}
     >
@@ -216,7 +220,7 @@ const OnePatientDetails = () => {
                     />
                   )}
                 />
-              </Grid>{" "}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

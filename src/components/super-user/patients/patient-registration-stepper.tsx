@@ -14,8 +14,10 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { customLabelStyles } from "../../../common-components/custom-label/widgets/custom-label-styles";
 import { theme } from "../../../utils/theme";
-import { patientRegistrationFormSchema } from "./patient-registration-schema";
 import OnePatientDetails from "./One-patient-details";
+import { patientRegistrationFormSchema } from "./patient-registration-schema";
+import ThreePatientInsurance from "./three-patient-insurance";
+import TwoPatientContacts from "./two-patient-details";
 
 const steps = [
   "Patient Details",
@@ -25,7 +27,7 @@ const steps = [
 ];
 
 const PatientRegistrationStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(2);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
@@ -95,6 +97,29 @@ const PatientRegistrationStepper = () => {
     employed: "",
     patientPortal: "",
     avatar: "",
+
+    homePhone: "",
+    workPhone: "",
+    cellPhone: "",
+    email: "",
+    address: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      zipcode: "",
+      country: "USA",
+    },
+    emergencyContact: [
+      {
+        relationshipWithPatient: "",
+        fullName: "",
+        mobile: "",
+      },
+    ],
+
+    declineTextMessage: "",
+    authorisationForEmail: "",
   };
 
   const method = useForm({
@@ -112,10 +137,10 @@ const PatientRegistrationStepper = () => {
     switch (step) {
       case 0:
         return <OnePatientDetails />;
-      //   case 2:
-      //     return <StepTwoComponent />;
-      //   case 3:
-      //     return <StepThreeComponent />;
+      case 1:
+        return <TwoPatientContacts />;
+      case 2:
+        return <ThreePatientInsurance />;
       default:
         return <div>Invalid Step</div>;
     }

@@ -92,17 +92,33 @@ export const theme = createTheme({
     },
   },
   typography: {
+    fontFamily: "Poppins, Roboto, Helvetica, Arial, sans-serif",
+    h1: {
+      fontFamily: "Montserrat Alternates, Roboto, Helvetica, Arial, sans-serif",
+      fontWeight: 700,
+      fontSize: "3rem",
+    },
+    h2: {
+      fontFamily: "Montserrat Alternates, Roboto, Helvetica, Arial, sans-serif",
+      fontWeight: 600,
+      fontSize: "2.5rem",
+    },
+    h3: {
+      fontFamily: "Montserrat Alternates, Roboto, Helvetica, Arial, sans-serif",
+      fontWeight: 500,
+      fontSize: "2rem",
+    },
     bodyLarge: {
       fontSize: "18px",
-      fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+      fontFamily: "Poppins, Roboto, Helvetica, Arial, sans-serif",
     },
     bodyMedium: {
       fontSize: "16px",
-      fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+      fontFamily: "Poppins, Roboto, Helvetica, Arial, sans-serif",
     },
     bodySmall: {
       fontSize: "14px",
-      fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+      fontFamily: "Poppins, Roboto, Helvetica, Arial, sans-serif",
     },
   } as ExtendedTypographyOptions,
   components: {

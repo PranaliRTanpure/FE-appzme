@@ -129,7 +129,7 @@ export default function CustomInputWithPrefix(
         placeholder={props.placeholder}
         value={inputValue}
         sx={{
-          background: bgWhite ? "white" : "inherit",
+          background: bgWhite ? "#F5F6F8" : "inherit",
           height: props.multiline ? "fit-content" : "40px",
           ...customInputStyles.textFieldRoot,
           ...(props.hasError && customInputStyles.textFieldError),
