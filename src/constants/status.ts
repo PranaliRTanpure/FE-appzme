@@ -100,8 +100,6 @@ export const StatusColorMap: { [key: string]: string } = {
   SETTLED: theme.palette.success.main,
   SIGNED_OFF: theme.palette.success.main,
   IN_PROGRESS: theme.palette.warning.light,
-  PRIMARY: "#FFF2D2",
-  SECONDARY: "#FFF2D2",
   IN_USE: "#0D58A4",
   READY: "#049B22",
   LOST: "#B1000F",

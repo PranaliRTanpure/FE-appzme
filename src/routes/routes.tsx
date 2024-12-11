@@ -15,8 +15,8 @@ import ProviderListPage from "../pages/provider-portal/users/provider-list-page"
 import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
 // import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
-import PatientRegistrationStepper from "../components/super-user/patients/patient-registration-stepper";
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
+import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { path: "patient-registration", element: <PatientRegistrationStepper /> },
+      { path: "patient-registration", element: <PatientsRegistration /> },
       { path: "devices", element: <DevicesRegistration /> },
     ],
   },
