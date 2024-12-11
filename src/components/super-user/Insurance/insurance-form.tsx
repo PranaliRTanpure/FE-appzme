@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import CloseIcon from "@mui/icons-material/Close";
-import { SelectChangeEvent, Typography } from "@mui/material";
+import { IconButton, SelectChangeEvent, Typography } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
 import { Controller, useForm } from "react-hook-form";
 import CustomAutoComplete from "../../../common-components/custom-auto-complete/custom-auto-complete";
@@ -13,7 +13,13 @@ import { stateList } from "../../../utils/StateList";
 import { theme } from "../../../utils/theme";
 import { insuranceSchema } from "./insurance-schema";
 
-const InsuranceForm = () => {
+type InsuranceFormType = {
+  onClose: () => void;
+};
+
+const InsuranceForm = (props: InsuranceFormType) => {
+  const { onClose } = props;
+
   const initialValues = {
     insuranceName: "",
     idNumber: "",
@@ -51,7 +57,9 @@ const InsuranceForm = () => {
   return (
     <Grid container flexDirection={"column"}>
       <Grid height={"58px"} container p={2} columnGap={2} alignItems={"center"}>
-        <CloseIcon fontSize="small" />
+        <IconButton onClick={() => onClose()}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
         <Typography variant="bodyMedium">Add Primary Insurance</Typography>
       </Grid>
 
@@ -368,11 +376,9 @@ const InsuranceForm = () => {
       </Grid>
 
       <Grid
-        p={2}
-        // borderTop={`1px solid ${theme.palette.grey[300]}`}
+        p={"0px 16px 16px 16px"}
         flex={1}
         container
-        // rowGap={2}
         flexDirection={"column"}
       >
         <Grid

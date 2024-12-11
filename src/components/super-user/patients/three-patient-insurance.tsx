@@ -190,7 +190,7 @@ const ThreePatientInsurance = () => {
           </Grid>
         </>
       )}
-      {isAddForm && <InsuranceForm />}
+      {isAddForm && <InsuranceForm onClose={() => setIsAddForm(false)} />}
     </Grid>
   );
 };
