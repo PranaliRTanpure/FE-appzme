@@ -1,8 +1,11 @@
 import { Grid } from "@mui/system";
 import { theme } from "../../../utils/theme";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Button,
+  Divider,
   Table,
   TableBody,
   TableCell,
@@ -22,6 +25,7 @@ import { useState } from "react";
 import { TableHeaders } from "../../../common-components/table/table-models";
 import deviceInventoryList from "../../../mock-data/device-inventory.json";
 import Status from "../../../common-components/status/status";
+import CustomInput from "../../../common-components/custom-input/custom-input";
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Device Name" },
@@ -32,7 +36,12 @@ export const mockHeaders: TableHeaders[] = [
 
 const DevicesInventory = () => {
   const [selectedDevice] = useState("");
-
+  const statusBgColorMapping: Record<string, string> = {
+    LOST: "#FFF2F3",
+    READY: "#E1FCDE",
+    IN_USE: "#E0EFFF",
+    BROKEN: "#FFF2D2",
+  };
   return (
     <Grid
       height={"100%"}
@@ -50,10 +59,25 @@ const DevicesInventory = () => {
         flexDirection={"column"}
       >
         <Grid container p={2} justifyContent={"space-between"} rowGap={2}>
-          <Grid container alignItems={"center"} columnGap={2} rowGap={2}>
-            <Typography variant="bodyMedium" fontWeight={550} mr={2}>
+          <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
+            <Typography variant="bodyLarge" fontWeight={"bold"}>
               Inventory
             </Typography>
+
+            <Grid>
+              <Status bgColor="#E7E7E7" status={"190"} width="50px" />
+            </Grid>
+
+            <Divider
+              sx={{
+                margin: "2px",
+                background: theme.palette.common.white,
+              }}
+              orientation="vertical"
+              variant="middle"
+              flexItem
+            />
+
             <Grid container width={"200px"}>
               <CustomSelect
                 placeholder={"Select a Device"}
@@ -64,13 +88,45 @@ const DevicesInventory = () => {
                 onChange={() => {}}
               />
             </Grid>
-            <Grid>
-              <Status status={"190"} width="74px" />
-            </Grid>
           </Grid>
 
-          <Grid container width={"200px"}>
-            <Grid container columnGap={2} rowGap={2} alignItems={"flex-end"}>
+          <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
+            <Grid
+              container
+              border={"1px solid #C9CBCC"}
+              borderRadius={3}
+              width={35}
+              height={35}
+              alignContent={"center"}
+              justifyContent={"center"}
+            >
+              <FilterListIcon sx={{ height: "19px", width: "19px" }} />
+            </Grid>
+
+            <Grid
+              container
+              border={"1px solid #C9CBCC"}
+              borderRadius={3}
+              width={35}
+              height={35}
+              alignContent={"center"}
+              justifyContent={"center"}
+            >
+              <FilterAltOutlinedIcon sx={{ height: "19px", width: "19px" }} />
+            </Grid>
+
+            <Grid>
+              <CustomInput
+                placeholder={"Serach Patient"}
+                name={""}
+                value={""}
+                onChange={() => {}}
+                onDebounceCall={() => {}}
+                onInputEmpty={() => {}}
+                hasStartSearchIcon={true}
+              />
+            </Grid>
+            <Grid>
               <Button
                 variant="contained"
                 onClick={() => {}}
@@ -90,7 +146,7 @@ const DevicesInventory = () => {
         </Grid>
 
         <Grid width={"100%"}>
-          <TableContainer sx={{ maxHeight: "78vh", overflow: "auto" }}>
+          <TableContainer sx={{ maxHeight: "78vh", overflowY: "scroll" }}>
             <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
               <TableHead>
                 <TableRow>
@@ -105,12 +161,11 @@ const DevicesInventory = () => {
                       key={index}
                     >
                       <Grid
+                        pr={4}
                         container
                         flexDirection={"column"}
                         alignContent={
-                          header.header === "Actions"
-                            ? "flex-end"
-                            : "flex-start"
+                          header.header === "Status" ? "flex-end" : "flex-start"
                         }
                       >
                         <Typography variant="bodySmall">
@@ -168,8 +223,19 @@ const DevicesInventory = () => {
                         </Grid>
                       </TableCell>
                       <TableCell sx={{ ...heading }} align="left">
-                        <Grid container flexDirection={"column"}>
-                          <Status status={`${list.status}`} width="74px" />
+                        <Grid
+                          container
+                          flexDirection={"column"}
+                          alignContent={"flex-end"}
+                          pr={2}
+                        >
+                          <Status
+                            status={`${list.status}`}
+                            width="74px"
+                            bgColor={
+                              statusBgColorMapping[list?.status] || "gray"
+                            }
+                          />
                         </Grid>
                       </TableCell>
                     </TableRow>
@@ -187,7 +253,7 @@ const DevicesInventory = () => {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid container>
+        <Grid container sx={{ borderTop: "1px solid #E7E7E7" }}>
           <Paginator
             page={0}
             totalPages={5}
@@ -201,5 +267,4 @@ const DevicesInventory = () => {
     </Grid>
   );
 };
-
 export default DevicesInventory;

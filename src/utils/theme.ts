@@ -129,7 +129,7 @@ export const theme = createTheme({
           fontWeight: 550,
           height: "40px",
           "&.MuiButton-containedPrimary": {
-            borderRadius: "8px",
+            borderRadius: "12px",
             boxShadow: "none",
             "&:hover": {
               backgroundColor: palette.primary.light,
@@ -137,7 +137,7 @@ export const theme = createTheme({
           },
 
           "&.MuiButton-outlined": {
-            borderRadius: "8px",
+            borderRadius: "12px",
             border: `1px solid${palette.secondary.main}`,
             boxShadow: "none",
             color: "#2D7AE5",

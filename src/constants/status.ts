@@ -50,7 +50,7 @@ export const Status = {
   HOLD: "HOLD",
   SETTLED: "SETTLED",
   SIGNED_OFF: "SIGNED_OFF",
-  INVENTOY_DEVICE_COUNT: "190",
+  //   INVENTOY_DEVICE_COUNT:"190"
 };
 
 export const StatusColorMap: { [key: string]: string } = {
@@ -60,6 +60,7 @@ export const StatusColorMap: { [key: string]: string } = {
   ENABLED: theme.palette.success.main,
   DISABLE: theme.palette.error.light,
   DISABLED: theme.palette.error.light,
+  // READY: theme.palette.success.light,
   PENDING: theme.palette.warning.light,
   APPROVED: theme.palette.success.main,
   REJECTED: theme.palette.error.light,
@@ -99,8 +100,6 @@ export const StatusColorMap: { [key: string]: string } = {
   SETTLED: theme.palette.success.main,
   SIGNED_OFF: theme.palette.success.main,
   IN_PROGRESS: theme.palette.warning.light,
-  PRIMARY: "#FFF2D2",
-  SECONDARY: "#FFF2D2",
   IN_USE: "#0D58A4",
   READY: "#049B22",
   LOST: "#B1000F",
