@@ -64,7 +64,9 @@ const DevicesInventory = () => {
                 onChange={() => {}}
               />
             </Grid>
-            <Grid></Grid>
+            <Grid>
+              <Status status={"190"} width="74px" />
+            </Grid>
           </Grid>
 
           <Grid container width={"200px"}>

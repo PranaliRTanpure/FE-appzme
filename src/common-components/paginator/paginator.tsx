@@ -80,9 +80,9 @@ const Paginator = (props: PaginatorProps) => {
                   color: theme.palette.primary.main,
                   backgroundColor: theme.palette.common.white,
                   "&:hover": {
-                    "&& fieldset": {
-                      border: `1px solid ${theme.palette.grey[400]}`,
-                    },
+                    // "&& fieldset": {
+                    //   border: `1px solid ${theme.palette.grey[400]}`,
+                    // },
                   },
                   ".MuiOutlinedInput-notchedOutline": {
                     border: "none",
