@@ -238,8 +238,8 @@ const PatientRegistrationStepper = () => {
                         sx={{
                           borderRadius: "12px",
                           backgroundColor:
-                            index === activeStep ? "#E3F2FD" : "transparent", // Blue bg for active step
-                          padding: "8px 16px", // Adjust padding
+                            index === activeStep ? "#E3F2FD" : "transparent", // bg for active step
+                          padding: "8px 16px",
                         }}
                       >
                         {label}
