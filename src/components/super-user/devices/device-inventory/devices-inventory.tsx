@@ -284,7 +284,9 @@ const DevicesInventory = () => {
         </Grid>
       )}
 
-      {isFormOpen && <AddDeviceInventory />}
+      {isFormOpen && (
+        <AddDeviceInventory onClose={() => SetIsFormOpen(false)} />
+      )}
     </>
   );
 };
