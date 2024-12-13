@@ -1,5 +1,5 @@
 import { Grid } from "@mui/system";
-import DevicesInventory from "../../../components/provider-portal/supper-users/devices-inventory";
+import DevicesInventory from "../../../components/super-user/devices/device-inventory/devices-inventory";
 
 const DevicesRegistration = () => {
   return (
