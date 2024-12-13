@@ -26,6 +26,7 @@ import { TableHeaders } from "../../../common-components/table/table-models";
 import deviceInventoryList from "../../../mock-data/device-inventory.json";
 import Status from "../../../common-components/status/status";
 import CustomInput from "../../../common-components/custom-input/custom-input";
+import { useNavigate } from "react-router-dom";
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Device Name" },
@@ -37,6 +38,7 @@ export const mockHeaders: TableHeaders[] = [
 const DevicesInventory = () => {
   const [selectedDevice] = useState("");
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const navigate = useNavigate();
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
     READY: "#E1FCDE",
@@ -196,7 +198,11 @@ const DevicesInventory = () => {
                               fontWeight={500}
                               color="#106DCC"
                               variant="bodySmall"
-                              onClick={() => {}}
+                              onClick={() => {
+                                navigate(
+                                  `${list.serialNumber.replace("#", "")}`,
+                                );
+                              }}
                             >
                               {list?.deviceName}
                             </Typography>
