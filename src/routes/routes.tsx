@@ -17,6 +17,8 @@ import PublicRoute from "./public-route";
 // import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
+// import DeviceInventoryDetails from "../components/super-user/devices/device-inventory/device-inventory-details/device-inventory-details";
+import PatientsList from "../components/provider-portal/patients/patients-list";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -48,7 +50,14 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "patient-registration", element: <PatientsRegistration /> },
-      { path: "devices", element: <DevicesRegistration /> },
+      {
+        path: "devices",
+        element: <Outlet />,
+        children: [
+          { path: "", element: <DevicesRegistration /> },
+          { path: ":deviceId ", element: <PatientsList /> },
+        ],
+      },
     ],
   },
 

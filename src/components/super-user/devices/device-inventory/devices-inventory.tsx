@@ -27,6 +27,7 @@ import deviceInventoryList from "../../../../mock-data/device-inventory.json";
 import Status from "../../../../common-components/status/status";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import AddDeviceInventory from "./add-device-inventory";
+import { useNavigate } from "react-router-dom";
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Device Name" },
@@ -39,12 +40,15 @@ const DevicesInventory = () => {
   const [selectedDevice] = useState("");
   const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const navigate = useNavigate();
+
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
     READY: "#E1FCDE",
     IN_USE: "#E0EFFF",
     BROKEN: "#FFF2D2",
   };
+
   return (
     <>
       {!isFormOpen && (
@@ -204,14 +208,26 @@ const DevicesInventory = () => {
                                 flexDirection={"column"}
                                 sx={{ cursor: "pointer" }}
                               >
+                                {/* <Link */}
+                                {/* style={{ cursor: "pointer" }}
+                                  onClick={() => navigate(`/super-user/devices/${list?.serialNumber.replace("#", "")}`)}
+                                  //   textDecoration: "underline",
+                                  //   textDecorationColor: "#106DCC",
+                                  // }}
+                                > */}
                                 <Typography
+                                  onClick={() =>
+                                    navigate(
+                                      `/super-user/devices/${list?.serialNumber.replace("#", "")}`,
+                                    )
+                                  }
                                   fontWeight={500}
                                   color="#106DCC"
                                   variant="bodySmall"
-                                  onClick={() => {}}
                                 >
                                   {list?.deviceName}
                                 </Typography>
+                                {/* </Link> */}
                               </Grid>
                             </Grid>
                           </TableCell>
