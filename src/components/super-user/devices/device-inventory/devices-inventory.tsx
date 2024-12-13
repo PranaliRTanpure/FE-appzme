@@ -1,11 +1,11 @@
 import { Grid, useMediaQuery } from "@mui/system";
-import { theme } from "../../../../utils/theme";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Button,
   Divider,
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -15,19 +15,20 @@ import {
   Typography,
 } from "@mui/material";
 import Paginator from "../../../../common-components/paginator/paginator";
+import Status from "../../../../common-components/status/status";
 import {
   heading,
   tableCellCss,
   typographyCss,
 } from "../../../../common-components/table/common-table-widgets";
-import CustomSelect from "../../../../common-components/custom-select/customSelect";
-import { useState } from "react";
 import { TableHeaders } from "../../../../common-components/table/table-models";
-import deviceInventoryList from "../../../../mock-data/device-inventory.json";
-import Status from "../../../../common-components/status/status";
-import CustomInput from "../../../../common-components/custom-input/custom-input";
-import AddDeviceInventory from "./add-device-inventory";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { theme } from "../../../../utils/theme";
+import CustomSelect from "../../../../common-components/custom-select/customSelect";
+import CustomInput from "../../../../common-components/custom-input/custom-input";
+import deviceInventoryList from "../../../../mock-data/device-inventory.json";
+import AddDeviceInventory from "./add-device-inventory";
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Device Name" },
@@ -41,14 +42,12 @@ const DevicesInventory = () => {
   const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
   const navigate = useNavigate();
-
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
     READY: "#E1FCDE",
     IN_USE: "#E0EFFF",
     BROKEN: "#FFF2D2",
   };
-
   return (
     <>
       {!isFormOpen && (
@@ -203,31 +202,27 @@ const DevicesInventory = () => {
                         <TableRow key={index}>
                           <TableCell sx={{ ...heading }} align="left">
                             <Grid container flexDirection={"column"}>
-                              <Grid
-                                container
-                                flexDirection={"column"}
-                                sx={{ cursor: "pointer" }}
-                              >
-                                {/* <Link */}
-                                {/* style={{ cursor: "pointer" }}
-                                  onClick={() => navigate(`/super-user/devices/${list?.serialNumber.replace("#", "")}`)}
-                                  //   textDecoration: "underline",
-                                  //   textDecorationColor: "#106DCC",
-                                  // }}
-                                > */}
-                                <Typography
-                                  onClick={() =>
+                              <Grid container flexDirection={"column"}>
+                                <Link
+                                  underline="always"
+                                  sx={{
+                                    color: "#106DCC",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() => {
                                     navigate(
-                                      `/super-user/devices/${list?.serialNumber.replace("#", "")}`,
-                                    )
-                                  }
-                                  fontWeight={500}
-                                  color="#106DCC"
-                                  variant="bodySmall"
+                                      `/super-user/devices/${list.serialNumber.replace("#", "")}`,
+                                    );
+                                  }}
                                 >
-                                  {list?.deviceName}
-                                </Typography>
-                                {/* </Link> */}
+                                  <Typography
+                                    fontWeight={500}
+                                    color="#106DCC"
+                                    variant="bodySmall"
+                                  >
+                                    {list?.deviceName}
+                                  </Typography>
+                                </Link>
                               </Grid>
                             </Grid>
                           </TableCell>
