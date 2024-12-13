@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import Switcher from "../../../../../common-components/switcher/switcher";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeviceInventoryOverview from "./device-inventory-overview";
 
 enum DeviceDetailsType {
   // eslint-disable-next-line no-unused-vars
@@ -52,6 +55,7 @@ const DeviceInventoryDetails = () => {
         p={3}
         mt={1.5}
         justifyContent={"space-between"}
+        borderBottom={"1px solid #E7E7E7"}
       >
         <Grid>
           <Switcher
@@ -66,18 +70,31 @@ const DeviceInventoryDetails = () => {
         <Grid>
           <Button
             variant="outlined"
+            startIcon={<ArchiveOutlinedIcon sx={{ color: "black" }} />}
             onClick={() => {}}
             sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
           >
-            Cancel
+            Archive Device
           </Button>
           <Button
             variant="outlined"
+            startIcon={<EditOutlinedIcon />}
             onClick={() => {}}
-            sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
+            sx={{
+              mr: 1,
+              borderColor: "#C9CBCC",
+              color: "black",
+              background: "#F1F8FF",
+            }}
           >
-            Cancel
+            Edit Details
           </Button>
+        </Grid>
+      </Grid>
+      {/* Grid 3 */}
+      <Grid container sx={{ background: "white" }}>
+        <Grid width={"100%"}>
+          <DeviceInventoryOverview />
         </Grid>
       </Grid>
     </Grid>
