@@ -1,6 +1,11 @@
 import { Grid } from "@mui/system";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Button, IconButton, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import CustomSelect from "../../../../common-components/custom-select/customSelect";
 import CustomLabel from "../../../../common-components/custom-label/custom-label";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
@@ -29,6 +34,7 @@ const AddDeviceInventory = (props: AddDeviceProps) => {
 
   const {
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -49,15 +55,16 @@ const AddDeviceInventory = (props: AddDeviceProps) => {
         container
         flexDirection={"column"}
         alignContent={"center"}
-        pt={7}
+        pt={5}
         rowGap={2.5}
+        m={2}
       >
         <Grid container justifyContent={"space-between"} width={"934px"}>
-          <Grid container columnGap={3} alignItems={"center"}>
+          <Grid container columnGap={1.5} alignItems={"center"}>
             <IconButton onClick={props.onClose}>
               <ArrowBackIcon />
             </IconButton>
-            <Typography fontWeight={700} variant="bodyLarge">
+            <Typography fontWeight={700} variant="bodyLarge" color="#21262B">
               Add New Device
             </Typography>
           </Grid>
@@ -101,7 +108,11 @@ const AddDeviceInventory = (props: AddDeviceProps) => {
                     items={[{ value: "active", label: "Active" }]}
                     hasError={!!errors.deviceType}
                     errorMessage={errors.deviceType?.message as string}
-                    onChange={() => {}}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("deviceType", e.target.value, {
+                        shouldValidate: true,
+                      });
+                    }}
                     name={field.name}
                     value={field.value}
                   />
@@ -139,7 +150,11 @@ const AddDeviceInventory = (props: AddDeviceProps) => {
                     items={[{ value: "active", label: "Active" }]}
                     hasError={!!errors.pool}
                     errorMessage={errors.pool?.message as string}
-                    onChange={() => {}}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("pool", e.target.value, {
+                        shouldValidate: true,
+                      });
+                    }}
                     name={field.name}
                     value={field.value}
                   />
