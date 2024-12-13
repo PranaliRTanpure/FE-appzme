@@ -43,7 +43,7 @@ const ThreePatientInsurance = () => {
             borderBottom={`1px solid ${theme.palette.grey[300]}`}
           >
             <Grid>
-              <Switcher
+              {/* <Switcher
                 option1={
                   "Primary Insurance                                                                                     "
                 }
@@ -51,6 +51,14 @@ const ThreePatientInsurance = () => {
                 buttonWidth={"200px"}
                 variant={"light"}
                 onChange={function (option: string): void {
+                  setInsuranceType(option as InsuranceType);
+                }}
+              /> */}
+              <Switcher
+                options={["Primary Insurance", "Secondary Insurance"]}
+                buttonWidth={"200px"}
+                variant={"light"}
+                onChange={(option: string): void => {
                   setInsuranceType(option as InsuranceType);
                 }}
               />

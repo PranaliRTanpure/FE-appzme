@@ -55,15 +55,16 @@ const AddDeviceInventory = (props: AddDeviceProps) => {
         container
         flexDirection={"column"}
         alignContent={"center"}
-        pt={7}
+        pt={5}
         rowGap={2.5}
+        m={2}
       >
         <Grid container justifyContent={"space-between"} width={"934px"}>
-          <Grid container columnGap={3} alignItems={"center"}>
+          <Grid container columnGap={1.5} alignItems={"center"}>
             <IconButton onClick={props.onClose}>
               <ArrowBackIcon />
             </IconButton>
-            <Typography fontWeight={700} variant="bodyLarge">
+            <Typography fontWeight={700} variant="bodyLarge" color="#21262B">
               Add New Device
             </Typography>
           </Grid>
