@@ -145,6 +145,13 @@ export const theme = createTheme({
               backgroundColor: alpha(palette.secondary.main, 0.3),
             },
           },
+          "&:disabled": {
+            cursor: "wait",
+            pointerEvents: "auto",
+            "&:hover": {
+              backgroundColor: palette.primary.main,
+            },
+          },
         },
       },
     },

@@ -54,6 +54,12 @@ const InsuranceForm = (props: InsuranceFormType) => {
     setValue,
   } = method;
 
+  // const [base64DataArray, setBase64DataArray] = useState<string[]>([]);
+
+  // const handleBase64Data = (data: string) => {
+  //   setBase64DataArray((prevArray) => [...prevArray, data]);
+  // };
+
   return (
     <Grid container flexDirection={"column"}>
       <Grid height={"58px"} container p={2} columnGap={2} alignItems={"center"}>
@@ -472,6 +478,14 @@ const InsuranceForm = (props: InsuranceFormType) => {
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid p={2}>
+        {/* <UploadDocument
+          onBase64Data={handleBase64Data}
+          cardFrontSideUrl={""}
+          cardBackSideUrl={""}
+          width={5.7}
+        /> */}
       </Grid>
     </Grid>
   );
