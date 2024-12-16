@@ -18,6 +18,9 @@ const useMenu = () => {
       icon: <GridViewIcon />,
       hide: false,
       disabled: false,
+      menuList: [
+        { name: "Patients", path: "/super-user/patient-registration" },
+      ],
     },
     {
       title: "Devices",
@@ -25,6 +28,10 @@ const useMenu = () => {
       icon: <GridViewIcon />,
       hide: false,
       disabled: false,
+      menuList: [
+        { name: "Inventory", path: "/super-user/devices" },
+        { name: "Calendar", path: "/super-user/devices" },
+      ],
     },
   ];
 
