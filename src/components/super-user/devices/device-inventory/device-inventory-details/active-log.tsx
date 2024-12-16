@@ -1,7 +1,7 @@
 import { Grid } from "@mui/system";
 import { TableHeaders } from "../../../../../common-components/table/table-models";
+import Paginator from "../../../../../common-components/paginator/paginator";
 import {
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -15,20 +15,16 @@ import {
   tableCellCss,
   typographyCss,
 } from "../../../../../common-components/table/common-table-widgets";
-import deviceInventoryActivePatientScheduleList from "../../../../../mock-data/device-inventory-activePatientSchedule.json";
-import Paginator from "../../../../../common-components/paginator/paginator";
+import deviceInventoryActivityLogList from "../../../../../mock-data/device-inventory-activeLog.json";
 
 export const mockHeaders: TableHeaders[] = [
-  { header: "Patient" },
-  { header: "Device Out Date" },
-  { header: "Ship Tracking" },
-  { header: "Return Device Date" },
-  { header: "Return Tracking" },
-  { header: "Received Date" },
-  { header: "Study" },
+  { header: "Date" },
+  { header: "User" },
+  { header: "Event" },
+  { header: "Appointment" },
 ];
 
-const ActivePatientSchedule = () => {
+const ActiveLog = () => {
   return (
     <Grid container width={"100%"} height={"100%"}>
       <Grid container width={"100%"}>
@@ -51,14 +47,7 @@ const ActivePatientSchedule = () => {
                     align="left"
                     key={index}
                   >
-                    <Grid
-                      pr={4}
-                      container
-                      flexDirection={"column"}
-                      alignContent={
-                        header.header === "Status" ? "flex-end" : "flex-start"
-                      }
-                    >
+                    <Grid pr={4} container flexDirection={"column"}>
                       <Typography variant="bodySmall">
                         {header.header}
                       </Typography>
@@ -68,56 +57,30 @@ const ActivePatientSchedule = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {deviceInventoryActivePatientScheduleList.length > 0 ? (
-                deviceInventoryActivePatientScheduleList.map((list, index) => (
+              {deviceInventoryActivityLogList.length > 0 ? (
+                deviceInventoryActivityLogList.map((list, index) => (
                   <TableRow key={index}>
                     <TableCell sx={{ ...heading }} align="left">
                       <Grid container flexDirection={"column"}>
-                        <Grid container flexDirection={"column"}>
-                          <Link
-                            underline="always"
-                            sx={{
-                              color: "#106DCC",
-                              cursor: "pointer",
-                            }}
-                            // onClick={() => {
-                            //     navigate(
-                            //         `/super-user/devices/${list.serialNumber.replace("#", "")}`,
-                            //     );
-                            // }}
-                          >
-                            <Typography
-                              fontWeight={500}
-                              color="#106DCC"
-                              variant="bodySmall"
-                            >
-                              {list?.patient}
-                            </Typography>
-                          </Link>
-                        </Grid>
-                      </Grid>
-                    </TableCell>
-                    <TableCell sx={{ ...heading }} align="left">
-                      <Grid container flexDirection={"column"}>
                         <Typography
                           sx={typographyCss}
                           variant="bodySmall"
                           color="#21262B"
                           fontWeight={400}
                         >
-                          {list?.deviceOutOfDate}
+                          {list?.date}
                         </Typography>
                       </Grid>
                     </TableCell>
                     <TableCell sx={{ ...heading }} align="left">
                       <Grid container flexDirection={"column"}>
                         <Typography
-                          sx={{ ...typographyCss, textDecoration: "underline" }}
+                          sx={{ ...typographyCss }}
                           variant="bodySmall"
                           color="#21262B"
                           fontWeight={400}
                         >
-                          {list?.shipTracking}
+                          {list?.user}
                         </Typography>
                       </Grid>
                     </TableCell>
@@ -129,43 +92,19 @@ const ActivePatientSchedule = () => {
                           color="#21262B"
                           fontWeight={400}
                         >
-                          {list?.returnDeviceDate}
+                          {list?.event}
                         </Typography>
                       </Grid>
                     </TableCell>
                     <TableCell sx={{ ...heading }} align="left">
                       <Grid container flexDirection={"column"}>
                         <Typography
-                          sx={{ ...typographyCss, textDecoration: "underline" }}
+                          sx={{ ...typographyCss }}
                           variant="bodySmall"
                           color="#21262B"
                           fontWeight={400}
                         >
-                          {list?.returnTracking}
-                        </Typography>
-                      </Grid>
-                    </TableCell>
-                    <TableCell sx={{ ...heading }} align="left">
-                      <Grid container flexDirection={"column"}>
-                        <Typography
-                          sx={typographyCss}
-                          variant="bodySmall"
-                          color="#21262B"
-                          fontWeight={400}
-                        >
-                          {list?.recivedDate}
-                        </Typography>
-                      </Grid>
-                    </TableCell>
-                    <TableCell sx={{ ...heading }} align="left">
-                      <Grid container flexDirection={"column"}>
-                        <Typography
-                          sx={typographyCss}
-                          variant="bodySmall"
-                          color="#21262B"
-                          fontWeight={400}
-                        >
-                          {list?.study}
+                          {list?.appointment}
                         </Typography>
                       </Grid>
                     </TableCell>
@@ -203,4 +142,4 @@ const ActivePatientSchedule = () => {
   );
 };
 
-export default ActivePatientSchedule;
+export default ActiveLog;

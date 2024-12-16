@@ -86,12 +86,20 @@ const DeviceInventoryOverview = () => {
       onSubmit={handleSubmit(onSubmit)}
       style={{ width: "100%", height: "100%" }}
     >
-      <Grid container sx={{ background: "#F9FAFB" }} width={"100%"} p={2}>
+      <Grid
+        container
+        sx={{ background: "#F9FAFB" }}
+        width={"100%"}
+        height={"100%"}
+      >
         <Grid
           container
           justifyContent={"space-between"}
           borderBottom={"1px solid #E7E7E7"}
-          pb={3}
+          pb={5}
+          pt={2}
+          pr={2}
+          pl={2}
           width={"100%"}
         >
           {/* Grid 1 */}
@@ -349,8 +357,8 @@ const DeviceInventoryOverview = () => {
           </Grid>
         </Grid>
         {/* Table */}
-        <Grid width={"100%"} container pt={3} flexDirection={"column"}>
-          <Grid p={2}>
+        <Grid width={"100%"} container flexDirection={"column"} pb={3}>
+          <Grid pl={2} pr={2} pt={2.5}>
             <Typography
               fontWeight={500}
               variant="bodyMedium"
@@ -359,11 +367,13 @@ const DeviceInventoryOverview = () => {
               Device Appointment Status
             </Typography>
           </Grid>
-          <Grid width={"100%"}>
+          <Grid width={"100%"} pl={2} pr={2} pt={2}>
             <TableContainer
               sx={{
                 maxHeight: "200px",
                 overflowY: "scroll",
+                border: "1px solid #E7E7E7",
+                borderRadius: "12px",
               }}
             >
               <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
