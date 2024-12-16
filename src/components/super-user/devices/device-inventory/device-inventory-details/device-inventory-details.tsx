@@ -7,6 +7,7 @@ import Switcher from "../../../../../common-components/switcher/switcher";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeviceInventoryOverview from "./device-inventory-overview";
+import ActivePatientSchedule from "./active-patient-schedule";
 
 enum DeviceDetailsType {
   // eslint-disable-next-line no-unused-vars
@@ -20,7 +21,7 @@ enum DeviceDetailsType {
 const DeviceInventoryDetails = () => {
   const { deviceId } = useParams();
   const navigate = useNavigate();
-  const [, setDetailType] = useState(DeviceDetailsType.OVERVIEW);
+  const [detailType, setDetailType] = useState(DeviceDetailsType.OVERVIEW);
 
   return (
     <Grid
@@ -56,6 +57,7 @@ const DeviceInventoryDetails = () => {
         mt={1.5}
         justifyContent={"space-between"}
         borderBottom={"1px solid #E7E7E7"}
+        width={"100%"}
       >
         <Grid>
           <Switcher
@@ -92,10 +94,18 @@ const DeviceInventoryDetails = () => {
         </Grid>
       </Grid>
       {/* Grid 3 */}
-      <Grid container sx={{ background: "white" }}>
-        <Grid width={"100%"}>
+      <Grid
+        container
+        sx={{ background: "white", boxShadow: "0px 0px 4px -2px #1018280F" }}
+      >
+        <Grid container width={"100%"} borderRadius={12}>
           <DeviceInventoryOverview />
         </Grid>
+        {detailType === DeviceDetailsType.ACTIVE_PATIENT_SCHEDULE && (
+          <Grid container width={"100%"} borderRadius={12}>
+            <ActivePatientSchedule />
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

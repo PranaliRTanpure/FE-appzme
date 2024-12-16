@@ -57,7 +57,6 @@ const Switcher = (props: SwitcherProps) => {
         ? theme.palette.primary.light
         : theme.palette.common.white,
   };
-
   return (
     <StyledGridContainer container gap={1}>
       {validOptions.length > 0 ? (
