@@ -20,7 +20,7 @@ enum InsuranceType {
 
 const ThreePatientInsurance = () => {
   const [, setInsuranceType] = useState(InsuranceType.PRIMARY);
-  const [isAddForm, setIsAddForm] = useState(false);
+  const [isAddForm, setIsAddForm] = useState(true);
   const handleOnclickInsuranceName = () => {};
   return (
     <Grid

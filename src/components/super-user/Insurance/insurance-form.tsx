@@ -12,6 +12,8 @@ import CustomRadioButton from "../../../common-components/radio-button/radio-but
 import { stateList } from "../../../utils/StateList";
 import { theme } from "../../../utils/theme";
 import { insuranceSchema } from "./insurance-schema";
+import UploadDocument from "../../../common-components/upload-document/file-upload-document";
+import { useState } from "react";
 
 type InsuranceFormType = {
   onClose: () => void;
@@ -53,6 +55,23 @@ const InsuranceForm = (props: InsuranceFormType) => {
     formState: { errors },
     setValue,
   } = method;
+
+  const [base64DataArrayFrontSide, setBase64DataArrayFrontSide] = useState<
+    string[]
+  >([]);
+  const [base64DataArrayBackSide, setBase64DataArrayBackSide] = useState<
+    string[]
+  >([]);
+
+  base64DataArrayFrontSide;
+  base64DataArrayBackSide;
+  const handleBase64DataForFrontSide = (data: string) => {
+    setBase64DataArrayFrontSide((prevArray) => [...prevArray, data]);
+  };
+
+  const handleBase64DataForBackSide = (data: string) => {
+    setBase64DataArrayBackSide((prevArray) => [...prevArray, data]);
+  };
 
   return (
     <Grid container flexDirection={"column"}>
@@ -471,6 +490,32 @@ const InsuranceForm = (props: InsuranceFormType) => {
               />
             </Grid>
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid p={2} borderTop={`1px solid ${theme.palette.grey[300]}`}>
+        <Typography variant="bodyMedium">Upload Insurance Card</Typography>
+        <Grid
+          container
+          justifyContent={"flex-start"}
+          // p={2}
+          mt={2}
+          columnGap={2}
+          alignItems={"flex-start"}
+        >
+          <UploadDocument
+            onBase64Data={handleBase64DataForFrontSide}
+            cardFrontSideUrl={""}
+            width={5.7}
+            inputId="frontSide"
+            title="Front Side"
+          />
+          <UploadDocument
+            onBase64Data={handleBase64DataForBackSide}
+            cardFrontSideUrl={""}
+            width={5.7}
+            inputId="backSide"
+            title="Back Side"
+          />
         </Grid>
       </Grid>
     </Grid>

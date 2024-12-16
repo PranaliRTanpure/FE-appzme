@@ -18,6 +18,7 @@ import OnePatientDetails from "./One-patient-details";
 import { patientRegistrationFormSchema } from "./patient-registration-schema";
 import ThreePatientInsurance from "./three-patient-insurance";
 import TwoPatientContacts from "./two-patient-details";
+import FourOrderingProvider from "./four-ordering-provider";
 
 const steps = [
   "Patient Details",
@@ -120,6 +121,45 @@ const PatientRegistrationStepper = () => {
 
     declineTextMessage: "",
     authorisationForEmail: "",
+
+    orderingPoviderName: "",
+    orderingPoviderSpeciality: "",
+
+    orderingPoviderPhone: "",
+    orderingPoviderFax: "",
+    orderingPoviderTaxId: "",
+    orderingPoviderNPI: "",
+
+    orderingPoviderAddressLine1: "",
+    orderingPoviderAddressLine2: "",
+    orderingPoviderAddressCity: "",
+    orderingPoviderAddressState: "",
+    orderingPoviderAddressZipcode: "",
+
+    millenniumProviderName: "",
+    millenniumProviderSpeciality: "",
+    millenniumProviderPhone: "",
+    millenniumProviderFax: "",
+    millenniumProviderTaxId: "",
+    millenniumProviderNpi: "",
+    millenniumProviderAddressLine1: "",
+    millenniumProviderAddressLine2: "",
+    millenniumProviderCity: "",
+    millenniumProviderState: "",
+    millenniumProviderZipcode: "",
+
+    dentalProviderDetailsProviderName: "",
+    dentalProviderDetailsProviderSpeciality: "",
+    dentalProviderDetailsProviderPhone: "",
+    dentalProviderDetailsProviderFax: "",
+    dentalProviderDetailsProviderEmail: "",
+    dentalProviderDetailsProviderAssistantEmail: "",
+    otherContactsPreferredDME: "",
+    otherContactsSleepLab: "",
+    otherContactsOtherProviders: "",
+    otherContactsRegionalManager: "",
+    otherContactsMarketingRep: "",
+    otherContactsSleepAdvisor: "",
   };
 
   const method = useForm({
@@ -141,6 +181,8 @@ const PatientRegistrationStepper = () => {
         return <TwoPatientContacts />;
       case 2:
         return <ThreePatientInsurance />;
+      case 3:
+        return <FourOrderingProvider />;
       default:
         return <div>Invalid Step</div>;
     }
