@@ -367,5 +367,4 @@ const TwoPatientContacts = () => {
     </Grid>
   );
 };
-
 export default TwoPatientContacts;

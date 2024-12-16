@@ -11,13 +11,14 @@ import UploadLogo from "../../../common-components/image-upload/custom-image-upl
 import CustomRadioButton from "../../../common-components/radio-button/radio-button";
 import { Gender, PrimaryLanguages } from "../../../constants/roles";
 import { theme } from "../../../utils/theme";
+
 export const customStyle = {
   height: "8rem",
   width: "8rem",
 };
+
 const OnePatientDetails = () => {
   const belowmd = useMediaQuery(theme.breakpoints.down("md"));
-
   const [isSpecialNeeds, setIsSpecialNeeds] = useState("");
   const [isEmployed, setIsEmployed] = useState("");
   const [isPetientPortal, setIsPatientPortal] = useState("");
@@ -27,7 +28,6 @@ const OnePatientDetails = () => {
     formState: { errors },
     setValue,
   } = useFormContext();
-
   return (
     <Grid
       width={"100%"}
@@ -37,7 +37,6 @@ const OnePatientDetails = () => {
       overflow={"auto"}
       rowGap={2}
       flexDirection={"column"}
-      // border={2}
       flexWrap={"nowrap"}
       border={`1px solid ${theme.palette.grey[300]}`}
       borderRadius={"0px 0px 16px 16px"}
