@@ -1,26 +1,27 @@
-import { Typography } from "@mui/material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { Button, Typography } from "@mui/material";
 import { Grid } from "@mui/system";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import uploadDocLogo from "../../assets/image_svg/icons/upload-doc.svg";
+import { theme } from "../../utils/theme";
 import { DocumentStyles } from "./document-widget";
 
 type UploadDocumentProps = {
   // eslint-disable-next-line no-unused-vars
   onBase64Data: (data: string) => void;
   cardFrontSideUrl?: string;
-  cardBackSideUrl?: string;
   width?: number;
+  title: string;
+  inputId: string;
 };
 
 const UploadDocument = (props: UploadDocumentProps) => {
-  const { onBase64Data, cardFrontSideUrl, cardBackSideUrl } = props;
+  const { onBase64Data, cardFrontSideUrl, title, inputId } = props;
   const classes = DocumentStyles;
 
   const [selectedFile1, setSelectedFile1] = useState<File | null>(null);
   const [filePreview1, setFilePreview1] = useState("");
-  const [selectedFile2, setSelectedFile2] = useState<File | null>(null);
-  const [filePreview2, setFilePreview2] = useState("");
   const allowedFileTypes = ["image/jpeg", "image/png"];
   const maxFileSize = 10 * 1024 * 1024;
   filePreview1;
@@ -29,10 +30,7 @@ const UploadDocument = (props: UploadDocumentProps) => {
     if (cardFrontSideUrl) {
       setFilePreview1(cardFrontSideUrl);
     }
-    if (cardBackSideUrl) {
-      setFilePreview2(cardBackSideUrl);
-    }
-  }, [cardFrontSideUrl, cardBackSideUrl]);
+  }, [cardFrontSideUrl]);
 
   const handleFileChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -79,10 +77,6 @@ const UploadDocument = (props: UploadDocumentProps) => {
     handleFileChange(event, setSelectedFile1, setFilePreview1, 1);
   };
 
-  const handleFileChange2 = (event: ChangeEvent<HTMLInputElement>) => {
-    handleFileChange(event, setSelectedFile2, setFilePreview2, 2);
-  };
-
   const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -95,277 +89,153 @@ const UploadDocument = (props: UploadDocumentProps) => {
     });
   };
 
-  // const renderCloseButton = (
-  //   selectedFile: File | null,
-  //   setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>,
-  //   fileNumber: number
-  // ) => {
-  //   return (
-  //     selectedFile && (
-  //       <CloseOutlinedIcon
-  //         // onClick={() => {
-  //         //   setSelectedFile(null);
-  //         // }}
-  //         onClick={() => {
-  //           setSelectedFile(null);
-  //           if (fileNumber === 1) {
-  //             setFilePreview1("");
-  //           } else if (fileNumber === 2) {
-  //             setFilePreview2("");
-  //           }
-  //         }}
-  //       />
-  //     )
-  //   );
-  // };
-
   const renderCloseButton = (
-    selectedFile: File | null,
     setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>,
-    cardUrl: string | undefined,
     fileNumber: number,
   ) => {
-    return (
-      (selectedFile || cardUrl) && (
-        <div>
-          {/* <img src={uploadDocLogo} /> */}
-          <CloseOutlinedIcon
-            onClick={() => {
-              setSelectedFile(null);
-              if (fileNumber === 1) {
-                setFilePreview1("");
-              } else if (fileNumber === 2) {
-                setFilePreview2("");
-              }
-            }}
-          />
-        </div>
-      )
-    );
+    setSelectedFile(null);
+    if (fileNumber === 1) {
+      setFilePreview1("");
+    }
+  };
+
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const triggerFileInput = () => {
+    fileInputRef?.current?.click();
   };
 
   return (
     <Grid container sx={{ ...classes.container }} columnGap={2}>
-      {/* File Input 1 */}
-      <Grid sx={{ ...classes.documentupload }}>
-        <Grid container>
-          {selectedFile1 && (
-            <Grid style={{ display: "flex", justifyContent: "end" }}>
-              {renderCloseButton(
-                selectedFile1,
-                setSelectedFile1,
-                cardFrontSideUrl,
-                1,
-              )}
-            </Grid>
-          )}
-          <Grid>
+      <Grid container flexDirection={"column"} rowGap={1}>
+        <Typography color="#595F63" variant="bodySmall">
+          {title || "Document"}
+        </Typography>
+        <Grid
+          border={selectedFile1 ? "none" : "1px dashed #C9CBCC"}
+          container
+          justifyContent={"center"}
+          width={"300px"}
+          borderRadius={"12px"}
+          height={"180px"}
+        >
+          <Grid container justifyContent={"center"}>
             <Grid
-              p={1}
-              component="label"
-              sx={{ ...classes.container }}
-              htmlFor="fileInput1"
+              container
+              justifyContent={"center "}
+              alignItems={"center"}
+              flexDirection={"column"}
             >
-              <input
-                type="file"
-                id="fileInput1"
-                style={{ ...classes.none }}
-                onChange={(event) => {
-                  handleFileChange1(event);
-                }}
-                onClick={(event) => handleClick(event)}
-              />
-              {/* {!selectedFile1 ? (
-                <CloudUploadOutlinedIcon
-                  className={classes.cloudicon}
-                  sx={{ width: "50px", height: "50px" }}
+              <Grid
+                component="label"
+                htmlFor={inputId}
+                sx={{ cursor: "pointer" }}
+              >
+                <input
+                  type="file"
+                  id={inputId}
+                  style={{ ...classes.none }}
+                  onChange={(event) => {
+                    handleFileChange1(event);
+                  }}
+                  onClick={(event) => handleClick(event)}
                 />
-              ) : (
-                <img src={filePreview1} alt="File Preview" className={classes.filepreview} />
-              )} */}
-              {!selectedFile1 ? (
-                cardFrontSideUrl ? (
-                  <img
-                    src={cardFrontSideUrl}
-                    alt="File Preview"
-                    style={{ ...classes.filepreview }}
-                  />
-                ) : (
-                  <img src={uploadDocLogo} />
-                  // <CloudUploadOutlinedIcon
-                  //   sx={{ ...classes.cloudicon, width: "50px", height: "50px" }}
-                  // />
-                )
-              ) : (
-                <img src={uploadDocLogo} />
 
-                // <img
-                //   src={filePreview1}
-                //   alt="File Preview"
-                //   style={{ ...classes.filepreview }}
-                // />
-              )}
-            </Grid>
-
-            <Grid>
-              <Grid container columnSpacing={2}>
-                <Grid sx={{ ...classes.previewName }}>
-                  {/* <Typography variant="title2" noWrap m={2} fontWeight={500}>
-                    {selectedFile1
-                      ? `${selectedFile1.name}`
-                      : "Select a file or drag and drop here"}
-                  </Typography> */}
-                  {selectedFile1 ? (
-                    <Typography
-                      variant="bodySmall"
-                      noWrap
-                      m={2}
-                      fontWeight={500}
-                    >
-                      {selectedFile1.name}
-                    </Typography>
+                {!selectedFile1 ? (
+                  cardFrontSideUrl ? (
+                    <img
+                      src={cardFrontSideUrl}
+                      alt="File Preview"
+                      style={{ ...classes.filepreview }}
+                    />
                   ) : (
-                    !cardFrontSideUrl && (
-                      <Typography
-                        variant="bodySmall"
-                        noWrap
-                        m={2}
-                        fontWeight={500}
-                      >
-                        Click to upload or drag and drop
-                      </Typography>
-                    )
-                  )}
-                </Grid>
+                    <img src={uploadDocLogo} />
+                  )
+                ) : (
+                  <img
+                    src={filePreview1}
+                    alt="File Preview"
+                    style={{ height: "180px", width: "300px" }}
+                  />
+                )}
               </Grid>
-              {!selectedFile1 && !cardFrontSideUrl && (
-                <Grid mt={1} sx={{ ...classes.gridItem }}>
-                  <Typography
-                    variant="caption"
-                    sx={{ ...classes.captionheading }}
-                  >
-                    JPG or PNG{" "}
-                  </Typography>
+
+              <Grid>
+                <Grid container>
+                  <Grid>
+                    {!selectedFile1 && !cardFrontSideUrl && (
+                      <Grid container width={"100%"} justifyContent={"center"}>
+                        <Typography
+                          variant="bodySmall"
+                          noWrap
+                          color={theme.palette.secondary.main}
+                        >
+                          Click to upload
+                        </Typography>
+                        &nbsp;
+                        <Typography
+                          sx={{ color: "#74797B" }}
+                          variant="bodySmall"
+                        >
+                          or drag and drop
+                        </Typography>
+                      </Grid>
+                    )}
+                  </Grid>
                 </Grid>
-              )}
-              {/* {!selectedFile1 && (
-                <Grid item xs={12} mt={1} className={classes.gridItem}>
-                  <Typography variant="caption" className={classes.captionheading}>
-                    JPG and PNG, file size no more than 10MB
-                  </Typography>
-                </Grid>
-              )} */}
+                {!selectedFile1 && !cardFrontSideUrl && (
+                  <Grid mt={1} sx={{ ...classes.gridItem }}>
+                    <Typography
+                      variant="caption"
+                      sx={{ ...classes.captionheading }}
+                    >
+                      JPG or PNG{" "}
+                    </Typography>
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-      {/* File Input 2 */}
-      <Grid sx={classes.documentupload}>
-        <Grid container>
-          {selectedFile2 && (
-            <Grid style={{ display: "flex", justifyContent: "end" }}>
-              {renderCloseButton(
-                selectedFile2,
-                setSelectedFile2,
-                cardBackSideUrl,
-                2,
-              )}
-            </Grid>
-          )}
-          <Grid>
-            <Grid
-              p={1}
-              sx={classes.container}
-              component="label"
-              htmlFor="fileInput2"
+        {selectedFile1 && (
+          <Typography
+            sx={{
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              width: "300px",
+            }}
+            color="#595F63"
+            variant="bodySmall"
+          >
+            File Name : {selectedFile1?.name}
+          </Typography>
+        )}
+        {selectedFile1 && (
+          <Grid width={"100%"} columnGap={2} container>
+            <Button
+              startIcon={<EditOutlinedIcon />}
+              variant="outlined"
+              onClick={triggerFileInput}
             >
-              <input
-                type="file"
-                id="fileInput2"
-                style={classes.none}
-                onChange={handleFileChange2}
-                onClick={(event) => handleClick(event)}
-              />
-              {!selectedFile2 ? (
-                cardBackSideUrl ? (
-                  <img
-                    src={cardBackSideUrl}
-                    alt="File Preview"
-                    style={classes.filepreview}
-                  />
-                ) : (
-                  <img src={uploadDocLogo} />
+              <Typography variant="bodySmall">Change</Typography>
+            </Button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange1}
+              onClick={(event) => event.stopPropagation()}
+            />
 
-                  // <CloudUploadOutlinedIcon
-                  //   style={classes.cloudicon}
-                  //   sx={{ width: "50px", height: "50px" }}
-                  // />
-                )
-              ) : (
-                <img
-                  src={filePreview2}
-                  alt="File Preview"
-                  style={classes.filepreview}
-                />
-              )}
-              {/* {!selectedFile2 ? (
-                <CloudUploadOutlinedIcon
-                  className={classes.cloudicon}
-                  sx={{ width: "50px", height: "50px" }}
-                />
-              ) : (
-                <img src={filePreview2} alt="File Preview" className={classes.filepreview} />
-              )} */}
-            </Grid>
-            <Grid>
-              <Grid container columnSpacing={2}>
-                <Grid sx={classes.previewName}>
-                  {/* <Typography variant="title2" noWrap m={2} fontWeight={500}>
-                    {selectedFile2
-                      ? `${selectedFile2.name} `
-                      : "Select a file or drag and drop here"}
-                  </Typography> */}
-                  {selectedFile2 ? (
-                    <Typography
-                      variant="bodySmall"
-                      noWrap
-                      m={2}
-                      fontWeight={500}
-                    >
-                      {selectedFile2.name}
-                    </Typography>
-                  ) : (
-                    !cardBackSideUrl && (
-                      <Typography
-                        variant="bodySmall"
-                        noWrap
-                        m={2}
-                        fontWeight={500}
-                      >
-                        Click to upload or drag and dropddd
-                      </Typography>
-                    )
-                  )}
-                </Grid>
-              </Grid>
-              {/* {!selectedFile2 && (
-                <Grid item xs={12} mt={1} className={classes.gridItem}>
-                  <Typography variant="caption" className={classes.captionheading}>
-                    JPG and PNG, file size no more than 10MB
-                  </Typography>
-                </Grid>
-              )} */}
-              {!selectedFile2 && !cardBackSideUrl && (
-                <Grid mt={1} sx={classes.gridItem}>
-                  <Typography variant="caption" sx={classes.captionheading}>
-                    JPG or PNG
-                  </Typography>
-                </Grid>
-              )}
-            </Grid>
+            <Button
+              onClick={() => renderCloseButton(setSelectedFile1, 1)}
+              startIcon={<DeleteOutlineOutlinedIcon />}
+              variant="outlined"
+            >
+              <Typography variant="bodySmall">Remove</Typography>
+            </Button>
           </Grid>
-        </Grid>
+        )}
       </Grid>
     </Grid>
   );
