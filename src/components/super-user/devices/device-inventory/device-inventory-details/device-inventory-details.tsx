@@ -25,6 +25,15 @@ const DeviceInventoryDetails = () => {
   const { deviceId } = useParams();
   const navigate = useNavigate();
   const [detailType, setDetailType] = useState(DeviceDetailsType.OVERVIEW);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleSave = () => {
+    setIsEditMode(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditMode(false);
+  };
 
   return (
     <Grid
@@ -48,7 +57,6 @@ const DeviceInventoryDetails = () => {
           IL20_25169
         </Typography>
         <Typography color="#74797B" variant="bodySmall" fontWeight={400}>
-          {" "}
           {deviceId}
         </Typography>
       </Grid>
@@ -64,7 +72,7 @@ const DeviceInventoryDetails = () => {
         <Grid>
           <Switcher
             options={["Overview", "Active Patients Schedule", "Activity Log"]}
-            buttonWidth={"218px"}
+            buttonWidth={"207px"}
             variant={"light"}
             onChange={(option: string): void => {
               setDetailType(option as DeviceDetailsType);
@@ -72,29 +80,50 @@ const DeviceInventoryDetails = () => {
           />
         </Grid>
         {detailType === DeviceDetailsType.OVERVIEW && (
-          <Grid container alignContent={"center"}>
-            <Button
-              variant="outlined"
-              startIcon={<ArchiveOutlinedIcon sx={{ color: "black" }} />}
-              onClick={() => {}}
-              sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
-            >
-              Archive Device
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<EditOutlinedIcon />}
-              onClick={() => {}}
-              sx={{
-                mr: 1,
-                borderColor: "#C9CBCC",
-                color: "black",
-                background: "#F1F8FF",
-              }}
-            >
-              Edit Details
-            </Button>
-          </Grid>
+          <>
+            {isEditMode ? (
+              <Grid container alignContent={"center"}>
+                <Button
+                  variant="outlined"
+                  onClick={handleCancel}
+                  sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{ background: "#106DCC" }}
+                  onClick={handleSave}
+                >
+                  <Typography variant="bodySmall">Save Changes</Typography>
+                </Button>
+              </Grid>
+            ) : (
+              <Grid container alignContent={"center"}>
+                <Button
+                  variant="outlined"
+                  startIcon={<ArchiveOutlinedIcon sx={{ color: "black" }} />}
+                  onClick={() => {}}
+                  sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
+                >
+                  Archive Device
+                </Button>
+                <Button
+                  variant="outlined"
+                  startIcon={<EditOutlinedIcon />}
+                  onClick={() => setIsEditMode(true)}
+                  sx={{
+                    mr: 1,
+                    borderColor: "#C9CBCC",
+                    color: "black",
+                    background: "#F1F8FF",
+                  }}
+                >
+                  Edit Details
+                </Button>
+              </Grid>
+            )}
+          </>
         )}
         {detailType === DeviceDetailsType.ACTIVE_PATIENT_SCHEDULE && (
           <Grid container alignContent={"center"}>
@@ -149,7 +178,7 @@ const DeviceInventoryDetails = () => {
       >
         {detailType === DeviceDetailsType.OVERVIEW && (
           <Grid container width={"100%"} borderRadius={12}>
-            <DeviceInventoryOverview />
+            <DeviceInventoryOverview isEditMode={isEditMode} />
           </Grid>
         )}
         {detailType === DeviceDetailsType.ACTIVE_PATIENT_SCHEDULE && (

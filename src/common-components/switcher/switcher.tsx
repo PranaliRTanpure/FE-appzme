@@ -38,7 +38,7 @@ const Switcher = (props: SwitcherProps) => {
 
   const StyledGridButton = styled(Grid)(() => ({
     cursor: "pointer",
-    padding: compactHeight ? "2px 10px" : "5px 10px",
+    padding: compactHeight ? "2px 5px" : "5px 5px",
     borderRadius: "12px",
     width: buttonWidth || "120px",
     height: compactHeight ? "32px" : "40px",

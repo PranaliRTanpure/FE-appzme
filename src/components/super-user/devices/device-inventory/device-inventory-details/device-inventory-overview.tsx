@@ -51,7 +51,13 @@ export const mockHeaders: TableHeaders[] = [
   { header: "Action" },
 ];
 
-const DeviceInventoryOverview = () => {
+interface DeviceInventoryOverviewProps {
+  isEditMode: boolean;
+}
+
+const DeviceInventoryOverview = ({
+  isEditMode,
+}: DeviceInventoryOverviewProps) => {
   const initialValues = {
     deviceType: "",
     pool: "",
@@ -145,6 +151,7 @@ const DeviceInventoryOverview = () => {
                         }}
                         name={field.name}
                         value={field.value}
+                        isDisabled={!isEditMode}
                       />
                     )}
                   ></Controller>
@@ -164,6 +171,7 @@ const DeviceInventoryOverview = () => {
                         onInputEmpty={() => {}}
                         name={field.name}
                         value={field.value}
+                        disableField={!isEditMode}
                       />
                     )}
                   />
@@ -189,6 +197,7 @@ const DeviceInventoryOverview = () => {
                         }}
                         name={field.name}
                         value={field.value}
+                        isDisabled={!isEditMode}
                       />
                     )}
                   ></Controller>
@@ -206,6 +215,7 @@ const DeviceInventoryOverview = () => {
                       {...field}
                       hasError={!!errors.note}
                       errorMessage={errors.note?.message || ""}
+                      isDisabled={!isEditMode}
                     />
                   )}
                 />
@@ -236,19 +246,27 @@ const DeviceInventoryOverview = () => {
             />
             <Grid container p={2} flexDirection={"column"} rowGap={2}>
               <Grid container width={"100%"}>
-                <Grid width={"20%"}>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Broken"
-                    sx={{
-                      "& .MuiFormControlLabel-label": {
-                        fontSize: "14px",
-                      },
-                    }}
-                  />
-                  :
+                <Grid
+                  container
+                  width={"20%"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <Grid>
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="Broken"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "14px",
+                        },
+                      }}
+                      disabled={!isEditMode}
+                    />
+                  </Grid>
+                  <Grid pr={1.2}>:</Grid>
                 </Grid>
-                <Grid flex={1} width={"79%"}>
+                <Grid flex={1} width={"79%"} pl={1}>
                   <Controller
                     control={control}
                     name="brokenInput"
@@ -257,27 +275,38 @@ const DeviceInventoryOverview = () => {
                         {...field}
                         value={field.value.trim() || ""}
                         placeholder={"Add note"}
-                        hasError={!!errors.brokenInput}
-                        errorMessage={errors.brokenInput?.message as string}
+                        hasError={!!errors.PhysicallyBrokenInput}
+                        errorMessage={
+                          errors.PhysicallyBrokenInput?.message as string
+                        }
+                        disableField={!isEditMode}
                       />
                     )}
                   />
                 </Grid>
               </Grid>
               <Grid container width={"100%"}>
-                <Grid width={"20%"} border={0}>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Possibly Broken "
-                    sx={{
-                      "& .MuiFormControlLabel-label": {
-                        fontSize: "14px",
-                      },
-                    }}
-                  />
-                  :
+                <Grid
+                  container
+                  width={"20%"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <Grid>
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="Possibly Broken"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "14px",
+                        },
+                      }}
+                      disabled={!isEditMode}
+                    />
+                  </Grid>
+                  <Grid pr={1.2}>:</Grid>
                 </Grid>
-                <Grid flex={1} width={"79%"}>
+                <Grid flex={1} width={"79%"} pl={1}>
                   <Controller
                     control={control}
                     name="PhysicallyBrokenInput"
@@ -290,25 +319,34 @@ const DeviceInventoryOverview = () => {
                         errorMessage={
                           errors.PhysicallyBrokenInput?.message as string
                         }
+                        disableField={!isEditMode}
                       />
                     )}
                   />
                 </Grid>
               </Grid>
               <Grid container width={"100%"}>
-                <Grid width={"20%"}>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Lost"
-                    sx={{
-                      "& .MuiFormControlLabel-label": {
-                        fontSize: "14px",
-                      },
-                    }}
-                  />
-                  :
+                <Grid
+                  container
+                  width={"20%"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <Grid>
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="Lost"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "14px",
+                        },
+                      }}
+                      disabled={!isEditMode}
+                    />
+                  </Grid>
+                  <Grid pr={1.2}>:</Grid>
                 </Grid>
-                <Grid flex={1} width={"79%"} flexDirection={"column"}>
+                <Grid flex={1} width={"79%"} pl={1}>
                   <Controller
                     control={control}
                     name="lostInput"
@@ -317,27 +355,38 @@ const DeviceInventoryOverview = () => {
                         {...field}
                         value={field.value.trim() || ""}
                         placeholder={"Add note"}
-                        hasError={!!errors.lostInput}
-                        errorMessage={errors.lostInput?.message as string}
+                        hasError={!!errors.PhysicallyBrokenInput}
+                        errorMessage={
+                          errors.PhysicallyBrokenInput?.message as string
+                        }
+                        disableField={!isEditMode}
                       />
                     )}
                   />
                 </Grid>
               </Grid>
               <Grid container width={"100%"}>
-                <Grid width={"20%"}>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Retired"
-                    sx={{
-                      "& .MuiFormControlLabel-label": {
-                        fontSize: "14px",
-                      },
-                    }}
-                  />
-                  :
+                <Grid
+                  container
+                  width={"20%"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <Grid>
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="Retired"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "14px",
+                        },
+                      }}
+                      disabled={!isEditMode}
+                    />
+                  </Grid>
+                  <Grid pr={1.2}>:</Grid>
                 </Grid>
-                <Grid flex={1} width={"79%"}>
+                <Grid flex={1} width={"79%"} pl={1}>
                   <Controller
                     control={control}
                     name="retiredInput"
@@ -346,8 +395,11 @@ const DeviceInventoryOverview = () => {
                         {...field}
                         value={field.value.trim() || ""}
                         placeholder={"Add note"}
-                        hasError={!!errors.retiredInput}
-                        errorMessage={errors.retiredInput?.message as string}
+                        hasError={!!errors.PhysicallyBrokenInput}
+                        errorMessage={
+                          errors.PhysicallyBrokenInput?.message as string
+                        }
+                        disableField={!isEditMode}
                       />
                     )}
                   />
