@@ -30,7 +30,7 @@ import CustomInput from "../../../../common-components/custom-input/custom-input
 import deviceInventoryList from "../../../../mock-data/device-inventory.json";
 import AddDeviceInventory from "./add-device-inventory";
 
-export const mockHeaders: TableHeaders[] = [
+export const Headers: TableHeaders[] = [
   { header: "Device Name" },
   { header: "Serial Number" },
   { header: "Pool" },
@@ -164,7 +164,7 @@ const DevicesInventory = () => {
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
                   <TableHead>
                     <TableRow>
-                      {mockHeaders.map((header, index) => (
+                      {Headers.map((header, index) => (
                         <TableCell
                           sx={{
                             ...heading,
