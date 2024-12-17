@@ -63,11 +63,13 @@ const DeviceInventoryDetails = () => {
       {/* Grid 2 */}
       <Grid
         container
-        sx={{ background: "white" }}
+        sx={{ background: "white", position: "sticky" }}
         p={2}
         justifyContent={"space-between"}
         borderBottom={"1px solid #E7E7E7"}
         width={"100%"}
+        rowGap={1}
+        columnGap={0.2}
       >
         <Grid>
           <Switcher
@@ -144,6 +146,7 @@ const DeviceInventoryDetails = () => {
             alignContent={"center"}
             columnGap={1}
             justifyContent={"space-between"}
+            rowGap={1}
           >
             <Grid mt={1}>
               <Typography variant="bodyMedium">Set Date Range</Typography>

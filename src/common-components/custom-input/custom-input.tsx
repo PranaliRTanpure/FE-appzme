@@ -156,7 +156,7 @@ export default function CustomInput(props: CustomInputProps) {
   };
 
   return (
-    <Grid container flexDirection={"column"}>
+    <Grid container flexDirection={"column"} width={"100%"}>
       <InputBase
         fullWidth
         className="popper-area"

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import { TableHeaders } from "../../../../../common-components/table/table-models";
 import {
   Link,
@@ -29,13 +29,25 @@ export const mockHeaders: TableHeaders[] = [
 ];
 
 const ActivePatientSchedule = () => {
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowHeight900 = useMediaQuery("(max-height:900px)");
   return (
-    <Grid container width={"100%"} height={"100%"}>
+    <Grid
+      container
+      width={"100%"}
+      height={belowHeight768 ? "500px" : belowHeight900 ? "680px" : "100%"}
+      sx={{ overflowY: "scroll" }}
+    >
       <Grid container width={"100%"}>
         <TableContainer
           sx={{
-            maxHeight: "70vh",
+            maxHeight: belowHeight768
+              ? "50vh"
+              : belowHeight900
+                ? "67vh"
+                : "70vh",
             overflowY: "scroll",
+            borderBottom: "1px solid #E7E7E7",
           }}
         >
           <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
@@ -184,12 +196,7 @@ const ActivePatientSchedule = () => {
           </Table>
         </TableContainer>
       </Grid>
-      <Grid
-        p={1}
-        width={"100%"}
-        container
-        sx={{ borderTop: "1px solid #E7E7E7" }}
-      >
+      <Grid p={1} width={"100%"} container>
         <Paginator
           page={0}
           totalPages={5}
@@ -202,5 +209,4 @@ const ActivePatientSchedule = () => {
     </Grid>
   );
 };
-
 export default ActivePatientSchedule;
