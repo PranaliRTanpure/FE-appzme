@@ -338,7 +338,7 @@ const DeviceManufacturers = () => {
         title={
           selectedAction === "Edit" ? "Edit Manufactures" : "Add Manufactures"
         }
-        onClose={() => SetIsFormOpen(false)}
+        showMandatoryIndicator={true}
       >
         <DeviceManufacturersForm />
       </CustomDrawer>
