@@ -18,6 +18,7 @@ import PatientsRegistration from "../pages/super-user-portal/patients/patients-r
 import DeviceInventoryDetails from "../components/super-user/devices/device-inventory/device-inventory-details/device-inventory-details";
 import DeviceSchedulling from "../components/super-user/devices/device-scheduling/device-scheduling";
 import DeviceManufacturersPage from "../pages/super-user-portal/devices/device-manufacturers-page";
+import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -53,9 +54,10 @@ export const router = createBrowserRouter([
         path: "devices",
         element: <Outlet />,
         children: [
-          { path: "", element: <DeviceManufacturersPage /> },
+          { path: "inventory", element: <DevicesRegistration /> },
           { path: ":deviceId", element: <DeviceInventoryDetails /> },
           { path: "scheduling", element: <DeviceSchedulling /> },
+          { path: "manufacturers", element: <DeviceManufacturersPage /> },
         ],
       },
     ],
