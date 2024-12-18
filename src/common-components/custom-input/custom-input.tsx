@@ -1,7 +1,6 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   alpha,
-  Grid,
   IconButton,
   InputAdornment,
   InputBase,
@@ -15,6 +14,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDebounce } from "use-debounce";
 import { customInputStyles, errorStyle } from "./widgets/custom-input-styles";
+import { Grid } from "@mui/system";
 
 interface CustomInputProps {
   placeholder: string;
@@ -156,7 +156,7 @@ export default function CustomInput(props: CustomInputProps) {
   };
 
   return (
-    <Grid container flexDirection={"column"}>
+    <Grid container flexDirection={"column"} width={"100%"}>
       <InputBase
         fullWidth
         className="popper-area"

@@ -158,7 +158,7 @@ const DevicesInventory = () => {
               <TableContainer
                 sx={{
                   maxHeight: belowHeight768 ? "63vh" : "76vh",
-                  overflowY: "scroll",
+                  overflowY: "auto",
                 }}
               >
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
