@@ -30,7 +30,7 @@ const useMenu = () => {
       disabled: false,
       menuList: [
         { name: "Inventory", path: "/super-user/devices" },
-        { name: "Calendar", path: "/super-user/devices" },
+        { name: "Device Scheduling", path: "/super-user/devices/scheduling" },
       ],
     },
   ];
