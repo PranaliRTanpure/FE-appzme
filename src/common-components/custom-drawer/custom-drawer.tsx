@@ -4,6 +4,7 @@ import { Grid } from "@mui/system";
 import { theme } from "../../utils/theme";
 import { gridHeader } from "./custom-drawer.widgets";
 import React from "react";
+import { customLabelStyles } from "../custom-label/widgets/custom-label-styles";
 
 interface DrawerProps {
   anchor: "left" | "top" | "right" | "bottom";
@@ -11,12 +12,19 @@ interface DrawerProps {
   title: string;
   drawerWidth?: string;
   drawerPadding?: string;
-  onClose: () => void;
+  onClose?: () => void;
   headerStyle?: string;
+  showCloseButton?: boolean;
+  showMandatoryIndicator?: boolean;
 }
 
 const CustomDrawer = (props: React.PropsWithChildren<DrawerProps>) => {
-  const { drawerWidth, drawerPadding } = props;
+  const {
+    drawerWidth,
+    drawerPadding,
+    showCloseButton = true,
+    showMandatoryIndicator = false,
+  } = props;
   const belowLg = useMediaQuery(theme.breakpoints.down("lg")) && !drawerWidth;
   const below768 = useMediaQuery("(max-width:768px)");
 
@@ -39,11 +47,24 @@ const CustomDrawer = (props: React.PropsWithChildren<DrawerProps>) => {
               {props.title}
             </Typography>
           </Grid>
-          <Grid>
-            <IconButton onClick={props.onClose}>
-              <CloseOutlinedIcon />
-            </IconButton>
-          </Grid>
+          {showCloseButton && props.onClose && (
+            <Grid>
+              <IconButton onClick={props.onClose}>
+                <CloseOutlinedIcon />
+              </IconButton>
+            </Grid>
+          )}
+          {showMandatoryIndicator && (
+            <Grid container columnGap={1}>
+              <span style={customLabelStyles.required}>*</span>
+              <Typography
+                variant="bodySmall"
+                sx={{ color: theme.palette.common.black }}
+              >
+                Indicates Mandatory Fields{" "}
+              </Typography>
+            </Grid>
+          )}
         </Grid>
         <Grid
           mt={2}
