@@ -98,7 +98,7 @@ const DeviceInventoryOverview = ({
       container
       width={"100%"}
       height={belowHeight768 ? "500px" : belowHeight900 ? "600px" : "100%"}
-      sx={{ overflowY: "scroll" }}
+      sx={{ overflowY: "auto" }}
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -515,7 +515,7 @@ const DeviceInventoryOverview = ({
               <TableContainer
                 sx={{
                   maxHeight: "200px",
-                  overflowY: "scroll",
+                  overflowY: "auto",
                   border: "1px solid #E7E7E7",
                   borderRadius: "12px",
                 }}

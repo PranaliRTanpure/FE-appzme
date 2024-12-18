@@ -33,7 +33,7 @@ const ActiveLog = () => {
       container
       width={"100%"}
       height={belowHeight768 ? "500px" : belowHeight900 ? "600px" : "100%"}
-      sx={{ overflowY: "scroll" }}
+      sx={{ overflowY: "auto" }}
     >
       <Grid container width={"100%"}>
         {deviceInventoryActivityLogList.length > 0 ? (
@@ -44,7 +44,7 @@ const ActiveLog = () => {
                 : belowHeight900
                   ? "58vh"
                   : "70vh",
-              overflowY: "scroll",
+              overflowY: "auto",
               borderBottom: "1px solid #E7E7E7",
             }}
           >

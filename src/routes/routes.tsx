@@ -14,9 +14,10 @@ import ProviderSettingsMaster from "../pages/provider-portal/settings/provider-s
 import ProviderListPage from "../pages/provider-portal/users/provider-list-page";
 import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
-import DevicesRegistration from "../pages/super-user-portal/devices/devices";
+// import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
 import DeviceInventoryDetails from "../components/super-user/devices/device-inventory/device-inventory-details/device-inventory-details";
+import DeviceManufacturersPage from "../pages/super-user-portal/devices/device-manufacturers-page";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
         path: "devices",
         element: <Outlet />,
         children: [
-          { path: "", element: <DevicesRegistration /> },
+          { path: "", element: <DeviceManufacturersPage /> },
           { path: ":deviceId", element: <DeviceInventoryDetails /> },
         ],
       },
