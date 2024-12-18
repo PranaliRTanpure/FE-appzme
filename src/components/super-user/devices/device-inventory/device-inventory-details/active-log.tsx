@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/system";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import { TableHeaders } from "../../../../../common-components/table/table-models";
 import Paginator from "../../../../../common-components/paginator/paginator";
 import {
@@ -26,14 +26,26 @@ export const mockHeaders: TableHeaders[] = [
 ];
 
 const ActiveLog = () => {
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowHeight900 = useMediaQuery("(max-height:900px)");
   return (
-    <Grid container width={"100%"} height={"100%"}>
+    <Grid
+      container
+      width={"100%"}
+      height={belowHeight768 ? "500px" : belowHeight900 ? "600px" : "100%"}
+      sx={{ overflowY: "scroll" }}
+    >
       <Grid container width={"100%"}>
         {deviceInventoryActivityLogList.length > 0 ? (
           <TableContainer
             sx={{
-              maxHeight: "70vh",
+              maxHeight: belowHeight768
+                ? "50vh"
+                : belowHeight900
+                  ? "58vh"
+                  : "70vh",
               overflowY: "scroll",
+              borderBottom: "1px solid #E7E7E7",
             }}
           >
             <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
@@ -161,12 +173,7 @@ const ActiveLog = () => {
       </Grid>
       {/* Pagination */}
       {deviceInventoryActivityLogList.length > 0 && (
-        <Grid
-          p={1}
-          width={"100%"}
-          container
-          sx={{ borderTop: "1px solid #E7E7E7" }}
-        >
+        <Grid p={1} width={"100%"} container>
           <Paginator
             page={0}
             totalPages={5}

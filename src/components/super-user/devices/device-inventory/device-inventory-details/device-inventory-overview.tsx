@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import { theme } from "../../../../../utils/theme";
 import CustomLabel from "../../../../../common-components/custom-label/custom-label";
 import CustomSelect from "../../../../../common-components/custom-select/customSelect";
@@ -58,6 +58,12 @@ interface DeviceInventoryOverviewProps {
 const DeviceInventoryOverview = ({
   isEditMode,
 }: DeviceInventoryOverviewProps) => {
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowHeight900 = useMediaQuery("(max-height:900px)");
+  const belowWidth1440 = useMediaQuery("(max-width:1440px)");
+  const belowWidth1366 = useMediaQuery("(max-width:1366px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
+
   const initialValues = {
     deviceType: "",
     pool: "",
@@ -88,459 +94,546 @@ const DeviceInventoryOverview = ({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ width: "100%", height: "100%" }}
+    <Grid
+      container
+      width={"100%"}
+      height={belowHeight768 ? "500px" : belowHeight900 ? "600px" : "100%"}
+      sx={{ overflowY: "scroll" }}
     >
-      <Grid
-        container
-        sx={{ background: "#F9FAFB" }}
-        width={"100%"}
-        height={"100%"}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ width: "100%", height: "100%" }}
       >
         <Grid
           container
-          justifyContent={"space-between"}
-          borderBottom={"1px solid #E7E7E7"}
-          pb={5}
-          pt={2}
-          pr={2}
-          pl={2}
+          sx={{ background: "#F9FAFB" }}
           width={"100%"}
+          height={"100%"}
         >
-          {/* Grid 1 */}
           <Grid
             container
-            border={"1px solid #E7E7E7"}
-            borderRadius={2}
-            width={"49.5%"}
-            flexDirection={"column"}
+            justifyContent={"space-between"}
+            borderBottom={"1px solid #E7E7E7"}
+            pb={5}
+            pt={2}
+            pr={2}
+            pl={2}
+            width={"100%"}
           >
-            <Grid p={2}>
-              <Typography variant="bodyMedium">Basic Details</Typography>
-            </Grid>
-            <Divider
-              sx={{
-                margin: "2px",
-                background: theme.palette.common.white,
-              }}
-              orientation="horizontal"
-              variant="middle"
-              flexItem
-            />
-            <Grid p={2}>
-              <Grid container justifyContent={"space-between"} width={"100%"}>
-                <Grid width={"32.5%"}>
-                  <CustomLabel label="Device Type" />
-                  <Controller
-                    control={control}
-                    name="deviceType"
-                    render={({ field }) => (
-                      <CustomSelect
-                        placeholder={"Select Device"}
-                        enableDeselect
-                        items={[{ value: "active", label: "Active" }]}
-                        hasError={!!errors.deviceType}
-                        errorMessage={errors.deviceType?.message as string}
-                        onChange={function (
-                          e: SelectChangeEvent<string>,
-                        ): void {
-                          setValue("deviceType", e.target.value, {
-                            shouldValidate: true,
-                          });
-                        }}
-                        name={field.name}
-                        value={field.value}
-                        isDisabled={!isEditMode}
-                      />
-                    )}
-                  ></Controller>
+            {/* Grid 1 */}
+            <Grid
+              container
+              border={"1px solid #E7E7E7"}
+              borderRadius={2}
+              width={"49.5%"}
+              flexDirection={"column"}
+            >
+              <Grid p={2}>
+                <Typography variant="bodyMedium">Basic Details</Typography>
+              </Grid>
+              <Divider
+                sx={{
+                  margin: "2px",
+                  background: theme.palette.common.white,
+                }}
+                orientation="horizontal"
+                variant="middle"
+                flexItem
+              />
+              <Grid p={2}>
+                <Grid container justifyContent={"space-between"} width={"100%"}>
+                  <Grid width={"32.5%"}>
+                    <CustomLabel label="Device Type" />
+                    <Controller
+                      control={control}
+                      name="deviceType"
+                      render={({ field }) => (
+                        <CustomSelect
+                          placeholder={"Select Device"}
+                          enableDeselect
+                          items={[{ value: "active", label: "Active" }]}
+                          hasError={!!errors.deviceType}
+                          errorMessage={errors.deviceType?.message as string}
+                          onChange={function (
+                            e: SelectChangeEvent<string>,
+                          ): void {
+                            setValue("deviceType", e.target.value, {
+                              shouldValidate: true,
+                            });
+                          }}
+                          name={field.name}
+                          value={field.value}
+                          isDisabled={!isEditMode}
+                        />
+                      )}
+                    ></Controller>
+                  </Grid>
+                  <Grid width={"32.5%"}>
+                    <CustomLabel label="Serial Number" />
+                    <Controller
+                      control={control}
+                      name="serialNo"
+                      render={({ field }) => (
+                        <CustomInput
+                          placeholder={"Enter Serial Number"}
+                          hasError={!!errors.serialNo}
+                          errorMessage={errors.serialNo?.message as string}
+                          onChange={() => {}}
+                          onDebounceCall={() => {}}
+                          onInputEmpty={() => {}}
+                          name={field.name}
+                          value={field.value}
+                          disableField={!isEditMode}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid width={"32.5%"}>
+                    <CustomLabel label="Pool" />
+                    <Controller
+                      control={control}
+                      name="pool"
+                      render={({ field }) => (
+                        <CustomSelect
+                          placeholder={"Select Pool"}
+                          enableDeselect
+                          items={[{ value: "active", label: "Active" }]}
+                          hasError={!!errors.pool}
+                          errorMessage={errors.pool?.message as string}
+                          onChange={function (
+                            e: SelectChangeEvent<string>,
+                          ): void {
+                            setValue("pool", e.target.value, {
+                              shouldValidate: true,
+                            });
+                          }}
+                          name={field.name}
+                          value={field.value}
+                          isDisabled={!isEditMode}
+                        />
+                      )}
+                    ></Controller>
+                  </Grid>
                 </Grid>
-                <Grid width={"32.5%"}>
-                  <CustomLabel label="Serial Number" />
+                <Grid pt={3}>
+                  <CustomLabel label="Notes" />
                   <Controller
                     control={control}
-                    name="serialNo"
+                    name="note"
                     render={({ field }) => (
-                      <CustomInput
-                        placeholder={"Enter Serial Number"}
-                        hasError={!!errors.serialNo}
-                        errorMessage={errors.serialNo?.message as string}
-                        onChange={() => {}}
-                        onDebounceCall={() => {}}
-                        onInputEmpty={() => {}}
-                        name={field.name}
-                        value={field.value}
-                        disableField={!isEditMode}
+                      <CustomTextArea
+                        placeholder={"Add Note"}
+                        minRow={4}
+                        {...field}
+                        hasError={!!errors.note}
+                        errorMessage={errors.note?.message || ""}
+                        isDisabled={!isEditMode}
                       />
                     )}
                   />
                 </Grid>
-                <Grid width={"32.5%"}>
-                  <CustomLabel label="Pool" />
-                  <Controller
-                    control={control}
-                    name="pool"
-                    render={({ field }) => (
-                      <CustomSelect
-                        placeholder={"Select Pool"}
-                        enableDeselect
-                        items={[{ value: "active", label: "Active" }]}
-                        hasError={!!errors.pool}
-                        errorMessage={errors.pool?.message as string}
-                        onChange={function (
-                          e: SelectChangeEvent<string>,
-                        ): void {
-                          setValue("pool", e.target.value, {
-                            shouldValidate: true,
-                          });
-                        }}
-                        name={field.name}
-                        value={field.value}
-                        isDisabled={!isEditMode}
-                      />
-                    )}
-                  ></Controller>
-                </Grid>
               </Grid>
-              <Grid pt={3}>
-                <CustomLabel label="Notes" />
-                <Controller
-                  control={control}
-                  name="note"
-                  render={({ field }) => (
-                    <CustomTextArea
-                      placeholder={"Add Note"}
-                      minRow={4}
-                      {...field}
-                      hasError={!!errors.note}
-                      errorMessage={errors.note?.message || ""}
-                      isDisabled={!isEditMode}
+            </Grid>
+            {/* Grid 2 */}
+            <Grid
+              container
+              border={"1px solid #E7E7E7"}
+              borderRadius={2}
+              width={"49.5%"}
+              flexDirection={"column"}
+            >
+              <Grid p={2}>
+                <Typography variant="bodyMedium" fontWeight={500}>
+                  Device Status
+                </Typography>
+              </Grid>
+              <Divider
+                sx={{
+                  margin: "2px",
+                  background: theme.palette.common.white,
+                }}
+                orientation="horizontal"
+                variant="middle"
+                flexItem
+              />
+              <Grid container p={2} flexDirection={"column"} rowGap={2}>
+                <Grid container width={"100%"}>
+                  <Grid
+                    container
+                    width={
+                      belowWidth1024
+                        ? "39%"
+                        : belowWidth1366
+                          ? "30%"
+                          : belowWidth1440
+                            ? "28%"
+                            : "20%"
+                    }
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <Grid>
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Broken"
+                        sx={{
+                          "& .MuiFormControlLabel-label": {
+                            fontSize: "14px",
+                          },
+                        }}
+                        disabled={!isEditMode}
+                      />
+                    </Grid>
+                    <Grid pr={1.2}>:</Grid>
+                  </Grid>
+                  <Grid
+                    flex={1}
+                    width={
+                      belowWidth1024
+                        ? "60%"
+                        : belowWidth1366
+                          ? "69%"
+                          : belowWidth1440
+                            ? "71%"
+                            : "79%"
+                    }
+                    pl={1}
+                  >
+                    <Controller
+                      control={control}
+                      name="brokenInput"
+                      render={({ field }) => (
+                        <CustomInput
+                          {...field}
+                          value={field.value.trim() || ""}
+                          placeholder={"Add note"}
+                          hasError={!!errors.PhysicallyBrokenInput}
+                          errorMessage={
+                            errors.PhysicallyBrokenInput?.message as string
+                          }
+                          disableField={!isEditMode}
+                        />
+                      )}
                     />
-                  )}
-                />
+                  </Grid>
+                </Grid>
+                <Grid container width={"100%"}>
+                  <Grid
+                    container
+                    width={
+                      belowWidth1024
+                        ? "39%"
+                        : belowWidth1366
+                          ? "30%"
+                          : belowWidth1440
+                            ? "28%"
+                            : "20%"
+                    }
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <Grid>
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Possibly Broken"
+                        sx={{
+                          "& .MuiFormControlLabel-label": {
+                            fontSize: "14px",
+                          },
+                        }}
+                        disabled={!isEditMode}
+                      />
+                    </Grid>
+                    <Grid pr={1.2}>:</Grid>
+                  </Grid>
+                  <Grid
+                    flex={1}
+                    width={
+                      belowWidth1024
+                        ? "60%"
+                        : belowWidth1366
+                          ? "69%"
+                          : belowWidth1440
+                            ? "71%"
+                            : "79%"
+                    }
+                    pl={1}
+                  >
+                    <Controller
+                      control={control}
+                      name="PhysicallyBrokenInput"
+                      render={({ field }) => (
+                        <CustomInput
+                          {...field}
+                          value={field.value.trim() || ""}
+                          placeholder={"Add note"}
+                          hasError={!!errors.PhysicallyBrokenInput}
+                          errorMessage={
+                            errors.PhysicallyBrokenInput?.message as string
+                          }
+                          disableField={!isEditMode}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container width={"100%"}>
+                  <Grid
+                    container
+                    width={
+                      belowWidth1024
+                        ? "39%"
+                        : belowWidth1366
+                          ? "30%"
+                          : belowWidth1440
+                            ? "28%"
+                            : "20%"
+                    }
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <Grid>
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Lost"
+                        sx={{
+                          "& .MuiFormControlLabel-label": {
+                            fontSize: "14px",
+                          },
+                        }}
+                        disabled={!isEditMode}
+                      />
+                    </Grid>
+                    <Grid pr={1.2}>:</Grid>
+                  </Grid>
+                  <Grid
+                    flex={1}
+                    width={
+                      belowWidth1024
+                        ? "60%"
+                        : belowWidth1366
+                          ? "69%"
+                          : belowWidth1440
+                            ? "71%"
+                            : "79%"
+                    }
+                    pl={1}
+                  >
+                    <Controller
+                      control={control}
+                      name="lostInput"
+                      render={({ field }) => (
+                        <CustomInput
+                          {...field}
+                          value={field.value.trim() || ""}
+                          placeholder={"Add note"}
+                          hasError={!!errors.PhysicallyBrokenInput}
+                          errorMessage={
+                            errors.PhysicallyBrokenInput?.message as string
+                          }
+                          disableField={!isEditMode}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container width={"100%"}>
+                  <Grid
+                    container
+                    width={
+                      belowWidth1024
+                        ? "39%"
+                        : belowWidth1366
+                          ? "30%"
+                          : belowWidth1440
+                            ? "28%"
+                            : "20%"
+                    }
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <Grid>
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Retired"
+                        sx={{
+                          "& .MuiFormControlLabel-label": {
+                            fontSize: "14px",
+                          },
+                        }}
+                        disabled={!isEditMode}
+                      />
+                    </Grid>
+                    <Grid pr={1.2}>:</Grid>
+                  </Grid>
+                  <Grid
+                    flex={1}
+                    width={
+                      belowWidth1024
+                        ? "60%"
+                        : belowWidth1366
+                          ? "69%"
+                          : belowWidth1440
+                            ? "71%"
+                            : "79%"
+                    }
+                    pl={1}
+                  >
+                    <Controller
+                      control={control}
+                      name="retiredInput"
+                      render={({ field }) => (
+                        <CustomInput
+                          {...field}
+                          value={field.value.trim() || ""}
+                          placeholder={"Add note"}
+                          hasError={!!errors.PhysicallyBrokenInput}
+                          errorMessage={
+                            errors.PhysicallyBrokenInput?.message as string
+                          }
+                          disableField={!isEditMode}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-          {/* Grid 2 */}
-          <Grid
-            container
-            border={"1px solid #E7E7E7"}
-            borderRadius={2}
-            width={"49.5%"}
-            flexDirection={"column"}
-          >
-            <Grid p={2}>
-              <Typography variant="bodyMedium" fontWeight={500}>
-                Device Status
+          {/* Table */}
+          <Grid width={"100%"} container flexDirection={"column"} pb={3}>
+            <Grid pl={2} pr={2} pt={2.5}>
+              <Typography
+                fontWeight={500}
+                variant="bodyMedium"
+                sx={{ color: "#21262B" }}
+              >
+                Device Appointment Status
               </Typography>
             </Grid>
-            <Divider
-              sx={{
-                margin: "2px",
-                background: theme.palette.common.white,
-              }}
-              orientation="horizontal"
-              variant="middle"
-              flexItem
-            />
-            <Grid container p={2} flexDirection={"column"} rowGap={2}>
-              <Grid container width={"100%"}>
-                <Grid
-                  container
-                  width={"20%"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <Grid>
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Broken"
-                      sx={{
-                        "& .MuiFormControlLabel-label": {
-                          fontSize: "14px",
-                        },
-                      }}
-                      disabled={!isEditMode}
-                    />
-                  </Grid>
-                  <Grid pr={1.2}>:</Grid>
-                </Grid>
-                <Grid flex={1} width={"79%"} pl={1}>
-                  <Controller
-                    control={control}
-                    name="brokenInput"
-                    render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        value={field.value.trim() || ""}
-                        placeholder={"Add note"}
-                        hasError={!!errors.PhysicallyBrokenInput}
-                        errorMessage={
-                          errors.PhysicallyBrokenInput?.message as string
-                        }
-                        disableField={!isEditMode}
-                      />
+            <Grid width={"100%"} pl={2} pr={2} pt={2}>
+              <TableContainer
+                sx={{
+                  maxHeight: "200px",
+                  overflowY: "scroll",
+                  border: "1px solid #E7E7E7",
+                  borderRadius: "12px",
+                }}
+              >
+                <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
+                  <TableHead>
+                    <TableRow>
+                      {mockHeaders.map((header, index) => (
+                        <TableCell
+                          sx={{
+                            ...heading,
+                            minWidth: header.minWidth
+                              ? header.minWidth
+                              : "inherit",
+                            maxWidth: header.maxWidth
+                              ? header.maxWidth
+                              : "inherit",
+                          }}
+                          align="left"
+                          key={index}
+                        >
+                          <Grid
+                            pr={4}
+                            container
+                            flexDirection={"column"}
+                            alignContent={
+                              header.header === "Status"
+                                ? "flex-end"
+                                : "flex-start"
+                            }
+                          >
+                            <Typography variant="bodySmall">
+                              {header.header}
+                            </Typography>
+                          </Grid>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {deviceInventoryOverviewList.length > 0 ? (
+                      deviceInventoryOverviewList.map((list, index) => (
+                        <TableRow key={index}>
+                          <TableCell sx={{ ...heading }} align="left">
+                            <Grid container flexDirection={"column"}>
+                              <Grid container flexDirection={"column"}>
+                                <Typography
+                                  fontWeight={500}
+                                  color="#21262B"
+                                  variant="bodySmall"
+                                >
+                                  {list?.deviceStatus}
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                          </TableCell>
+                          <TableCell sx={{ ...heading }} align="left">
+                            <Grid container flexDirection={"column"}>
+                              <Typography
+                                sx={typographyCss}
+                                variant="bodySmall"
+                                color="#21262B"
+                                fontWeight={400}
+                              >
+                                {list?.resultingDeviceStatus}
+                              </Typography>
+                            </Grid>
+                          </TableCell>
+                          <TableCell sx={{ ...heading }} align="left">
+                            <Grid container flexDirection={"column"}>
+                              <Link
+                                underline="always"
+                                sx={{
+                                  color: "#106DCC",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                <Typography
+                                  fontWeight={500}
+                                  color="#106DCC"
+                                  variant="bodySmall"
+                                >
+                                  {list?.patient}
+                                </Typography>
+                              </Link>
+                            </Grid>
+                          </TableCell>
+                          <TableCell sx={{ ...heading }} align="left">
+                            <Grid container flexDirection={"column"}>
+                              <Typography
+                                sx={typographyCss}
+                                variant="bodySmall"
+                                color="#21262B"
+                                fontWeight={400}
+                              >
+                                {list?.resultingDeviceStatus}
+                              </Typography>
+                            </Grid>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={9} align="center">
+                          <Typography variant="bodySmall" fontWeight={550}>
+                            No records found
+                          </Typography>
+                        </TableCell>
+                      </TableRow>
                     )}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container width={"100%"}>
-                <Grid
-                  container
-                  width={"20%"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <Grid>
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Possibly Broken"
-                      sx={{
-                        "& .MuiFormControlLabel-label": {
-                          fontSize: "14px",
-                        },
-                      }}
-                      disabled={!isEditMode}
-                    />
-                  </Grid>
-                  <Grid pr={1.2}>:</Grid>
-                </Grid>
-                <Grid flex={1} width={"79%"} pl={1}>
-                  <Controller
-                    control={control}
-                    name="PhysicallyBrokenInput"
-                    render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        value={field.value.trim() || ""}
-                        placeholder={"Add note"}
-                        hasError={!!errors.PhysicallyBrokenInput}
-                        errorMessage={
-                          errors.PhysicallyBrokenInput?.message as string
-                        }
-                        disableField={!isEditMode}
-                      />
-                    )}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container width={"100%"}>
-                <Grid
-                  container
-                  width={"20%"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <Grid>
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Lost"
-                      sx={{
-                        "& .MuiFormControlLabel-label": {
-                          fontSize: "14px",
-                        },
-                      }}
-                      disabled={!isEditMode}
-                    />
-                  </Grid>
-                  <Grid pr={1.2}>:</Grid>
-                </Grid>
-                <Grid flex={1} width={"79%"} pl={1}>
-                  <Controller
-                    control={control}
-                    name="lostInput"
-                    render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        value={field.value.trim() || ""}
-                        placeholder={"Add note"}
-                        hasError={!!errors.PhysicallyBrokenInput}
-                        errorMessage={
-                          errors.PhysicallyBrokenInput?.message as string
-                        }
-                        disableField={!isEditMode}
-                      />
-                    )}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container width={"100%"}>
-                <Grid
-                  container
-                  width={"20%"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <Grid>
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Retired"
-                      sx={{
-                        "& .MuiFormControlLabel-label": {
-                          fontSize: "14px",
-                        },
-                      }}
-                      disabled={!isEditMode}
-                    />
-                  </Grid>
-                  <Grid pr={1.2}>:</Grid>
-                </Grid>
-                <Grid flex={1} width={"79%"} pl={1}>
-                  <Controller
-                    control={control}
-                    name="retiredInput"
-                    render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        value={field.value.trim() || ""}
-                        placeholder={"Add note"}
-                        hasError={!!errors.PhysicallyBrokenInput}
-                        errorMessage={
-                          errors.PhysicallyBrokenInput?.message as string
-                        }
-                        disableField={!isEditMode}
-                      />
-                    )}
-                  />
-                </Grid>
-              </Grid>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Grid>
           </Grid>
         </Grid>
-        {/* Table */}
-        <Grid width={"100%"} container flexDirection={"column"} pb={3}>
-          <Grid pl={2} pr={2} pt={2.5}>
-            <Typography
-              fontWeight={500}
-              variant="bodyMedium"
-              sx={{ color: "#21262B" }}
-            >
-              Device Appointment Status
-            </Typography>
-          </Grid>
-          <Grid width={"100%"} pl={2} pr={2} pt={2}>
-            <TableContainer
-              sx={{
-                maxHeight: "200px",
-                overflowY: "scroll",
-                border: "1px solid #E7E7E7",
-                borderRadius: "12px",
-              }}
-            >
-              <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
-                <TableHead>
-                  <TableRow>
-                    {mockHeaders.map((header, index) => (
-                      <TableCell
-                        sx={{
-                          ...heading,
-                          minWidth: header.minWidth
-                            ? header.minWidth
-                            : "inherit",
-                          maxWidth: header.maxWidth
-                            ? header.maxWidth
-                            : "inherit",
-                        }}
-                        align="left"
-                        key={index}
-                      >
-                        <Grid
-                          pr={4}
-                          container
-                          flexDirection={"column"}
-                          alignContent={
-                            header.header === "Status"
-                              ? "flex-end"
-                              : "flex-start"
-                          }
-                        >
-                          <Typography variant="bodySmall">
-                            {header.header}
-                          </Typography>
-                        </Grid>
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {deviceInventoryOverviewList.length > 0 ? (
-                    deviceInventoryOverviewList.map((list, index) => (
-                      <TableRow key={index}>
-                        <TableCell sx={{ ...heading }} align="left">
-                          <Grid container flexDirection={"column"}>
-                            <Grid container flexDirection={"column"}>
-                              <Typography
-                                fontWeight={500}
-                                color="#21262B"
-                                variant="bodySmall"
-                              >
-                                {list?.deviceStatus}
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </TableCell>
-                        <TableCell sx={{ ...heading }} align="left">
-                          <Grid container flexDirection={"column"}>
-                            <Typography
-                              sx={typographyCss}
-                              variant="bodySmall"
-                              color="#21262B"
-                              fontWeight={400}
-                            >
-                              {list?.resultingDeviceStatus}
-                            </Typography>
-                          </Grid>
-                        </TableCell>
-                        <TableCell sx={{ ...heading }} align="left">
-                          <Grid container flexDirection={"column"}>
-                            <Link
-                              underline="always"
-                              sx={{
-                                color: "#106DCC",
-                                cursor: "pointer",
-                              }}
-                            >
-                              <Typography
-                                fontWeight={500}
-                                color="#106DCC"
-                                variant="bodySmall"
-                              >
-                                {list?.patient}
-                              </Typography>
-                            </Link>
-                          </Grid>
-                        </TableCell>
-                        <TableCell sx={{ ...heading }} align="left">
-                          <Grid container flexDirection={"column"}>
-                            <Typography
-                              sx={typographyCss}
-                              variant="bodySmall"
-                              color="#21262B"
-                              fontWeight={400}
-                            >
-                              {list?.resultingDeviceStatus}
-                            </Typography>
-                          </Grid>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={9} align="center">
-                        <Typography variant="bodySmall" fontWeight={550}>
-                          No records found
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </Grid>
   );
 };
 export default DeviceInventoryOverview;
