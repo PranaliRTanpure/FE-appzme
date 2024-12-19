@@ -37,7 +37,7 @@ export const Headers: TableHeaders[] = [
   { header: "Status" },
 ];
 
-const DevicesInventory = () => {
+const DevicesInventoryList = () => {
   const [selectedDevice] = useState("");
   const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
@@ -200,7 +200,7 @@ const DevicesInventory = () => {
                     {deviceInventoryList.length > 0 ? (
                       deviceInventoryList.map((list, index) => (
                         <TableRow key={index}>
-                          <TableCell sx={{ ...heading }} align="left">
+                          <TableCell>
                             <Grid container flexDirection={"column"}>
                               <Grid container flexDirection={"column"}>
                                 <Link
@@ -226,31 +226,27 @@ const DevicesInventory = () => {
                               </Grid>
                             </Grid>
                           </TableCell>
-                          <TableCell sx={{ ...heading }} align="left">
+                          <TableCell>
                             <Grid container flexDirection={"column"}>
                               <Typography
                                 sx={typographyCss}
                                 variant="bodySmall"
-                                color="#21262B"
-                                fontWeight={400}
                               >
                                 {list?.serialNumber}
                               </Typography>
                             </Grid>
                           </TableCell>
-                          <TableCell sx={{ ...heading }} align="left">
+                          <TableCell>
                             <Grid container flexDirection={"column"}>
                               <Typography
                                 sx={typographyCss}
                                 variant="bodySmall"
-                                color="#21262B"
-                                fontWeight={400}
                               >
                                 {list?.pool}
                               </Typography>
                             </Grid>
                           </TableCell>
-                          <TableCell sx={{ ...heading }} align="left">
+                          <TableCell>
                             <Grid
                               container
                               flexDirection={"column"}
@@ -301,4 +297,4 @@ const DevicesInventory = () => {
     </>
   );
 };
-export default DevicesInventory;
+export default DevicesInventoryList;

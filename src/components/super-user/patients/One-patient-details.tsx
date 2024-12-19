@@ -190,15 +190,15 @@ const OnePatientDetails = () => {
                 <CustomLabel label="Height (inches)" isRequired />
                 <Controller
                   control={control}
-                  name="firstName"
+                  name="height"
                   render={({ field }) => (
                     <CustomInputWithPrefix
                       {...field}
                       prefix={`"`}
                       value={field.value.trim() || ""}
-                      placeholder={"Enter First Name"}
-                      hasError={!!errors.firstName}
-                      errorMessage={errors.firstName?.message as string}
+                      placeholder={"Enter height"}
+                      hasError={!!errors.height}
+                      errorMessage={errors.height?.message as string}
                     />
                   )}
                 />
@@ -207,15 +207,15 @@ const OnePatientDetails = () => {
                 <CustomLabel label="Weight (lbs)" />
                 <Controller
                   control={control}
-                  name="middleNameInitial"
+                  name="weight"
                   render={({ field }) => (
                     <CustomInputWithPrefix
                       {...field}
                       prefix={`lbs`}
                       value={field.value.trim() || ""}
-                      placeholder={"Enter Initial"}
-                      hasError={!!errors.middleNameInitial}
-                      errorMessage={errors.middleNameInitial?.message as string}
+                      placeholder={"Enter weight"}
+                      hasError={!!errors.weight}
+                      errorMessage={errors.weight?.message as string}
                     />
                   )}
                 />
@@ -239,15 +239,15 @@ const OnePatientDetails = () => {
             <Grid flex={1}>
               <Controller
                 control={control}
-                name="firstName"
+                name="specialNeeds"
                 render={({ field }) => (
                   <CustomInput
                     {...field}
                     disableField={isSpecialNeeds === "Yes" ? false : true}
                     value={field.value.trim() || ""}
                     placeholder={"Enter Details"}
-                    hasError={!!errors.firstName}
-                    errorMessage={errors.firstName?.message as string}
+                    hasError={!!errors.specialNeeds}
+                    errorMessage={errors.specialNeeds?.message as string}
                   />
                 )}
               />
@@ -268,15 +268,15 @@ const OnePatientDetails = () => {
             <Grid flex={1}>
               <Controller
                 control={control}
-                name="firstName"
+                name="employed"
                 render={({ field }) => (
                   <CustomInput
                     {...field}
                     disableField={isEmployed === "Yes" ? false : true}
                     value={field.value.trim() || ""}
                     placeholder={"Enter Employer"}
-                    hasError={!!errors.firstName}
-                    errorMessage={errors.firstName?.message as string}
+                    hasError={!!errors.employed}
+                    errorMessage={errors.employed?.message as string}
                   />
                 )}
               />

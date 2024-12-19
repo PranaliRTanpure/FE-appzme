@@ -3,13 +3,12 @@ import { theme } from "../../utils/theme";
 
 export const heading = {
   [`&.${tableCellClasses.head}`]: {
-    // backgroundColor: theme.palette.secondary.light,
     backgroundColor: "#EFF0F2",
     color: "#595F63",
     cursor: "pointer",
     padding: "8px",
-    height: "40px",
-    fontWeight: "500px",
+    height: "35px",
+    fontWeight: 500,
   },
 };
 
@@ -33,7 +32,7 @@ export const linkCss = {
 };
 
 export const typographyCss = {
-  color: "#212D30",
+  color: "#21262B",
 };
 
 export const longTypographyCss = {
