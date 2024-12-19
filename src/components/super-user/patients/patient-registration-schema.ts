@@ -96,6 +96,7 @@ export const patientRegistrationFormSchema = yup.object().shape({
       }),
     )
     .min(1, ""),
+
   declineTextMessage: yup.string(),
   authorisationForEmail: yup.string(),
   orderingPoviderName: yup.string(),

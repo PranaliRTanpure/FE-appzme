@@ -1,5 +1,8 @@
+import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+
 import {
+  Button,
   ButtonBase,
   Checkbox,
   Divider,
@@ -7,7 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { alpha, Grid, useMediaQuery } from "@mui/system";
-import { Controller, useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
+import {
+  Controller,
+  useFieldArray,
+  useFormContext,
+  useWatch,
+} from "react-hook-form";
 import CustomAutoComplete from "../../../common-components/custom-auto-complete/custom-auto-complete";
 import CustomInputWithPrefix from "../../../common-components/custom-input-with-prefix/custom-input-with-prefix";
 import CustomInput from "../../../common-components/custom-input/custom-input";
@@ -20,11 +29,60 @@ import { theme } from "../../../utils/theme";
 const TwoPatientContacts = () => {
   const {
     control,
-    formState: { errors },
+    formState: { errors, touchedFields },
     setValue,
+    getValues,
   } = useFormContext();
 
   const belowmd = useMediaQuery(theme.breakpoints.down("md"));
+
+  const {
+    fields: emergencyContactArray,
+    append: appendEmergencyContact,
+    remove: removeEmergencyContact,
+  } = useFieldArray({ name: "emergencyContact", control });
+
+  const [emergencyContactHasError, setEmergencyContactHasError] =
+    useState(false);
+
+  const watchEmergencyContact = useWatch({
+    name: "emergencyContact",
+    control,
+  });
+
+  const verifyEmergencyContactValues = () => {
+    const emergencyContact = getValues("emergencyContact");
+    if (
+      emergencyContact &&
+      (!emergencyContact[0]?.relationshipWithPatient ||
+        !emergencyContact[0]?.fullName ||
+        !emergencyContact[0]?.mobile)
+    ) {
+      setEmergencyContactHasError(true);
+
+      return true;
+    } else {
+      setEmergencyContactHasError(false);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (
+      touchedFields.emergencyContact?.[0]?.relationshipWithPatient &&
+      touchedFields.emergencyContact?.[0]?.fullName &&
+      touchedFields.emergencyContact?.[0]?.mobile
+    ) {
+      verifyEmergencyContactValues();
+    }
+  }, [watchEmergencyContact]);
+
+  const [isSubmitting] = useState(false);
+  useEffect(() => {
+    if (isSubmitting) {
+      verifyEmergencyContactValues();
+    }
+  }, [isSubmitting]);
 
   return (
     <Grid
@@ -232,116 +290,125 @@ const TwoPatientContacts = () => {
       <Divider />
       <Grid container flexDirection={"column"}>
         <Typography variant="bodyMedium" fontWeight={600}>
-          Emergency Contacts
+          Emergency Contacts{emergencyContactHasError ? "true" : "false"}
         </Typography>
-        <Grid
-          m={"10px 0px"}
-          borderRadius={"10px"}
-          container
-          columnGap={2}
-          p={2}
-          bgcolor={alpha(theme.palette.secondary.main, 0.06)}
-        >
-          <Grid width={belowmd ? "250px" : "300px"}>
-            <CustomLabel label="Relationship With Patient" isRequired />
-            <Controller
-              control={control}
-              name="emergencyContact.relationshipWithPatient"
-              render={({ field }) => (
-                <CustomSelect
-                  placeholder={"Select Patient Relationship"}
-                  items={Gender}
-                  {...field}
-                  bgWhite={true}
-                  hasError={
-                    errors?.emergencyContact &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    !!(errors?.emergencyContact as unknown as any)
-                      .relationshipWithPatient
-                  }
-                  errorMessage={
-                    errors?.emergencyContact &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (errors?.emergencyContact as unknown as any)
-                      .relationshipWithPatient.message
-                  }
+        <Grid bgcolor={alpha(theme.palette.secondary.main, 0.06)}>
+          {emergencyContactArray.map((emergencyContactDetails, index) => (
+            <Grid
+              m={"10px 0px"}
+              borderRadius={"10px"}
+              container
+              columnGap={2}
+              key={emergencyContactDetails.id}
+              p={2}
+            >
+              <Grid width={belowmd ? "250px" : "300px"}>
+                <CustomLabel label="Relationship With Patient" isRequired />
+                <Controller
+                  control={control}
+                  name={`emergencyContact.${index}.relationshipWithPatient`}
+                  render={({ field }) => (
+                    <CustomSelect
+                      placeholder={"Select Patient Relationship"}
+                      items={Gender}
+                      {...field}
+                      name="relationshipWithPatient"
+                      bgWhite={true}
+                      hasError={
+                        index > 0 ? !field.value : emergencyContactHasError
+                      }
+                      errorMessage={"Enter relationship with patient"}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Grid>
-          <Grid width={belowmd ? "250px" : "300px"}>
-            <CustomLabel label="Full Name" isRequired />
-            <Controller
-              control={control}
-              name="emergencyContact.fullName"
-              render={({ field }) => (
-                <CustomInput
-                  placeholder={"Enter Full Name"}
-                  {...field}
-                  bgWhite={true}
-                  hasError={
-                    errors?.emergencyContact &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    !!(errors?.emergencyContact as unknown as any).fullName
-                  }
-                  errorMessage={
-                    errors?.emergencyContact &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (errors?.emergencyContact as unknown as any).fullName
-                      .message
-                  }
-                />
-              )}
-            />
-          </Grid>
-          <Grid width={belowmd ? "250px" : "300px"}>
-            <CustomLabel label="Mobile Number" />
-            <Controller
-              control={control}
-              name="emergencyContact.mobile"
-              render={({ field }) => (
-                <CustomInputWithPrefix
-                  prefix={`+1`}
-                  value={field.value?.trim() || ""}
-                  placeholder={"Enter Mobile Number"}
-                  bgWhite
-                  hasError={
-                    errors?.emergencyContact &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    !!(errors?.emergencyContact as unknown as any).mobile
-                  }
-                  errorMessage={
-                    errors?.emergencyContact &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (errors?.emergencyContact as unknown as any).mobile.message
-                  }
-                  name={field.name}
-                  onChange={(e) =>
-                    setValue("emergencyContact.mobile", e.target.value, {
-                      shouldValidate: true,
-                    })
-                  }
-                />
-              )}
-            />
-          </Grid>
-          <Divider orientation="vertical" />
-          <Grid container alignContent={"flex-end"}>
-            <ButtonBase>
-              <Grid
-                borderRadius={"12px"}
-                width={"44px"}
-                height={"44px"}
-                bgcolor={"#F5F6F8"}
-                container
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                <DeleteOutlineOutlinedIcon fontSize="small" />
               </Grid>
-            </ButtonBase>
+              <Grid width={belowmd ? "250px" : "300px"}>
+                <CustomLabel label="Full Name" isRequired />
+                <Controller
+                  control={control}
+                  name={`emergencyContact.${index}.fullName`}
+                  render={({ field }) => (
+                    <CustomInput
+                      placeholder={"Enter Full Name"}
+                      {...field}
+                      bgWhite={true}
+                      name="fullName"
+                      hasError={
+                        index > 0 ? !field.value : emergencyContactHasError
+                      }
+                      errorMessage={"Enter full name"}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid width={belowmd ? "250px" : "300px"}>
+                <CustomLabel label="Mobile Number" />
+                <Controller
+                  control={control}
+                  name={`emergencyContact.${index}.mobile`}
+                  render={({ field }) => (
+                    <CustomInputWithPrefix
+                      prefix={`+1`}
+                      value={field.value?.trim() || ""}
+                      placeholder={"Enter Mobile Number"}
+                      bgWhite
+                      hasError={
+                        index > 0 ? !field.value : emergencyContactHasError
+                      }
+                      errorMessage={"Enter mobile number"}
+                      name={field.name}
+                      onChange={(e) =>
+                        setValue(
+                          `emergencyContact.${index}.mobile`,
+                          e.target.value,
+                          {
+                            shouldValidate: true,
+                          },
+                        )
+                      }
+                    />
+                  )}
+                />
+              </Grid>
+              <Divider orientation="vertical" />
+              <Grid container alignContent={"flex-end"}>
+                <ButtonBase
+                  onClick={() => removeEmergencyContact(index)}
+                  disabled={emergencyContactArray.length <= 1}
+                >
+                  <Grid
+                    borderRadius={"12px"}
+                    width={"44px"}
+                    height={"44px"}
+                    bgcolor={"#F5F6F8"}
+                    container
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                  >
+                    <DeleteOutlineOutlinedIcon fontSize="small" />
+                  </Grid>
+                </ButtonBase>
+              </Grid>
+            </Grid>
+          ))}
+          <Grid p={"0px 0px 20px 20px"}>
+            <Button
+              startIcon={<AddIcon />}
+              variant="outlined"
+              sx={{ background: "#F5F6F8" }}
+              onClick={() =>
+                appendEmergencyContact({
+                  relationshipWithPatient: "",
+                  fullName: "",
+                  mobile: "",
+                })
+              }
+            >
+              Add Emergency Contact
+            </Button>
           </Grid>
         </Grid>
+
         <Divider />
         <Grid p={2} container>
           <FormControlLabel

@@ -28,7 +28,7 @@ const steps = [
 ];
 
 const PatientRegistrationStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(1);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
