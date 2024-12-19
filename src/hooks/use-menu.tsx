@@ -30,9 +30,9 @@ const useMenu = () => {
       disabled: false,
       menuList: [
         { name: "Inventory", path: "/super-user/devices/inventory" },
-        { name: "Device Scheduling", path: "/super-user/devices/scheduling" },
+        { name: "Availability", path: "/super-user/devices/scheduling" },
         {
-          name: "Device Manufacturers",
+          name: "Manufacturers",
           path: "/super-user/devices/manufacturers",
         },
       ],
