@@ -1,4 +1,5 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Drawer, IconButton, Typography, useMediaQuery } from "@mui/material";
 import { Grid } from "@mui/system";
 import { theme } from "../../utils/theme";
@@ -16,6 +17,7 @@ interface DrawerProps {
   headerStyle?: string;
   showCloseButton?: boolean;
   showMandatoryIndicator?: boolean;
+  onArrowClose?: () => void;
 }
 
 const CustomDrawer = (props: React.PropsWithChildren<DrawerProps>) => {
@@ -42,7 +44,15 @@ const CustomDrawer = (props: React.PropsWithChildren<DrawerProps>) => {
           sx={gridHeader}
           mt={props.headerStyle}
         >
-          <Grid>
+          <Grid
+            container
+            flexDirection={"row"}
+            columnGap={1.5}
+            alignItems={"center"}
+          >
+            <IconButton onClick={props.onArrowClose}>
+              <ArrowBackIcon />
+            </IconButton>
             <Typography fontSize={"20px"} fontWeight={550} variant="bodyMedium">
               {props.title}
             </Typography>
@@ -68,6 +78,7 @@ const CustomDrawer = (props: React.PropsWithChildren<DrawerProps>) => {
         </Grid>
         <Grid
           mt={2}
+          mb={2}
           flex={1}
           sx={{
             width: drawerWidth ? drawerWidth : belowLg ? "50vw" : "40vw",

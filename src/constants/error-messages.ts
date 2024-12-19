@@ -1,4 +1,6 @@
 export const emailRegexErrorMsg = "Invalid email address";
+export const modelDetailsRequiredErrorMsg =
+  "At least one model detail is required";
 export const emailRequiredErrorMsg = "Email is required";
 export const firstNameRequiredErrorMsg = "First Name is required";
 export const firstNameOrSurnameRegexErrorMsg =
@@ -8,6 +10,8 @@ export const lastNameRequiredErrorMsg = "Last Name is required";
 export const npiRequiredErrorMsg = "NPI is required";
 export const npiRegexErrorMsg = "Must be 10 digits";
 export const phoneRequiredErrorMsg = "Phone is required";
+export const contactRequiredErrorMsg = "Contact is required";
+export const alternatePhoneRequiredErrorMsg = "Alternate phone is required";
 export const phoneRegexErrorMsg =
   "Invalid phone number. Enter 3 digit area code followed by 7 digit local number";
 export const addressLine1RequiredErrorMsg = "Line 1 is required";

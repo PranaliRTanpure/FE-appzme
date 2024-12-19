@@ -189,7 +189,7 @@ const DeviceManufacturers = () => {
                 <TableBody>
                   {deviceManufacturersList.length > 0 ? (
                     deviceManufacturersList.map((list, index) => (
-                      <TableRow key={index}>
+                      <TableRow key={index} hover>
                         <TableCell sx={{ ...heading }} align="left">
                           <Grid container flexDirection={"column"}>
                             <Grid container flexDirection={"column"}>
@@ -332,15 +332,16 @@ const DeviceManufacturers = () => {
       </Grid>
       {/* Drawer */}
       <CustomDrawer
-        drawerWidth="831px"
+        drawerWidth="1000px"
         anchor={"right"}
         open={isFormOpen}
+        onArrowClose={() => SetIsFormOpen(false)}
         title={
           selectedAction === "Edit" ? "Edit Manufactures" : "Add Manufactures"
         }
         showMandatoryIndicator={true}
       >
-        <DeviceManufacturersForm />
+        <DeviceManufacturersForm onClose={() => SetIsFormOpen(false)} />
       </CustomDrawer>
     </>
   );
