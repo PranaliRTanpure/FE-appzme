@@ -30,6 +30,8 @@ import {
 import { theme } from "../../../../utils/theme";
 
 const DeviceScheduling = () => {
+  //14 columns for dates
+  const totalDaysToBeShownInCalendar = 14;
   const belowHeight768 = useMediaQuery("(max-height:768px)");
   const [showLegends, setShowLegends] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -56,13 +58,15 @@ const DeviceScheduling = () => {
         });
         if (header == updatedDateString) {
           return (
-            <Grid
-              key={keyVal}
-              height={"40px"}
-              bgcolor={
-                StatusBgColorMapping[row[keyVal] as AppointmentStatusEnum]
-              }
-            ></Grid>
+            <ButtonBase
+              onClick={() => alert(`On click of status  ${row[keyVal]}`)}
+              sx={{
+                width: "100%",
+                height: "100%",
+                background:
+                  StatusBgColorMapping[row[keyVal] as AppointmentStatusEnum],
+              }}
+            ></ButtonBase>
           );
         }
       }
@@ -87,7 +91,7 @@ const DeviceScheduling = () => {
         maxWidth: "108px",
       },
     ] as TableHeaders[];
-    for (let i = 0; i < 14; i++) {
+    for (let i = 0; i < totalDaysToBeShownInCalendar; i++) {
       const newDate = new Date(startDate);
       newDate.setDate(startDate.getDate() + i);
       headers.push({
@@ -182,7 +186,6 @@ const DeviceScheduling = () => {
             Next 7 Days
           </Button>
         </Grid>
-
         <Grid
           container
           flex={1}
@@ -208,64 +211,30 @@ const DeviceScheduling = () => {
             >
               <Grid columnGap={1} container width={"80vw"} rowGap={1}>
                 {[
-                  {
-                    status: AppointmentStatusEnum.BLOCKED_DATE,
-                    color: "#DBDBDB",
-                  },
-                  {
-                    status: AppointmentStatusEnum.CONFLICTED,
-                    color: "#B50025",
-                  },
-                  {
-                    status: AppointmentStatusEnum.MULTIPLE_EVENTS,
-                    color: "#00C1DE",
-                  },
-                  {
-                    status: AppointmentStatusEnum.DEVICE_OUT_PLANNED,
-                    color: "#FFC208",
-                  },
-                  {
-                    status: AppointmentStatusEnum.DEVICE_OUT_COMPLETED,
-                    color: "#3C6FD6",
-                  },
-                  {
-                    status: AppointmentStatusEnum.STUDY_FIRST_NIGHT_COMPLETED,
-                    color: "#C0D3F9",
-                  },
-                  {
-                    status: AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
-                    color: "#7C20AD",
-                  },
-                  {
-                    status: AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
-                    color: "#F5E2FF",
-                  },
-
-                  {
-                    status: AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
-                    color: "#11BB66",
-                  },
-                  {
-                    status: AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
-                    color: "#C7FFE3",
-                  },
+                  AppointmentStatusEnum.BLOCKED_DATE,
+                  AppointmentStatusEnum.CONFLICTED,
+                  AppointmentStatusEnum.MULTIPLE_EVENTS,
+                  AppointmentStatusEnum.DEVICE_OUT_PLANNED,
+                  AppointmentStatusEnum.DEVICE_OUT_COMPLETED,
+                  AppointmentStatusEnum.STUDY_FIRST_NIGHT_COMPLETED,
+                  AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
+                  AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
+                  AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
+                  AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
                 ].map((statusDetails) => (
                   <Grid container alignItems={"center"} columnGap={1}>
                     <Grid
                       width={"15px"}
                       height={"15px"}
                       borderRadius={"7.5px"}
-                      bgcolor={StatusBgColorMapping[statusDetails.status]}
+                      bgcolor={StatusBgColorMapping[statusDetails]}
                     ></Grid>
-                    <Typography variant="bodySmall">
-                      {statusDetails.status}
-                    </Typography>
+                    <Typography variant="bodySmall">{statusDetails}</Typography>
                   </Grid>
                 ))}
               </Grid>
             </Box>
           </Popper>
-          {/* </Link> */}
           <Button variant="outlined">
             <FilterAltOutlinedIcon />
           </Button>
