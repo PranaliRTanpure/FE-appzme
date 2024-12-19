@@ -13,6 +13,14 @@ const useMenu = () => {
 
   const superUserSideMenu = [
     {
+      title: "Encounter",
+      route: "/super-user/encounter",
+      icon: <GridViewIcon />,
+      hide: false,
+      disabled: false,
+      menuList: [{ name: "Encounter", path: "/super-user/encounter" }],
+    },
+    {
       title: "Patients",
       route: "/super-user/patient-registration",
       icon: <GridViewIcon />,

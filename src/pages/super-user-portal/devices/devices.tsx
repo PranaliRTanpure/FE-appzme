@@ -1,10 +1,10 @@
 import { Grid } from "@mui/system";
-import DevicesInventory from "../../../components/super-user/devices/device-inventory/devices-inventory";
+import DevicesInventoryList from "../../../components/super-user/devices/device-inventory/devices-inventory-list";
 
 const DevicesRegistration = () => {
   return (
     <Grid width={"100%"}>
-      <DevicesInventory />
+      <DevicesInventoryList />
     </Grid>
   );
 };
