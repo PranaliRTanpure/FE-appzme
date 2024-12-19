@@ -50,6 +50,7 @@ const DeviceManufacturers = () => {
   const [selectedAction, setSelectedAction] = useState("Add");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
 
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -332,7 +333,7 @@ const DeviceManufacturers = () => {
       </Grid>
       {/* Drawer */}
       <CustomDrawer
-        drawerWidth="1000px"
+        drawerWidth={belowWidth1024 ? "700px" : "1000px"}
         anchor={"right"}
         open={isFormOpen}
         onArrowClose={() => SetIsFormOpen(false)}

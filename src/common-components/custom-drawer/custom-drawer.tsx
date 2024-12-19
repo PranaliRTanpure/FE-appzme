@@ -43,6 +43,10 @@ const CustomDrawer = (props: React.PropsWithChildren<DrawerProps>) => {
           alignItems="center"
           sx={gridHeader}
           mt={props.headerStyle}
+          position={"sticky"}
+          top={0}
+          bgcolor={"white"}
+          zIndex={1}
         >
           <Grid
             container
