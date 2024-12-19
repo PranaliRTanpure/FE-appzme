@@ -108,7 +108,11 @@ const TwoPatientContacts = () => {
                 hasError={!!errors.homePhone}
                 errorMessage={errors.homePhone?.message as string}
                 name={field.name}
-                onChange={(e) => setValue("homePhone", e.target.value)}
+                onChange={(e) =>
+                  setValue("homePhone", e.target.value, {
+                    shouldValidate: true,
+                  })
+                }
               />
             )}
           />
@@ -121,7 +125,11 @@ const TwoPatientContacts = () => {
             render={({ field }) => (
               <CustomInputWithPrefix
                 {...field}
-                onChange={(e) => setValue("workPhone", e.target.value)}
+                onChange={(e) =>
+                  setValue("workPhone", e.target.value, {
+                    shouldValidate: true,
+                  })
+                }
                 prefix={`+1`}
                 value={field.value.trim() || ""}
                 placeholder={"Enter Work Phone Number"}
@@ -138,7 +146,11 @@ const TwoPatientContacts = () => {
             name="cellPhone"
             render={({ field }) => (
               <CustomInputWithPrefix
-                onChange={(e) => setValue("cellPhone", e.target.value)}
+                onChange={(e) =>
+                  setValue("cellPhone", e.target.value, {
+                    shouldValidate: true,
+                  })
+                }
                 prefix={`+1`}
                 value={field.value.trim() || ""}
                 placeholder={"Enter Cell Phone Number"}
@@ -158,10 +170,12 @@ const TwoPatientContacts = () => {
               <CustomInput
                 value={field.value.trim() || ""}
                 placeholder={"Enter Initial"}
-                hasError={!!errors.middleNameInitial}
-                errorMessage={errors.middleNameInitial?.message as string}
+                hasError={!!errors.email}
+                errorMessage={errors.email?.message as string}
                 name={field.name}
-                onChange={(e) => setValue("email", e.target.value)}
+                onChange={(e) =>
+                  setValue("email", e.target.value, { shouldValidate: true })
+                }
               />
             )}
           />
@@ -172,21 +186,14 @@ const TwoPatientContacts = () => {
           <CustomLabel label="Address Line 1" isRequired />
           <Controller
             control={control}
-            name="address.line1"
+            name="line1"
             render={({ field }) => (
               <CustomInput
                 {...field}
                 value={field.value.trim() || ""}
                 placeholder={"Enter Address Line 1"}
-                hasError={
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  errors?.address && !!(errors?.address as unknown as any).line1
-                }
-                errorMessage={
-                  errors?.address &&
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (errors?.address as unknown as any).line1.message
-                }
+                hasError={!!errors?.line1}
+                errorMessage={errors.line1?.message as string}
               />
             )}
           />
@@ -195,21 +202,14 @@ const TwoPatientContacts = () => {
           <CustomLabel label="Address Line 2" />
           <Controller
             control={control}
-            name="address.line2"
+            name="line2"
             render={({ field }) => (
               <CustomInput
                 {...field}
                 value={field.value || ""}
                 placeholder={"Enter Address Line 2"}
-                hasError={
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  errors?.address && !!(errors?.address as unknown as any).line2
-                }
-                errorMessage={
-                  errors?.address &&
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (errors?.address as unknown as any).line2.message
-                }
+                hasError={!!errors.line2}
+                errorMessage={errors.line2?.message as string}
               />
             )}
           />
@@ -218,21 +218,14 @@ const TwoPatientContacts = () => {
           <CustomLabel label="City" isRequired />
           <Controller
             control={control}
-            name="address.city"
+            name="city"
             render={({ field }) => (
               <CustomInput
                 {...field}
                 value={field.value || ""}
                 placeholder={"Enter City"}
-                hasError={
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  errors?.address && !!(errors?.address as unknown as any).city
-                }
-                errorMessage={
-                  errors?.address &&
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (errors?.address as unknown as any).city.message
-                }
+                hasError={!!errors.city}
+                errorMessage={errors.city?.message as string}
               />
             )}
           />
@@ -241,7 +234,7 @@ const TwoPatientContacts = () => {
           <CustomLabel isRequired label="State" />
           <Controller
             control={control}
-            name="address.state"
+            name="state"
             render={({ field }) => (
               <CustomAutoComplete
                 {...field}
@@ -249,15 +242,8 @@ const TwoPatientContacts = () => {
                 options={stateList}
                 maxHeightForOptionsList={300}
                 value={field.value || ""}
-                hasError={
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  errors?.address && !!(errors?.address as unknown as any).state
-                }
-                errorMessage={
-                  errors?.address &&
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (errors?.address as unknown as any).state.message
-                }
+                hasError={!!errors.state}
+                errorMessage={errors.state?.message as string}
               />
             )}
           />
@@ -266,22 +252,14 @@ const TwoPatientContacts = () => {
           <CustomLabel label="Zip Code" isRequired />
           <Controller
             control={control}
-            name="address.zipcode"
+            name="zipcode"
             render={({ field }) => (
               <CustomInput
                 {...field}
                 value={field.value || ""}
                 placeholder={"Enter Zip Code"}
-                hasError={
-                  errors?.address &&
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  !!(errors?.address as unknown as any).zipcode
-                }
-                errorMessage={
-                  errors?.address &&
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (errors?.address as unknown as any).zipcode.message
-                }
+                hasError={!!errors.zipcode}
+                errorMessage={errors.zipcode?.message as string}
               />
             )}
           />

@@ -57,8 +57,8 @@ const FourOrderingProvider = () => {
                   <CustomAutoComplete
                     value={field.value?.trim() || ""}
                     placeholder={"Select Provider"}
-                    hasError={!!errors.homePhone}
-                    errorMessage={errors.homePhone?.message as string}
+                    hasError={!!errors.orderingPoviderName}
+                    errorMessage={errors.orderingPoviderName?.message as string}
                     onChange={(e) => setValue("orderingPoviderName", e)}
                     options={[]}
                   />
@@ -77,8 +77,10 @@ const FourOrderingProvider = () => {
                     onChange={(e) => setValue("orderingPoviderSpeciality", e)}
                     value={field.value?.trim() || ""}
                     placeholder={"Select Specialty"}
-                    hasError={!!errors.workPhone}
-                    errorMessage={errors.workPhone?.message as string}
+                    hasError={!!errors.orderingPoviderSpeciality}
+                    errorMessage={
+                      errors.orderingPoviderSpeciality?.message as string
+                    }
                   />
                 )}
               />
@@ -96,8 +98,10 @@ const FourOrderingProvider = () => {
                     prefix={`+1`}
                     value={field.value?.trim() || ""}
                     placeholder={"Enter Phone"}
-                    hasError={!!errors.cellPhone}
-                    errorMessage={errors.cellPhone?.message as string}
+                    hasError={!!errors.orderingPoviderPhone}
+                    errorMessage={
+                      errors.orderingPoviderPhone?.message as string
+                    }
                     name={field.name}
                   />
                 )}
@@ -251,9 +255,7 @@ const FourOrderingProvider = () => {
                     }
                     errorMessage={
                       errors?.orderingPoviderAddressState &&
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      (errors?.orderingPoviderAddressState as unknown as any)
-                        .message
+                      (errors?.orderingPoviderAddressState?.message as string)
                     }
                   />
                 )}
@@ -271,14 +273,11 @@ const FourOrderingProvider = () => {
                     placeholder={"Enter Zip Code"}
                     hasError={
                       errors?.orderingPoviderAddressZipcode &&
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      !!(errors?.orderingPoviderAddressZipcode as unknown as any)
+                      !!errors?.orderingPoviderAddressZipcode
                     }
                     errorMessage={
                       errors?.orderingPoviderAddressZipcode &&
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      (errors?.orderingPoviderAddressZipcode as unknown as any)
-                        .message
+                      (errors?.orderingPoviderAddressZipcode?.message as string)
                     }
                   />
                 )}
@@ -445,20 +444,19 @@ const FourOrderingProvider = () => {
               <CustomLabel label="Address Line 1" isRequired />
               <Controller
                 control={control}
-                name="address.line1"
+                name="millenniumProviderAddressLine1"
                 render={({ field }) => (
                   <CustomInput
                     {...field}
                     value={field.value?.trim() || ""}
                     placeholder={"Enter Address Line 1"}
                     hasError={
-                      errors?.orderingPoviderAddressLine1 &&
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      !!(errors?.orderingPoviderAddressLine1 as unknown as any)
+                      errors?.millenniumProviderAddressLine1 &&
+                      !!errors?.millenniumProviderAddressLine1
                     }
                     errorMessage={
-                      errors?.orderingPoviderAddressLine1 &&
-                      (errors?.orderingPoviderAddressLine1.message as string)
+                      errors?.millenniumProviderAddressLine1 &&
+                      (errors?.millenniumProviderAddressLine1.message as string)
                     }
                   />
                 )}
@@ -468,18 +466,20 @@ const FourOrderingProvider = () => {
               <CustomLabel label="Address Line 2" />
               <Controller
                 control={control}
-                name="orderingPoviderAddressLine2"
+                name="millenniumProviderAddressLine2"
                 render={({ field }) => (
                   <CustomInput
                     {...field}
                     value={field.value || ""}
                     placeholder={"Enter Address Line 2"}
                     hasError={
-                      errors?.address && !!errors?.orderingPoviderAddressLine2
+                      errors?.address &&
+                      !!errors?.millenniumProviderAddressLine2
                     }
                     errorMessage={
-                      errors?.orderingPoviderAddressLine2 &&
-                      (errors?.orderingPoviderAddressLine2?.message as string)
+                      errors?.millenniumProviderAddressLine2 &&
+                      (errors?.millenniumProviderAddressLine2
+                        ?.message as string)
                     }
                   />
                 )}
@@ -489,19 +489,19 @@ const FourOrderingProvider = () => {
               <CustomLabel label="City" isRequired />
               <Controller
                 control={control}
-                name="orderingPoviderAddressCity"
+                name="millenniumProviderCity"
                 render={({ field }) => (
                   <CustomInput
                     {...field}
                     value={field.value || ""}
                     placeholder={"Enter City"}
                     hasError={
-                      errors?.orderingPoviderAddressCity &&
-                      !!errors?.orderingPoviderAddressCity
+                      errors?.millenniumProviderCity &&
+                      !!errors?.millenniumProviderCity
                     }
                     errorMessage={
-                      errors?.orderingPoviderAddressCity &&
-                      (errors?.orderingPoviderAddressCity?.message as string)
+                      errors?.millenniumProviderCity &&
+                      (errors?.millenniumProviderCity?.message as string)
                     }
                   />
                 )}
@@ -511,7 +511,7 @@ const FourOrderingProvider = () => {
               <CustomLabel isRequired label="State" />
               <Controller
                 control={control}
-                name="orderingPoviderAddressState"
+                name="millenniumProviderState"
                 render={({ field }) => (
                   <CustomAutoComplete
                     {...field}
@@ -520,11 +520,11 @@ const FourOrderingProvider = () => {
                     maxHeightForOptionsList={300}
                     value={field.value || ""}
                     hasError={
-                      errors?.address && !!errors?.orderingPoviderAddressState
+                      errors?.address && !!errors?.millenniumProviderState
                     }
                     errorMessage={
-                      errors?.orderingPoviderAddressState &&
-                      (errors?.orderingPoviderAddressState?.message as string)
+                      errors?.millenniumProviderState &&
+                      (errors?.millenniumProviderState?.message as string)
                     }
                   />
                 )}
@@ -534,19 +534,19 @@ const FourOrderingProvider = () => {
               <CustomLabel label="Zip Code" isRequired />
               <Controller
                 control={control}
-                name="address.zipcode"
+                name="millenniumProviderZipcode"
                 render={({ field }) => (
                   <CustomInput
                     {...field}
                     value={field.value || ""}
                     placeholder={"Enter Zip Code"}
                     hasError={
-                      errors?.orderingPoviderAddressZipcode &&
-                      !!errors?.orderingPoviderAddressZipcode
+                      errors?.millenniumProviderZipcode &&
+                      !!errors?.millenniumProviderZipcode
                     }
                     errorMessage={
-                      errors?.orderingPoviderAddressZipcode &&
-                      (errors?.orderingPoviderAddressZipcode?.message as string)
+                      errors?.millenniumProviderZipcode &&
+                      (errors?.millenniumProviderZipcode?.message as string)
                     }
                   />
                 )}
@@ -863,16 +863,18 @@ const FourOrderingProvider = () => {
               <CustomLabel label="Marketing Rep" />
               <Controller
                 control={control}
-                name="workPhone"
+                name="otherContactsMarketingRep"
                 render={({ field }) => (
                   <CustomAutoComplete
                     {...field}
-                    onChange={(e) => setValue("workPhone", e)}
+                    onChange={(e) => setValue("otherContactsMarketingRep", e)}
                     options={[]}
                     value={field.value?.trim() || ""}
                     placeholder={"Select Marketing Rep"}
-                    hasError={!!errors.workPhone}
-                    errorMessage={errors.workPhone?.message as string}
+                    hasError={!!errors.otherContactsMarketingRep}
+                    errorMessage={
+                      errors.otherContactsMarketingRep?.message as string
+                    }
                   />
                 )}
               />

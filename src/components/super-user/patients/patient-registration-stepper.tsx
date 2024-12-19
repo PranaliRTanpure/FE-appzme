@@ -14,11 +14,14 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { customLabelStyles } from "../../../common-components/custom-label/widgets/custom-label-styles";
 import { theme } from "../../../utils/theme";
+import FourOrderingProvider from "./four-ordering-provider";
 import OnePatientDetails from "./One-patient-details";
-import { patientRegistrationFormSchema } from "./patient-registration-schema";
+import {
+  initialValuesPatientRegistration,
+  patientRegistrationFormSchema,
+} from "./patient-registration-schema";
 import ThreePatientInsurance from "./three-patient-insurance";
 import TwoPatientContacts from "./two-patient-details";
-import FourOrderingProvider from "./four-ordering-provider";
 
 const steps = [
   "Patient Details",
@@ -28,43 +31,41 @@ const steps = [
 ];
 
 const PatientRegistrationStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(1);
-  const [completed, setCompleted] = React.useState<{
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [completed] = React.useState<{
     [k: number]: boolean;
   }>({});
 
-  const totalSteps = () => {
-    return steps.length;
-  };
+  // const totalSteps = () => {
+  //   return steps.length;
+  // };
 
-  const completedSteps = () => {
-    return Object.keys(completed).length;
-  };
+  // const completedSteps = () => {
+  //   return Object.keys(completed).length;
+  // };
 
-  const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
+  // const isLastStep = () => {
+  //   return activeStep === totalSteps() - 1;
+  // };
 
-  const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
-  };
+  // const allStepsCompleted = () => {
+  //   return completedSteps() === totalSteps();
+  // };
 
   const handleNext = () => {
-    // if (activeStep === 0) {
-    //   //check if required fields has values
-    //   handleComplete();
-    // }
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((_step, i) => !(i in completed))
-        : activeStep + 1;
-    setActiveStep(newActiveStep);
-    handleComplete();
+    handleSubmit(
+      () => {
+        setValue("activeStep", (activeStep + 1).toString());
+        setActiveStep((prevStep) => prevStep + 1);
+      },
+      (errors) => {
+        errors;
+      },
+    )();
   };
 
   const handleBack = () => {
+    setValue("activeStep", (activeStep - 1).toString());
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -72,106 +73,20 @@ const PatientRegistrationStepper = () => {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
-    setCompleted({
-      ...completed,
-      [activeStep]: true,
-    });
-    handleNext();
-  };
-
-  //   const handleReset = () => {
-  //     setActiveStep(0);
-  //     setCompleted({});
-  //   };
-
-  const initialValues = {
-    firstName: "",
-    middleNameInitial: "",
-    lastName: "",
-    dateOfBirth: "",
-    gender: "",
-    primaryLanguage: "",
-    height: "",
-    weight: "",
-    specialNeeds: "",
-    employed: "",
-    patientPortal: "",
-    avatar: "",
-
-    homePhone: "",
-    workPhone: "",
-    cellPhone: "",
-    email: "",
-    address: {
-      line1: "",
-      line2: "",
-      city: "",
-      state: "",
-      zipcode: "",
-      country: "USA",
-    },
-    emergencyContact: [
-      {
-        relationshipWithPatient: "",
-        fullName: "",
-        mobile: "",
-      },
-    ],
-
-    declineTextMessage: "",
-    authorisationForEmail: "",
-
-    orderingPoviderName: "",
-    orderingPoviderSpeciality: "",
-
-    orderingPoviderPhone: "",
-    orderingPoviderFax: "",
-    orderingPoviderTaxId: "",
-    orderingPoviderNPI: "",
-
-    orderingPoviderAddressLine1: "",
-    orderingPoviderAddressLine2: "",
-    orderingPoviderAddressCity: "",
-    orderingPoviderAddressState: "",
-    orderingPoviderAddressZipcode: "",
-
-    millenniumProviderName: "",
-    millenniumProviderSpeciality: "",
-    millenniumProviderPhone: "",
-    millenniumProviderFax: "",
-    millenniumProviderTaxId: "",
-    millenniumProviderNpi: "",
-    millenniumProviderAddressLine1: "",
-    millenniumProviderAddressLine2: "",
-    millenniumProviderCity: "",
-    millenniumProviderState: "",
-    millenniumProviderZipcode: "",
-
-    dentalProviderDetailsProviderName: "",
-    dentalProviderDetailsProviderSpeciality: "",
-    dentalProviderDetailsProviderPhone: "",
-    dentalProviderDetailsProviderFax: "",
-    dentalProviderDetailsProviderEmail: "",
-    dentalProviderDetailsProviderAssistantEmail: "",
-    otherContactsPreferredDME: "",
-    otherContactsSleepLab: "",
-    otherContactsOtherProviders: "",
-    otherContactsRegionalManager: "",
-    otherContactsMarketingRep: "",
-    otherContactsSleepAdvisor: "",
-  };
+  // const handleComplete = () => {
+  //   setCompleted({
+  //     ...completed,
+  //     [activeStep]: true,
+  //   });
+  //   handleNext();
+  // };
 
   const method = useForm({
-    defaultValues: initialValues,
+    defaultValues: initialValuesPatientRegistration,
     resolver: yupResolver(patientRegistrationFormSchema),
   });
 
-  const {
-    formState: { errors },
-  } = method;
-
-  errors;
+  const { setValue, handleSubmit } = method;
 
   const renderStepComponent = (step: number) => {
     switch (step) {
@@ -184,7 +99,7 @@ const PatientRegistrationStepper = () => {
       case 3:
         return <FourOrderingProvider />;
       default:
-        return <div>Invalid Step</div>;
+        return <FourOrderingProvider />;
     }
   };
 
@@ -280,7 +195,7 @@ const PatientRegistrationStepper = () => {
                         sx={{
                           borderRadius: "12px",
                           backgroundColor:
-                            index === activeStep ? "#E3F2FD" : "transparent", // bg for active step
+                            index === activeStep ? "#E3F2FD" : "transparent",
                           padding: "8px 16px",
                         }}
                       >
@@ -302,7 +217,6 @@ const PatientRegistrationStepper = () => {
             alignItems={"center"}
             justifyContent={"flex-end"}
             minHeight={"70px"}
-            // border={1}
             borderTop={`1px solid ${theme.palette.grey[300]}`}
           >
             <Grid container>
@@ -322,7 +236,6 @@ const PatientRegistrationStepper = () => {
                 endIcon={<ArrowForwardIcon />}
                 onClick={() => {
                   handleNext();
-                  // handleComplete();
                 }}
                 sx={{ mr: 1 }}
               >
