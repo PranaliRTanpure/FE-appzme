@@ -1,10 +1,10 @@
 import { Grid } from "@mui/system";
-import DeviceManufacturers from "../../../components/super-user/devices/device-manufacturer/device-manufacturers";
+import DeviceManufacturersList from "../../../components/super-user/devices/device-manufacturer/device-manufacturers-list";
 
 const DeviceManufacturersPage = () => {
   return (
     <Grid width={"100%"}>
-      <DeviceManufacturers />
+      <DeviceManufacturersList />
     </Grid>
   );
 };

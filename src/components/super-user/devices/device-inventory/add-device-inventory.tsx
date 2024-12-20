@@ -71,7 +71,7 @@ const AddDeviceInventory = (props: AddDeviceProps) => {
           <Grid container columnGap={2}>
             <Button
               variant="outlined"
-              onClick={() => {}}
+              onClick={props.onClose}
               sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
             >
               Cancel
