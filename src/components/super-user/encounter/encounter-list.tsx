@@ -23,6 +23,7 @@ import {
   typographyCss,
 } from "../../../common-components/table/common-table-widgets";
 import { TableHeaders } from "../../../common-components/table/table-models";
+import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
 
 export const Headers: TableHeaders[] = [
   { header: "Patient Name", width: "200px", minWidth: "200px" },
@@ -189,7 +190,17 @@ const EncounterList = () => {
                       </TableCell>
                       <TableCell>
                         <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.scheduleDate}
+                          <ColoredCustomSelect
+                            value={list.schedulingStatus}
+                            onChange={function (val: string): void {
+                              val;
+                            }}
+                            options={[
+                              { label: "1st call", value: "1st call" },
+                              { label: "2nd call", value: "2nd call" },
+                              { label: "Scans sent", value: "Scans sent" },
+                            ]}
+                          />
                         </Typography>
                       </TableCell>
                       <TableCell>
@@ -198,9 +209,17 @@ const EncounterList = () => {
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.nextActionBy}
-                        </Typography>
+                        <ColoredCustomSelect
+                          value={list.nextActionBy}
+                          onChange={function (val: string): void {
+                            val;
+                          }}
+                          options={[
+                            { label: "R. Bellow", value: "R. Bellow" },
+                            { label: "A. Torres", value: "A. Torres" },
+                            { label: "E. Enerique", value: "E. Enerique" },
+                          ]}
+                        />
                       </TableCell>
                       <TableCell>
                         <Typography sx={typographyCss} variant="bodySmall">
