@@ -199,7 +199,7 @@ const DevicesInventoryList = () => {
                   <TableBody>
                     {deviceInventoryList.length > 0 ? (
                       deviceInventoryList.map((list, index) => (
-                        <TableRow key={index}>
+                        <TableRow hover key={index}>
                           <TableCell>
                             <Grid container flexDirection={"column"}>
                               <Grid container flexDirection={"column"}>

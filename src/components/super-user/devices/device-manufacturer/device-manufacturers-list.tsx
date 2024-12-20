@@ -1,13 +1,17 @@
-import { Grid, useMediaQuery } from "@mui/system";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Button,
+  IconButton,
   Link,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  MenuList,
   Table,
   TableBody,
   TableCell,
@@ -15,12 +19,10 @@ import {
   TableHead,
   TableRow,
   Typography,
-  IconButton,
-  MenuList,
-  MenuItem,
-  Menu,
-  ListItemIcon,
 } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/system";
+import React, { useState } from "react";
+import CustomInput from "../../../../common-components/custom-input/custom-input";
 import Paginator from "../../../../common-components/paginator/paginator";
 import Status from "../../../../common-components/status/status";
 import {
@@ -29,13 +31,11 @@ import {
   typographyCss,
 } from "../../../../common-components/table/common-table-widgets";
 import { TableHeaders } from "../../../../common-components/table/table-models";
-import { useState } from "react";
-import { theme } from "../../../../utils/theme";
-import CustomInput from "../../../../common-components/custom-input/custom-input";
+import { useDrawer } from "../../../../hooks/useDrawer";
 import deviceManufacturersList from "../../../../mock-data/device-manufacturers-list.json";
-import CustomDrawer from "../../../../common-components/custom-drawer/custom-drawer";
+import { theme } from "../../../../utils/theme";
+import MainDrawer from "../../../ui/MainDrawer";
 import DeviceManufacturersForm from "./device-manufacturers-form";
-import React from "react";
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Company" },
@@ -45,22 +45,49 @@ export const mockHeaders: TableHeaders[] = [
   { header: "Action" },
 ];
 
-const DeviceManufacturers = () => {
-  const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
+const DeviceManufacturersList = () => {
+  // const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const [selectedAction, setSelectedAction] = useState("Add");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
-  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
+
+  const {
+    open: openDrawer,
+    close: closeDrawer,
+    content: contentDrawer,
+  } = useDrawer();
 
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
+  const handleDrawer = {
+    deviceManufacturersForm: (action: string) => {
+      openDrawer({
+        title: `${action} Staff`,
+        identifier: "drawer-staff-form",
+      });
+    },
+  };
+
+  const DrawerContent = () => {
+    switch (contentDrawer.identifier) {
+      case "drawer-staff-form":
+        return (
+          <DeviceManufacturersForm isEdit handleDrawerClose={closeDrawer} />
+        );
+      default:
+        return <div />;
+    }
+  };
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   return (
     <>
+      <MainDrawer content={<DrawerContent />} />
+
       <Grid
         height={"100%"}
         p={2}
@@ -127,8 +154,7 @@ const DeviceManufacturers = () => {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    setSelectedAction("Add");
-                    SetIsFormOpen(true);
+                    handleDrawer.deviceManufacturersForm("Add");
                   }}
                   startIcon={
                     <AddIcon
@@ -286,7 +312,7 @@ const DeviceManufacturers = () => {
                                     setSelectedAction(v);
                                     handleMenuClose();
                                     v === "Archive";
-                                    v === "Edit" && SetIsFormOpen(true);
+                                    // v === "Edit" && SetIsFormOpen(true);
                                   }}
                                 >
                                   <ListItemIcon>
@@ -331,20 +357,7 @@ const DeviceManufacturers = () => {
           </Grid>
         </Grid>
       </Grid>
-      {/* Drawer */}
-      <CustomDrawer
-        drawerWidth={belowWidth1024 ? "700px" : "1000px"}
-        anchor={"right"}
-        open={isFormOpen}
-        onArrowClose={() => SetIsFormOpen(false)}
-        title={
-          selectedAction === "Edit" ? "Edit Manufactures" : "Add Manufactures"
-        }
-        showMandatoryIndicator={true}
-      >
-        <DeviceManufacturersForm onClose={() => SetIsFormOpen(false)} />
-      </CustomDrawer>
     </>
   );
 };
-export default DeviceManufacturers;
+export default DeviceManufacturersList;

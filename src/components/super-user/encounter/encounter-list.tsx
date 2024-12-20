@@ -1,6 +1,8 @@
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import AddIcon from "@mui/icons-material/Add";
 import {
+  Button,
   Link,
   Table,
   TableBody,
@@ -11,8 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
-
-import { useNavigate } from "react-router-dom";
 import CustomInput from "../../../common-components/custom-input/custom-input";
 import { theme } from "../../../utils/theme";
 
@@ -43,7 +43,6 @@ export const Headers: TableHeaders[] = [
 
 const EncounterList = () => {
   const belowHeight768 = useMediaQuery("(max-height:768px)");
-  const navigate = useNavigate();
 
   return (
     <Grid height={"100%"} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
@@ -94,6 +93,17 @@ const EncounterList = () => {
             >
               <FilterAltOutlinedIcon sx={{ height: "19px", width: "19px" }} />
             </Grid>
+            <Button
+              startIcon={<AddIcon />}
+              sx={{
+                p: "0px 10px",
+                bgcolor: theme.palette.secondary.main,
+                borderRadius: "12px",
+                color: theme.palette.common.white,
+              }}
+            >
+              Create Encounter
+            </Button>
           </Grid>
         </Grid>
         <Grid width={"100%"}>
@@ -136,7 +146,7 @@ const EncounterList = () => {
               <TableBody>
                 {tableDataEncounter.length > 0 ? (
                   tableDataEncounter.map((list, index) => (
-                    <TableRow key={index}>
+                    <TableRow hover key={index}>
                       <TableCell sx={{ ...heading }} align="left">
                         <Grid container flexDirection={"column"}>
                           <Grid container flexDirection={"column"}>
@@ -147,9 +157,8 @@ const EncounterList = () => {
                                 cursor: "pointer",
                               }}
                               onClick={() => {
-                                navigate(
-                                  `/super-user/devices/${list.patientName.replace("#", "")}`,
-                                );
+                                // navigate(
+                                // );
                               }}
                             >
                               <Typography
