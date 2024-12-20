@@ -52,6 +52,7 @@ export const Status = {
   SIGNED_OFF: "SIGNED_OFF",
   PRIMARY: "PRIMARY",
   SECONDARY: "SECONDARY",
+  NEW_ORDER: "NEW ORDER",
 };
 
 export const StatusColorMap: { [key: string]: string } = {
@@ -104,4 +105,5 @@ export const StatusColorMap: { [key: string]: string } = {
   READY: "#049B22",
   LOST: "#B1000F",
   BROKEN: "#943C00",
+  NEW_ORDER: "#004AB1",
 };

@@ -28,6 +28,7 @@ import {
   StatusBgColorMapping,
 } from "../../../../constants/appointments-status-const";
 import { theme } from "../../../../utils/theme";
+import ScheduleNewDeviceForm from "./schedule-new-device-form";
 
 const DeviceScheduling = () => {
   //14 columns for dates
@@ -38,6 +39,7 @@ const DeviceScheduling = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [headersArray, setHeadersArray] = useState(generateHeaders(new Date()));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
 
@@ -134,256 +136,292 @@ const DeviceScheduling = () => {
   };
 
   return (
-    <Grid flexDirection={"column"} width={"100%"} m={2} container>
-      <Grid height={"55px"} container>
-        <Grid container columnGap={2} width={"368px"} alignItems={"center"}>
-          <Typography variant="bodyLarge">Device Calendar</Typography>
-          <Grid width={"150px"}>
-            <Select
-              placeholder="Month"
-              labelId="demo-select-small-label"
-              onChange={handleMonthChange}
-              value={selectedMonth}
-              id="demo-select-small"
-              sx={{
-                minWidth: "100px",
-                height: "50px",
-                padding: "0px",
-                ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-                  {
+    <>
+      {!isFormOpen && (
+        <Grid flexDirection={"column"} width={"100%"} m={2} container>
+          <Grid height={"55px"} container>
+            <Grid container columnGap={2} width={"368px"} alignItems={"center"}>
+              <Typography variant="bodyLarge">Device Calendar</Typography>
+              <Grid width={"150px"}>
+                <Select
+                  placeholder="Month"
+                  labelId="demo-select-small-label"
+                  onChange={handleMonthChange}
+                  value={selectedMonth}
+                  id="demo-select-small"
+                  sx={{
+                    minWidth: "100px",
+                    height: "50px",
                     padding: "0px",
-                  },
-                boxShadow: "rgba(228, 219, 233, 0.25)",
-                ".MuiOutlinedInput-notchedOutline": { border: 0 },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-              }}
+                    ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
+                      {
+                        padding: "0px",
+                      },
+                    boxShadow: "rgba(228, 219, 233, 0.25)",
+                    ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                  }}
+                >
+                  {monthsOptions.map((opt) => (
+                    <MenuItem value={opt.value}>
+                      <Typography>{opt.label}</Typography>
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Grid>
+            </Grid>
+            <Grid container columnGap={2} alignItems={"center"}>
+              <Button
+                onClick={handlePrevious7Days}
+                startIcon={<ArrowBackIosIcon sx={{ width: "12px" }} />}
+                variant="outlined"
+                sx={{ height: "28px" }}
+              >
+                Previous 7 Days
+              </Button>
+              <Button
+                onClick={handleNext7Days}
+                endIcon={<ArrowForwardIosIcon sx={{ width: "12px" }} />}
+                variant="outlined"
+                sx={{ height: "28px" }}
+              >
+                Next 7 Days
+              </Button>
+            </Grid>
+            <Grid
+              container
+              flex={1}
+              justifyContent={"flex-end"}
+              alignItems={"center"}
+              columnGap={2}
             >
-              {monthsOptions.map((opt) => (
-                <MenuItem value={opt.value}>
-                  <Typography>{opt.label}</Typography>
-                </MenuItem>
-              ))}
-            </Select>
+              <ButtonBase onClick={handleClick}>
+                <Typography
+                  fontWeight={500}
+                  color="#106DCC"
+                  variant="bodySmall"
+                >
+                  {"Show Legends"}
+                </Typography>
+                {showLegends && (
+                  <KeyboardArrowDownOutlinedIcon color="secondary" />
+                )}
+                {!showLegends && (
+                  <KeyboardArrowUpOutlinedIcon color="secondary" />
+                )}
+              </ButtonBase>
+              <Popper
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                sx={{ zIndex: 1000 }}
+              >
+                <Box
+                  sx={{
+                    border: "1px solid #E7E7E7",
+                    p: 1,
+                    bgcolor: "background.paper",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <Grid columnGap={1} container width={"80vw"} rowGap={1}>
+                    {[
+                      AppointmentStatusEnum.BLOCKED_DATE,
+                      AppointmentStatusEnum.CONFLICTED,
+                      AppointmentStatusEnum.MULTIPLE_EVENTS,
+                      AppointmentStatusEnum.DEVICE_OUT_PLANNED,
+                      AppointmentStatusEnum.DEVICE_OUT_COMPLETED,
+                      AppointmentStatusEnum.STUDY_FIRST_NIGHT_COMPLETED,
+                      AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
+                      AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
+                      AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
+                      AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
+                    ].map((statusDetails) => (
+                      <Grid container alignItems={"center"} columnGap={1}>
+                        <Grid
+                          width={"15px"}
+                          height={"15px"}
+                          borderRadius={"7.5px"}
+                          bgcolor={StatusBgColorMapping[statusDetails]}
+                        ></Grid>
+                        <Typography variant="bodySmall">
+                          {statusDetails}
+                        </Typography>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </Popper>
+              <Button variant="outlined">
+                <FilterAltOutlinedIcon />
+              </Button>
+              <Button variant="outlined">Today</Button>
+              <Button
+                startIcon={<AddIcon />}
+                onClick={() => SetIsFormOpen(true)}
+                sx={{
+                  p: "0px 10px",
+                  bgcolor: theme.palette.secondary.main,
+                  borderRadius: "12px",
+                  color: theme.palette.common.white,
+                }}
+              >
+                Add New Schedule
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container columnGap={2} alignItems={"center"}>
-          <Button
-            onClick={handlePrevious7Days}
-            startIcon={<ArrowBackIosIcon sx={{ width: "12px" }} />}
-            variant="outlined"
-            sx={{ height: "28px" }}
-          >
-            Previous 7 Days
-          </Button>
-          <Button
-            onClick={handleNext7Days}
-            endIcon={<ArrowForwardIosIcon sx={{ width: "12px" }} />}
-            variant="outlined"
-            sx={{ height: "28px" }}
-          >
-            Next 7 Days
-          </Button>
-        </Grid>
-        <Grid
-          container
-          flex={1}
-          justifyContent={"flex-end"}
-          alignItems={"center"}
-          columnGap={2}
-        >
-          <ButtonBase onClick={handleClick}>
-            <Typography fontWeight={500} color="#106DCC" variant="bodySmall">
-              {"Show Legends"}
-            </Typography>
-            {showLegends && <KeyboardArrowDownOutlinedIcon color="secondary" />}
-            {!showLegends && <KeyboardArrowUpOutlinedIcon color="secondary" />}
-          </ButtonBase>
-          <Popper id={id} open={open} anchorEl={anchorEl} sx={{ zIndex: 1000 }}>
-            <Box
+          <Grid width={"100%"}>
+            <TableContainer
               sx={{
                 border: "1px solid #E7E7E7",
-                p: 1,
-                bgcolor: "background.paper",
-                borderRadius: "10px",
+                borderRadius: "12px",
+                maxHeight: belowHeight768 ? "63vh" : "85vh",
+                overflowY: "auto",
               }}
             >
-              <Grid columnGap={1} container width={"80vw"} rowGap={1}>
-                {[
-                  AppointmentStatusEnum.BLOCKED_DATE,
-                  AppointmentStatusEnum.CONFLICTED,
-                  AppointmentStatusEnum.MULTIPLE_EVENTS,
-                  AppointmentStatusEnum.DEVICE_OUT_PLANNED,
-                  AppointmentStatusEnum.DEVICE_OUT_COMPLETED,
-                  AppointmentStatusEnum.STUDY_FIRST_NIGHT_COMPLETED,
-                  AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
-                  AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
-                  AppointmentStatusEnum.RECEIVE_DEVICE_PLANNED,
-                  AppointmentStatusEnum.RETURN_DEVICE_COMPLETED,
-                ].map((statusDetails) => (
-                  <Grid container alignItems={"center"} columnGap={1}>
-                    <Grid
-                      width={"15px"}
-                      height={"15px"}
-                      borderRadius={"7.5px"}
-                      bgcolor={StatusBgColorMapping[statusDetails]}
-                    ></Grid>
-                    <Typography variant="bodySmall">{statusDetails}</Typography>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          </Popper>
-          <Button variant="outlined">
-            <FilterAltOutlinedIcon />
-          </Button>
-          <Button variant="outlined">Today</Button>
-          <Button
-            startIcon={<AddIcon />}
-            sx={{
-              p: "0px 10px",
-              bgcolor: theme.palette.secondary.main,
-              borderRadius: "12px",
-              color: theme.palette.common.white,
-            }}
-          >
-            Add New Schedule
-          </Button>
-        </Grid>
-      </Grid>
-      <Grid width={"100%"}>
-        <TableContainer
-          sx={{
-            border: "1px solid #E7E7E7",
-            borderRadius: "12px",
-            maxHeight: belowHeight768 ? "63vh" : "85vh",
-            overflowY: "auto",
-          }}
-        >
-          <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
-            <TableHead>
-              <TableRow>
-                {headersArray.map((header, index) => (
-                  <TableCell
-                    sx={{
-                      ...heading,
-                      minWidth: header.minWidth ? header.minWidth : "inherit",
-                      maxWidth: header.maxWidth ? header.maxWidth : "inherit",
-                      width: header.width ? header.width : "inherit",
-                      // width: "80px",
-                      border: "1px solid #E7E7E7",
-                    }}
-                    key={index}
-                  >
-                    <Grid
-                      container
-                      pl={
-                        header.header !== "pool" &&
-                        header.header !== "deviceName"
-                          ? "0px"
-                          : "10px"
-                      }
-                      justifyContent={
-                        header.header !== "pool" &&
-                        header.header !== "deviceName"
-                          ? "center"
-                          : "flex-start"
-                      }
-                    >
-                      <Typography variant="bodySmall">
-                        {header.header === "pool"
-                          ? "Pool"
-                          : header.header === "deviceName"
-                            ? "Device Name"
-                            : header.header}
-                      </Typography>
-                    </Grid>
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data &&
-                data.map((row, index) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                      {data &&
-                        headersArray.map((column) => {
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          const value = (row as any)[column.header];
-                          if (column.header === "deviceName") {
-                            return (
-                              <TableCell
-                                key={index}
-                                sx={{
-                                  ...colBorderCss,
-                                  padding: "8px",
-                                  textAlign: "left",
-                                }}
-                              >
-                                <Link
-                                  underline="always"
+              <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
+                <TableHead>
+                  <TableRow>
+                    {headersArray.map((header, index) => (
+                      <TableCell
+                        sx={{
+                          ...heading,
+                          minWidth: header.minWidth
+                            ? header.minWidth
+                            : "inherit",
+                          maxWidth: header.maxWidth
+                            ? header.maxWidth
+                            : "inherit",
+                          width: header.width ? header.width : "inherit",
+                          // width: "80px",
+                          border: "1px solid #E7E7E7",
+                        }}
+                        key={index}
+                      >
+                        <Grid
+                          container
+                          pl={
+                            header.header !== "pool" &&
+                            header.header !== "deviceName"
+                              ? "0px"
+                              : "10px"
+                          }
+                          justifyContent={
+                            header.header !== "pool" &&
+                            header.header !== "deviceName"
+                              ? "center"
+                              : "flex-start"
+                          }
+                        >
+                          <Typography variant="bodySmall">
+                            {header.header === "pool"
+                              ? "Pool"
+                              : header.header === "deviceName"
+                                ? "Device Name"
+                                : header.header}
+                          </Typography>
+                        </Grid>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data &&
+                    data.map((row, index) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={index}
+                        >
+                          {data &&
+                            headersArray.map((column) => {
+                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                              const value = (row as any)[column.header];
+                              if (column.header === "deviceName") {
+                                return (
+                                  <TableCell
+                                    key={index}
+                                    sx={{
+                                      ...colBorderCss,
+                                      padding: "8px",
+                                      textAlign: "left",
+                                    }}
+                                  >
+                                    <Link
+                                      underline="always"
+                                      sx={{
+                                        color: "#106DCC",
+                                        cursor: "pointer",
+                                        paddingLeft: "16px",
+                                      }}
+                                    >
+                                      <Typography
+                                        fontWeight={500}
+                                        color="#106DCC"
+                                        variant="bodySmall"
+                                      >
+                                        {value}
+                                      </Typography>
+                                    </Link>
+                                  </TableCell>
+                                );
+                              }
+                              if (column.header === "pool") {
+                                return (
+                                  <TableCell
+                                    key={index}
+                                    sx={{
+                                      ...colBorderCss,
+
+                                      padding: "8px",
+                                      textAlign: "left",
+                                      paddingLeft: "16px",
+                                    }}
+                                  >
+                                    <Typography
+                                      sx={{
+                                        cursor: "pointer",
+                                        marginLeft: "16px",
+                                      }}
+                                      variant="body2"
+                                    >
+                                      {value}
+                                    </Typography>
+                                  </TableCell>
+                                );
+                              }
+                              return (
+                                <TableCell
                                   sx={{
-                                    color: "#106DCC",
-                                    cursor: "pointer",
-                                    paddingLeft: "16px",
+                                    ...colBorderCss,
+                                    padding: "8px",
+                                    textAlign: "center",
+                                    // width: "80px",
+                                    height: "40px",
                                   }}
                                 >
-                                  <Typography
-                                    fontWeight={500}
-                                    color="#106DCC"
-                                    variant="bodySmall"
-                                  >
-                                    {value}
-                                  </Typography>
-                                </Link>
-                              </TableCell>
-                            );
-                          }
-                          if (column.header === "pool") {
-                            return (
-                              <TableCell
-                                key={index}
-                                sx={{
-                                  ...colBorderCss,
+                                  {renderStatusContainers(row, column.header)}
+                                </TableCell>
+                              );
+                            })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
+      )}
 
-                                  padding: "8px",
-                                  textAlign: "left",
-                                  paddingLeft: "16px",
-                                }}
-                              >
-                                <Typography
-                                  sx={{ cursor: "pointer", marginLeft: "16px" }}
-                                  variant="body2"
-                                >
-                                  {value}
-                                </Typography>
-                              </TableCell>
-                            );
-                          }
-                          return (
-                            <TableCell
-                              sx={{
-                                ...colBorderCss,
-                                padding: "8px",
-                                textAlign: "center",
-                                // width: "80px",
-                                height: "40px",
-                              }}
-                            >
-                              {renderStatusContainers(row, column.header)}
-                            </TableCell>
-                          );
-                        })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Grid>
-    </Grid>
+      {isFormOpen && (
+        <ScheduleNewDeviceForm onClose={() => SetIsFormOpen(false)} />
+      )}
+    </>
   );
 };
 

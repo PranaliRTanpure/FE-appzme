@@ -70,6 +70,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
   const onSubmit = (data: FieldValues) => {
     data;
   };
+
   return (
     <Grid container width={"100%"} height={"100%"}>
       <form
