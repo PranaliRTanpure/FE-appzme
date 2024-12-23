@@ -50,6 +50,7 @@ const DeviceManufacturersList = () => {
   const [selectedAction, setSelectedAction] = useState("Add");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
 
   const {
     open: openDrawer,
@@ -64,7 +65,7 @@ const DeviceManufacturersList = () => {
   const handleDrawer = {
     deviceManufacturersForm: (action: string) => {
       openDrawer({
-        title: `${action} Staff`,
+        title: `${action} Manufacturers`,
         identifier: "drawer-staff-form",
       });
     },
@@ -86,7 +87,11 @@ const DeviceManufacturersList = () => {
 
   return (
     <>
-      <MainDrawer content={<DrawerContent />} />
+      <MainDrawer
+        content={<DrawerContent />}
+        drawerWidth={belowWidth1024 ? "750px" : "1000px"}
+        anchor="right"
+      />
 
       <Grid
         height={"100%"}
@@ -313,6 +318,11 @@ const DeviceManufacturersList = () => {
                                     handleMenuClose();
                                     v === "Archive";
                                     // v === "Edit" && SetIsFormOpen(true);
+                                    if (v === "Edit") {
+                                      handleDrawer.deviceManufacturersForm(
+                                        "Edit",
+                                      );
+                                    }
                                   }}
                                 >
                                   <ListItemIcon>

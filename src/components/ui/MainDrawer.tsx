@@ -1,5 +1,4 @@
 import { PropsWithChildren, ReactNode, useRef } from "react";
-
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import {
   Box,
@@ -20,8 +19,8 @@ interface MainDrawerProps {
 }
 
 const MainDrawer = ({
-  drawerWidth = "800px",
-  anchor = "right",
+  drawerWidth,
+  anchor,
   content,
 }: PropsWithChildren<MainDrawerProps>) => {
   const { isOpen, content: contentDrawer, close } = useDrawer();
@@ -34,7 +33,8 @@ const MainDrawer = ({
       open={isOpen}
       PaperProps={{
         sx: {
-          width: belowLg ? "100%" : drawerWidth,
+          // width: belowLg ? "100%" : drawerWidth,
+          width: drawerWidth ? drawerWidth : belowLg ? "50vw" : "40vw",
         },
       }}
     >
@@ -57,12 +57,7 @@ const MainDrawer = ({
             paddingLeft: 3,
           }}
         >
-          <Typography
-            sx={{
-              fontWeight: 600,
-              fontSize: 24,
-            }}
-          >
+          <Typography fontWeight={550} variant="bodyLarge">
             {contentDrawer.title}
           </Typography>
           <IconButton onClick={close} size="small">

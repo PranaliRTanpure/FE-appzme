@@ -1,5 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IconButton, SelectChangeEvent, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import { Grid } from "@mui/system";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -8,6 +13,7 @@ import Status from "../../../../common-components/status/status";
 import CustomLabel from "../../../../common-components/custom-label/custom-label";
 import CustomSelect from "../../../../common-components/custom-select/customSelect";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
+import DatePicker from "@/common-components/date-picker-field/date-picker-field";
 
 export const scheduleNewDeviceFormSchema = yup.object().shape({
   appointmentType: yup.string(),
@@ -53,23 +59,23 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
   };
 
   return (
-    <Grid container width={"100%"}>
-      <form
-        style={{ width: "100%", height: "100%" }}
-        onSubmit={handleSubmit(onSubmit)}
+    <form
+      style={{ width: "100%", height: "100%" }}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {/* Main Grid */}
+      <Grid
+        container
+        flexDirection={"column"}
+        alignContent={"center"}
+        rowGap={1}
+        width={"100%"}
+        height={"100%"}
       >
-        {/* Main Grid */}
-        <Grid
-          container
-          flexDirection={"column"}
-          alignContent={"center"}
-          pt={5}
-          rowGap={2.5}
-          m={2}
-        >
+        <Grid container width={"100%"} pt={2} pb={2} pl={8} pr={8}>
           {/* Header Grid */}
-          <Grid container justifyContent={"flex-start"} width={"1440px"}>
-            <Grid container columnGap={1.5} alignItems={"center"}>
+          <Grid container justifyContent={"flex-start"} width={"936px"} m={2}>
+            <Grid container columnGap={1.5} alignItems={"center"} pt={3}>
               <IconButton onClick={props.onClose}>
                 <ArrowBackIcon />
               </IconButton>
@@ -79,161 +85,315 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
               <Status bgColor="#E0EDFF" status={"NEW_ORDER"} width="100px" />
             </Grid>
           </Grid>
-          {/* Form Grid */}
+
           <Grid
             container
-            width={"1440px"}
-            bgcolor={"white"}
+            width={"100%"}
             flexDirection={"column"}
-            borderRadius={3.5}
             rowGap={2}
             p={2}
+            border={0}
           >
-            <Typography variant="bodyMedium">Appointment Details</Typography>
-            <Grid container columnGap={2} width={"100%"}>
-              <Grid width={"30%"}>
-                <CustomLabel label="Appointment Type" />
-                <Controller
-                  control={control}
-                  name="appointmentType"
-                  render={({ field }) => (
-                    <CustomSelect
-                      placeholder={"Select Appointment Type"}
-                      enableDeselect
-                      items={[{ value: "active", label: "Active" }]}
-                      onChange={function (e: SelectChangeEvent<string>): void {
-                        setValue("appointmentType", e.target.value, {
-                          shouldValidate: true,
-                        });
-                      }}
-                      name={field.name}
-                      value={field.value?.trim() || ""}
-                    />
-                  )}
-                ></Controller>
-              </Grid>
-              <Grid width={"30%"}>
-                <CustomLabel label="Device Pool" />
-                <Controller
-                  control={control}
-                  name="devicePool"
-                  render={({ field }) => (
-                    <CustomSelect
-                      placeholder={"Select Device Pool"}
-                      enableDeselect
-                      items={[{ value: "active", label: "Active" }]}
-                      onChange={function (e: SelectChangeEvent<string>): void {
-                        setValue("devicePool", e.target.value, {
-                          shouldValidate: true,
-                        });
-                      }}
-                      name={field.name}
-                      value={field.value?.trim() || ""}
-                    />
-                  )}
-                ></Controller>
-              </Grid>
-            </Grid>
-
+            {/* Form Grid */}
             <Grid
               container
               width={"100%"}
-              bgcolor={"#F2F4FA"}
+              bgcolor={"white"}
+              rowGap={2}
+              p={2}
               borderRadius={3.5}
+            >
+              <Typography variant="bodyMedium">Appointment Details</Typography>
+              <Grid container columnGap={2} width={"100%"}>
+                <Grid width={"20%"}>
+                  <CustomLabel label="Appointment Type" />
+                  <Controller
+                    control={control}
+                    name="appointmentType"
+                    render={({ field }) => (
+                      <CustomSelect
+                        placeholder={"Select Appointment Type"}
+                        enableDeselect
+                        items={[{ value: "active", label: "Active" }]}
+                        onChange={function (
+                          e: SelectChangeEvent<string>,
+                        ): void {
+                          setValue("appointmentType", e.target.value, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        name={field.name}
+                        value={field.value?.trim() || ""}
+                      />
+                    )}
+                  ></Controller>
+                </Grid>
+                <Grid width={"20%"}>
+                  <CustomLabel label="Device Pool" />
+                  <Controller
+                    control={control}
+                    name="devicePool"
+                    render={({ field }) => (
+                      <CustomSelect
+                        placeholder={"Select Device Pool"}
+                        enableDeselect
+                        items={[{ value: "active", label: "Active" }]}
+                        onChange={function (
+                          e: SelectChangeEvent<string>,
+                        ): void {
+                          setValue("devicePool", e.target.value, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        name={field.name}
+                        value={field.value?.trim() || ""}
+                      />
+                    )}
+                  ></Controller>
+                </Grid>
+              </Grid>
+
+              <Grid
+                container
+                width={"100%"}
+                bgcolor={"#F2F4FA"}
+                borderRadius={3.5}
+              >
+                <Grid
+                  container
+                  columnGap={1}
+                  p={2}
+                  alignItems={"center"}
+                  borderBottom={"1px solid #D1DAF5"}
+                  width={"100%"}
+                >
+                  <Typography variant="bodyMedium" fontWeight={"900px"}>
+                    Device Details
+                  </Typography>
+                  <Typography
+                    variant="bodySmall"
+                    fontSize={"12px"}
+                    color="#595F63"
+                  >
+                    (Referrer Prefers - AliceknightOne)
+                  </Typography>
+                </Grid>
+                <Grid
+                  container
+                  p={2}
+                  width={"100%"}
+                  columnGap={3}
+                  justifyContent={"flex-start"}
+                >
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Select Device" />
+                    <Controller
+                      control={control}
+                      name="selectDevice"
+                      render={({ field }) => (
+                        <CustomSelect
+                          placeholder={"Select Device"}
+                          enableDeselect
+                          items={[{ value: "active", label: "Active" }]}
+                          onChange={function (
+                            e: SelectChangeEvent<string>,
+                          ): void {
+                            setValue("selectDevice", e.target.value, {
+                              shouldValidate: true,
+                            });
+                          }}
+                          name={field.name}
+                          value={field.value?.trim() || ""}
+                        />
+                      )}
+                    ></Controller>
+                  </Grid>
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Preferred Device" />
+                    <Controller
+                      control={control}
+                      name="preferredDevice"
+                      render={({ field }) => (
+                        <CustomSelect
+                          isDisabled={true}
+                          placeholder={"AliceknightOne"}
+                          enableDeselect
+                          items={[{ value: "active", label: "Active" }]}
+                          onChange={function (
+                            e: SelectChangeEvent<string>,
+                          ): void {
+                            setValue("preferredDevice", e.target.value, {
+                              shouldValidate: true,
+                            });
+                          }}
+                          name={field.name}
+                          value={field.value?.trim() || ""}
+                        />
+                      )}
+                    ></Controller>
+                  </Grid>
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Belt Number" />
+                    <Controller
+                      control={control}
+                      name="beltNumber"
+                      render={({ field }) => (
+                        <CustomInput
+                          value={field.value?.trim() || ""}
+                          placeholder={"Enter Belt Number"}
+                          name={field.name}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  container
+                  p={2}
+                  width={"100%"}
+                  columnGap={0}
+                  justifyContent={"space-between"}
+                >
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Device Out" />
+                    <Controller
+                      control={control}
+                      name={`deviceOut`}
+                      render={({ field }) => (
+                        <DatePicker
+                          bgWhite={false}
+                          {...field}
+                          disableFuture
+                          value={field.value}
+                          onDateChange={function (selectedDate: string): void {
+                            setValue(`deviceOut`, selectedDate, {
+                              shouldValidate: true,
+                            });
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Study First Night" />
+                    <Controller
+                      control={control}
+                      name={`studyFirstNight`}
+                      render={({ field }) => (
+                        <DatePicker
+                          bgWhite={false}
+                          {...field}
+                          disableFuture
+                          value={field.value}
+                          onDateChange={function (selectedDate: string): void {
+                            setValue(`studyFirstNight`, selectedDate, {
+                              shouldValidate: true,
+                            });
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Return Device" />
+                    <Controller
+                      control={control}
+                      name={`returnDevice`}
+                      render={({ field }) => (
+                        <DatePicker
+                          bgWhite={false}
+                          {...field}
+                          disableFuture
+                          value={field.value}
+                          onDateChange={function (selectedDate: string): void {
+                            setValue(`returnDevice`, selectedDate, {
+                              shouldValidate: true,
+                            });
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid width={"24%"}>
+                    <CustomLabel label="Receive" />
+                    <Controller
+                      control={control}
+                      name={`receive`}
+                      render={({ field }) => (
+                        <DatePicker
+                          bgWhite={false}
+                          {...field}
+                          disableFuture
+                          value={field.value}
+                          onDateChange={function (selectedDate: string): void {
+                            setValue(`receive`, selectedDate, {
+                              shouldValidate: true,
+                            });
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            {/* FedX Grid */}
+            <Grid
+              container
+              width={"100%"}
+              bgcolor={"white"}
+              rowGap={2}
+              p={2}
+              borderRadius={3.5}
+              flexDirection={"column"}
             >
               <Grid
                 container
-                columnGap={1}
-                p={2}
-                alignItems={"center"}
-                borderBottom={"1px solid #D1DAF5"}
-                width={"100%"}
-              >
-                <Typography variant="bodyMedium" fontWeight={"900px"}>
-                  Device Details
-                </Typography>
-                <Typography
-                  variant="bodySmall"
-                  fontSize={"12px"}
-                  color="#595F63"
-                >
-                  (Referrer Prefers - AliceknightOne)
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                p={2}
-                width={"100%"}
-                columnGap={2}
                 justifyContent={"space-between"}
+                alignItems={"center"}
               >
-                <Grid width={"32%"}>
-                  <CustomLabel label="Select Device" />
-                  <Controller
-                    control={control}
-                    name="selectDevice"
-                    render={({ field }) => (
-                      <CustomSelect
-                        placeholder={"Select Device"}
-                        enableDeselect
-                        items={[{ value: "active", label: "Active" }]}
-                        onChange={function (
-                          e: SelectChangeEvent<string>,
-                        ): void {
-                          setValue("selectDevice", e.target.value, {
-                            shouldValidate: true,
-                          });
-                        }}
-                        name={field.name}
-                        value={field.value?.trim() || ""}
-                      />
-                    )}
-                  ></Controller>
+                <Grid>
+                  <Typography variant="bodyMedium">FedEX Label</Typography>
                 </Grid>
-                <Grid width={"32%"}>
-                  <CustomLabel label="Preferred Device" />
-                  <Controller
-                    control={control}
-                    name="preferredDevice"
-                    render={({ field }) => (
-                      <CustomSelect
-                        isDisabled={true}
-                        placeholder={"AliceknightOne"}
-                        enableDeselect
-                        items={[{ value: "active", label: "Active" }]}
-                        onChange={function (
-                          e: SelectChangeEvent<string>,
-                        ): void {
-                          setValue("preferredDevice", e.target.value, {
-                            shouldValidate: true,
-                          });
-                        }}
-                        name={field.name}
-                        value={field.value?.trim() || ""}
-                      />
-                    )}
-                  ></Controller>
-                </Grid>
-                <Grid width={"32%"}>
-                  <CustomLabel label="Belt Number" />
-                  <Controller
-                    control={control}
-                    name="beltNumber"
-                    render={({ field }) => (
-                      <CustomInput
-                        value={field.value?.trim() || ""}
-                        placeholder={"Enter Belt Number"}
-                        name={field.name}
-                      />
-                    )}
-                  />
+                <Grid container columnGap={2} alignItems={"center"}>
+                  <Typography variant="bodySmall">Generate :</Typography>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {}}
+                    sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
+                  >
+                    Shipping label To Patient
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    type="submit"
+                    onClick={() => {}}
+                    sx={{ mr: 1 }}
+                  >
+                    Shipping label From Patient
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </form>
-    </Grid>
+        {/* Button Grid */}
+        <Grid container flex={1} alignContent={"flex-end"} width={"100%"}>
+          <Grid textAlign={"end"} width={"100%"} p={2} bgcolor={"white"}>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => {}}
+              sx={{ mr: 1 }}
+              disabled
+            >
+              Schedule Device
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </form>
   );
 };
 export default ScheduleNewDeviceForm;
