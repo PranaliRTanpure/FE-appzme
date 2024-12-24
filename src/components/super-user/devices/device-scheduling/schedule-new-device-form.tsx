@@ -99,7 +99,6 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
           pr={8}
           maxHeight={"84vh"}
           overflow={"auto"}
-          m={0}
         >
           {/* Header Grid */}
           <Grid container justifyContent={"flex-start"} width={"100%"} m={2}>
@@ -447,8 +446,8 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
                               container
                               flexDirection={"column"}
                               alignContent={
-                                header.header === "Status"
-                                  ? "flex-end"
+                                header.header === "Shipping Label"
+                                  ? "flex=start"
                                   : "flex-start"
                               }
                             >

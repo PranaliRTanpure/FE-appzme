@@ -46,11 +46,11 @@ export const mockHeaders: TableHeaders[] = [
 ];
 
 const DeviceManufacturersList = () => {
-  // const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const [selectedAction, setSelectedAction] = useState("Add");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
+  const [isEdit, setIsEdit] = React.useState(false);
 
   const {
     open: openDrawer,
@@ -64,33 +64,38 @@ const DeviceManufacturersList = () => {
 
   const handleDrawer = {
     deviceManufacturersForm: (action: string) => {
+      setIsEdit(action === "Edit");
       openDrawer({
         title: `${action} Manufacturers`,
-        identifier: "drawer-staff-form",
+        identifier: "drawer-device-manufacturers-form",
       });
     },
   };
 
   const DrawerContent = () => {
     switch (contentDrawer.identifier) {
-      case "drawer-staff-form":
+      case "drawer-device-manufacturers-form":
         return (
-          <DeviceManufacturersForm isEdit handleDrawerClose={closeDrawer} />
+          <DeviceManufacturersForm
+            isEdit={isEdit}
+            handleDrawerClose={closeDrawer}
+          />
         );
       default:
         return <div />;
     }
   };
+
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   return (
     <>
       <MainDrawer
         content={<DrawerContent />}
         drawerWidth={belowWidth1024 ? "750px" : "1000px"}
         anchor="right"
+        showMandatoryIndicator={true}
       />
 
       <Grid
@@ -317,7 +322,6 @@ const DeviceManufacturersList = () => {
                                     setSelectedAction(v);
                                     handleMenuClose();
                                     v === "Archive";
-                                    // v === "Edit" && SetIsFormOpen(true);
                                     if (v === "Edit") {
                                       handleDrawer.deviceManufacturersForm(
                                         "Edit",

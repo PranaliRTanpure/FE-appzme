@@ -1,7 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
+// import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import {
   Button,
   Divider,
@@ -482,17 +483,37 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                 padding: "20px 24px",
               }}
             >
-              <Grid container justifyContent="flex-end">
-                <Button
-                  startIcon={isEdit ? <> </> : <DoneOutlinedIcon />}
-                  onClick={handleDrawerClose}
-                  variant="contained"
-                  type="submit"
-                >
-                  <Typography variant="bodySmall">
-                    {isEdit ? "Save" : "Add Nurse"}
-                  </Typography>
-                </Button>
+              <Grid
+                container
+                justifyContent={isEdit ? "space-between" : "flex-end"}
+              >
+                {isEdit && (
+                  <Grid container alignItems="center" columnGap={1}>
+                    <ArchiveOutlinedIcon />
+                    <Typography variant="bodySmall">
+                      Archive Manufacturer
+                    </Typography>
+                  </Grid>
+                )}
+                <Grid container columnGap={1}>
+                  <Button
+                    // startIcon={isEdit ? <> </> : <DoneOutlinedIcon />}
+                    onClick={handleDrawerClose}
+                    variant="outlined"
+                    type="button"
+                  >
+                    <Typography variant="bodySmall">Cancel</Typography>
+                  </Button>
+                  <Button
+                    onClick={handleDrawerClose}
+                    variant="contained"
+                    type="submit"
+                  >
+                    <Typography variant="bodySmall">
+                      {isEdit ? "Save Changes" : "Create Manufacturers"}
+                    </Typography>
+                  </Button>
+                </Grid>
               </Grid>
             </Box>
           </Grid>
