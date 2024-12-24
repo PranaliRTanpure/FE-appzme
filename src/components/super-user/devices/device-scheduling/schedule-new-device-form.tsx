@@ -3,6 +3,12 @@ import {
   Button,
   IconButton,
   SelectChangeEvent,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
 } from "@mui/material";
 import { Grid } from "@mui/system";
@@ -14,6 +20,13 @@ import CustomLabel from "../../../../common-components/custom-label/custom-label
 import CustomSelect from "../../../../common-components/custom-select/customSelect";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import DatePicker from "@/common-components/date-picker-field/date-picker-field";
+import scheduleNewDeviceList from "../../../../mock-data/schedule-new-device.json";
+import { TableHeaders } from "@/common-components/table/table-models";
+import {
+  heading,
+  tableCellCss,
+  typographyCss,
+} from "@/common-components/table/common-table-widgets";
 
 export const scheduleNewDeviceFormSchema = yup.object().shape({
   appointmentType: yup.string(),
@@ -30,6 +43,12 @@ export const scheduleNewDeviceFormSchema = yup.object().shape({
 interface ScheduleNewDeviceFormProps {
   onClose: () => void;
 }
+
+export const mockHeaders: TableHeaders[] = [
+  { header: "Tracking Number" },
+  { header: "Label Generation Date" },
+  { header: "Shipping Label" },
+];
 
 const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
   const initialValues = {
@@ -57,10 +76,9 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
   const onSubmit = (data: FieldValues) => {
     data;
   };
-
   return (
     <form
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "100%", display: "flex" }}
       onSubmit={handleSubmit(onSubmit)}
     >
       {/* Main Grid */}
@@ -72,9 +90,19 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
         width={"100%"}
         height={"100%"}
       >
-        <Grid container width={"100%"} pt={2} pb={2} pl={8} pr={8}>
+        <Grid
+          container
+          width={"100%"}
+          pt={2}
+          pb={2}
+          pl={8}
+          pr={8}
+          maxHeight={"84vh"}
+          overflow={"auto"}
+          m={0}
+        >
           {/* Header Grid */}
-          <Grid container justifyContent={"flex-start"} width={"936px"} m={2}>
+          <Grid container justifyContent={"flex-start"} width={"100%"} m={2}>
             <Grid container columnGap={1.5} alignItems={"center"} pt={3}>
               <IconButton onClick={props.onClose}>
                 <ArrowBackIcon />
@@ -92,7 +120,6 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
             flexDirection={"column"}
             rowGap={2}
             p={2}
-            border={0}
           >
             {/* Form Grid */}
             <Grid
@@ -341,6 +368,7 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
             {/* FedX Grid */}
             <Grid
               container
+              overflow={"auto"}
               width={"100%"}
               bgcolor={"white"}
               rowGap={2}
@@ -351,7 +379,9 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
               <Grid
                 container
                 justifyContent={"space-between"}
-                alignItems={"center"}
+                width={"100%"}
+                borderBottom={"1px solid #E7E7E7"}
+                p={2}
               >
                 <Grid>
                   <Typography variant="bodyMedium">FedEX Label</Typography>
@@ -375,11 +405,125 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
                   </Button>
                 </Grid>
               </Grid>
+              <Typography
+                variant="bodySmall"
+                fontWeight={"bold"}
+                color="#373D41"
+                pl={2}
+              >
+                Generated Labels
+              </Typography>
+              <Grid width={"100%"}>
+                <TableContainer
+                  sx={{
+                    maxHeight: "25vh",
+                    overflowY: "auto",
+                    width: "100%",
+                  }}
+                >
+                  <Table
+                    stickyHeader
+                    aria-label="sticky table"
+                    sx={tableCellCss}
+                  >
+                    <TableHead>
+                      <TableRow>
+                        {mockHeaders.map((header, index) => (
+                          <TableCell
+                            sx={{
+                              ...heading,
+                              minWidth: header.minWidth
+                                ? header.minWidth
+                                : "inherit",
+                              maxWidth: header.maxWidth
+                                ? header.maxWidth
+                                : "inherit",
+                            }}
+                            align="left"
+                            key={index}
+                          >
+                            <Grid
+                              pr={4}
+                              container
+                              flexDirection={"column"}
+                              alignContent={
+                                header.header === "Status"
+                                  ? "flex-end"
+                                  : "flex-start"
+                              }
+                            >
+                              <Typography variant="bodySmall">
+                                {header.header}
+                              </Typography>
+                            </Grid>
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {scheduleNewDeviceList.length > 0 ? (
+                        scheduleNewDeviceList.map((list, index) => (
+                          <TableRow hover key={index}>
+                            <TableCell>
+                              <Grid container flexDirection={"column"}>
+                                <Grid container flexDirection={"column"}>
+                                  <Typography
+                                    sx={typographyCss}
+                                    variant="bodySmall"
+                                  >
+                                    {list?.["tracking Number"]}
+                                  </Typography>
+                                </Grid>
+                              </Grid>
+                            </TableCell>
+                            <TableCell>
+                              <Grid container flexDirection={"column"}>
+                                <Typography
+                                  sx={typographyCss}
+                                  variant="bodySmall"
+                                >
+                                  {list?.labelGenerationDate}
+                                </Typography>
+                              </Grid>
+                            </TableCell>
+                            <TableCell>
+                              <Grid container flexDirection={"column"}>
+                                <Typography
+                                  sx={typographyCss}
+                                  variant="bodySmall"
+                                >
+                                  {list?.shippingLabel}
+                                </Typography>
+                              </Grid>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      ) : (
+                        <TableRow>
+                          <TableCell colSpan={9} align="center">
+                            <Typography variant="bodySmall" fontWeight={550}>
+                              No records found
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
         {/* Button Grid */}
-        <Grid container flex={1} alignContent={"flex-end"} width={"100%"}>
+        <Grid
+          container
+          flex={1}
+          alignContent={"flex-end"}
+          width={"100%"}
+          position={"sticky"}
+          bottom={0}
+          zIndex={1}
+        >
           <Grid textAlign={"end"} width={"100%"} p={2} bgcolor={"white"}>
             <Button
               variant="contained"
