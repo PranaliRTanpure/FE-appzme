@@ -52,21 +52,21 @@ const DeviceManufacturersList = () => {
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   const [isEdit, setIsEdit] = React.useState(false);
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   const {
     open: openDrawer,
     close: closeDrawer,
     content: contentDrawer,
   } = useDrawer();
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleDrawer = {
     deviceManufacturersForm: (action: string) => {
       setIsEdit(action === "Edit");
       openDrawer({
-        title: `${action} Manufacturers`,
+        title: `${action} Manufacturer`,
         identifier: "drawer-device-manufacturers-form",
       });
     },

@@ -284,7 +284,6 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                     />
                   </Grid>
                 </Grid>
-
                 <Grid container width={"100%"} justifyContent={"space-between"}>
                   <Grid width={"32%"}>
                     <CustomLabel label="City" isRequired />

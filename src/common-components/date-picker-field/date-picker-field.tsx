@@ -27,7 +27,7 @@ export interface DatePickerProps {
   disablePast?: boolean;
 }
 
-const DatePicker: React.FC<DatePickerProps> = ({
+const CustomDatePicker: React.FC<DatePickerProps> = ({
   value,
   onDateChange,
   bgWhite,
@@ -97,4 +97,4 @@ const DatePicker: React.FC<DatePickerProps> = ({
   );
 };
 
-export default DatePicker;
+export default CustomDatePicker;
