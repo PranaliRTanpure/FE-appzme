@@ -21,6 +21,10 @@ import {
 import * as yup from "yup";
 
 export const shippingFormSchema = yup.object().shape({
+  signatureType: yup.string(),
+  labelFormat: yup.string(),
+  paperSize: yup.string(),
+  service: yup.string(),
   shipDate: yup.string().required("Ship date is required"),
   weight: yup.string().required("Weight is required"),
   declaredValue: yup.string().required("Value is required"),
