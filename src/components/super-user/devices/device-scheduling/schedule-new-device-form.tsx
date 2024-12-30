@@ -54,11 +54,7 @@ export const mockHeaders: TableHeaders[] = [
 ];
 
 const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
-  const {
-    open: openDrawer,
-    // close: closeDrawer,
-    content: contentDrawer,
-  } = useDrawer();
+  const { open: openDrawer, content: contentDrawer } = useDrawer();
 
   const handleDrawer = {
     deviceShippingForm: (action: string) => {
@@ -72,11 +68,7 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
   const DrawerContent = () => {
     switch (contentDrawer.identifier) {
       case "drawer-shipping-form":
-        return (
-          <ShippingLabel
-          // handleDrawerClose={closeDrawer}
-          />
-        );
+        return <ShippingLabel />;
       default:
         return <div />;
     }
@@ -453,7 +445,11 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
                     <Button
                       variant="outlined"
                       type="submit"
-                      onClick={() => {}}
+                      onClick={() => {
+                        handleDrawer.deviceShippingForm(
+                          "Generate Shipping Label - From",
+                        );
+                      }}
                       sx={{ mr: 1 }}
                     >
                       Shipping label From Patient

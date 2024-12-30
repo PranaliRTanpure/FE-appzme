@@ -958,7 +958,11 @@ const ShippingLabel = () => {
                           <Grid container justifyContent={"space-between"}>
                             <FormControlLabel
                               control={
-                                <Checkbox value="remember" color="primary" />
+                                <Checkbox
+                                  value="remember"
+                                  name="recipientShip"
+                                  color="primary"
+                                />
                               }
                               label="Ship"
                               sx={{
@@ -972,9 +976,10 @@ const ShippingLabel = () => {
                                 <Checkbox
                                   value="remember"
                                   color="primary"
+                                  name="recipientTendered"
                                   sx={{
                                     "& .PrivateSwitchBase-input": {
-                                      backgroundColor: "white", // Sets background to white
+                                      backgroundColor: "white",
                                     },
                                   }}
                                 />
@@ -988,7 +993,11 @@ const ShippingLabel = () => {
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox value="remember" color="primary" />
+                                <Checkbox
+                                  value="remember"
+                                  name="recipientException"
+                                  color="primary"
+                                />
                               }
                               label="Exception"
                               sx={{
@@ -999,7 +1008,11 @@ const ShippingLabel = () => {
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox value="remember" color="primary" />
+                                <Checkbox
+                                  value="remember"
+                                  name="recipientEstDelivery"
+                                  color="primary"
+                                />
                               }
                               label="Est. Delivery"
                               sx={{
@@ -1010,7 +1023,11 @@ const ShippingLabel = () => {
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox value="remember" color="primary" />
+                                <Checkbox
+                                  value="remember"
+                                  name="recipientDelivery"
+                                  color="primary"
+                                />
                               }
                               label="Deilivery"
                               sx={{
