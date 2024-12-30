@@ -1,0 +1,123 @@
+/* SchedulingCalendarView Styles */
+
+/* General Calendar container */
+.rbc-calendar {
+  background-color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  overflow: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer */
+}
+
+.rbc-calendar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* Day, Week, Month View Styling */
+.rbc-header {
+  background-color: #ffffff;
+  padding: 8px !important;
+  font-weight: 400 !important;
+  color: #3a3a3a80;
+  font-size: 12px;
+  text-align: center;
+}
+
+.rbc-today {
+  background-color: #e8f0fe !important;
+  /* Light blue for today */
+}
+
+/* Event Styles */
+.rbc-event {
+  background-color: transparent !important;
+  border: 1px solid blue !important;
+  /* Optional: Removes any default border */
+  color: white;
+  min-height: fit-content;
+  border-radius: 8px;
+  padding: 0px !important;
+  overflow: auto;
+}
+
+/* Event hover effect */
+.rbc-event:hover {
+  background-color: transparent;
+  /* cursor: auto; */
+}
+
+/* Current Time Indicator */
+.rbc-current-time-indicator {
+  background-color: #dc3545 !important;
+  /* Red line for current time */
+}
+
+.rbc-event-label {
+  display: none !important;
+}
+
+.rbc-label {
+  font-size: 12px;
+  color: #7e8c8e;
+}
+
+.rbc-row-content {
+  min-height: 110px !important;
+}
+
+.rbc-month-row {
+  overflow: visible !important;
+}
+
+/* gap between time slot */
+.rbc-timeslot-group {
+  min-height: 45px !important;
+}
+
+/* Hide rbc-row-content by default */
+.rbc-row-content {
+  display: none;
+}
+
+/* Show rbc-row-content only in the month view */
+.rbc-month-view .rbc-row-content {
+  display: block;
+}
+
+.rbc-time-view .rbc-row {
+  min-height: auto !important;
+}
+
+.rbc-overlay {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 500px;
+  padding: 0px 10px 10px !important;
+  border-radius: 10px;
+}
+
+.rbc-overlay::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+.rbc-overlay-header {
+  font-size: large;
+  font-weight: 550;
+  position: sticky;
+  top: 0px;
+  background: #ffffff;
+  z-index: 1;
+  margin-top: 0px !important;
+  padding: 10px !important;
+  /* padding: 0px 10p */
+}

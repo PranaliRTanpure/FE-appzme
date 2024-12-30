@@ -7,6 +7,7 @@ import {
   a11yProps,
 } from "../../../common-components/custom-tab/custom-tab";
 import EncounterList from "./encounter-list";
+import EncounterMillennium from "./encounter-millenium";
 
 const tabLabels = [
   "Encounters",
@@ -36,7 +37,7 @@ const SettingsTabs = () => {
   };
 
   return (
-    <Grid width={"100%"} height={"100%"} p={2}>
+    <Grid width={"100%"} height={"100%"} p={0}>
       <Grid
         height={"100%"}
         borderRadius={"8px"}
@@ -60,7 +61,7 @@ const SettingsTabs = () => {
             {tabLabels.map((item, index) => (
               <CustomTabPanel key={index} value={value} index={index}>
                 {item === "Encounters" && <EncounterList />}
-                {item === "Millennium" && <></>}
+                {item === "Millennium" && <EncounterMillennium />}
                 {item === "Sleep Impression" && <></>}
                 {item === "HST Education" && <></>}
               </CustomTabPanel>

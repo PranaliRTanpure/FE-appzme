@@ -709,10 +709,10 @@ const ShippingLabel = () => {
                     mb={2}
                   >
                     <Typography variant="bodySmall" fontWeight={500}>
-                      Signature Type
+                      Label Format
                     </Typography>
                     <Grid>
-                      <CustomLabel label="Label Format" />
+                      <CustomLabel label="Format Type" />
                       <Controller
                         control={control}
                         name="labelFormat"
