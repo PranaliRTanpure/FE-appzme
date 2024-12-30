@@ -2,6 +2,7 @@ import {
   Button,
   ButtonBase,
   Checkbox,
+  Divider,
   FormControlLabel,
   SelectChangeEvent,
   Typography,
@@ -21,6 +22,7 @@ import CustomInputWithPrefix from "@/common-components/custom-input-with-prefix/
 import DrawerBody from "@/components/ui/DrawerBody";
 import { useRef } from "react";
 import { theme } from "@/utils/theme";
+import CustomRadioButton from "@/common-components/radio-button/radio-button";
 
 const ShippingLabel = () => {
   const footerRef = useRef<HTMLDivElement>();
@@ -51,6 +53,18 @@ const ShippingLabel = () => {
     signatureType: "",
     labelFormat: "",
     paperSize: "",
+    notifyVia: "",
+    senderShip: false,
+    senderTendered: false,
+    senderEstDelivery: false,
+    senderException: false,
+    senderDelivery: false,
+    RecipientNotifyVia: "",
+    recipientShip: false,
+    recipientTendered: false,
+    recipientException: false,
+    recipientEstDelivery: false,
+    recipientDelivery: false,
   };
 
   const {
@@ -81,7 +95,7 @@ const ShippingLabel = () => {
             height={"100%"}
           >
             {/* Main Grid 1 */}
-            <Grid container flexDirection={"column"} width={"100%"} border={1}>
+            <Grid container flexDirection={"column"} width={"100%"}>
               <Grid
                 container
                 bgcolor={"#F2F4FA"}
@@ -783,16 +797,229 @@ const ShippingLabel = () => {
                       <Typography variant="bodySmall" fontWeight={500}>
                         Sender Notifications
                       </Typography>
-                      <Grid container border={1}>
-                        <Grid container width={"45%"} flexDirection={"column"}>
-                          <Typography variant="bodySmall" fontWeight={500}>
+                      <Grid
+                        container
+                        flexDirection={"row"}
+                        alignItems="center"
+                        width={"100%"}
+                        pb={1.5}
+                        borderBottom={"1px solid #DBDBDB"}
+                      >
+                        <Grid container flexDirection={"column"} pl={1}>
+                          <Typography variant="bodySmall" color="#595F63">
                             Notify Via
                           </Typography>
+                          <CustomRadioButton
+                            optionsArray={["Email (HTML)", "Plain Text"]}
+                            selectedvalue={""}
+                            onChange={function (opt: string): void {
+                              setValue("notifyVia", opt);
+                            }}
+                          />
                         </Grid>
-                        <Grid container width={"55%"} flexDirection={"column"}>
-                          <Typography variant="bodySmall" fontWeight={500}>
+                        <Divider
+                          variant="fullWidth"
+                          orientation="vertical"
+                          flexItem
+                        />
+                        <Grid
+                          container
+                          width={"70%"}
+                          flexDirection={"column"}
+                          pl={2}
+                        >
+                          <Typography variant="bodySmall" color="#595F63">
                             Notification Type
                           </Typography>
+                          <Grid container justifyContent={"space-between"}>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  value="remember"
+                                  name="senderShip"
+                                  color="primary"
+                                />
+                              }
+                              label="Ship"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  value="remember"
+                                  name="senderTendered"
+                                  color="primary"
+                                />
+                              }
+                              label="Tendered"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  value="remember"
+                                  name="senderException"
+                                  color="primary"
+                                />
+                              }
+                              label="Exception"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  value="remember"
+                                  name="senderEstDelivery"
+                                  color="primary"
+                                />
+                              }
+                              label="Est. Delivery"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  value="remember"
+                                  name="senderDelivery"
+                                  color="primary"
+                                />
+                              }
+                              label="Deilivery"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {/* Recipient Notifications */}
+                    <Grid
+                      container
+                      flexDirection={"column"}
+                      rowGap={2}
+                      width={"100%"}
+                    >
+                      <Typography variant="bodySmall" fontWeight={500} mt={1.5}>
+                        Recipient Notifications
+                      </Typography>
+                      <Grid
+                        container
+                        border={0}
+                        flexDirection={"row"}
+                        alignItems="center"
+                        width={"100%"}
+                        pb={1.5}
+                      >
+                        <Grid container flexDirection={"column"} pl={1}>
+                          <Typography variant="bodySmall" color="#595F63">
+                            Notify Via
+                          </Typography>
+                          <CustomRadioButton
+                            optionsArray={["Email (HTML)", "Plain Text"]}
+                            selectedvalue={""}
+                            onChange={function (opt: string): void {
+                              setValue("RecipientNotifyVia", opt);
+                            }}
+                          />
+                        </Grid>
+                        <Divider
+                          variant="fullWidth"
+                          orientation="vertical"
+                          flexItem
+                        />
+                        <Grid
+                          container
+                          width={"70%"}
+                          flexDirection={"column"}
+                          pl={2}
+                        >
+                          <Typography variant="bodySmall" color="#595F63">
+                            Notification Type
+                          </Typography>
+                          <Grid container justifyContent={"space-between"}>
+                            <FormControlLabel
+                              control={
+                                <Checkbox value="remember" color="primary" />
+                              }
+                              label="Ship"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  value="remember"
+                                  color="primary"
+                                  sx={{
+                                    "& .PrivateSwitchBase-input": {
+                                      backgroundColor: "white", // Sets background to white
+                                    },
+                                  }}
+                                />
+                              }
+                              label="Tendered"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox value="remember" color="primary" />
+                              }
+                              label="Exception"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox value="remember" color="primary" />
+                              }
+                              label="Est. Delivery"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox value="remember" color="primary" />
+                              }
+                              label="Deilivery"
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "14px",
+                                },
+                              }}
+                            />
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>

@@ -21,6 +21,18 @@ import {
 import * as yup from "yup";
 
 export const shippingFormSchema = yup.object().shape({
+  recipientShip: yup.boolean(),
+  recipientTendered: yup.boolean(),
+  recipientException: yup.boolean(),
+  recipientEstDelivery: yup.boolean(),
+  recipientDelivery: yup.boolean(),
+  RecipientNotifyVia: yup.string(),
+  senderException: yup.boolean(),
+  senderShip: yup.boolean(),
+  senderTendered: yup.boolean(),
+  senderEstDelivery: yup.boolean(),
+  senderDelivery: yup.boolean(),
+  notifyVia: yup.string(),
   signatureType: yup.string(),
   labelFormat: yup.string(),
   paperSize: yup.string(),
