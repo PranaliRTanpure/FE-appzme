@@ -143,15 +143,18 @@
   padding-right: 5px;
 }
 
+/* Toolbar */
 .rbc-toolbar {
   padding: 10px;
   margin-bottom: 0px;
 }
 
+/* Toolbar button  */
 .rbc-btn-group button:hover {
   background-color: #f2f7ff;
 }
 
+/* event Label CSS */
 .rbc-ellipsis,
 .rbc-show-more,
 .rbc-row-segment .rbc-event-content,
