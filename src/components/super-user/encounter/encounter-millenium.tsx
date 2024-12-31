@@ -3,11 +3,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  FormControl,
   IconButton,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   Typography,
   Box,
 } from "@mui/material";
@@ -17,10 +13,12 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
-import { Calendar, globalizeLocalizer, Views } from "react-big-calendar";
+import { Calendar, globalizeLocalizer } from "react-big-calendar";
 import globalize from "globalize";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Grid } from "@mui/system";
+import "./calender.css";
+import moment from "moment";
 
 const calenderEvents = [
   {
@@ -28,84 +26,60 @@ const calenderEvents = [
     title: "Meeting",
     start: new Date("2024-12-25T10:00:00"),
     end: new Date("2024-12-25T11:30:00"),
-    allDay: false,
   },
   {
     id: 2,
     title: "Birthday",
-    start: new Date("2024-12-26T00:00:00"),
-    end: new Date("2024-12-26T23:59:59"),
-    allDay: true,
+    start: new Date("2024-12-26T10:00:00"),
+    end: new Date("2024-12-26T12:00:00"),
   },
   {
     id: 3,
     title: "Presentation",
-    start: new Date("2024-12-26T00:00:00"),
-    end: new Date("2024-12-26T23:59:59"),
-    allDay: true,
+    start: new Date("2024-12-26T16:00:00"),
+    end: new Date("2024-12-26T17:00:00"),
   },
   {
     id: 4,
     title: "Presentation",
-    start: new Date("2024-12-21T00:00:00"),
-    end: new Date("2024-12-21T23:59:59"),
-    allDay: true,
+    start: new Date("2024-12-28T02:00:00"),
+    end: new Date("2024-12-28T23:59:59"),
   },
   {
     id: 5,
     title: "EMR call",
-    start: new Date("2024-12-26T00:00:00"),
-    end: new Date("2024-12-26T23:59:59"),
-    allDay: true,
+    start: new Date("2024-12-26T07:00:00"),
+    end: new Date("2024-12-26T08:00:00"),
   },
   {
     id: 6,
     title: "EHR call",
-    start: new Date("2024-12-26T00:00:00"),
-    end: new Date("2024-12-26T23:59:59"),
-    allDay: true,
+    start: new Date("2024-12-26T05:00:00"),
+    end: new Date("2024-12-26T06:00:59"),
   },
   {
     id: 7,
     title: "AppZme call",
     start: new Date("2024-12-26T00:00:00"),
-    end: new Date("2024-12-26T23:59:59"),
-    allDay: true,
+    end: new Date("2024-12-26T04:00:00"),
   },
   {
     id: 8,
     title: "StandUp call",
-    start: new Date("2024-12-26T00:00:00"),
-    end: new Date("2024-12-26T23:59:59"),
-    allDay: true,
+    start: new Date("2024-12-26T13:00:00"),
+    end: new Date("2024-12-26T14:59:59"),
+  },
+  {
+    id: 9,
+    title: "StandUp call",
+    start: new Date("2024-12-31T00:00:00"),
+    end: new Date("2025-01-01T23:59:59"),
   },
 ];
 
-// Globalize localizer for the calendar
 const localizer = globalizeLocalizer(globalize);
 
 const EncounterMillennium = () => {
-  // const [view, setView] = useState<"month" | "week" | "day">(Views.MONTH);
-  // const [currentMonth, setCurrentMonth] = React.useState<Dayjs>(dayjs());
-  // const [expanded, setExpanded] = useState(false);
-
-  // const handleSummaryClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   if ((event.target as HTMLElement).closest('svg')) {
-  //     setExpanded(!expanded);
-  //   }
-  // };
-
-  // const handleViewChange = (event: SelectChangeEvent<string>) => {
-  //   setView(event.target.value as "month" | "week" | "day");
-  // };
-
-  // const handleMonthChange = (direction: 'previous' | 'next') => {
-  //   setCurrentMonth((prev: Dayjs) =>
-  //     direction === 'previous' ? prev.subtract(1, 'month') : prev.add(1, 'month')
-  //   );
-  // };
-
-  const [view, setView] = useState<"month" | "week" | "day">(Views.MONTH);
   const [currentMonth, setCurrentMonth] = useState<Dayjs>(dayjs());
   const [expanded, setExpanded] = useState(false);
 
@@ -115,12 +89,7 @@ const EncounterMillennium = () => {
     }
   };
 
-  const handleViewChange = (event: SelectChangeEvent<string>) => {
-    setView(event.target.value as "month" | "week" | "day");
-  };
-
   const handleMonthChange = (direction: "previous" | "next") => {
-    // Prevent accordion toggle when clicking on arrows
     setCurrentMonth((prev: Dayjs) =>
       direction === "previous"
         ? prev.subtract(1, "month")
@@ -129,7 +98,7 @@ const EncounterMillennium = () => {
   };
 
   return (
-    <Grid container minHeight={"90vh"} border={"1px solid #E7E7E7"}>
+    <Grid container minHeight={"90vh"} bgcolor={"white"}>
       {/* Accordion */}
       <Grid
         width={"20%"}
@@ -137,55 +106,13 @@ const EncounterMillennium = () => {
         sx={{ overflowY: "auto" }}
         borderRight={"1px solid #E7E7E7"}
       >
-        {/* <Accordion sx={{ bgcolor: '#F5F6F8', boxShadow: "none" }} expanded={expanded} onChange={() => {}} >
-          <AccordionSummary
-            sx={{ bgcolor: '#F5F6F8' }}
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-            onClick={handleSummaryClick}
-          >
-            <Box display="flex" alignItems="center" justifyContent="space-between">
-              <IconButton onClick={() => handleMonthChange('previous')}>
-                <ArrowBackIosNewIcon />
-              </IconButton>
-              <Typography variant="bodySmall" component="span">
-                {currentMonth.format('MMMM YYYY')}
-              </Typography>
-              <IconButton onClick={() => handleMonthChange('next')}>
-                <ArrowForwardIosIcon />
-              </IconButton>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails sx={{ padding: 1 }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateCalendar
-                value={currentMonth}
-                onChange={(newValue) => {
-                  if (newValue) {
-                    setCurrentMonth(newValue);
-                  }
-                }}
-                slots={{
-                  calendarHeader: () => null,
-                }}
-                sx={{
-                  width: '100%',
-                  height: "230px",
-                }}
-              />
-            </LocalizationProvider>
-          </AccordionDetails>
-        </Accordion> */}
-
         <Accordion
-          sx={{ bgcolor: "#F5F6F8", boxShadow: "none" }}
+          sx={{ boxShadow: "none" }}
           expanded={expanded}
           onChange={() => {}}
         >
           <AccordionSummary
-            sx={{ bgcolor: "#F5F6F8" }}
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon sx={{ fontSize: "18px" }} />}
             aria-controls="panel1-content"
             id="panel1-header"
             onClick={handleSummaryClick}
@@ -201,7 +128,7 @@ const EncounterMillennium = () => {
                   handleMonthChange("previous");
                 }}
               >
-                <ArrowBackIosNewIcon />
+                <ArrowBackIosNewIcon sx={{ fontSize: "14px" }} />
               </IconButton>
               <Typography variant="bodySmall" component="span">
                 {currentMonth.format("MMMM YYYY")}
@@ -212,7 +139,7 @@ const EncounterMillennium = () => {
                   handleMonthChange("next");
                 }}
               >
-                <ArrowForwardIosIcon />
+                <ArrowForwardIosIcon sx={{ fontSize: "14px" }} />
               </IconButton>
             </Box>
           </AccordionSummary>
@@ -236,15 +163,14 @@ const EncounterMillennium = () => {
             </LocalizationProvider>
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ bgcolor: "#F5F6F8", boxShadow: "none" }}>
+        <Accordion sx={{ boxShadow: "none" }}>
           <AccordionSummary
-            sx={{ bgcolor: "#F5F6F8" }}
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
           >
             <Typography variant="bodySmall" component="span">
-              Calendar
+              Search by Provider
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -252,15 +178,14 @@ const EncounterMillennium = () => {
             malesuada lacus ex, sit amet blandit leo lobortis eget.
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ bgcolor: "#F5F6F8" }}>
+        <Accordion sx={{ boxShadow: "none" }}>
           <AccordionSummary
-            sx={{ bgcolor: "#F5F6F8" }}
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
           >
             <Typography variant="bodySmall" component="span">
-              Calendar
+              Search by Clinic
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -268,15 +193,14 @@ const EncounterMillennium = () => {
             malesuada lacus ex, sit amet blandit leo lobortis eget.
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ bgcolor: "#F5F6F8" }}>
+        <Accordion sx={{ boxShadow: "none" }}>
           <AccordionSummary
-            sx={{ bgcolor: "#F5F6F8" }}
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
           >
             <Typography variant="bodySmall" component="span">
-              Calendar
+              Encounter Type
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -284,15 +208,14 @@ const EncounterMillennium = () => {
             malesuada lacus ex, sit amet blandit leo lobortis eget.
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ bgcolor: "#F5F6F8" }}>
+        <Accordion sx={{ boxShadow: "none" }}>
           <AccordionSummary
-            sx={{ bgcolor: "#F5F6F8" }}
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
           >
             <Typography variant="bodySmall" component="span">
-              Calendar
+              Status
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -310,35 +233,24 @@ const EncounterMillennium = () => {
         width={"80%"}
         rowGap={2}
       >
-        <Grid container justifyContent={"space-between"} mt={2} mr={2}>
-          <Grid>heuh</Grid>
-          <Grid>
-            <FormControl fullWidth size="small">
-              <Select
-                value={view}
-                onChange={handleViewChange}
-                displayEmpty
-                aria-label="View Selection"
-              >
-                <MenuItem value={Views.MONTH}>Month</MenuItem>
-                <MenuItem value={Views.WEEK}>Week</MenuItem>
-                <MenuItem value={Views.DAY}>Today</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <Grid sx={{ flexGrow: 1 }} p={3} border={"1px solid #E7E7E7"}>
+        <Grid sx={{ flexGrow: 1 }}>
           <Calendar
             events={calenderEvents}
-            step={60}
-            showMultiDayTimes
+            startAccessor="start"
+            endAccessor="end"
+            showMultiDayTimes={true}
             defaultDate={new Date()}
-            defaultView={view}
             localizer={localizer}
-            style={{ height: "70vh", maxWidth: "100%", margin: "0 auto" }}
-            // formats={{
-            //   timeGutterFormat: "HH:mm",
-            // }}
+            formats={{
+              timeGutterFormat: "HH:mm",
+            }}
+            components={{
+              event: ({ event }) => (
+                <span>
+                  | {moment(event.start).format("HH:mm")} - {event.title}
+                </span>
+              ),
+            }}
           />
         </Grid>
       </Grid>

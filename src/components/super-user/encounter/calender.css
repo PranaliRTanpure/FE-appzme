@@ -4,15 +4,16 @@
 .rbc-calendar {
   background-color: #ffffff;
   font-family: "Poppins", sans-serif;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  /* border: 1px solid #ddd; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  /* padding: 10px; */
   overflow: auto;
   scrollbar-width: none;
   /* Firefox */
   -ms-overflow-style: none;
   /* Internet Explorer */
+  border: none;
 }
 
 .rbc-calendar::-webkit-scrollbar {
@@ -25,9 +26,10 @@
   background-color: #ffffff;
   padding: 8px !important;
   font-weight: 400 !important;
-  color: #3a3a3a80;
+  color: #373d41;
   font-size: 12px;
   text-align: center;
+  height: 100%;
 }
 
 .rbc-today {
@@ -37,14 +39,15 @@
 
 /* Event Styles */
 .rbc-event {
-  background-color: transparent !important;
-  border: 1px solid blue !important;
+  background-color: #f2f7ff !important;
+  border: 1px solid #105fce !important;
   /* Optional: Removes any default border */
-  color: white;
+  color: black;
   min-height: fit-content;
   border-radius: 8px;
   padding: 0px !important;
   overflow: auto;
+  font-size: 12px;
 }
 
 /* Event hover effect */
@@ -120,4 +123,42 @@
   margin-top: 0px !important;
   padding: 10px !important;
   /* padding: 0px 10p */
+}
+
+.rbc-show-more {
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 4;
+  font-weight: 500;
+  font-size: 14px;
+  height: auto;
+  line-height: normal;
+  color: #106dcc;
+  padding-top: 8px;
+}
+
+.rbc-row-segment {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 5px;
+}
+
+.rbc-toolbar {
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.rbc-btn-group button:hover {
+  background-color: #f2f7ff;
+}
+
+.rbc-ellipsis,
+.rbc-show-more,
+.rbc-row-segment .rbc-event-content,
+.rbc-event-label {
+  display: block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  padding-left: 5px !important;
 }
