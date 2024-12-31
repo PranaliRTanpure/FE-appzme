@@ -235,6 +235,7 @@ const EncounterMillennium = () => {
       >
         <Grid sx={{ flexGrow: 1 }}>
           <Calendar
+            views={["month", "week", "day"]}
             events={calenderEvents}
             startAccessor="start"
             endAccessor="end"

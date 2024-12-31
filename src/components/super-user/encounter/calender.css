@@ -164,4 +164,6 @@
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
   padding-left: 5px !important;
+  height: 30px;
+  align-content: center;
 }
