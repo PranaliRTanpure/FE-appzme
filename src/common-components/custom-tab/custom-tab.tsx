@@ -20,7 +20,7 @@ export function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box m={"10px 0px"} height={"100%"}>
+        <Box m={"0px 0px"} height={"100%"}>
           {children}
         </Box>
       )}
