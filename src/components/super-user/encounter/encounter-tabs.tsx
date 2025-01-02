@@ -8,6 +8,7 @@ import {
 } from "../../../common-components/custom-tab/custom-tab";
 import EncounterList from "./encounter-list";
 import EncounterMillennium from "./millenium/encounter-millenium";
+import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impression";
 
 const tabLabels = [
   "Encounters",
@@ -62,7 +63,7 @@ const SettingsTabs = () => {
               <CustomTabPanel key={index} value={value} index={index}>
                 {item === "Encounters" && <EncounterList />}
                 {item === "Millennium" && <EncounterMillennium />}
-                {item === "Sleep Impression" && <></>}
+                {item === "Sleep Impression" && <EncounterSleepImpression />}
                 {item === "HST Education" && <></>}
               </CustomTabPanel>
             ))}

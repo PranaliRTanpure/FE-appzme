@@ -26,7 +26,10 @@ import CustomInput from "@/common-components/custom-input/custom-input";
 import CustomCheckBox, {
   CheckedArray,
 } from "@/common-components/custom-checkbox/custom-checkbox";
-import { EncounterType, MillenniumAppointmentStatus } from "./chekbox_list";
+import {
+  EncounterType,
+  SleepImpressionAppointmentStatus,
+} from "./checkbox_list";
 
 const calenderEvents = [
   {
@@ -87,11 +90,11 @@ const calenderEvents = [
 
 const localizer = globalizeLocalizer(globalize);
 
-const EncounterMillennium = () => {
+const EncounterSleepImpression = () => {
   const [currentMonth, setCurrentMonth] = useState<Dayjs>(dayjs());
   const [expanded, setExpanded] = useState(false);
   const [updatedArray, setUpdatedArray] = useState<CheckedArray[]>(
-    MillenniumAppointmentStatus,
+    SleepImpressionAppointmentStatus,
   );
   updatedArray;
   const [updatedArrayEncounter, setUpdatedArrayEncounter] =
@@ -338,7 +341,7 @@ const EncounterMillennium = () => {
             <Grid>
               <CustomCheckBox
                 sx={{ fontSize: "14px" }}
-                options={MillenniumAppointmentStatus}
+                options={SleepImpressionAppointmentStatus}
                 onChange={handleCheckedStatus}
               />
             </Grid>
@@ -381,4 +384,4 @@ const EncounterMillennium = () => {
     </Grid>
   );
 };
-export default EncounterMillennium;
+export default EncounterSleepImpression;
