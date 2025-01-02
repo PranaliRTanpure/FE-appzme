@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import React from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -6,6 +7,8 @@ import {
   IconButton,
   Typography,
   Box,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -19,6 +22,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Grid } from "@mui/system";
 import "./calender.css";
 import moment from "moment";
+import CustomInput from "@/common-components/custom-input/custom-input";
+import CustomCheckBox, {
+  CheckedArray,
+} from "@/common-components/custom-checkbox/custom-checkbox";
+import { EncounterType, MillenniumAppointmentStatus } from "./chekbox_list";
 
 const calenderEvents = [
   {
@@ -82,6 +90,21 @@ const localizer = globalizeLocalizer(globalize);
 const EncounterMillennium = () => {
   const [currentMonth, setCurrentMonth] = useState<Dayjs>(dayjs());
   const [expanded, setExpanded] = useState(false);
+  const [updatedArray, setUpdatedArray] = useState<CheckedArray[]>(
+    MillenniumAppointmentStatus,
+  );
+  updatedArray;
+  const [updatedArrayEncounter, setUpdatedArrayEncounter] =
+    useState<CheckedArray[]>(EncounterType);
+  updatedArrayEncounter;
+
+  const handleCheckedStatus = (value: CheckedArray[]) => {
+    setUpdatedArray(value);
+  };
+
+  const handleCheckedEncounter = (value: CheckedArray[]) => {
+    setUpdatedArrayEncounter(value);
+  };
 
   const handleSummaryClick = (event: React.MouseEvent<HTMLElement>) => {
     if ((event.target as HTMLElement).closest("svg")) {
@@ -102,7 +125,7 @@ const EncounterMillennium = () => {
       {/* Accordion */}
       <Grid
         width={"20%"}
-        minHeight={"100%"}
+        maxHeight={"90vh"}
         sx={{ overflowY: "auto" }}
         borderRight={"1px solid #E7E7E7"}
       >
@@ -169,13 +192,53 @@ const EncounterMillennium = () => {
             aria-controls="panel1-content"
             id="panel1-header"
           >
-            <Typography variant="bodySmall" component="span">
+            <Typography
+              variant="bodySmall"
+              component="span"
+              fontWeight={"bold"}
+            >
               Search by Provider
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            <Grid container flexDirection={"column"}>
+              <CustomInput
+                placeholder={"Serach Provider"}
+                name={""}
+                value={""}
+                onChange={() => {}}
+                onDebounceCall={() => {}}
+                onInputEmpty={() => {}}
+                hasStartSearchIcon={true}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Olivia Rhye"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Jacob Jones"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Annette Black"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+            </Grid>
           </AccordionDetails>
         </Accordion>
         <Accordion sx={{ boxShadow: "none" }}>
@@ -184,13 +247,53 @@ const EncounterMillennium = () => {
             aria-controls="panel1-content"
             id="panel1-header"
           >
-            <Typography variant="bodySmall" component="span">
+            <Typography
+              variant="bodySmall"
+              component="span"
+              fontWeight={"bold"}
+            >
               Search by Clinic
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            <Grid container flexDirection={"column"}>
+              <CustomInput
+                placeholder={"Serach Clinic"}
+                name={""}
+                value={""}
+                onChange={() => {}}
+                onDebounceCall={() => {}}
+                onInputEmpty={() => {}}
+                hasStartSearchIcon={true}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Premier Health Center"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Elite Sleep Specialists"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="TrustCare Medical Group"
+                sx={{
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+            </Grid>
           </AccordionDetails>
         </Accordion>
         <Accordion sx={{ boxShadow: "none" }}>
@@ -199,13 +302,22 @@ const EncounterMillennium = () => {
             aria-controls="panel1-content"
             id="panel1-header"
           >
-            <Typography variant="bodySmall" component="span">
+            <Typography
+              variant="bodySmall"
+              component="span"
+              fontWeight={"bold"}
+            >
               Encounter Type
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            <Grid>
+              <CustomCheckBox
+                sx={{ fontSize: "14px" }}
+                options={EncounterType}
+                onChange={handleCheckedEncounter}
+              />
+            </Grid>
           </AccordionDetails>
         </Accordion>
         <Accordion sx={{ boxShadow: "none" }}>
@@ -214,24 +326,33 @@ const EncounterMillennium = () => {
             aria-controls="panel1-content"
             id="panel1-header"
           >
-            <Typography variant="bodySmall" component="span">
+            <Typography
+              variant="bodySmall"
+              component="span"
+              fontWeight={"bold"}
+            >
               Status
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            <Grid>
+              <CustomCheckBox
+                sx={{ fontSize: "14px" }}
+                options={MillenniumAppointmentStatus}
+                onChange={handleCheckedStatus}
+              />
+            </Grid>
           </AccordionDetails>
         </Accordion>
       </Grid>
-
       {/* Calendar Section */}
       <Grid
         container
         flexDirection={"column"}
-        maxHeight={"100%"}
+        maxHeight={"90vh"}
         width={"80%"}
         rowGap={2}
+        sx={{ overflowY: "auto" }}
       >
         <Grid sx={{ flexGrow: 1 }}>
           <Calendar
@@ -258,5 +379,4 @@ const EncounterMillennium = () => {
     </Grid>
   );
 };
-
 export default EncounterMillennium;

@@ -7,7 +7,7 @@ import {
   a11yProps,
 } from "../../../common-components/custom-tab/custom-tab";
 import EncounterList from "./encounter-list";
-import EncounterMillennium from "./encounter-millenium";
+import EncounterMillennium from "./millenium/encounter-millenium";
 
 const tabLabels = [
   "Encounters",

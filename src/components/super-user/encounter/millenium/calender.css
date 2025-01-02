@@ -167,3 +167,12 @@
   height: 30px;
   align-content: center;
 }
+
+/* Toolbar active button CSS */
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
+  background-image: none;
+  box-shadow: none;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
