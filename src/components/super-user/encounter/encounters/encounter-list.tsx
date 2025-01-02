@@ -13,17 +13,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
-import CustomInput from "../../../common-components/custom-input/custom-input";
-import { theme } from "../../../utils/theme";
-
-import Paginator from "../../../common-components/paginator/paginator";
+import CustomInput from "../../../../common-components/custom-input/custom-input";
+import { theme } from "../../../../utils/theme";
+import Paginator from "../../../../common-components/paginator/paginator";
+import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
+import { TableHeaders } from "@/common-components/table/table-models";
 import {
   heading,
   tableCellCss,
   typographyCss,
-} from "../../../common-components/table/common-table-widgets";
-import { TableHeaders } from "../../../common-components/table/table-models";
-import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
+} from "@/common-components/table/common-table-widgets";
 
 export const Headers: TableHeaders[] = [
   { header: "Patient Name", width: "200px", minWidth: "200px" },

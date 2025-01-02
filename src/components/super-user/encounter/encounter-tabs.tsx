@@ -6,9 +6,10 @@ import {
   CustomTabPanel,
   a11yProps,
 } from "../../../common-components/custom-tab/custom-tab";
-import EncounterList from "./encounter-list";
+import EncounterList from "./encounters/encounter-list";
 import EncounterMillennium from "./millenium/encounter-millenium";
 import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impression";
+import EncounterHstEducation from "./hst_education/encounter_hst_education";
 
 const tabLabels = [
   "Encounters",
@@ -64,7 +65,7 @@ const SettingsTabs = () => {
                 {item === "Encounters" && <EncounterList />}
                 {item === "Millennium" && <EncounterMillennium />}
                 {item === "Sleep Impression" && <EncounterSleepImpression />}
-                {item === "HST Education" && <></>}
+                {item === "HST Education" && <EncounterHstEducation />}
               </CustomTabPanel>
             ))}
           </Grid>
