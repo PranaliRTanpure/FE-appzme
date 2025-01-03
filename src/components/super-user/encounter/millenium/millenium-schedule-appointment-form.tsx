@@ -6,9 +6,8 @@ import { Button, SelectChangeEvent } from "@mui/material";
 import { Grid } from "@mui/system";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { theme } from "@/utils/theme";
-import DatePicker from "@/common-components/date-picker-field/date-picker-field";
 import { MilleniumScheduleAppointmentSchema } from "./millenium-schema";
-// import { useState } from "react";
+import { useState } from "react";
 
 interface MilleniumScheduleAppointmentProps {
   onClose: () => void;
@@ -17,7 +16,8 @@ interface MilleniumScheduleAppointmentProps {
 const MilleniumScheduleAppointment = (
   props: MilleniumScheduleAppointmentProps,
 ) => {
-  // const [selectedAppointmentType, setSelectedAppointmentType] = useState<string>("");
+  const [selectedAppointmentType, setSelectedAppointmentType] =
+    useState<string>("");
 
   const appointmentTypes = [
     { value: "initial telehealth", label: "Initial Telehealth" },
@@ -42,6 +42,16 @@ const MilleniumScheduleAppointment = (
     resolver: yupResolver(MilleniumScheduleAppointmentSchema),
   });
 
+  const handleAppointmentTypeChange = (e: SelectChangeEvent<string>) => {
+    const value = e.target.value;
+    setSelectedAppointmentType(value);
+    setValue("appointmentType", value, { shouldValidate: true });
+  };
+
+  const handleCancelSelectedForm = () => {
+    setSelectedAppointmentType("");
+  };
+
   const onSubmit = (data: FieldValues) => {
     data;
   };
@@ -58,42 +68,21 @@ const MilleniumScheduleAppointment = (
         border={0}
       >
         {/* Form Grid */}
-        <Grid container flexDirection={"column"} rowGap={2} pl={2} pr={2}>
-          <Grid>
-            <CustomLabel label="Patient" isRequired />
-            <Controller
-              control={control}
-              name="patient"
-              render={({ field }) => (
-                <CustomInput
-                  placeholder={" Select Patient"}
-                  hasStartSearchIcon={true}
-                  hasError={!!errors.patient}
-                  errorMessage={errors.patient?.message}
-                  onChange={(event) => {
-                    setValue("patient", event.target.value, {
-                      shouldValidate: true,
-                    });
-                  }}
-                  name={field.name}
-                  value={field.value?.trim() || ""}
-                />
-              )}
-            ></Controller>
-          </Grid>
-          <Grid container columnGap={1}>
-            <Grid width={"49%"}>
-              <CustomLabel label="Appointment Type" />
+        {!selectedAppointmentType ? (
+          <Grid container flexDirection={"column"} rowGap={2} pl={2} pr={2}>
+            <Grid>
+              <CustomLabel label="Patient" isRequired />
               <Controller
                 control={control}
-                name="appointmentType"
+                name="patient"
                 render={({ field }) => (
-                  <CustomSelect
-                    placeholder={"Select Appointment Type"}
-                    enableDeselect
-                    items={appointmentTypes}
-                    onChange={function (e: SelectChangeEvent<string>): void {
-                      setValue("appointmentType", e.target.value, {
+                  <CustomInput
+                    placeholder={" Select Patient"}
+                    hasStartSearchIcon={true}
+                    hasError={!!errors.patient}
+                    errorMessage={errors.patient?.message}
+                    onChange={(event) => {
+                      setValue("patient", event.target.value, {
                         shouldValidate: true,
                       });
                     }}
@@ -103,35 +92,42 @@ const MilleniumScheduleAppointment = (
                 )}
               ></Controller>
             </Grid>
-            <Grid width={"49%"}>
-              <CustomLabel label="Date & Time" />
-              <Controller
-                control={control}
-                name={`dateTime`}
-                render={({ field }) => (
-                  <DatePicker
-                    bgWhite={false}
-                    {...field}
-                    disableFuture
-                    value={field.value}
-                    onDateChange={function (selectedDate: string): void {
-                      setValue(`dateTime`, selectedDate, {
-                        shouldValidate: true,
-                      });
-                    }}
-                  />
-                )}
-              />
+            <Grid container columnGap={1}>
+              <Grid width={"49%"}>
+                <CustomLabel label="Appointment Type" />
+                <Controller
+                  control={control}
+                  name="appointmentType"
+                  render={({ field }) => (
+                    <CustomSelect
+                      placeholder={"Select Appointment Type"}
+                      enableDeselect
+                      items={appointmentTypes}
+                      onChange={handleAppointmentTypeChange}
+                      name={field.name}
+                      value={field.value?.trim() || ""}
+                    />
+                  )}
+                ></Controller>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Grid flexDirection={"column"} rowGap={2} pl={2} pr={2}>
+            Render the new form or content after appointment type is selected
+          </Grid>
+        )}
         {/* Button Grid */}
         <Grid borderTop={"1px solid #DEE4ED"}>
           <Grid container p={2} justifyContent={"flex-end"} columnGap={1}>
             <Grid>
               <Button
                 variant="outlined"
-                onClick={props.onClose}
+                onClick={
+                  !selectedAppointmentType
+                    ? props.onClose
+                    : handleCancelSelectedForm
+                }
                 sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
               >
                 Cancel
