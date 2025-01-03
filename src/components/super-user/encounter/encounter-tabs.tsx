@@ -12,6 +12,8 @@ import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impress
 import EncounterHstEducation from "./hst_education/encounter_hst_education";
 import { theme } from "@/utils/theme";
 import AddIcon from "@mui/icons-material/Add";
+import CustomDialog from "@/common-components/custom-dialog/custom-dialog";
+import CreateEncounterForm from "./encounters/create-encounter-form";
 
 const tabLabels = [
   "Encounters",
@@ -22,6 +24,7 @@ const tabLabels = [
 
 const SettingsTabs = () => {
   const [value, setValue] = useState(0);
+  const [createEncounter, setCreateEncounter] = useState<boolean>(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -74,6 +77,7 @@ const SettingsTabs = () => {
                     borderRadius: "12px",
                     color: theme.palette.common.white,
                   }}
+                  onClick={() => setCreateEncounter(true)}
                 >
                   Create Encounter
                 </Button>
@@ -131,8 +135,17 @@ const SettingsTabs = () => {
           </Grid>
         </Grid>
       </Grid>
+
+      <CustomDialog
+        onClose={() => setCreateEncounter(false)}
+        open={createEncounter}
+        title="Create Encounter"
+        width={600}
+        showDivider={true}
+      >
+        <CreateEncounterForm onClose={() => setCreateEncounter(false)} />
+      </CustomDialog>
     </Grid>
   );
 };
-
 export default SettingsTabs;

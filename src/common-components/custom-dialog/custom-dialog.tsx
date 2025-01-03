@@ -1,16 +1,16 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Divider, Grid } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import * as React from "react";
-import { theme } from "../../utils/theme";
 import { customDialogStyles } from "./widgets/custom-dialog-styles";
+import { Grid } from "@mui/system";
 
 interface CustomDialogProps {
   title: React.ReactNode;
-  buttonName: string[];
+  buttonName?: string[];
   open: boolean;
   onClose: () => void;
   width?: string | number;
@@ -65,13 +65,12 @@ const CustomDialog = (props: React.PropsWithChildren<CustomDialogProps>) => {
         id="customized-dialog-title"
         sx={{
           ...customDialogStyles.dialogTitle,
-          padding: "5px 22px",
-          borderColor: theme.palette.grey[300],
-          // cursor: draggable ? "move" : "default",
+          padding: "5px 0px",
         }}
       >
         <Grid
           container
+          width={"100%"}
           p={0}
           justifyContent="space-between"
           alignItems="center"
@@ -79,10 +78,10 @@ const CustomDialog = (props: React.PropsWithChildren<CustomDialogProps>) => {
             marginBottom: showDivider ? "0" : "10px",
           }}
         >
-          <Grid item xs sx={titleAlignment}>
-            {title}
+          <Grid sx={titleAlignment} pl={2}>
+            <Typography variant="bodyMedium">{title}</Typography>
           </Grid>
-          <Grid item>
+          <Grid pr={2}>
             <IconButton
               aria-label="close"
               onClick={onClose}
@@ -94,10 +93,8 @@ const CustomDialog = (props: React.PropsWithChildren<CustomDialogProps>) => {
         </Grid>
         {showDivider && <Divider sx={{ my: "10px" }} />}{" "}
       </DialogTitle>
-      <DialogContent sx={{ overflow: overFlow, padding: padding }}>
-        <Grid item flex={1}>
-          {props.children}
-        </Grid>
+      <DialogContent sx={{ overflow: overFlow, padding: padding || 0 }}>
+        <Grid flex={1}>{props.children}</Grid>
       </DialogContent>
     </Dialog>
   );

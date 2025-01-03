@@ -303,6 +303,11 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
                           <CustomInput
                             value={field.value?.trim() || ""}
                             placeholder={"Enter Belt Number"}
+                            onChange={(event) => {
+                              setValue("beltNumber", event.target.value, {
+                                shouldValidate: true,
+                              });
+                            }}
                             name={field.name}
                           />
                         )}
