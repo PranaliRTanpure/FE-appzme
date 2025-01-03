@@ -1,8 +1,6 @@
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import AddIcon from "@mui/icons-material/Add";
 import {
-  Button,
   Link,
   Table,
   TableBody,
@@ -93,17 +91,6 @@ const EncounterList = () => {
             >
               <FilterAltOutlinedIcon sx={{ height: "19px", width: "19px" }} />
             </Grid>
-            <Button
-              startIcon={<AddIcon />}
-              sx={{
-                p: "0px 10px",
-                bgcolor: theme.palette.secondary.main,
-                borderRadius: "12px",
-                color: theme.palette.common.white,
-              }}
-            >
-              Create Encounter
-            </Button>
           </Grid>
         </Grid>
         <Grid width={"100%"}>

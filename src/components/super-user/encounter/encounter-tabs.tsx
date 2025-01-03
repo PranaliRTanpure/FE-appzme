@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import { Grid } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -10,6 +10,8 @@ import EncounterList from "./encounters/encounter-list";
 import EncounterMillennium from "./millenium/encounter-millenium";
 import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impression";
 import EncounterHstEducation from "./hst_education/encounter_hst_education";
+import { theme } from "@/utils/theme";
+import AddIcon from "@mui/icons-material/Add";
 
 const tabLabels = [
   "Encounters",
@@ -47,7 +49,11 @@ const SettingsTabs = () => {
         flexDirection={"column"}
       >
         <Grid width={"100%"}>
-          <Grid sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Grid
+            container
+            justifyContent={"space-between"}
+            sx={{ borderBottom: 1, borderColor: "divider" }}
+          >
             <Tabs value={value} onChange={handleChange}>
               {tabLabels?.map((item, index) => (
                 <Tab
@@ -58,6 +64,60 @@ const SettingsTabs = () => {
                 />
               ))}
             </Tabs>
+            <Grid pt={1} pb={1} pr={2}>
+              {value === 0 && (
+                <Button
+                  startIcon={<AddIcon />}
+                  sx={{
+                    p: "0px 10px",
+                    bgcolor: theme.palette.secondary.main,
+                    borderRadius: "12px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  Create Encounter
+                </Button>
+              )}
+              {value === 1 && (
+                <Button
+                  startIcon={<AddIcon />}
+                  sx={{
+                    p: "0px 10px",
+                    bgcolor: theme.palette.secondary.main,
+                    borderRadius: "12px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  Schedule Appointment
+                </Button>
+              )}
+              {value === 2 && (
+                <Button
+                  startIcon={<AddIcon />}
+                  sx={{
+                    p: "0px 10px",
+                    bgcolor: theme.palette.secondary.main,
+                    borderRadius: "12px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  Schedule Appointment
+                </Button>
+              )}
+              {value === 3 && (
+                <Button
+                  startIcon={<AddIcon />}
+                  sx={{
+                    p: "0px 10px",
+                    bgcolor: theme.palette.secondary.main,
+                    borderRadius: "12px",
+                    color: theme.palette.common.white,
+                  }}
+                >
+                  Schedule Appointment
+                </Button>
+              )}
+            </Grid>
           </Grid>
           <Grid flex={1}>
             {tabLabels.map((item, index) => (
