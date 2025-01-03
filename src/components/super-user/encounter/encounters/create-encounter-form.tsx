@@ -52,14 +52,7 @@ const CreateEncounterForm = (props: CreateEncounterFormProps) => {
         border={0}
       >
         {/* Form Grid */}
-        <Grid
-          container
-          flexDirection={"column"}
-          rowGap={2}
-          pl={2}
-          pt={2}
-          pr={2}
-        >
+        <Grid container flexDirection={"column"} rowGap={2} pl={2} pr={2}>
           <Grid>
             <CustomLabel label="Patient" isRequired />
             <Controller

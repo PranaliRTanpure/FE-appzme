@@ -14,6 +14,7 @@ import { theme } from "@/utils/theme";
 import AddIcon from "@mui/icons-material/Add";
 import CustomDialog from "@/common-components/custom-dialog/custom-dialog";
 import CreateEncounterForm from "./encounters/create-encounter-form";
+import ScheduleAppointment from "./hst_education/schedule-appointment-form";
 
 const tabLabels = [
   "Encounters",
@@ -25,6 +26,7 @@ const tabLabels = [
 const SettingsTabs = () => {
   const [value, setValue] = useState(0);
   const [createEncounter, setCreateEncounter] = useState<boolean>(false);
+  const [appointmentHST, setAppointmentHST] = useState<boolean>(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -117,6 +119,7 @@ const SettingsTabs = () => {
                     borderRadius: "12px",
                     color: theme.palette.common.white,
                   }}
+                  onClick={() => setAppointmentHST(true)}
                 >
                   Schedule Appointment
                 </Button>
@@ -144,6 +147,16 @@ const SettingsTabs = () => {
         showDivider={true}
       >
         <CreateEncounterForm onClose={() => setCreateEncounter(false)} />
+      </CustomDialog>
+
+      <CustomDialog
+        onClose={() => setAppointmentHST(false)}
+        open={appointmentHST}
+        title="Schedule HST Education Appointment"
+        width={600}
+        showDivider={true}
+      >
+        <ScheduleAppointment onClose={() => setAppointmentHST(false)} />
       </CustomDialog>
     </Grid>
   );
