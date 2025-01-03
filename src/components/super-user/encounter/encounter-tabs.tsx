@@ -15,6 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CustomDialog from "@/common-components/custom-dialog/custom-dialog";
 import CreateEncounterForm from "./encounters/create-encounter-form";
 import ScheduleAppointment from "./hst_education/schedule-appointment-form";
+import MilleniumScheduleAppointment from "./millenium/millenium-schedule-appointment-form";
 
 const tabLabels = [
   "Encounters",
@@ -27,6 +28,8 @@ const SettingsTabs = () => {
   const [value, setValue] = useState(0);
   const [createEncounter, setCreateEncounter] = useState<boolean>(false);
   const [appointmentHST, setAppointmentHST] = useState<boolean>(false);
+  const [appointmentMillenium, setAppointmentMillenium] =
+    useState<boolean>(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -93,6 +96,7 @@ const SettingsTabs = () => {
                     borderRadius: "12px",
                     color: theme.palette.common.white,
                   }}
+                  onClick={() => setAppointmentMillenium(true)}
                 >
                   Schedule Appointment
                 </Button>
@@ -157,6 +161,18 @@ const SettingsTabs = () => {
         showDivider={true}
       >
         <ScheduleAppointment onClose={() => setAppointmentHST(false)} />
+      </CustomDialog>
+
+      <CustomDialog
+        onClose={() => setAppointmentMillenium(false)}
+        open={appointmentMillenium}
+        title="Schedule Millennium Appointment"
+        width={600}
+        showDivider={true}
+      >
+        <MilleniumScheduleAppointment
+          onClose={() => setAppointmentMillenium(false)}
+        />
       </CustomDialog>
     </Grid>
   );
