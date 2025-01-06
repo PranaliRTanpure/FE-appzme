@@ -2,12 +2,20 @@ import CustomInput from "@/common-components/custom-input/custom-input";
 import CustomLabel from "@/common-components/custom-label/custom-label";
 import CustomSelect from "@/common-components/custom-select/customSelect";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, SelectChangeEvent } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Divider,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import { Grid } from "@mui/system";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { theme } from "@/utils/theme";
 import { MilleniumScheduleAppointmentSchema } from "./millenium-schema";
 import { useState } from "react";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import AdUnitsOutlinedIcon from "@mui/icons-material/AdUnitsOutlined";
 
 interface MilleniumScheduleAppointmentProps {
   onClose: () => void;
@@ -114,7 +122,59 @@ const MilleniumScheduleAppointment = (
           </Grid>
         ) : (
           <Grid flexDirection={"column"} rowGap={2} pl={2} pr={2}>
-            Render the new form or content after appointment type is selected
+            <Grid
+              container
+              bgcolor={"#F4F4F4"}
+              borderRadius={3}
+              p={2}
+              justifyContent={"space-between"}
+            >
+              <Avatar
+                variant="circular"
+                sx={{ width: "48px", height: "48px" }}
+              />
+              <Grid container flexDirection={"column"} rowGap={1.2} border={0}>
+                <Grid container columnGap={0.8}>
+                  <Typography
+                    variant="bodySmall"
+                    sx={{ "& span": { color: "#74797B" } }}
+                  >
+                    Alberta Flores <span>(9017)</span>
+                  </Typography>
+                  <Divider orientation="vertical" sx={{ width: "3px" }} />
+                  <Typography variant="bodySmall">14 July 1998</Typography>
+                  <Divider orientation="vertical" sx={{ width: "3px" }} />
+                  <Typography variant="bodySmall">26 yrs</Typography>
+                  <Divider orientation="vertical" sx={{ width: "3px" }} />
+                  <Typography variant="bodySmall">Female</Typography>
+                </Grid>
+                <Grid container columnGap={0.8}>
+                  <Grid container columnGap={0.5}>
+                    <EmailOutlinedIcon
+                      sx={{ fontSize: "18px", color: "#595F63" }}
+                    />
+                    <Typography variant="bodySmall" color="#74797B">
+                      (569)-888-2244
+                    </Typography>
+                  </Grid>
+                  <Grid container columnGap={0.5}>
+                    <AdUnitsOutlinedIcon
+                      sx={{ fontSize: "18px", color: "#595F63" }}
+                    />
+                    <Typography variant="bodySmall" color="#74797B">
+                      tim.jennings@example.com
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Typography
+                color="#106DCC"
+                alignContent="center"
+                variant="bodySmall"
+              >
+                Change Patient
+              </Typography>
+            </Grid>
           </Grid>
         )}
         {/* Button Grid */}
