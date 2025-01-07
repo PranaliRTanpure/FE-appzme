@@ -5,9 +5,11 @@ import AdUnitsOutlinedIcon from "@mui/icons-material/AdUnitsOutlined";
 
 interface PatientDetailsProps {
   handleClose: () => void;
+  // patientDetails: any;
 }
 
-const PatientDetails = (props: PatientDetailsProps) => {
+const PatientDetails = ({ handleClose }: PatientDetailsProps) => {
+  // patientDetails
   return (
     <Grid flexDirection={"column"}>
       <Grid
@@ -50,7 +52,7 @@ const PatientDetails = (props: PatientDetailsProps) => {
             </Grid>
           </Grid>
         </Grid>
-        <ButtonBase sx={{ fontWeight: 600 }} onClick={props.handleClose}>
+        <ButtonBase sx={{ fontWeight: 600 }} onClick={handleClose}>
           <Typography variant="bodySmall" color="#106DCC" ml={1}>
             Change Patient
           </Typography>

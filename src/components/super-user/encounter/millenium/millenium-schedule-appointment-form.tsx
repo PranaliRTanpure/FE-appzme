@@ -7,7 +7,6 @@ import { Controller, FieldValues, useForm } from "react-hook-form";
 import { theme } from "@/utils/theme";
 import { MilleniumScheduleAppointmentSchema } from "./millenium-schema";
 import { useEffect, useState } from "react";
-
 import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
 import PatientDetails from "./patient-details";
 import DatePicker from "@/common-components/date-picker-field/date-picker-field";
@@ -74,8 +73,8 @@ const MilleniumScheduleAppointment = (
     { key: string; value: string }[]
   >([{ key: "", value: "" }]);
   const [appointmentTypeSelected, setAppointmentTypeSelected] = useState(false);
+  // const [selectedPatientDetails, setSelectedPatientDetails] = useState<any | null>(null);
 
-  appointmentTypeSelected;
   useEffect(() => {
     const updatedOptions = data.map((item) => ({
       key: item.id,
@@ -153,9 +152,15 @@ const MilleniumScheduleAppointment = (
                     hasStartSearchIcon={true}
                     hasError={!!errors.patient}
                     errorMessage={errors.patient?.message}
+                    // onChange={(value: string | "") => {
+                    //   field.onChange(value);
+                    //   setPatientValue(value);
+                    // }}
                     onChange={(value: string | "") => {
                       field.onChange(value);
                       setPatientValue(value);
+                      // const patient = data.find((item) => item.name === value);
+                      // setSelectedPatientDetails(patient || null);
                     }}
                     value={patientValue || ""}
                     options={patientOptions}
@@ -164,7 +169,12 @@ const MilleniumScheduleAppointment = (
               />
             </Grid>
           )}
-          {patientValue && <PatientDetails handleClose={handleClose} />}
+          {patientValue && (
+            <PatientDetails
+              handleClose={handleClose}
+              // patientDetails={selectedPatientDetails}
+            />
+          )}
           <Grid container columnGap={1}>
             <Grid width={"49%"}>
               <CustomLabel label="Appointment Type" />
@@ -180,28 +190,6 @@ const MilleniumScheduleAppointment = (
                       setValue("appointmentType", e.target.value, {
                         shouldValidate: true,
                       });
-                    }}
-                    name={field.name}
-                    value={field.value?.trim() || ""}
-                  />
-                )}
-              ></Controller>
-            </Grid>
-
-            <Grid width={"49%"}>
-              <CustomLabel label="Millennium Provider" />
-              <Controller
-                control={control}
-                name="millenniumProvider"
-                render={({ field }) => (
-                  <CustomSelect
-                    placeholder={"Select Millennium Provider"}
-                    enableDeselect
-                    items={appointmentTypes}
-                    onChange={function (e: SelectChangeEvent<string>): void {
-                      setValue("millenniumProvider", e.target.value, {
-                        shouldValidate: true,
-                      });
                       setAppointmentTypeSelected(true);
                     }}
                     name={field.name}
@@ -210,157 +198,188 @@ const MilleniumScheduleAppointment = (
                 )}
               ></Controller>
             </Grid>
+            {appointmentTypeSelected && (
+              <Grid width={"49%"}>
+                <CustomLabel label="Millennium Provider" />
+                <Controller
+                  control={control}
+                  name="millenniumProvider"
+                  render={({ field }) => (
+                    <CustomSelect
+                      placeholder={"Select Millennium Provider"}
+                      enableDeselect
+                      items={appointmentTypes}
+                      onChange={function (e: SelectChangeEvent<string>): void {
+                        setValue("millenniumProvider", e.target.value, {
+                          shouldValidate: true,
+                        });
+                      }}
+                      name={field.name}
+                      value={field.value?.trim() || ""}
+                    />
+                  )}
+                ></Controller>
+              </Grid>
+            )}
           </Grid>
-
-          <Grid container columnGap={1}>
-            <Grid width={"49%"}>
-              <CustomLabel label="Dental Provider" />
-              <Controller
-                control={control}
-                name="dentalProvider"
-                render={({ field }) => (
-                  <CustomSelect
-                    placeholder={"Select Dental Provider"}
-                    enableDeselect
-                    items={appointmentTypes}
-                    onChange={function (e: SelectChangeEvent<string>): void {
-                      setValue("dentalProvider", e.target.value, {
-                        shouldValidate: true,
-                      });
-                    }}
-                    name={field.name}
-                    value={field.value?.trim() || ""}
+          {appointmentTypeSelected && (
+            <Grid container width={"100%"} flexDirection={"column"}>
+              <Grid container columnGap={1}>
+                <Grid width={"49%"}>
+                  <CustomLabel label="Dental Provider" />
+                  <Controller
+                    control={control}
+                    name="dentalProvider"
+                    render={({ field }) => (
+                      <CustomSelect
+                        placeholder={"Select Dental Provider"}
+                        enableDeselect
+                        items={appointmentTypes}
+                        onChange={function (
+                          e: SelectChangeEvent<string>,
+                        ): void {
+                          setValue("dentalProvider", e.target.value, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        name={field.name}
+                        value={field.value?.trim() || ""}
+                      />
+                    )}
+                  ></Controller>
+                </Grid>
+                <Grid width={"49%"}>
+                  <CustomLabel label="Sleep Advisior" />
+                  <Controller
+                    control={control}
+                    name="sleepAdvisor"
+                    render={({ field }) => (
+                      <CustomSelect
+                        placeholder={"Select Sleep Advisior"}
+                        enableDeselect
+                        items={appointmentTypes}
+                        onChange={function (
+                          e: SelectChangeEvent<string>,
+                        ): void {
+                          setValue("sleepAdvisor", e.target.value, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        name={field.name}
+                        value={field.value?.trim() || ""}
+                      />
+                    )}
+                  ></Controller>
+                </Grid>
+              </Grid>
+              <Grid container width={"100%"} pt={1}>
+                <Grid width={"49%"}>
+                  <CustomLabel label="Regional Manager" />
+                  <Controller
+                    control={control}
+                    name="regionalManager"
+                    render={({ field }) => (
+                      <CustomSelect
+                        placeholder={"Select Regional Manager"}
+                        enableDeselect
+                        items={appointmentTypes}
+                        onChange={function (
+                          e: SelectChangeEvent<string>,
+                        ): void {
+                          setValue("regionalManager", e.target.value, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        name={field.name}
+                        value={field.value?.trim() || ""}
+                      />
+                    )}
+                  ></Controller>
+                </Grid>
+              </Grid>
+              <Grid container width={"100%"} pt={1}>
+                <Grid width={"100%"}>
+                  <CustomLabel label="Search by Provider" />
+                  <Controller
+                    control={control}
+                    name="guestProviders"
+                    render={({ field }) => (
+                      <CustomAutocompleteMultiselect
+                        placeholder="Search and select"
+                        onChange={(value: string[] | []) => {
+                          field.onChange(value);
+                        }}
+                        options={[
+                          { key: "315645", value: "John Doe" },
+                          { key: "789123", value: "Jane Smith" },
+                        ]}
+                        value={field.value as string[]}
+                        limitTags={1}
+                      />
+                    )}
+                  ></Controller>
+                </Grid>
+              </Grid>
+              <Grid container width={"100%"} pt={1}>
+                <Grid width={"49%"}>
+                  <CustomLabel label="Date & Time" />
+                  <Controller
+                    control={control}
+                    name={`dateTime`}
+                    render={({ field }) => (
+                      <DatePicker
+                        bgWhite={false}
+                        {...field}
+                        disableFuture
+                        value={field.value}
+                        onDateChange={function (selectedDate: string): void {
+                          setValue(`dateTime`, selectedDate, {
+                            shouldValidate: true,
+                          });
+                        }}
+                      />
+                    )}
                   />
-                )}
-              ></Controller>
-            </Grid>
-            <Grid width={"49%"}>
-              <CustomLabel label="Sleep Advisior" />
-              <Controller
-                control={control}
-                name="sleepAdvisor"
-                render={({ field }) => (
-                  <CustomSelect
-                    placeholder={"Select Sleep Advisior"}
-                    enableDeselect
-                    items={appointmentTypes}
-                    onChange={function (e: SelectChangeEvent<string>): void {
-                      setValue("sleepAdvisor", e.target.value, {
-                        shouldValidate: true,
-                      });
-                    }}
-                    name={field.name}
-                    value={field.value?.trim() || ""}
-                  />
-                )}
-              ></Controller>
-            </Grid>
-          </Grid>
-
-          <Grid container width={"100%"}>
-            <Grid width={"49%"}>
-              <CustomLabel label="Regional Manager" />
-              <Controller
-                control={control}
-                name="regionalManager"
-                render={({ field }) => (
-                  <CustomSelect
-                    placeholder={"Select Regional Manager"}
-                    enableDeselect
-                    items={appointmentTypes}
-                    onChange={function (e: SelectChangeEvent<string>): void {
-                      setValue("regionalManager", e.target.value, {
-                        shouldValidate: true,
-                      });
-                    }}
-                    name={field.name}
-                    value={field.value?.trim() || ""}
-                  />
-                )}
-              ></Controller>
-            </Grid>
-          </Grid>
-          <Grid container width={"100%"}>
-            <Grid width={"100%"}>
-              <CustomLabel label="Search by Provider" />
-              <Controller
-                control={control}
-                name="guestProviders"
-                render={({ field }) => (
-                  <CustomAutocompleteMultiselect
-                    placeholder="Search and select"
-                    onChange={(value: string[] | []) => {
-                      field.onChange(value);
-                    }}
-                    options={[
-                      { key: "315645", value: "John Doe" },
-                      { key: "789123", value: "Jane Smith" },
-                    ]}
-                    value={field.value as string[]}
-                    limitTags={1}
-                  />
-                )}
-              ></Controller>
-            </Grid>
-          </Grid>
-          <Grid container width={"100%"}>
-            <Grid width={"49%"}>
-              <CustomLabel label="Date & Time" />
-              <Controller
-                control={control}
-                name={`dateTime`}
-                render={({ field }) => (
-                  <DatePicker
-                    bgWhite={false}
-                    {...field}
-                    disableFuture
-                    value={field.value}
-                    onDateChange={function (selectedDate: string): void {
-                      setValue(`dateTime`, selectedDate, {
-                        shouldValidate: true,
-                      });
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
-          <Grid container width={"100%"}>
-            <CustomLabel label="Select Available Time Slots" />
-            <Grid
-              width={"100%"}
-              border={"1px solid #C9CBCC"}
-              borderRadius={5}
-              p={2}
-            >
-              <Grid container spacing={1}>
-                {timeSlots.map((slot) => (
-                  <Grid
-                    key={slot.key}
-                    container
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    width={72}
-                    height={31}
-                    borderRadius={3}
-                    border={
-                      slot.isActive ? "1px solid #106DCC" : "1px solid #9B9D9F"
-                    }
-                    bgcolor={slot.isActive ? "#F1F8FF" : "white"}
-                  >
-                    <Typography
-                      variant="bodySmall"
-                      color={
-                        slot.isActive ? "1px solid #106DCC" : "1px solid black"
-                      }
-                    >
-                      {slot.value}
-                    </Typography>
+                </Grid>
+              </Grid>
+              <Grid container width={"100%"} pt={1}>
+                <CustomLabel label="Select Available Time Slots" />
+                <Grid
+                  width={"100%"}
+                  border={"1px solid #C9CBCC"}
+                  borderRadius={5}
+                  p={2}
+                >
+                  <Grid container spacing={1}>
+                    {timeSlots.map((slot) => (
+                      <Grid
+                        key={slot.key}
+                        container
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                        width={72}
+                        height={31}
+                        borderRadius={3}
+                        border={
+                          slot.isActive
+                            ? "1px solid #106DCC"
+                            : "1px solid #9B9D9F"
+                        }
+                        bgcolor={slot.isActive ? "#F1F8FF" : "white"}
+                      >
+                        <Typography
+                          variant="bodySmall"
+                          sx={{ color: slot.isActive ? "#106DCC" : "black" }}
+                        >
+                          {slot.value}
+                        </Typography>
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          )}
         </Grid>
         {/* Button Grid */}
         <Grid borderTop={"1px solid #DEE4ED"}>
