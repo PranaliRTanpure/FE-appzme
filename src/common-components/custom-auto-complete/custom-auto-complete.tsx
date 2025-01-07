@@ -1,9 +1,8 @@
 import {
   Autocomplete,
   CircularProgress,
-  Grid,
   Paper,
-  TextField,
+  // TextField,
   Typography,
   alpha,
 } from "@mui/material";
@@ -15,6 +14,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Options } from "../../constants/options";
 import { theme } from "../../utils/theme";
 import "./custom-auto-complete.css";
+import { Grid } from "@mui/system";
+import TextField from "@mui/material/TextField";
 
 type CustomAutoCompleteProps = {
   options: {
@@ -225,6 +226,7 @@ const CustomAutoComplete = (props: CustomAutoCompleteProps) => {
         PaperComponent={(props) => <Paper {...props} />}
         renderInput={(params) => (
           <TextField
+            style={{ borderRadius: "10px" }}
             {...params}
             inputProps={{
               ...params.inputProps,
@@ -236,7 +238,7 @@ const CustomAutoComplete = (props: CustomAutoCompleteProps) => {
               // 	<SearchIcon sx={{ opacity: 0.5 }} />
               // ),
               endAdornment: (
-                <Grid container width={"fit-content"}>
+                <Grid maxWidth={"100%"} container width={"fit-content"}>
                   {loading && (
                     <CircularProgress size={"20px"} color="inherit" />
                   )}

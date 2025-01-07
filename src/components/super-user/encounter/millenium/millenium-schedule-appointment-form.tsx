@@ -1,21 +1,66 @@
-import CustomInput from "@/common-components/custom-input/custom-input";
 import CustomLabel from "@/common-components/custom-label/custom-label";
 import CustomSelect from "@/common-components/custom-select/customSelect";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Avatar,
-  Button,
-  Divider,
-  SelectChangeEvent,
-  Typography,
-} from "@mui/material";
+import { Button, SelectChangeEvent, Typography } from "@mui/material";
 import { Grid } from "@mui/system";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { theme } from "@/utils/theme";
 import { MilleniumScheduleAppointmentSchema } from "./millenium-schema";
-import { useState } from "react";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import AdUnitsOutlinedIcon from "@mui/icons-material/AdUnitsOutlined";
+import { useEffect, useState } from "react";
+
+import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
+import PatientDetails from "./patient-details";
+import DatePicker from "@/common-components/date-picker-field/date-picker-field";
+import CustomAutocompleteMultiselect from "@/common-components/custom-autocomplete-multiselect/custom-auto-multiselect";
+import { timeSlots } from "./chekbox_list";
+
+const data = [
+  {
+    id: "1001",
+    name: "John Doe",
+    content: "This is some sample content.",
+    date: "2025-01-01",
+    gender: "Male",
+    mobileno: "1234567890",
+    email: "john.doe@example.com",
+  },
+  {
+    id: "1002",
+    name: "Jane Smith",
+    content: "This is another sample content.",
+    date: "2025-01-02",
+    gender: "Female",
+    mobileno: "9876543210",
+    email: "jane.smith@example.com",
+  },
+  {
+    id: "1003",
+    name: "Sam Wilson",
+    content: "A quick brown fox jumps over the lazy dog.",
+    date: "2025-01-03",
+    gender: "Male",
+    mobileno: "4567891230",
+    email: "sam.wilson@example.com",
+  },
+  {
+    id: "1004",
+    name: "Lisa Brown",
+    content: "Sample content for testing.",
+    date: "2025-01-04",
+    gender: "Female",
+    mobileno: "7891234560",
+    email: "lisa.brown@example.com",
+  },
+  {
+    id: "1005",
+    name: "Tom Harris",
+    content: "Lorem ipsum dolor sit amet.",
+    date: "2025-01-05",
+    gender: "Male",
+    mobileno: "3216549870",
+    email: "tom.harris@example.com",
+  },
+];
 
 interface MilleniumScheduleAppointmentProps {
   onClose: () => void;
@@ -24,8 +69,21 @@ interface MilleniumScheduleAppointmentProps {
 const MilleniumScheduleAppointment = (
   props: MilleniumScheduleAppointmentProps,
 ) => {
-  const [selectedAppointmentType, setSelectedAppointmentType] =
-    useState<string>("");
+  const [patientValue, setPatientValue] = useState<string | null>("");
+  const [patientOptions, setPatientOptions] = useState<
+    { key: string; value: string }[]
+  >([{ key: "", value: "" }]);
+  const [appointmentTypeSelected, setAppointmentTypeSelected] = useState(false);
+
+  appointmentTypeSelected;
+  useEffect(() => {
+    const updatedOptions = data.map((item) => ({
+      key: item.id,
+      value: item.name,
+    }));
+
+    setPatientOptions(updatedOptions);
+  }, []);
 
   const appointmentTypes = [
     { value: "initial telehealth", label: "Initial Telehealth" },
@@ -38,6 +96,11 @@ const MilleniumScheduleAppointment = (
     patient: "",
     appointmentType: "",
     dateTime: "",
+    millenniumProvider: "",
+    dentalProvider: "",
+    sleepAdvisor: "",
+    regionalManager: "",
+    guestProviders: [""],
   };
 
   const {
@@ -45,24 +108,25 @@ const MilleniumScheduleAppointment = (
     setValue,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(MilleniumScheduleAppointmentSchema),
   });
 
-  const handleAppointmentTypeChange = (e: SelectChangeEvent<string>) => {
-    const value = e.target.value;
-    setSelectedAppointmentType(value);
-    setValue("appointmentType", value, { shouldValidate: true });
-  };
-
-  const handleCancelSelectedForm = () => {
-    setSelectedAppointmentType("");
-  };
-
   const onSubmit = (data: FieldValues) => {
     data;
   };
+
+  const handleClose = () => {
+    if (patientValue) {
+      setPatientValue(null);
+      reset();
+    } else {
+      props.onClose();
+    }
+  };
+
   return (
     <form
       style={{ width: "100%", height: "100%", display: "flex" }}
@@ -76,21 +140,44 @@ const MilleniumScheduleAppointment = (
         border={0}
       >
         {/* Form Grid */}
-        {!selectedAppointmentType ? (
-          <Grid container flexDirection={"column"} rowGap={2} pl={2} pr={2}>
+        <Grid container flexDirection={"column"} rowGap={2} pl={2} pr={2}>
+          {!patientValue && (
             <Grid>
               <CustomLabel label="Patient" isRequired />
               <Controller
                 control={control}
                 name="patient"
                 render={({ field }) => (
-                  <CustomInput
+                  <CustomAutoComplete
                     placeholder={" Select Patient"}
                     hasStartSearchIcon={true}
                     hasError={!!errors.patient}
                     errorMessage={errors.patient?.message}
-                    onChange={(event) => {
-                      setValue("patient", event.target.value, {
+                    onChange={(value: string | "") => {
+                      field.onChange(value);
+                      setPatientValue(value);
+                    }}
+                    value={patientValue || ""}
+                    options={patientOptions}
+                  />
+                )}
+              />
+            </Grid>
+          )}
+          {patientValue && <PatientDetails handleClose={handleClose} />}
+          <Grid container columnGap={1}>
+            <Grid width={"49%"}>
+              <CustomLabel label="Appointment Type" />
+              <Controller
+                control={control}
+                name="appointmentType"
+                render={({ field }) => (
+                  <CustomSelect
+                    placeholder={"Select Appointment Type"}
+                    enableDeselect
+                    items={appointmentTypes}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("appointmentType", e.target.value, {
                         shouldValidate: true,
                       });
                     }}
@@ -100,94 +187,188 @@ const MilleniumScheduleAppointment = (
                 )}
               ></Controller>
             </Grid>
-            <Grid container columnGap={1}>
-              <Grid width={"49%"}>
-                <CustomLabel label="Appointment Type" />
-                <Controller
-                  control={control}
-                  name="appointmentType"
-                  render={({ field }) => (
-                    <CustomSelect
-                      placeholder={"Select Appointment Type"}
-                      enableDeselect
-                      items={appointmentTypes}
-                      onChange={handleAppointmentTypeChange}
-                      name={field.name}
-                      value={field.value?.trim() || ""}
-                    />
-                  )}
-                ></Controller>
-              </Grid>
+
+            <Grid width={"49%"}>
+              <CustomLabel label="Millennium Provider" />
+              <Controller
+                control={control}
+                name="millenniumProvider"
+                render={({ field }) => (
+                  <CustomSelect
+                    placeholder={"Select Millennium Provider"}
+                    enableDeselect
+                    items={appointmentTypes}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("millenniumProvider", e.target.value, {
+                        shouldValidate: true,
+                      });
+                      setAppointmentTypeSelected(true);
+                    }}
+                    name={field.name}
+                    value={field.value?.trim() || ""}
+                  />
+                )}
+              ></Controller>
             </Grid>
           </Grid>
-        ) : (
-          <Grid flexDirection={"column"} rowGap={2} pl={2} pr={2}>
-            <Grid
-              container
-              bgcolor={"#F4F4F4"}
-              borderRadius={3}
-              p={2}
-              justifyContent={"space-between"}
-            >
-              <Avatar
-                variant="circular"
-                sx={{ width: "48px", height: "48px" }}
+
+          <Grid container columnGap={1}>
+            <Grid width={"49%"}>
+              <CustomLabel label="Dental Provider" />
+              <Controller
+                control={control}
+                name="dentalProvider"
+                render={({ field }) => (
+                  <CustomSelect
+                    placeholder={"Select Dental Provider"}
+                    enableDeselect
+                    items={appointmentTypes}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("dentalProvider", e.target.value, {
+                        shouldValidate: true,
+                      });
+                    }}
+                    name={field.name}
+                    value={field.value?.trim() || ""}
+                  />
+                )}
+              ></Controller>
+            </Grid>
+            <Grid width={"49%"}>
+              <CustomLabel label="Sleep Advisior" />
+              <Controller
+                control={control}
+                name="sleepAdvisor"
+                render={({ field }) => (
+                  <CustomSelect
+                    placeholder={"Select Sleep Advisior"}
+                    enableDeselect
+                    items={appointmentTypes}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("sleepAdvisor", e.target.value, {
+                        shouldValidate: true,
+                      });
+                    }}
+                    name={field.name}
+                    value={field.value?.trim() || ""}
+                  />
+                )}
+              ></Controller>
+            </Grid>
+          </Grid>
+
+          <Grid container width={"100%"}>
+            <Grid width={"49%"}>
+              <CustomLabel label="Regional Manager" />
+              <Controller
+                control={control}
+                name="regionalManager"
+                render={({ field }) => (
+                  <CustomSelect
+                    placeholder={"Select Regional Manager"}
+                    enableDeselect
+                    items={appointmentTypes}
+                    onChange={function (e: SelectChangeEvent<string>): void {
+                      setValue("regionalManager", e.target.value, {
+                        shouldValidate: true,
+                      });
+                    }}
+                    name={field.name}
+                    value={field.value?.trim() || ""}
+                  />
+                )}
+              ></Controller>
+            </Grid>
+          </Grid>
+          <Grid container width={"100%"}>
+            <Grid width={"100%"}>
+              <CustomLabel label="Search by Provider" />
+              <Controller
+                control={control}
+                name="guestProviders"
+                render={({ field }) => (
+                  <CustomAutocompleteMultiselect
+                    placeholder="Search and select"
+                    onChange={(value: string[] | []) => {
+                      field.onChange(value);
+                    }}
+                    options={[
+                      { key: "315645", value: "John Doe" },
+                      { key: "789123", value: "Jane Smith" },
+                    ]}
+                    value={field.value as string[]}
+                    limitTags={1}
+                  />
+                )}
+              ></Controller>
+            </Grid>
+          </Grid>
+          <Grid container width={"100%"}>
+            <Grid width={"49%"}>
+              <CustomLabel label="Date & Time" />
+              <Controller
+                control={control}
+                name={`dateTime`}
+                render={({ field }) => (
+                  <DatePicker
+                    bgWhite={false}
+                    {...field}
+                    disableFuture
+                    value={field.value}
+                    onDateChange={function (selectedDate: string): void {
+                      setValue(`dateTime`, selectedDate, {
+                        shouldValidate: true,
+                      });
+                    }}
+                  />
+                )}
               />
-              <Grid container flexDirection={"column"} rowGap={1.2} border={0}>
-                <Grid container columnGap={0.8}>
-                  <Typography
-                    variant="bodySmall"
-                    sx={{ "& span": { color: "#74797B" } }}
-                  >
-                    Alberta Flores <span>(9017)</span>
-                  </Typography>
-                  <Divider orientation="vertical" sx={{ width: "3px" }} />
-                  <Typography variant="bodySmall">14 July 1998</Typography>
-                  <Divider orientation="vertical" sx={{ width: "3px" }} />
-                  <Typography variant="bodySmall">26 yrs</Typography>
-                  <Divider orientation="vertical" sx={{ width: "3px" }} />
-                  <Typography variant="bodySmall">Female</Typography>
-                </Grid>
-                <Grid container columnGap={0.8}>
-                  <Grid container columnGap={0.5}>
-                    <EmailOutlinedIcon
-                      sx={{ fontSize: "18px", color: "#595F63" }}
-                    />
-                    <Typography variant="bodySmall" color="#74797B">
-                      (569)-888-2244
-                    </Typography>
-                  </Grid>
-                  <Grid container columnGap={0.5}>
-                    <AdUnitsOutlinedIcon
-                      sx={{ fontSize: "18px", color: "#595F63" }}
-                    />
-                    <Typography variant="bodySmall" color="#74797B">
-                      tim.jennings@example.com
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Typography
-                color="#106DCC"
-                alignContent="center"
-                variant="bodySmall"
-              >
-                Change Patient
-              </Typography>
             </Grid>
           </Grid>
-        )}
+          <Grid container width={"100%"}>
+            <CustomLabel label="Select Available Time Slots" />
+            <Grid
+              width={"100%"}
+              border={"1px solid #C9CBCC"}
+              borderRadius={5}
+              p={2}
+            >
+              <Grid container spacing={1}>
+                {timeSlots.map((slot) => (
+                  <Grid
+                    key={slot.key}
+                    container
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    width={72}
+                    height={31}
+                    borderRadius={3}
+                    border={
+                      slot.isActive ? "1px solid #106DCC" : "1px solid #9B9D9F"
+                    }
+                    bgcolor={slot.isActive ? "#F1F8FF" : "white"}
+                  >
+                    <Typography
+                      variant="bodySmall"
+                      color={
+                        slot.isActive ? "1px solid #106DCC" : "1px solid black"
+                      }
+                    >
+                      {slot.value}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
         {/* Button Grid */}
         <Grid borderTop={"1px solid #DEE4ED"}>
           <Grid container p={2} justifyContent={"flex-end"} columnGap={1}>
             <Grid>
               <Button
                 variant="outlined"
-                onClick={
-                  !selectedAppointmentType
-                    ? props.onClose
-                    : handleCancelSelectedForm
-                }
+                onClick={handleClose}
                 sx={{ mr: 1, borderColor: "#C9CBCC", color: "black" }}
               >
                 Cancel
