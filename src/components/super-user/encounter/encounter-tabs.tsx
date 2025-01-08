@@ -12,7 +12,6 @@ import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impress
 import EncounterHstEducation from "./hst_education/encounter_hst_education";
 import { theme } from "@/utils/theme";
 import AddIcon from "@mui/icons-material/Add";
-import CustomDialog from "@/common-components/custom-dialog/custom-dialog";
 import CreateEncounterForm from "./encounters/create-encounter-form";
 import ScheduleAppointment from "./hst_education/schedule-appointment-form";
 import MilleniumScheduleAppointment from "./millenium/millenium-schedule-appointment-form";
@@ -28,10 +27,6 @@ const tabLabels = [
 
 const SettingsTabs = () => {
   const [value, setValue] = useState(0);
-  // const [createEncounter, setCreateEncounter] = useState<boolean>(false);
-  const [appointmentHST, setAppointmentHST] = useState<boolean>(false);
-  const [appointmentMillenium, setAppointmentMillenium] =
-    useState<boolean>(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -48,12 +43,28 @@ const SettingsTabs = () => {
         identifier: "drawer-create-encounter-form",
       });
     },
+    createMilleniumForm: (action: string) => {
+      openDrawer({
+        title: `${action} Appointment`,
+        identifier: "drawer-millenium-form",
+      });
+    },
+    createHSTForm: (action: string) => {
+      openDrawer({
+        title: `${action} Appointment`,
+        identifier: "drawer-hst-form",
+      });
+    },
   };
 
   const DrawerContent = () => {
     switch (contentDrawer.identifier) {
       case "drawer-create-encounter-form":
         return <CreateEncounterForm onClose={closeDrawer} />;
+      case "drawer-millenium-form":
+        return <MilleniumScheduleAppointment onClose={closeDrawer} />;
+      case "drawer-hst-form":
+        return <ScheduleAppointment onClose={closeDrawer} />;
       default:
         return <div />;
     }
@@ -73,7 +84,6 @@ const SettingsTabs = () => {
 
     setValue(newValue);
   };
-
   return (
     <>
       <MainDrawer
@@ -131,7 +141,9 @@ const SettingsTabs = () => {
                       borderRadius: "12px",
                       color: theme.palette.common.white,
                     }}
-                    onClick={() => setAppointmentMillenium(true)}
+                    onClick={() => {
+                      handleDrawer.createMilleniumForm("Schedule Millennium");
+                    }}
                   >
                     Schedule Appointment
                   </Button>
@@ -158,7 +170,9 @@ const SettingsTabs = () => {
                       borderRadius: "12px",
                       color: theme.palette.common.white,
                     }}
-                    onClick={() => setAppointmentHST(true)}
+                    onClick={() => {
+                      handleDrawer.createHSTForm("Schedule HST Education");
+                    }}
                   >
                     Schedule Appointment
                   </Button>
@@ -177,38 +191,6 @@ const SettingsTabs = () => {
             </Grid>
           </Grid>
         </Grid>
-
-        {/* <CustomDialog
-        onClose={() => setCreateEncounter(false)}
-        open={createEncounter}
-        title="Create Encounter"
-        width={600}
-        showDivider={true}
-      >
-        <CreateEncounterForm onClose={() => setCreateEncounter(false)} />
-      </CustomDialog> */}
-
-        <CustomDialog
-          onClose={() => setAppointmentHST(false)}
-          open={appointmentHST}
-          title="Schedule HST Education Appointment"
-          width={600}
-          showDivider={true}
-        >
-          <ScheduleAppointment onClose={() => setAppointmentHST(false)} />
-        </CustomDialog>
-
-        <CustomDialog
-          onClose={() => setAppointmentMillenium(false)}
-          open={appointmentMillenium}
-          title="Schedule Millennium Appointment"
-          width={600}
-          showDivider={true}
-        >
-          <MilleniumScheduleAppointment
-            onClose={() => setAppointmentMillenium(false)}
-          />
-        </CustomDialog>
       </Grid>
     </>
   );
