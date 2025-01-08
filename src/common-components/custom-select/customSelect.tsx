@@ -129,7 +129,15 @@ function CustomSelect(props: CustomSelectProps) {
       >
         {enableDeselect && (
           <MenuItem value="">
-            <em>None</em>
+            {/* <em>None</em> */}
+            <Typography
+              component="em"
+              sx={{
+                fontSize: "14px",
+              }}
+            >
+              None
+            </Typography>
           </MenuItem>
         )}
         {props?.items &&

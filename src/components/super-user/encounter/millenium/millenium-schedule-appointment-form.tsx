@@ -115,6 +115,7 @@ const MilleniumScheduleAppointment = (
 
   const onSubmit = (data: FieldValues) => {
     data;
+    props.onClose();
   };
 
   const handleClose = () => {
@@ -139,7 +140,14 @@ const MilleniumScheduleAppointment = (
         border={0}
       >
         {/* Form Grid */}
-        <Grid container flexDirection={"column"} rowGap={2} pl={2} pr={2}>
+        <Grid
+          container
+          width={"100%"}
+          flexDirection={"column"}
+          rowGap={2}
+          pl={2}
+          pr={2}
+        >
           {!patientValue && (
             <Grid>
               <CustomLabel label="Patient" isRequired />
@@ -175,7 +183,7 @@ const MilleniumScheduleAppointment = (
               // patientDetails={selectedPatientDetails}
             />
           )}
-          <Grid container columnGap={1}>
+          <Grid container width={"100%"} columnGap={1}>
             <Grid width={"49%"}>
               <CustomLabel label="Appointment Type" />
               <Controller
@@ -186,11 +194,12 @@ const MilleniumScheduleAppointment = (
                     placeholder={"Select Appointment Type"}
                     enableDeselect
                     items={appointmentTypes}
-                    onChange={function (e: SelectChangeEvent<string>): void {
-                      setValue("appointmentType", e.target.value, {
+                    onChange={(e: SelectChangeEvent<string>): void => {
+                      const selectedValue = e.target.value;
+                      setValue("appointmentType", selectedValue, {
                         shouldValidate: true,
                       });
-                      setAppointmentTypeSelected(true);
+                      setAppointmentTypeSelected(Boolean(selectedValue.trim()));
                     }}
                     name={field.name}
                     value={field.value?.trim() || ""}
@@ -208,7 +217,7 @@ const MilleniumScheduleAppointment = (
                     <CustomSelect
                       placeholder={"Select Millennium Provider"}
                       enableDeselect
-                      items={appointmentTypes}
+                      items={[{ value: "active", label: "Active" }]}
                       onChange={function (e: SelectChangeEvent<string>): void {
                         setValue("millenniumProvider", e.target.value, {
                           shouldValidate: true,
@@ -224,7 +233,7 @@ const MilleniumScheduleAppointment = (
           </Grid>
           {appointmentTypeSelected && (
             <Grid container width={"100%"} flexDirection={"column"}>
-              <Grid container columnGap={1}>
+              <Grid container width={"100%"} columnGap={1}>
                 <Grid width={"49%"}>
                   <CustomLabel label="Dental Provider" />
                   <Controller
@@ -234,7 +243,7 @@ const MilleniumScheduleAppointment = (
                       <CustomSelect
                         placeholder={"Select Dental Provider"}
                         enableDeselect
-                        items={appointmentTypes}
+                        items={[{ value: "active", label: "Active" }]}
                         onChange={function (
                           e: SelectChangeEvent<string>,
                         ): void {
@@ -257,7 +266,7 @@ const MilleniumScheduleAppointment = (
                       <CustomSelect
                         placeholder={"Select Sleep Advisior"}
                         enableDeselect
-                        items={appointmentTypes}
+                        items={[{ value: "active", label: "Active" }]}
                         onChange={function (
                           e: SelectChangeEvent<string>,
                         ): void {
@@ -282,7 +291,7 @@ const MilleniumScheduleAppointment = (
                       <CustomSelect
                         placeholder={"Select Regional Manager"}
                         enableDeselect
-                        items={appointmentTypes}
+                        items={[{ value: "active", label: "Active" }]}
                         onChange={function (
                           e: SelectChangeEvent<string>,
                         ): void {
@@ -352,20 +361,18 @@ const MilleniumScheduleAppointment = (
                 >
                   <Grid container spacing={1}>
                     {timeSlots.map((slot) => (
-                      <Grid
+                      <Button
                         key={slot.key}
-                        container
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        width={72}
-                        height={31}
-                        borderRadius={3}
-                        border={
-                          slot.isActive
+                        sx={{
+                          p: "0px 10px",
+                          bgcolor: slot.isActive ? "#F1F8FF" : "white",
+                          borderRadius: "12px",
+                          border: slot.isActive
                             ? "1px solid #106DCC"
-                            : "1px solid #9B9D9F"
-                        }
-                        bgcolor={slot.isActive ? "#F1F8FF" : "white"}
+                            : "1px solid #9B9D9F",
+                        }}
+                        type="button"
+                        onClick={() => {}}
                       >
                         <Typography
                           variant="bodySmall"
@@ -373,7 +380,7 @@ const MilleniumScheduleAppointment = (
                         >
                           {slot.value}
                         </Typography>
-                      </Grid>
+                      </Button>
                     ))}
                   </Grid>
                 </Grid>

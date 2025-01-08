@@ -370,7 +370,9 @@ const EncounterMillennium = () => {
             }}
             components={{
               event: ({ event }) => (
-                <span>
+                <span
+                // onClick={ApptDetails(event)}
+                >
                   | {moment(event.start).format("HH:mm")} - {event.title}
                 </span>
               ),
