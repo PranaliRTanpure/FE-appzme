@@ -234,16 +234,16 @@ const CustomAutoComplete = (props: CustomAutoCompleteProps) => {
             }}
             InputProps={{
               ...params.InputProps,
-              // startAdornment: hasStartSearchIcon && (
-              // 	<SearchIcon sx={{ opacity: 0.5 }} />
-              // ),
+              startAdornment: hasStartSearchIcon && (
+                <SearchIcon sx={{ opacity: 0.5 }} />
+              ),
               endAdornment: (
                 <Grid maxWidth={"100%"} container width={"fit-content"}>
                   {loading && (
                     <CircularProgress size={"20px"} color="inherit" />
                   )}
                   {params.InputProps.endAdornment}
-                  {hasStartSearchIcon && <SearchIcon sx={{ opacity: 0.5 }} />}
+                  {/* {hasStartSearchIcon && <SearchIcon sx={{ opacity: 0.5 }} />} */}
                 </Grid>
               ),
             }}

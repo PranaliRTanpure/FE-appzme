@@ -19,3 +19,14 @@ export const EncounterType = [
   { key: Status.HST, checked: false, borderColor: "#4C3EEA" },
   { key: Status.FOLLOW_UP_DME, checked: false, borderColor: "#17B6A9" },
 ];
+
+export const timeSlotsSl = [
+  { key: 1, value: "09:00 AM", isActive: true },
+  { key: 2, value: "10:00 AM", isActive: false },
+  { key: 3, value: "11:00 AM", isActive: true },
+  { key: 4, value: "12:00 PM", isActive: false },
+  { key: 5, value: "01:00 PM", isActive: true },
+  { key: 6, value: "02:00 PM", isActive: false },
+  { key: 7, value: "03:00 PM", isActive: true },
+  { key: 8, value: "04:00 PM", isActive: false },
+];

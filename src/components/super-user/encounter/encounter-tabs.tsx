@@ -17,6 +17,7 @@ import ScheduleAppointment from "./hst_education/schedule-appointment-form";
 import MilleniumScheduleAppointment from "./millenium/millenium-schedule-appointment-form";
 import { useDrawer } from "@/hooks/useDrawer";
 import MainDrawer from "@/components/ui/MainDrawer";
+import SlScheduleAppointmentForm from "./sleep_impression/sl-schedule-appointment-form";
 
 const tabLabels = [
   "Encounters",
@@ -55,6 +56,12 @@ const SettingsTabs = () => {
         identifier: "drawer-hst-form",
       });
     },
+    createSleepImpressionForm: (action: string) => {
+      openDrawer({
+        title: `${action} Appointment`,
+        identifier: "drawer-sleep-impression-form",
+      });
+    },
   };
 
   const DrawerContent = () => {
@@ -65,6 +72,8 @@ const SettingsTabs = () => {
         return <MilleniumScheduleAppointment onClose={closeDrawer} />;
       case "drawer-hst-form":
         return <ScheduleAppointment onClose={closeDrawer} />;
+      case "drawer-sleep-impression-form":
+        return <SlScheduleAppointmentForm onClose={closeDrawer} />;
       default:
         return <div />;
     }
@@ -156,6 +165,11 @@ const SettingsTabs = () => {
                       bgcolor: theme.palette.secondary.main,
                       borderRadius: "12px",
                       color: theme.palette.common.white,
+                    }}
+                    onClick={() => {
+                      handleDrawer.createSleepImpressionForm(
+                        "Schedule Sleep Impression",
+                      );
                     }}
                   >
                     Schedule Appointment

@@ -71,16 +71,16 @@ const MainDrawer = ({
             </IconButton> */}
             {showSecondButton ? (
               <IconButton onClick={close}>
-                <CloseOutlinedIcon />
+                <CloseOutlinedIcon sx={{ fontSize: "18px" }} />
               </IconButton>
             ) : (
               <IconButton onClick={close}>
-                <ArrowBackIcon />
+                <ArrowBackIcon sx={{ fontSize: "18px" }} />
               </IconButton>
             )}
             <Typography
               fontWeight={550}
-              variant="bodyLarge"
+              variant="bodyMedium"
               alignContent={"center"}
             >
               {contentDrawer.title}
