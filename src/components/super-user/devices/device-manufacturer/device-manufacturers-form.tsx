@@ -78,6 +78,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
 
   const onSubmit = (data: FieldValues) => {
     data;
+    props.handleDrawerClose;
   };
 
   return (

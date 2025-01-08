@@ -20,6 +20,7 @@ interface MainDrawerProps {
   content?: ReactNode;
   showCloseButton?: boolean;
   showMandatoryIndicator?: boolean;
+  showSecondButton?: boolean;
 }
 
 const MainDrawer = ({
@@ -28,6 +29,7 @@ const MainDrawer = ({
   content,
   showCloseButton = false,
   showMandatoryIndicator = false,
+  showSecondButton = false,
 }: PropsWithChildren<MainDrawerProps>) => {
   const { isOpen, content: contentDrawer, close } = useDrawer();
   const belowLg = useMediaQuery(theme.breakpoints.down("lg"));
@@ -64,9 +66,18 @@ const MainDrawer = ({
           }}
         >
           <Grid container columnGap={1.5}>
-            <IconButton onClick={close}>
+            {/* <IconButton onClick={close}>
               <ArrowBackIcon />
-            </IconButton>
+            </IconButton> */}
+            {showSecondButton ? (
+              <IconButton onClick={close}>
+                <CloseOutlinedIcon />
+              </IconButton>
+            ) : (
+              <IconButton onClick={close}>
+                <ArrowBackIcon />
+              </IconButton>
+            )}
             <Typography
               fontWeight={550}
               variant="bodyLarge"
