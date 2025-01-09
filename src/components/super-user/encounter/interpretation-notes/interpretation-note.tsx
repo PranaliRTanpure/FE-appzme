@@ -1,5 +1,5 @@
 import { Avatar, Typography } from "@mui/material";
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SignalCellularAltOutlinedIcon from "@mui/icons-material/SignalCellularAltOutlined";
@@ -10,11 +10,20 @@ import MonitorWeightOutlinedIcon from "@mui/icons-material/MonitorWeightOutlined
 import ScaleOutlinedIcon from "@mui/icons-material/ScaleOutlined";
 
 const InterpretationNote = () => {
+  const belowWidth1440 = useMediaQuery("(max-width:1440px)");
+  const belowWidth1366 = useMediaQuery("(max-width:1366px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   return (
-    <Grid container width={"100%"} p={2}>
+    <Grid
+      height={"100%"}
+      container
+      width={"100%"}
+      p={2}
+      flexDirection={"column"}
+    >
       <Grid container width={"100%"} bgcolor={"#E1E6F3"} borderRadius={5} p={2}>
         {/* Block 1 */}
-        <Grid container width={"50%"} columnSpacing={3} border={0}>
+        <Grid container width={"45%"} columnGap={3} rowGap={1}>
           <Grid container alignContent={"center"}>
             <Avatar variant="circular" sx={{ width: "76px", height: "76px" }} />
           </Grid>
@@ -35,7 +44,7 @@ const InterpretationNote = () => {
               <Grid
                 container
                 justifyContent={"space-between"}
-                columnSpacing={6}
+                columnSpacing={belowWidth1024 ? 5.7 : 6}
               >
                 <Grid container columnSpacing={1}>
                   <CakeOutlinedIcon
@@ -104,7 +113,13 @@ const InterpretationNote = () => {
           </Grid>
         </Grid>
         {/* Block 2 */}
-        <Grid container width={"50%"} columnGap={3} border={0}>
+        <Grid
+          container
+          width={"55%"}
+          columnGap={belowWidth1024 ? 2 : belowWidth1440 ? 1 : 3}
+          rowGap={1}
+          pl={belowWidth1024 ? 0.8 : 0}
+        >
           <Grid
             container
             flexDirection={"column"}
@@ -112,7 +127,15 @@ const InterpretationNote = () => {
             borderRadius={3}
             p={2}
             rowSpacing={2}
-            width={"15%"}
+            width={
+              belowWidth1024
+                ? "23%"
+                : belowWidth1366
+                  ? "16%"
+                  : belowWidth1440
+                    ? "15%"
+                    : "17%"
+            }
           >
             <Grid container columnGap={2}>
               <HeightOutlinedIcon sx={{ fontSize: "14px" }} />
@@ -133,7 +156,15 @@ const InterpretationNote = () => {
             p={2}
             columnSpacing={2}
             borderRadius={3}
-            width={"48%"}
+            width={
+              belowWidth1024
+                ? "69%"
+                : belowWidth1366
+                  ? "51%"
+                  : belowWidth1440
+                    ? "53%"
+                    : "45%"
+            }
           >
             <Grid container flexDirection={"column"} rowSpacing={2}>
               <Grid>
@@ -185,8 +216,15 @@ const InterpretationNote = () => {
             borderRadius={3}
             p={2}
             rowSpacing={2}
-            width={"31.5%"}
-            maxWidth={"31.5%"}
+            width={
+              belowWidth1024
+                ? "33%"
+                : belowWidth1366
+                  ? "30%"
+                  : belowWidth1440
+                    ? "29.5%"
+                    : "33%"
+            }
           >
             <Grid>
               <Typography fontSize={10} color="#515C5F">
@@ -195,8 +233,7 @@ const InterpretationNote = () => {
             </Grid>
             <Grid>
               <Typography sx={{ wordBreak: "break-all" }} fontSize={10}>
-                dsgydsgsfegergrewysghrhsuhsauhsahoidsuhvie
-                ouwhfiewuifuoewuogjlojewljgwljelwjlojgeowajogiewpoa
+                smmkewmdkemwfkmewkmmkyg jkjij
               </Typography>
             </Grid>
           </Grid>
