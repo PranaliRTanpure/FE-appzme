@@ -101,7 +101,7 @@ const SettingsTabs = () => {
         showSecondButton={true}
         anchor="right"
       />
-      <Grid width={"100%"} height={"100%"} p={0}>
+      <Grid width={"100%"} height={"100%"}>
         <Grid
           height={"100%"}
           borderRadius={"8px"}
