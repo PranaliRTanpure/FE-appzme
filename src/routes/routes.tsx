@@ -20,6 +20,7 @@ import DeviceSchedulling from "../components/super-user/devices/device-schedulin
 import DeviceManufacturersPage from "../pages/super-user-portal/devices/device-manufacturers-page";
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 import EncounterPage from "../pages/super-user-portal/encounter/encounter-page";
+import InterpretationNotePage from "@/pages/super-user-portal/encounter/interpretation-note-page";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -51,7 +52,14 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "patient-registration", element: <PatientsRegistration /> },
-      { path: "encounter", element: <EncounterPage /> },
+      {
+        path: "encounter",
+        element: <Outlet />,
+        children: [
+          { path: "encounters", element: <EncounterPage /> },
+          { path: "interpretation-note", element: <InterpretationNotePage /> },
+        ],
+      },
       {
         path: "devices",
         element: <Outlet />,

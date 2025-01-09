@@ -18,7 +18,13 @@ const useMenu = () => {
       icon: <GridViewIcon />,
       hide: false,
       disabled: false,
-      menuList: [{ name: "Encounter", path: "/super-user/encounter" }],
+      menuList: [
+        { name: "Encounter", path: "/super-user/encounter/encounters" },
+        {
+          name: "Interpretation Note",
+          path: "/super-user/encounter/interpretation-note",
+        },
+      ],
     },
     {
       title: "Patients",
