@@ -35,7 +35,7 @@ const ActivePatientSchedule = () => {
     <Grid
       container
       width={"100%"}
-      height={belowHeight768 ? "500px" : belowHeight900 ? "680px" : "100%"}
+      height={belowHeight768 ? "440px" : belowHeight900 ? "605px" : "100%"}
       sx={{ overflowY: "auto" }}
     >
       <Grid container width={"100%"}>
@@ -44,7 +44,7 @@ const ActivePatientSchedule = () => {
             maxHeight: belowHeight768
               ? "50vh"
               : belowHeight900
-                ? "67vh"
+                ? "65vh"
                 : "70vh",
             overflowY: "auto",
             borderBottom: "1px solid #E7E7E7",

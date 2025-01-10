@@ -169,8 +169,9 @@ export default function CustomInput(props: CustomInputProps) {
           background: props.disableField
             ? alpha("#C9CBCC", 0.3)
             : bgWhite
-              ? "#F5F6F8"
-              : "inherit",
+              ? "white"
+              : // "#F5F6F8"
+                "inherit",
           height: props.multiline ? "fit-content" : "40px",
           ...customInputStyles.textFieldRoot,
           ...(props.hasError && customInputStyles.textFieldError),

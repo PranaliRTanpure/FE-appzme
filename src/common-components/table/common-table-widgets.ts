@@ -3,7 +3,7 @@ import { theme } from "../../utils/theme";
 
 export const heading = {
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#EFF0F2",
+    backgroundColor: "#E0EAF4",
     color: "#595F63",
     cursor: "pointer",
     padding: "8px",

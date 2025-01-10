@@ -32,7 +32,7 @@ const ActiveLog = () => {
     <Grid
       container
       width={"100%"}
-      height={belowHeight768 ? "500px" : belowHeight900 ? "600px" : "100%"}
+      height={belowHeight768 ? "440px" : belowHeight900 ? "550px" : "100%"}
       sx={{ overflowY: "auto" }}
     >
       <Grid container width={"100%"}>
@@ -42,7 +42,7 @@ const ActiveLog = () => {
               maxHeight: belowHeight768
                 ? "50vh"
                 : belowHeight900
-                  ? "58vh"
+                  ? "55vh"
                   : "70vh",
               overflowY: "auto",
               borderBottom: "1px solid #E7E7E7",

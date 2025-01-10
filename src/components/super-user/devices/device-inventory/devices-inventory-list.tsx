@@ -53,14 +53,13 @@ const DevicesInventoryList = () => {
       {!isFormOpen && (
         <Grid
           height={"100%"}
-          p={2}
+          pl={2}
+          pr={2}
           width={"100%"}
           maxWidth={"100%"}
           overflow={"auto"}
         >
           <Grid
-            border={`1px solid ${theme.palette.grey[300]}`}
-            boxShadow={`0px 0px 16px 0px #021D2614`}
             height={"100%"}
             borderRadius={"8px"}
             container
@@ -94,6 +93,7 @@ const DevicesInventoryList = () => {
                     enableDeselect
                     items={[{ value: "active", label: "Active" }]}
                     onChange={() => {}}
+                    bgWhite
                   />
                 </Grid>
               </Grid>
@@ -107,6 +107,7 @@ const DevicesInventoryList = () => {
                   height={35}
                   alignContent={"center"}
                   justifyContent={"center"}
+                  bgcolor={"white"}
                 >
                   <FilterListIcon sx={{ height: "19px", width: "19px" }} />
                 </Grid>
@@ -119,6 +120,7 @@ const DevicesInventoryList = () => {
                   height={35}
                   alignContent={"center"}
                   justifyContent={"center"}
+                  bgcolor={"white"}
                 >
                   <FilterAltOutlinedIcon
                     sx={{ height: "19px", width: "19px" }}
@@ -134,6 +136,7 @@ const DevicesInventoryList = () => {
                     onDebounceCall={() => {}}
                     onInputEmpty={() => {}}
                     hasStartSearchIcon={true}
+                    bgWhite
                   />
                 </Grid>
                 <Grid>
@@ -154,11 +157,14 @@ const DevicesInventoryList = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid width={"100%"}>
+            <Grid width={"100%"} borderRadius={0} border={0}>
               <TableContainer
                 sx={{
                   maxHeight: belowHeight768 ? "63vh" : "76vh",
-                  overflowY: "auto",
+                  // overflowY: "auto",
+                  border: "1px solid #E6EAED",
+                  borderRadius: "12px",
+                  boxShadow: "0px 4px 8px -2px #1018281A",
                 }}
               >
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
@@ -188,7 +194,7 @@ const DevicesInventoryList = () => {
                                 : "flex-start"
                             }
                           >
-                            <Typography variant="bodySmall">
+                            <Typography variant="bodyExtraSmall">
                               {header.header}
                             </Typography>
                           </Grid>
@@ -196,7 +202,7 @@ const DevicesInventoryList = () => {
                       ))}
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  <TableBody sx={{ bgcolor: "white" }}>
                     {deviceInventoryList.length > 0 ? (
                       deviceInventoryList.map((list, index) => (
                         <TableRow hover key={index}>
@@ -204,7 +210,7 @@ const DevicesInventoryList = () => {
                             <Grid container flexDirection={"column"}>
                               <Grid container flexDirection={"column"}>
                                 <Link
-                                  underline="always"
+                                  underline="none"
                                   sx={{
                                     color: "#106DCC",
                                     cursor: "pointer",

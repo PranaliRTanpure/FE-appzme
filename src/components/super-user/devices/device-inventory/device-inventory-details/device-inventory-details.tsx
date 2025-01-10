@@ -1,5 +1,5 @@
 import { Button, IconButton, Typography } from "@mui/material";
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
@@ -26,6 +26,7 @@ const DeviceInventoryDetails = () => {
   const navigate = useNavigate();
   const [detailType, setDetailType] = useState(DeviceDetailsType.OVERVIEW);
   const [isEditMode, setIsEditMode] = useState(false);
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
 
   const handleSave = () => {
     setIsEditMode(false);
@@ -63,7 +64,7 @@ const DeviceInventoryDetails = () => {
       {/* Grid 2 */}
       <Grid
         container
-        sx={{ background: "white", position: "sticky" }}
+        sx={{ position: "sticky" }}
         p={2}
         justifyContent={"space-between"}
         borderBottom={"1px solid #E7E7E7"}
@@ -74,7 +75,7 @@ const DeviceInventoryDetails = () => {
         <Grid>
           <Switcher
             options={["Overview", "Active Patients Schedule", "Activity Log"]}
-            buttonWidth={"207px"}
+            buttonWidth={belowHeight768 ? "150px" : "207px"}
             variant={"light"}
             onChange={(option: string): void => {
               setDetailType(option as DeviceDetailsType);
@@ -137,6 +138,7 @@ const DeviceInventoryDetails = () => {
               onDebounceCall={() => {}}
               onInputEmpty={() => {}}
               hasStartSearchIcon={true}
+              bgWhite
             />
           </Grid>
         )}
@@ -149,26 +151,21 @@ const DeviceInventoryDetails = () => {
             rowGap={1}
           >
             <Grid mt={1}>
-              <Typography variant="bodyMedium">Set Date Range</Typography>
+              <Typography variant="bodySmall">Set Date Range</Typography>
             </Grid>
             <Grid>
               <DatePicker
-                bgWhite={false}
+                bgWhite
                 disableFuture
                 value={""}
                 onDateChange={() => {}}
               />
             </Grid>
             <Grid mt={1}>
-              <Typography variant="bodyMedium">to </Typography>
+              <Typography variant="bodySmall">to </Typography>
             </Grid>
             <Grid>
-              <DatePicker
-                bgWhite={false}
-                disableFuture
-                value={""}
-                onDateChange={() => {}}
-              />
+              <DatePicker bgWhite value={""} onDateChange={() => {}} />
             </Grid>
           </Grid>
         )}
