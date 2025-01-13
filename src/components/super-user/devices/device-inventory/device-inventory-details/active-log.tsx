@@ -31,8 +31,10 @@ const ActiveLog = () => {
   return (
     <Grid
       container
+      flexDirection={"column"}
       width={"100%"}
-      height={belowHeight768 ? "440px" : belowHeight900 ? "550px" : "100%"}
+      height={"100%"}
+      // height={belowHeight768 ? "440px" : belowHeight900 ? "550px" : "100%"}
       sx={{ overflowY: "auto" }}
     >
       <Grid container width={"100%"}>
@@ -40,10 +42,10 @@ const ActiveLog = () => {
           <TableContainer
             sx={{
               maxHeight: belowHeight768
-                ? "50vh"
+                ? "55vh"
                 : belowHeight900
-                  ? "55vh"
-                  : "70vh",
+                  ? "60vh"
+                  : "80vh",
               overflowY: "auto",
               borderBottom: "1px solid #E7E7E7",
             }}
@@ -173,7 +175,7 @@ const ActiveLog = () => {
       </Grid>
       {/* Pagination */}
       {deviceInventoryActivityLogList.length > 0 && (
-        <Grid p={1} width={"100%"} container>
+        <Grid p={1} width={"100%"} container bgcolor={"#F5F6F8"}>
           <Paginator
             page={0}
             totalPages={5}

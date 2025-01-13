@@ -54,7 +54,8 @@ const Switcher = (props: SwitcherProps) => {
     // },
     borderRight: `1px solid ${theme.palette.divider}`,
     "&:last-child": {
-      borderRight: "none",
+      // borderRight: "none",
+      // borderRight: "1px solid transparent", // Invisible border
     },
   }));
 
