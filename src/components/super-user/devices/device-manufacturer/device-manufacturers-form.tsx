@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-// import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import {
   Button,
@@ -78,8 +77,8 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
 
   const onSubmit = (data: FieldValues) => {
     data;
+    props.handleDrawerClose;
   };
-
   return (
     <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
       <Grid container width={"100%"} height={"100%"}>

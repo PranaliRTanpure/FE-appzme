@@ -35,19 +35,22 @@ const ActivePatientSchedule = () => {
     <Grid
       container
       width={"100%"}
-      height={belowHeight768 ? "500px" : belowHeight900 ? "680px" : "100%"}
+      // height={belowHeight768 ? "440px" : belowHeight900 ? "610px" : "100%"}
+      height={"100%"}
       sx={{ overflowY: "auto" }}
+      flexDirection={"column"}
     >
       <Grid container width={"100%"}>
         <TableContainer
           sx={{
             maxHeight: belowHeight768
-              ? "50vh"
+              ? "55vh"
               : belowHeight900
-                ? "67vh"
-                : "70vh",
+                ? "65vh"
+                : "80vh",
             overflowY: "auto",
             borderBottom: "1px solid #E7E7E7",
+            boxShadow: "0px 4px 8px -2px #1018281A",
           }}
         >
           <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
@@ -87,7 +90,7 @@ const ActivePatientSchedule = () => {
                       <Grid container flexDirection={"column"}>
                         <Grid container flexDirection={"column"}>
                           <Link
-                            underline="always"
+                            underline="none"
                             sx={{
                               color: "#106DCC",
                               cursor: "pointer",
@@ -196,7 +199,7 @@ const ActivePatientSchedule = () => {
           </Table>
         </TableContainer>
       </Grid>
-      <Grid p={1} width={"100%"} container>
+      <Grid p={1} width={"100%"} container bgcolor={"#F5F6F8"}>
         <Paginator
           page={0}
           totalPages={5}

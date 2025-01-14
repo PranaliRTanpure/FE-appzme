@@ -1,18 +1,18 @@
-import CustomLabel from "@/common-components/custom-label/custom-label";
-import CustomSelect from "@/common-components/custom-select/customSelect";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, SelectChangeEvent, Typography } from "@mui/material";
-import { Box, Grid } from "@mui/system";
+import { ScheduleAppointmentSchema } from "./sl-schema";
 import { Controller, FieldValues, useForm } from "react-hook-form";
-import { theme } from "@/utils/theme";
-import { MilleniumScheduleAppointmentSchema } from "./millenium-schema";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useRef, useState } from "react";
 import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
-import PatientDetails from "./patient-details";
+import CustomLabel from "@/common-components/custom-label/custom-label";
+import DrawerBody from "@/components/ui/DrawerBody";
+import { Box, Grid } from "@mui/system";
+import CustomSelect from "@/common-components/custom-select/customSelect";
+import { theme } from "@/utils/theme";
+import { timeSlotsSl } from "./checkbox_list";
+import PatientDetails from "./patient-details-sl";
 import DatePicker from "@/common-components/date-picker-field/date-picker-field";
 import CustomAutocompleteMultiselect from "@/common-components/custom-autocomplete-multiselect/custom-auto-multiselect";
-import { timeSlots } from "./chekbox_list";
-import DrawerBody from "@/components/ui/DrawerBody";
 
 const data = [
   {
@@ -62,13 +62,11 @@ const data = [
   },
 ];
 
-interface MilleniumScheduleAppointmentProps {
+interface ScheduleAppointmentProps {
   onClose: () => void;
 }
 
-const MilleniumScheduleAppointment = (
-  props: MilleniumScheduleAppointmentProps,
-) => {
+const SlScheduleAppointmentForm = (props: ScheduleAppointmentProps) => {
   const footerRef = useRef<HTMLDivElement>();
   const [patientValue, setPatientValue] = useState<string | null>("");
   const [patientOptions, setPatientOptions] = useState<
@@ -87,20 +85,22 @@ const MilleniumScheduleAppointment = (
   }, []);
 
   const appointmentTypes = [
-    { value: "initial telehealth", label: "Initial Telehealth" },
-    { value: "hst", label: "HST" },
-    { value: "follow up telehealth", label: "Follow Up Telehealth" },
-    { value: "DME Follow Up Telehealth", label: "DME Follow Up Telehealth" },
+    { value: "eval/screening", label: "Eval/Screening" },
+    { value: "consult/records", label: "Consult/Records" },
+    { value: "OAT Delivery", label: "OAT Delivery" },
+    { value: "Follow-Up (reg or ann.)", label: "Follow-Up (reg or ann.)" },
+    {
+      value: "Other (Phone Call)/records",
+      label: "Other (Phone Call)/Records",
+    },
   ];
 
   const initialValues = {
     patient: "",
     appointmentType: "",
     dateTime: "",
-    millenniumProvider: "",
+    clinic: "",
     dentalProvider: "",
-    sleepAdvisor: "",
-    regionalManager: "",
     guestProviders: [""],
     searchForms: "",
   };
@@ -113,7 +113,7 @@ const MilleniumScheduleAppointment = (
     reset,
   } = useForm({
     defaultValues: initialValues,
-    resolver: yupResolver(MilleniumScheduleAppointmentSchema),
+    resolver: yupResolver(ScheduleAppointmentSchema),
   });
 
   const onSubmit = (data: FieldValues) => {
@@ -208,19 +208,19 @@ const MilleniumScheduleAppointment = (
               </Grid>
               {appointmentTypeSelected && (
                 <Grid width={"49%"}>
-                  <CustomLabel label="Millennium Provider" />
+                  <CustomLabel label="Clinic" />
                   <Controller
                     control={control}
-                    name="millenniumProvider"
+                    name="clinic"
                     render={({ field }) => (
                       <CustomSelect
-                        placeholder={"Select Millennium Provider"}
+                        placeholder={"Select Clinic"}
                         enableDeselect
                         items={[{ value: "active", label: "Active" }]}
                         onChange={function (
                           e: SelectChangeEvent<string>,
                         ): void {
-                          setValue("millenniumProvider", e.target.value, {
+                          setValue("clinic", e.target.value, {
                             shouldValidate: true,
                           });
                         }}
@@ -254,54 +254,6 @@ const MilleniumScheduleAppointment = (
                             e: SelectChangeEvent<string>,
                           ): void {
                             setValue("dentalProvider", e.target.value, {
-                              shouldValidate: true,
-                            });
-                          }}
-                          name={field.name}
-                          value={field.value?.trim() || ""}
-                        />
-                      )}
-                    ></Controller>
-                  </Grid>
-                  <Grid width={"49%"}>
-                    <CustomLabel label="Sleep Advisior" />
-                    <Controller
-                      control={control}
-                      name="sleepAdvisor"
-                      render={({ field }) => (
-                        <CustomSelect
-                          placeholder={"Select Sleep Advisior"}
-                          enableDeselect
-                          items={[{ value: "active", label: "Active" }]}
-                          onChange={function (
-                            e: SelectChangeEvent<string>,
-                          ): void {
-                            setValue("sleepAdvisor", e.target.value, {
-                              shouldValidate: true,
-                            });
-                          }}
-                          name={field.name}
-                          value={field.value?.trim() || ""}
-                        />
-                      )}
-                    ></Controller>
-                  </Grid>
-                </Grid>
-                <Grid container width={"100%"} pt={1}>
-                  <Grid width={"49%"}>
-                    <CustomLabel label="Regional Manager" />
-                    <Controller
-                      control={control}
-                      name="regionalManager"
-                      render={({ field }) => (
-                        <CustomSelect
-                          placeholder={"Select Regional Manager"}
-                          enableDeselect
-                          items={[{ value: "active", label: "Active" }]}
-                          onChange={function (
-                            e: SelectChangeEvent<string>,
-                          ): void {
-                            setValue("regionalManager", e.target.value, {
                               shouldValidate: true,
                             });
                           }}
@@ -366,7 +318,7 @@ const MilleniumScheduleAppointment = (
                     p={2}
                   >
                     <Grid container spacing={1}>
-                      {timeSlots.map((slot) => (
+                      {timeSlotsSl.map((slot) => (
                         <Button
                           key={slot.key}
                           sx={{
@@ -462,4 +414,4 @@ const MilleniumScheduleAppointment = (
     </DrawerBody>
   );
 };
-export default MilleniumScheduleAppointment;
+export default SlScheduleAppointmentForm;

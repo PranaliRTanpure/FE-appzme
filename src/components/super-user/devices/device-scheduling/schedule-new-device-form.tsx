@@ -106,6 +106,7 @@ const ScheduleNewDeviceForm = (props: ScheduleNewDeviceFormProps) => {
         drawerWidth={"950px"}
         anchor="right"
         showMandatoryIndicator={true}
+        showSecondButton={false}
       />
       <form
         style={{ width: "100%", height: "100%", display: "flex" }}

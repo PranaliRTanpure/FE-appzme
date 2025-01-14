@@ -1,5 +1,6 @@
 import {
   Checkbox,
+  Chip,
   Divider,
   FormControlLabel,
   Link,
@@ -46,9 +47,9 @@ export const deviceInventoryOverviewSchema = yup.object().shape({
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Current Device Status" },
-  { header: "Resulting Device Status" },
   { header: "Patient" },
   { header: "Action" },
+  { header: "Resulting Device Status" },
 ];
 
 interface DeviceInventoryOverviewProps {
@@ -97,8 +98,14 @@ const DeviceInventoryOverview = ({
     <Grid
       container
       width={"100%"}
-      height={belowHeight768 ? "500px" : belowHeight900 ? "600px" : "100%"}
-      sx={{ overflowY: "auto" }}
+      height={belowHeight768 ? "490px" : belowHeight900 ? "600px" : "100%"}
+      sx={{
+        overflowY: "auto",
+        scrollbarWidth: "none",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -114,10 +121,7 @@ const DeviceInventoryOverview = ({
             container
             justifyContent={"space-between"}
             borderBottom={"1px solid #E7E7E7"}
-            pb={5}
-            pt={2}
-            pr={2}
-            pl={2}
+            p={2}
             width={"100%"}
           >
             {/* Grid 1 */}
@@ -138,7 +142,6 @@ const DeviceInventoryOverview = ({
                 }}
                 orientation="horizontal"
                 variant="middle"
-                flexItem
               />
               <Grid p={2}>
                 <Grid container justifyContent={"space-between"} width={"100%"}>
@@ -256,18 +259,24 @@ const DeviceInventoryOverview = ({
                 variant="middle"
                 flexItem
               />
-              <Grid container p={2} flexDirection={"column"} rowGap={2}>
+              <Grid
+                container
+                p={2}
+                flexDirection={"column"}
+                justifyContent={"space-between"}
+                rowGap={1}
+              >
                 <Grid container width={"100%"}>
                   <Grid
                     container
                     width={
                       belowWidth1024
-                        ? "39%"
+                        ? "44%"
                         : belowWidth1366
-                          ? "30%"
+                          ? "32%"
                           : belowWidth1440
                             ? "28%"
-                            : "20%"
+                            : "22%"
                     }
                     justifyContent={"space-between"}
                     alignItems={"center"}
@@ -290,12 +299,12 @@ const DeviceInventoryOverview = ({
                     flex={1}
                     width={
                       belowWidth1024
-                        ? "60%"
+                        ? "55%"
                         : belowWidth1366
-                          ? "69%"
+                          ? "67%"
                           : belowWidth1440
                             ? "71%"
-                            : "79%"
+                            : "77%"
                     }
                     pl={1}
                   >
@@ -322,12 +331,12 @@ const DeviceInventoryOverview = ({
                     container
                     width={
                       belowWidth1024
-                        ? "39%"
+                        ? "44%"
                         : belowWidth1366
-                          ? "30%"
+                          ? "32%"
                           : belowWidth1440
                             ? "28%"
-                            : "20%"
+                            : "22%"
                     }
                     justifyContent={"space-between"}
                     alignItems={"center"}
@@ -350,12 +359,12 @@ const DeviceInventoryOverview = ({
                     flex={1}
                     width={
                       belowWidth1024
-                        ? "60%"
+                        ? "55%"
                         : belowWidth1366
-                          ? "69%"
+                          ? "67%"
                           : belowWidth1440
                             ? "71%"
-                            : "79%"
+                            : "77%"
                     }
                     pl={1}
                   >
@@ -382,12 +391,12 @@ const DeviceInventoryOverview = ({
                     container
                     width={
                       belowWidth1024
-                        ? "39%"
+                        ? "44%"
                         : belowWidth1366
-                          ? "30%"
+                          ? "32%"
                           : belowWidth1440
                             ? "28%"
-                            : "20%"
+                            : "22%"
                     }
                     justifyContent={"space-between"}
                     alignItems={"center"}
@@ -410,12 +419,12 @@ const DeviceInventoryOverview = ({
                     flex={1}
                     width={
                       belowWidth1024
-                        ? "60%"
+                        ? "55%"
                         : belowWidth1366
-                          ? "69%"
+                          ? "67%"
                           : belowWidth1440
                             ? "71%"
-                            : "79%"
+                            : "77%"
                     }
                     pl={1}
                   >
@@ -442,12 +451,12 @@ const DeviceInventoryOverview = ({
                     container
                     width={
                       belowWidth1024
-                        ? "39%"
+                        ? "44%"
                         : belowWidth1366
-                          ? "30%"
+                          ? "32%"
                           : belowWidth1440
                             ? "28%"
-                            : "20%"
+                            : "22%"
                     }
                     justifyContent={"space-between"}
                     alignItems={"center"}
@@ -470,12 +479,12 @@ const DeviceInventoryOverview = ({
                     flex={1}
                     width={
                       belowWidth1024
-                        ? "60%"
+                        ? "55%"
                         : belowWidth1366
-                          ? "69%"
+                          ? "67%"
                           : belowWidth1440
                             ? "71%"
-                            : "79%"
+                            : "77%"
                     }
                     pl={1}
                   >
@@ -574,18 +583,6 @@ const DeviceInventoryOverview = ({
                           </TableCell>
                           <TableCell sx={{ ...heading }} align="left">
                             <Grid container flexDirection={"column"}>
-                              <Typography
-                                sx={typographyCss}
-                                variant="bodySmall"
-                                color="#21262B"
-                                fontWeight={400}
-                              >
-                                {list?.resultingDeviceStatus}
-                              </Typography>
-                            </Grid>
-                          </TableCell>
-                          <TableCell sx={{ ...heading }} align="left">
-                            <Grid container flexDirection={"column"}>
                               <Link
                                 underline="always"
                                 sx={{
@@ -601,6 +598,18 @@ const DeviceInventoryOverview = ({
                                   {list?.patient}
                                 </Typography>
                               </Link>
+                            </Grid>
+                          </TableCell>
+                          <TableCell sx={{ ...heading }} align="left">
+                            <Grid container flexDirection={"column"}>
+                              <Typography
+                                sx={typographyCss}
+                                variant="bodySmall"
+                                color="#21262B"
+                                fontWeight={400}
+                              >
+                                <Chip label={list?.action} variant="outlined" />
+                              </Typography>
                             </Grid>
                           </TableCell>
                           <TableCell sx={{ ...heading }} align="left">

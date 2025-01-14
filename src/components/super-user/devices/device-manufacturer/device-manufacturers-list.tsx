@@ -95,6 +95,7 @@ const DeviceManufacturersList = () => {
         content={<DrawerContent />}
         drawerWidth={belowWidth1024 ? "750px" : "1000px"}
         anchor="right"
+        showSecondButton={false}
         showMandatoryIndicator={true}
       />
 
@@ -164,7 +165,7 @@ const DeviceManufacturersList = () => {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    handleDrawer.deviceManufacturersForm("Add");
+                    handleDrawer.deviceManufacturersForm("Create");
                   }}
                   startIcon={
                     <AddIcon

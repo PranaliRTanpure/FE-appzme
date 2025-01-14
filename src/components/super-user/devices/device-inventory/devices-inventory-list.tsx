@@ -1,17 +1,23 @@
-import { Grid, useMediaQuery } from "@mui/system";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Button,
+  ButtonBase,
   Divider,
+  IconButton,
   Link,
+  Modal,
+  Stack,
+  Tab,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Tabs,
   Typography,
 } from "@mui/material";
 import Paginator from "../../../../common-components/paginator/paginator";
@@ -29,6 +35,7 @@ import CustomSelect from "../../../../common-components/custom-select/customSele
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import deviceInventoryList from "../../../../mock-data/device-inventory.json";
 import AddDeviceInventory from "./add-device-inventory";
+import React from "react";
 
 export const Headers: TableHeaders[] = [
   { header: "Device Name" },
@@ -40,6 +47,8 @@ export const Headers: TableHeaders[] = [
 const DevicesInventoryList = () => {
   const [selectedDevice] = useState("");
   const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<number>(0);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
   const navigate = useNavigate();
   const statusBgColorMapping: Record<string, string> = {
@@ -48,19 +57,48 @@ const DevicesInventoryList = () => {
     IN_USE: "#E0EFFF",
     BROKEN: "#FFF2D2",
   };
+
+  const style = {
+    position: "absolute",
+    top: "40%",
+    left: "65%",
+    transform: "translate(-50%, -50%)",
+    width: 550,
+    bgcolor: "background.paper",
+    borderRadius: "5px",
+  };
+
+  const tabData = [
+    { label: "Patient Name", content: "Content for Item One" },
+    { label: "Open Date", content: "Content for Item Two" },
+    { label: "Type", content: "Content for Item Three" },
+    { label: "Stage", content: "Content for Item Three" },
+    { label: "Scheduling Status", content: "Content for Item Three" },
+    { label: "Aging", content: "Content for Item Three" },
+    { label: "Action Date", content: "Content for Item Three" },
+  ];
+
+  type TabPanelProps = React.PropsWithChildren<{
+    value: number;
+    index: number;
+  }>;
+
+  const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
+    return value === index && <Box>{children}</Box>;
+  };
+
   return (
     <>
       {!isFormOpen && (
         <Grid
           height={"100%"}
-          p={2}
+          pl={2}
+          pr={2}
           width={"100%"}
           maxWidth={"100%"}
           overflow={"auto"}
         >
           <Grid
-            border={`1px solid ${theme.palette.grey[300]}`}
-            boxShadow={`0px 0px 16px 0px #021D2614`}
             height={"100%"}
             borderRadius={"8px"}
             container
@@ -94,6 +132,7 @@ const DevicesInventoryList = () => {
                     enableDeselect
                     items={[{ value: "active", label: "Active" }]}
                     onChange={() => {}}
+                    bgWhite
                   />
                 </Grid>
               </Grid>
@@ -107,6 +146,7 @@ const DevicesInventoryList = () => {
                   height={35}
                   alignContent={"center"}
                   justifyContent={"center"}
+                  bgcolor={"white"}
                 >
                   <FilterListIcon sx={{ height: "19px", width: "19px" }} />
                 </Grid>
@@ -119,10 +159,13 @@ const DevicesInventoryList = () => {
                   height={35}
                   alignContent={"center"}
                   justifyContent={"center"}
+                  bgcolor={"white"}
                 >
-                  <FilterAltOutlinedIcon
-                    sx={{ height: "19px", width: "19px" }}
-                  />
+                  <IconButton onClick={() => setIsFilterOpen(true)}>
+                    <FilterAltOutlinedIcon
+                      sx={{ height: "19px", width: "19px" }}
+                    />
+                  </IconButton>
                 </Grid>
 
                 <Grid>
@@ -134,6 +177,7 @@ const DevicesInventoryList = () => {
                     onDebounceCall={() => {}}
                     onInputEmpty={() => {}}
                     hasStartSearchIcon={true}
+                    bgWhite
                   />
                 </Grid>
                 <Grid>
@@ -158,7 +202,10 @@ const DevicesInventoryList = () => {
               <TableContainer
                 sx={{
                   maxHeight: belowHeight768 ? "63vh" : "76vh",
-                  overflowY: "auto",
+                  // overflowY: "auto",
+                  border: "1px solid #E6EAED",
+                  borderRadius: "12px",
+                  boxShadow: "0px 4px 8px -2px #1018281A",
                 }}
               >
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
@@ -188,7 +235,7 @@ const DevicesInventoryList = () => {
                                 : "flex-start"
                             }
                           >
-                            <Typography variant="bodySmall">
+                            <Typography variant="bodyExtraSmall">
                               {header.header}
                             </Typography>
                           </Grid>
@@ -196,7 +243,7 @@ const DevicesInventoryList = () => {
                       ))}
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  <TableBody sx={{ bgcolor: "white" }}>
                     {deviceInventoryList.length > 0 ? (
                       deviceInventoryList.map((list, index) => (
                         <TableRow hover key={index}>
@@ -204,7 +251,7 @@ const DevicesInventoryList = () => {
                             <Grid container flexDirection={"column"}>
                               <Grid container flexDirection={"column"}>
                                 <Link
-                                  underline="always"
+                                  underline="none"
                                   sx={{
                                     color: "#106DCC",
                                     cursor: "pointer",
@@ -294,6 +341,112 @@ const DevicesInventoryList = () => {
       {isFormOpen && (
         <AddDeviceInventory onClose={() => SetIsFormOpen(false)} />
       )}
+      {/* Filter grid */}
+      <Modal
+        open={isFilterOpen}
+        // onClose={() => setIsFilterOpen(true)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} component={Grid}>
+          <Grid
+            container
+            justifyContent={"space-between"}
+            pt={1}
+            pr={2}
+            pl={2}
+            borderBottom={"1px solid #E8EBEC"}
+            width={"100%"}
+          >
+            <Typography id="modal-modal-title" variant="bodyMedium">
+              Filters
+            </Typography>
+            <ButtonBase onClick={() => {}}>
+              <Typography
+                variant="bodySmall"
+                color="#106DCC"
+                sx={{
+                  padding: "4px",
+                }}
+              >
+                Clear all
+              </Typography>
+            </ButtonBase>
+          </Grid>
+          <Grid container width={"100%"} borderBottom={"1px solid #E8EBEC"}>
+            <Grid
+              container
+              flexDirection={"column"}
+              width={"32%"}
+              borderRight={"1px solid #E8EBEC"}
+            >
+              <Stack direction="row" gap={2}>
+                <Tabs
+                  orientation="vertical"
+                  value={value}
+                  onChange={(_event, newValue) => setValue(newValue)}
+                  sx={{
+                    "& .MuiTabs-indicator": {
+                      display: "none",
+                    },
+                  }}
+                >
+                  {tabData.map((tab, index) => (
+                    <Tab
+                      key={index}
+                      label={tab.label}
+                      sx={{
+                        alignItems: "flex-start",
+                        textAlign: "left",
+                        width: "100%",
+                        "&.Mui-selected": {
+                          color: "#1976d2",
+                          fontWeight: "bold",
+                          backgroundColor: "#E3F2FD",
+                          borderRadius: "4px",
+                        },
+                      }}
+                    />
+                  ))}
+                </Tabs>
+              </Stack>
+            </Grid>
+            <Grid flexDirection={"column"} width={"68%"} p={1}>
+              {tabData.map((tab, index) => (
+                <TabPanel key={index} value={value} index={index}>
+                  <Typography variant="bodyMedium">{tab.content}</Typography>
+                </TabPanel>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            p={2}
+            justifyContent={"flex-end"}
+            alignContent={"center"}
+            columnGap={1}
+          >
+            <Grid>
+              <Button
+                variant="outlined"
+                onClick={() => setIsFilterOpen(false)}
+                sx={{ background: "#F1F8FF" }}
+              >
+                <Typography variant="bodySmall">Cancel</Typography>
+              </Button>
+            </Grid>
+            <Grid>
+              <Button
+                variant="contained"
+                onClick={() => {}}
+                sx={{ background: "#106DCC" }}
+              >
+                <Typography variant="bodySmall">Apply</Typography>
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
     </>
   );
 };

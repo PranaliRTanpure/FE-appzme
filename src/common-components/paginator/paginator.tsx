@@ -78,7 +78,7 @@ const Paginator = (props: PaginatorProps) => {
                   width: "fit-content",
                   height: "32px",
                   color: theme.palette.primary.main,
-                  backgroundColor: theme.palette.common.white,
+                  // backgroundColor: theme.palette.common.white,
                   "&:hover": {
                     // "&& fieldset": {
                     //   border: `1px solid ${theme.palette.grey[400]}`,
@@ -108,6 +108,7 @@ const Paginator = (props: PaginatorProps) => {
                     borderRadius: "0px",
                     padding: "8px",
                     minWidth: "40px",
+                    background: "white",
                     "&.Mui-selected": {
                       background: "#F1F8FF",
                       color: theme.palette.common.black,
@@ -187,8 +188,8 @@ export default Paginator;
 
 const PreviousBtn = () => {
   return (
-    <Grid container gap={1} bgcolor={theme.palette.common.white}>
-      <ArrowBackIcon sx={{ marginRight: "8px", marginTop: "2px" }} />
+    <Grid justifyContent={"center"} container gap={1}>
+      <ArrowBackIcon sx={{ marginTop: "2px" }} />
       {/* <Typography variant="body1" sx={{ color: theme.palette.common.black }}>
         Previous
       </Typography> */}
@@ -198,11 +199,11 @@ const PreviousBtn = () => {
 
 const NextBtn = () => {
   return (
-    <Grid container gap={1} bgcolor={theme.palette.common.white}>
+    <Grid container justifyContent={"center"} gap={1}>
       {/* <Typography variant="body1" sx={{ color: theme.palette.common.black }}>
         Next
       </Typography> */}
-      <ArrowForwardIcon sx={{ marginLeft: "8px", marginTop: "2px" }} />
+      <ArrowForwardIcon sx={{ marginTop: "2px" }} />
     </Grid>
   );
 };
