@@ -37,22 +37,16 @@ declare module "@mui/material/styles" {
   }
 }
 
-// declare module "@mui/material/styles" {
-// 	interface Shadows extends Array<string> {
-// 		customShadow: string;
-// 	}
-// }
-
 const palette = {
-  // background: #06223E;
-
   primary: {
+    //final
     main: "#06223E",
-    light: "#00506B", //hover shade
+    light: "#093D71",
   },
   secondary: {
-    main: "#2D7AE5",
-    light: "#F2F7F9",
+    //Final
+    main: "#106DCC",
+    light: "#00C1DE",
   },
 
   background: {

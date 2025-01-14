@@ -1,3 +1,10 @@
+import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
+import {
+  heading,
+  tableCellCss,
+  typographyCss,
+} from "@/common-components/table/common-table-widgets";
+import { TableHeaders } from "@/common-components/table/table-models";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import {
@@ -12,15 +19,7 @@ import {
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
-import { theme } from "../../../../utils/theme";
 import Paginator from "../../../../common-components/paginator/paginator";
-import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
-import { TableHeaders } from "@/common-components/table/table-models";
-import {
-  heading,
-  tableCellCss,
-  typographyCss,
-} from "@/common-components/table/common-table-widgets";
 
 export const Headers: TableHeaders[] = [
   { header: "Patient Name", width: "200px", minWidth: "200px" },
@@ -45,14 +44,17 @@ const EncounterList = () => {
   return (
     <Grid height={"100%"} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
       <Grid
-        border={`1px solid ${theme.palette.grey[300]}`}
-        boxShadow={`0px 0px 16px 0px #021D2614`}
         height={"100%"}
         borderRadius={"8px"}
         container
         flexDirection={"column"}
       >
-        <Grid container p={2} justifyContent={"space-between"} rowGap={2}>
+        <Grid
+          container
+          p={"16px 0px"}
+          justifyContent={"space-between"}
+          rowGap={2}
+        >
           <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
             <Grid>
               <CustomInput

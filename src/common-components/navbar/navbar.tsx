@@ -74,7 +74,10 @@ const Navbar = () => {
   return (
     <AppBar
       position="sticky"
-      sx={{ backgroundColor: `${theme.palette.primary.main}`, height: "40px" }}
+      sx={{
+        backgroundColor: `${theme.palette.primary.main}`,
+        height: "40px",
+      }}
     >
       <Toolbar variant="dense" sx={toolBarContainer}>
         <Grid container width={"100%"}>
