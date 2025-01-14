@@ -32,6 +32,7 @@ export default [
       "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
       // complexity: ["error", 40],
       "no-case-declarations": "off",
+      "no-unused-vars": "off",
       "no-constant-binary-expression": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",

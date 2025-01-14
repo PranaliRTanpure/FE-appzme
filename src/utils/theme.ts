@@ -92,7 +92,6 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Poppins, Roboto, Helvetica, Arial, sans-serif",
     h1: {
       fontFamily: "Montserrat Alternates, Roboto, Helvetica, Arial, sans-serif",
       fontWeight: 700,
