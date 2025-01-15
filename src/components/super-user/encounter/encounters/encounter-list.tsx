@@ -1,4 +1,5 @@
 import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import { AlertSeverity } from "@/common-components/snackbar-alert/snackbar-alert";
 import {
   heading,
@@ -23,7 +24,6 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import Paginator from "../../../../common-components/paginator/paginator";
-import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 
 export const Headers: TableHeaders[] = [
   { header: "Patient Name", width: "200px", minWidth: "200px" },
