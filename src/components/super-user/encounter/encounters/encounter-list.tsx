@@ -1,14 +1,15 @@
 import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
+import { AlertSeverity } from "@/common-components/snackbar-alert/snackbar-alert";
 import {
   heading,
   tableCellCss,
   typographyCss,
 } from "@/common-components/table/common-table-widgets";
 import { TableHeaders } from "@/common-components/table/table-models";
+import { setSnackbarOn } from "@/redux/actions/snackbar-action";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import {
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -18,8 +19,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import Paginator from "../../../../common-components/paginator/paginator";
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 
 export const Headers: TableHeaders[] = [
   { header: "Patient Name", width: "200px", minWidth: "200px" },
@@ -40,6 +44,16 @@ export const Headers: TableHeaders[] = [
 
 const EncounterList = () => {
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      setSnackbarOn({
+        severity: AlertSeverity.SUCCESS,
+        message: "successMessage",
+      }),
+    );
+  });
 
   return (
     <Grid height={"100%"} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
@@ -137,29 +151,10 @@ const EncounterList = () => {
                   tableDataEncounter.map((list, index) => (
                     <TableRow hover key={index}>
                       <TableCell sx={{ ...heading }} align="left">
-                        <Grid container flexDirection={"column"}>
-                          <Grid container flexDirection={"column"}>
-                            <Link
-                              underline="always"
-                              sx={{
-                                color: "#106DCC",
-                                cursor: "pointer",
-                              }}
-                              onClick={() => {
-                                // navigate(
-                                // );
-                              }}
-                            >
-                              <Typography
-                                fontWeight={500}
-                                color="#106DCC"
-                                variant="bodySmall"
-                              >
-                                {list?.patientName}
-                              </Typography>
-                            </Link>
-                          </Grid>
-                        </Grid>
+                        <CustomClickableLink
+                          text={list?.patientName}
+                          onClick={function (): void {}}
+                        />
                       </TableCell>
                       <TableCell>
                         <Typography sx={typographyCss} variant="bodySmall">

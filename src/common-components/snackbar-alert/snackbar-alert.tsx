@@ -35,9 +35,10 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleButtonClick = (buttonTitle: string, dispatch: any) => {
   if (buttonTitle === "Dismiss") {
     // Logic for Dismiss button
@@ -55,24 +56,25 @@ export const AlertSeverity = {
 const SnackbarAlert = () => {
   const dispatch = useDispatch();
   const isSnackbarOpen = useReduxSelector(
-    (state) => state.snackbarReducer?.isSnackbarOpen
+    (state) => state.snackbarReducer?.isSnackbarOpen,
   ) as boolean;
 
   const severity = useReduxSelector(
-    (state) => state.snackbarReducer?.severity
+    (state) => state.snackbarReducer?.severity,
   ) as AlertColor;
   const message = useReduxSelector(
-    (state) => state.snackbarReducer?.message
+    (state) => state.snackbarReducer?.message,
   ) as string;
   const subMessage = useReduxSelector(
-    (state) => state.snackbarReducer?.subMessage
+    (state) => state.snackbarReducer?.subMessage,
   ) as string;
   const arrayOfBtns = useReduxSelector(
-    (state) => state.snackbarReducer?.arrayOfBtns
+    (state) => state.snackbarReducer?.arrayOfBtns,
+    // eslint-disable-next-line @typescript-eslint/array-type
   ) as Array<ButtonDetails>;
   const handleClose = (
     event?: React.SyntheticEvent | Event,
-    reason?: string
+    reason?: string,
   ) => {
     event;
     if (reason === "clickaway") {
@@ -85,7 +87,7 @@ const SnackbarAlert = () => {
   return (
     <Snackbar
       open={isSnackbarOpen}
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       autoHideDuration={SNACKBAR_HIDE_DURATION}
       onClose={handleClose}
     >
@@ -101,7 +103,7 @@ const SnackbarAlert = () => {
         <Grid container rowGap={1}>
           <Grid container flexDirection={"column"}>
             <Grid container>
-              <Typography variant="bodyMedium" fontWeight={550}>
+              <Typography variant="bodySmall" fontWeight={550}>
                 {message}
               </Typography>
             </Grid>

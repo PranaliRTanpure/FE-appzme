@@ -31,7 +31,7 @@ const steps = [
 ];
 
 const PatientRegistrationStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(3);
   const [completed] = React.useState<{ [k: number]: boolean }>({});
 
   // const totalSteps = () => {
@@ -220,7 +220,6 @@ const PatientRegistrationStepper = () => {
             <Grid container>
               <Button
                 variant="outlined"
-                color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 sx={{ mr: 1 }}

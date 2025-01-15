@@ -145,7 +145,7 @@ const SettingsTabs = () => {
                   />
                 ))}
               </Tabs>
-              <Grid pt={1} pb={1} pr={2}>
+              <Grid pt={1} pb={1}>
                 {value === 0 && (
                   <Button
                     startIcon={<AddIcon />}
