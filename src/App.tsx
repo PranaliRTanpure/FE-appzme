@@ -1,23 +1,19 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
-import { Box } from "@mui/system";
-import "./App.css";
+import "@fontsource/montserrat-alternates";
+import "@fontsource/poppins";
 import { ThemeProvider } from "@mui/material";
+import { Box } from "@mui/system";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import Loader from "./common-components/loader/loader";
+import SnackbarAlert from "./common-components/snackbar-alert/snackbar-alert";
+import RefreshToken from "./components/refresh-token/refresh-token";
+import { reduxStore } from "./redux/store";
 import { router } from "./routes/routes";
 import { theme } from "./utils/theme";
-import SnackbarAlert from "./common-components/snackbar-alert/snackbar-alert";
-import { Provider } from "react-redux";
-import { reduxStore } from "./redux/store";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import RefreshToken from "./components/refresh-token/refresh-token";
-import Loader from "./common-components/loader/loader";
-import "@fontsource/poppins";
-import "@fontsource/montserrat-alternates";
 
 function App() {
-  // const [count, setCount] = useState(0);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -26,6 +22,7 @@ function App() {
       },
     },
   });
+
   return (
     <Box
       sx={{

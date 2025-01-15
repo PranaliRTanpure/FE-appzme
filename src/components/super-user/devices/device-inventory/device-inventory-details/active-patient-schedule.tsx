@@ -1,7 +1,5 @@
-import { Grid, useMediaQuery } from "@mui/system";
-import { TableHeaders } from "../../../../../common-components/table/table-models";
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import {
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -10,13 +8,15 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/system";
+import Paginator from "../../../../../common-components/paginator/paginator";
 import {
   heading,
   tableCellCss,
   typographyCss,
 } from "../../../../../common-components/table/common-table-widgets";
+import { TableHeaders } from "../../../../../common-components/table/table-models";
 import deviceInventoryActivePatientScheduleList from "../../../../../mock-data/device-inventory-activePatientSchedule.json";
-import Paginator from "../../../../../common-components/paginator/paginator";
 
 export const mockHeaders: TableHeaders[] = [
   { header: "Patient" },
@@ -87,30 +87,10 @@ const ActivePatientSchedule = () => {
                 deviceInventoryActivePatientScheduleList.map((list, index) => (
                   <TableRow key={index}>
                     <TableCell sx={{ ...heading }} align="left">
-                      <Grid container flexDirection={"column"}>
-                        <Grid container flexDirection={"column"}>
-                          <Link
-                            underline="none"
-                            sx={{
-                              color: "#106DCC",
-                              cursor: "pointer",
-                            }}
-                            // onClick={() => {
-                            //     navigate(
-                            //         `/super-user/devices/${list.serialNumber.replace("#", "")}`,
-                            //     );
-                            // }}
-                          >
-                            <Typography
-                              fontWeight={500}
-                              color="#106DCC"
-                              variant="bodySmall"
-                            >
-                              {list?.patient}
-                            </Typography>
-                          </Link>
-                        </Grid>
-                      </Grid>
+                      <CustomClickableLink
+                        text={list?.patient}
+                        onClick={function (): void {}}
+                      />
                     </TableCell>
                     <TableCell sx={{ ...heading }} align="left">
                       <Grid container flexDirection={"column"}>

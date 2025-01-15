@@ -1,3 +1,4 @@
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import AddIcon from "@mui/icons-material/Add";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
@@ -7,7 +8,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Button,
   IconButton,
-  Link,
   ListItemIcon,
   Menu,
   MenuItem,
@@ -229,25 +229,10 @@ const DeviceManufacturersList = () => {
                     deviceManufacturersList.map((list, index) => (
                       <TableRow key={index} hover>
                         <TableCell sx={{ ...heading }} align="left">
-                          <Grid container flexDirection={"column"}>
-                            <Grid container flexDirection={"column"}>
-                              <Link
-                                underline="always"
-                                sx={{
-                                  color: "#106DCC",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                <Typography
-                                  fontWeight={500}
-                                  color="#106DCC"
-                                  variant="bodySmall"
-                                >
-                                  {list?.company}
-                                </Typography>
-                              </Link>
-                            </Grid>
-                          </Grid>
+                          <CustomClickableLink
+                            text={list?.company}
+                            onClick={function (): void {}}
+                          />
                         </TableCell>
                         <TableCell sx={{ ...heading }} align="left">
                           <Grid container flexDirection={"column"}>

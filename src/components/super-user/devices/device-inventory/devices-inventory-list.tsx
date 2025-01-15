@@ -1,13 +1,12 @@
-import { Box, Grid, useMediaQuery } from "@mui/system";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import AddIcon from "@mui/icons-material/Add";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import {
   Button,
   ButtonBase,
   Divider,
   IconButton,
-  Link,
   Modal,
   Stack,
   Tab,
@@ -20,6 +19,11 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/system";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CustomInput from "../../../../common-components/custom-input/custom-input";
+import CustomSelect from "../../../../common-components/custom-select/customSelect";
 import Paginator from "../../../../common-components/paginator/paginator";
 import Status from "../../../../common-components/status/status";
 import {
@@ -28,14 +32,9 @@ import {
   typographyCss,
 } from "../../../../common-components/table/common-table-widgets";
 import { TableHeaders } from "../../../../common-components/table/table-models";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { theme } from "../../../../utils/theme";
-import CustomSelect from "../../../../common-components/custom-select/customSelect";
-import CustomInput from "../../../../common-components/custom-input/custom-input";
 import deviceInventoryList from "../../../../mock-data/device-inventory.json";
+import { theme } from "../../../../utils/theme";
 import AddDeviceInventory from "./add-device-inventory";
-import React from "react";
 
 export const Headers: TableHeaders[] = [
   { header: "Device Name" },
@@ -248,30 +247,14 @@ const DevicesInventoryList = () => {
                       deviceInventoryList.map((list, index) => (
                         <TableRow hover key={index}>
                           <TableCell>
-                            <Grid container flexDirection={"column"}>
-                              <Grid container flexDirection={"column"}>
-                                <Link
-                                  underline="none"
-                                  sx={{
-                                    color: "#106DCC",
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() => {
-                                    navigate(
-                                      `/super-user/devices/${list.serialNumber.replace("#", "")}`,
-                                    );
-                                  }}
-                                >
-                                  <Typography
-                                    fontWeight={500}
-                                    color="#106DCC"
-                                    variant="bodySmall"
-                                  >
-                                    {list?.deviceName}
-                                  </Typography>
-                                </Link>
-                              </Grid>
-                            </Grid>
+                            <CustomClickableLink
+                              text={list?.deviceName}
+                              onClick={function (): void {
+                                navigate(
+                                  `/super-user/devices/${list.serialNumber.replace("#", "")}`,
+                                );
+                              }}
+                            />
                           </TableCell>
                           <TableCell>
                             <Grid container flexDirection={"column"}>

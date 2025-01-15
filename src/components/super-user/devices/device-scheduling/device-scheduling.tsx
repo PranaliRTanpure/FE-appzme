@@ -1,3 +1,4 @@
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -7,7 +8,6 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 import {
   Button,
   ButtonBase,
-  Link,
   MenuItem,
   Popper,
   Select,
@@ -351,22 +351,12 @@ const DeviceScheduling = () => {
                                       textAlign: "left",
                                     }}
                                   >
-                                    <Link
-                                      underline="always"
-                                      sx={{
-                                        color: "#106DCC",
-                                        cursor: "pointer",
-                                        paddingLeft: "16px",
-                                      }}
-                                    >
-                                      <Typography
-                                        fontWeight={500}
-                                        color="#106DCC"
-                                        variant="bodySmall"
-                                      >
-                                        {value}
-                                      </Typography>
-                                    </Link>
+                                    <Grid ml={1.5}>
+                                      <CustomClickableLink
+                                        text={value}
+                                        onClick={function (): void {}}
+                                      />
+                                    </Grid>
                                   </TableCell>
                                 );
                               }

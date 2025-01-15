@@ -1,9 +1,10 @@
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Checkbox,
   Chip,
   Divider,
   FormControlLabel,
-  Link,
   SelectChangeEvent,
   Table,
   TableBody,
@@ -14,21 +15,20 @@ import {
   Typography,
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
-import { theme } from "../../../../../utils/theme";
+import { Controller, FieldValues, useForm } from "react-hook-form";
+import * as yup from "yup";
+import CustomInput from "../../../../../common-components/custom-input/custom-input";
 import CustomLabel from "../../../../../common-components/custom-label/custom-label";
 import CustomSelect from "../../../../../common-components/custom-select/customSelect";
-import CustomInput from "../../../../../common-components/custom-input/custom-input";
-import * as yup from "yup";
-import { Controller, FieldValues, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { TableHeaders } from "../../../../../common-components/table/table-models";
+import CustomTextArea from "../../../../../common-components/custom-text-area/custom-textarea";
 import {
   heading,
   tableCellCss,
   typographyCss,
 } from "../../../../../common-components/table/common-table-widgets";
+import { TableHeaders } from "../../../../../common-components/table/table-models";
 import deviceInventoryOverviewList from "../../../../../mock-data/device-inventory-overview-list.json";
-import CustomTextArea from "../../../../../common-components/custom-text-area/custom-textarea";
+import { theme } from "../../../../../utils/theme";
 
 export const deviceInventoryOverviewSchema = yup.object().shape({
   deviceType: yup.string().required("Device type required"),
@@ -582,23 +582,10 @@ const DeviceInventoryOverview = ({
                             </Grid>
                           </TableCell>
                           <TableCell sx={{ ...heading }} align="left">
-                            <Grid container flexDirection={"column"}>
-                              <Link
-                                underline="always"
-                                sx={{
-                                  color: "#106DCC",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                <Typography
-                                  fontWeight={500}
-                                  color="#106DCC"
-                                  variant="bodySmall"
-                                >
-                                  {list?.patient}
-                                </Typography>
-                              </Link>
-                            </Grid>
+                            <CustomClickableLink
+                              text={list?.patient}
+                              onClick={function (): void {}}
+                            />
                           </TableCell>
                           <TableCell sx={{ ...heading }} align="left">
                             <Grid container flexDirection={"column"}>
