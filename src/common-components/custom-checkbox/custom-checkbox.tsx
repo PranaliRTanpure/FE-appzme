@@ -1,10 +1,11 @@
 import { StatusColorMap } from "@/constants/status";
 import { theme } from "@/utils/theme";
 import { toCamelCase } from "@/utils/toCamelCase";
-import { Checkbox, Typography } from "@mui/material";
+import { FormControlLabel, Typography } from "@mui/material";
 import { Grid, SxProps } from "@mui/system";
 import { useState } from "react";
 import React from "react";
+import CheckBox from "./checkbox";
 
 export type CheckedArray = {
   checked: boolean;
@@ -15,7 +16,7 @@ export type CheckedArray = {
 
 type CustomCheckBoxType = {
   options: CheckedArray[];
-  // eslint-disable-next-line no-unused-vars
+
   onChange: (updatedArray: CheckedArray[]) => void;
   sx?: SxProps;
   enableSelectAll?: boolean;
@@ -27,8 +28,11 @@ const CustomCheckBox = (props: CustomCheckBoxType) => {
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    value: CheckedArray,
+    value?: CheckedArray,
   ) => {
+    if (!value) {
+      return;
+    }
     const updatedArr = updatedArray.map((val) => {
       if (value.key === val.key) {
         return { ...val, checked: event.target.checked };
@@ -52,26 +56,35 @@ const CustomCheckBox = (props: CustomCheckBoxType) => {
             columnGap={"4px"}
             key={val.key}
           >
-            <Checkbox
-              checked={val.checked}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(e, val)
+            <FormControlLabel
+              control={
+                <CheckBox
+                  checked={val.checked}
+                  val={val}
+                  handleChange={function (e, val): void {
+                    handleChange(e, val);
+                  }}
+                />
               }
-              inputProps={{ "aria-label": "controlled" }}
-              sx={sx}
+              label={
+                <Grid container alignItems={"center"} columnGap={1}>
+                  {StatusColorMap[val.key] && (
+                    <Grid
+                      width={"10px"}
+                      height={"10px"}
+                      borderRadius={"50%"}
+                      bgcolor={
+                        StatusColorMap[val.key] || theme.palette.common.white
+                      }
+                      border={`1px solid ${val.borderColor || "transparent"}`}
+                    ></Grid>
+                  )}
+                  <Typography sx={sx}>
+                    {toCamelCase(val.key || "Undefined")}
+                  </Typography>
+                </Grid>
+              }
             />
-            {StatusColorMap[val.key] && (
-              <Grid
-                width={"10px"}
-                height={"10px"}
-                borderRadius={"50%"}
-                bgcolor={StatusColorMap[val.key] || theme.palette.common.white}
-                border={`1px solid ${val.borderColor || "transparent"}`}
-              ></Grid>
-            )}
-            <Typography sx={sx}>
-              {toCamelCase(val.key || "Undefined")}
-            </Typography>
           </Grid>
         ))}
       </Grid>

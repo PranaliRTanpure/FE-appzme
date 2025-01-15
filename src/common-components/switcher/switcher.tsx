@@ -9,7 +9,7 @@ type SwitcherProps = {
   buttonWidth: string;
   compactHeight?: boolean;
   variant: "dark" | "light";
-  // eslint-disable-next-line no-unused-vars
+
   onChange: (option: string) => void;
 };
 
@@ -34,48 +34,46 @@ const Switcher = (props: SwitcherProps) => {
       variant === "dark"
         ? theme.palette.common.white
         : theme.palette.common.black,
-    // backgroundColor:
-    //   variant === "dark" ? theme.palette.primary.main : theme.palette.grey[200],
-    // padding: "5px",
   }));
 
   const StyledGridButton = styled(Grid)(() => ({
     cursor: "pointer",
     padding: compactHeight ? "2px 5px" : "5px 5px",
-    // borderRadius: "12px",
     width: buttonWidth || "120px",
     height: compactHeight ? "32px" : "40px",
     justifyContent: "center",
-    // "&:hover": {
-    //   backgroundColor:
-    //     variant === "dark"
-    //       ? theme.palette.primary.light
-    //       : theme.palette.common.white,
-    // },
-    borderRight: `1px solid ${theme.palette.divider}`,
-    "&:last-child": {
-      // borderRight: "none",
-      // borderRight: "1px solid transparent", // Invisible border
-    },
   }));
 
-  // const optionActive = {
-  //   border: '1px solid #106DCC',
-  //   backgroundColor: '#E0EFFF',
-  //   borderRadius: customBorderRadius,
-  //   // backgroundColor:
-  //   //   variant === "dark"
-  //   //     ? theme.palette.primary.light
-  //   //     : theme.palette.common.white,
-  // };
   return (
-    <StyledGridContainer container gap={0} border={0}>
+    <StyledGridContainer container gap={0} border={1}>
       {validOptions.length > 0 ? (
         validOptions.map((option, index) => {
           const optionActive: React.CSSProperties = {
             border: "1px solid #106DCC",
             backgroundColor: "#E0EFFF",
             borderRadius: 0,
+          };
+
+          const optionInactive: React.CSSProperties = {
+            borderRight:
+              index === 0
+                ? "1px solid #DBDBDB"
+                : index === validOptions.length - 1
+                  ? "1px solid #DBDBDB"
+                  : "1px solid #DBDBDB",
+            borderTopRightRadius:
+              index === 0
+                ? "none"
+                : index === validOptions.length - 1
+                  ? "16px"
+                  : "none",
+
+            borderEndEndRadius:
+              index === 0
+                ? "none"
+                : index === validOptions.length - 1
+                  ? "16px"
+                  : "none",
           };
 
           if (index === 0) {
@@ -93,7 +91,7 @@ const Switcher = (props: SwitcherProps) => {
               key={option}
               container
               onClick={() => handleOptionChange(option)}
-              sx={selectedOption === option ? optionActive : {}}
+              sx={selectedOption === option ? optionActive : optionInactive}
               alignContent={"center"}
             >
               <Typography
@@ -110,27 +108,6 @@ const Switcher = (props: SwitcherProps) => {
           );
         })
       ) : (
-        // validOptions.map((option) => (
-        //   <StyledGridButton
-        //     key={option}
-        //     container
-        //     onClick={() => handleOptionChange(option)}
-        //     sx={selectedOption === option ? optionActive : {}}
-        //   >
-        //     <Typography
-        //       sx={{
-        //         color:
-        //           selectedOption === option
-        //             ? theme.palette.secondary.main
-        //             : theme.palette.common.black,
-        //         fontWeight: selectedOption === option ? 550 : 300,
-        //       }}
-        //       variant="bodySmall"
-        //     >
-        //       {option}
-        //     </Typography>
-        //   </StyledGridButton>
-        // ))
         <Typography variant="subtitle2" sx={{ padding: "5px" }}>
           No options available
         </Typography>

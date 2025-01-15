@@ -129,10 +129,10 @@ export const theme = createTheme({
           height: "40px",
           "&.MuiButton-containedPrimary": {
             borderRadius: "12px",
-
             boxShadow: "none",
+            backgroundColor: palette.secondary.main,
             "&:hover": {
-              backgroundColor: palette.primary.light,
+              backgroundColor: alpha(palette.secondary.main, 0.8),
             },
           },
 
