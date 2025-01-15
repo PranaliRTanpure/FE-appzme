@@ -1,13 +1,12 @@
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
+import CustomFilters from "@/common-components/custom-filters/custom filters";
 import AddIcon from "@mui/icons-material/Add";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import {
   Button,
-  ButtonBase,
   Divider,
   IconButton,
-  Modal,
   Stack,
   Tab,
   Table,
@@ -49,22 +48,16 @@ const DevicesInventoryList = () => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [value, setValue] = useState<number>(0);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowWidth1440 = useMediaQuery("(max-width:1440px)");
+  const belowWidth1366 = useMediaQuery("(max-width:1366px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   const navigate = useNavigate();
+
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
     READY: "#E1FCDE",
     IN_USE: "#E0EFFF",
     BROKEN: "#FFF2D2",
-  };
-
-  const style = {
-    position: "absolute",
-    top: "40%",
-    left: "65%",
-    transform: "translate(-50%, -50%)",
-    width: 550,
-    bgcolor: "background.paper",
-    borderRadius: "5px",
   };
 
   const tabData = [
@@ -307,6 +300,7 @@ const DevicesInventoryList = () => {
                 </Table>
               </TableContainer>
             </Grid>
+            {/* Paginator */}
             <Grid container sx={{ borderTop: "1px solid #E7E7E7" }}>
               <Paginator
                 page={0}
@@ -324,112 +318,76 @@ const DevicesInventoryList = () => {
       {isFormOpen && (
         <AddDeviceInventory onClose={() => SetIsFormOpen(false)} />
       )}
+
       {/* Filter grid */}
-      <Modal
-        open={isFilterOpen}
-        // onClose={() => setIsFilterOpen(true)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+      <CustomFilters
+        onOpen={isFilterOpen}
+        style={{
+          top: belowWidth1024
+            ? "45%"
+            : belowWidth1366
+              ? "45%"
+              : belowWidth1440
+                ? "37%"
+                : "35%",
+          left: belowWidth1024
+            ? "50%"
+            : belowWidth1366
+              ? "60%"
+              : belowWidth1440
+                ? "62%"
+                : "73%",
+          width: "600px",
+        }}
+        onClick={() => setIsFilterOpen(false)}
       >
-        <Box sx={style} component={Grid}>
+        <Grid container width={"100%"}>
           <Grid
             container
-            justifyContent={"space-between"}
-            pt={1}
-            pr={2}
-            pl={2}
-            borderBottom={"1px solid #E8EBEC"}
-            width={"100%"}
+            flexDirection={"column"}
+            width={"32%"}
+            borderRight={"1px solid #E8EBEC"}
           >
-            <Typography id="modal-modal-title" variant="bodyMedium">
-              Filters
-            </Typography>
-            <ButtonBase onClick={() => {}}>
-              <Typography
-                variant="bodySmall"
-                color="#106DCC"
+            <Stack direction="row" gap={2}>
+              <Tabs
+                orientation="vertical"
+                value={value}
+                onChange={(_event, newValue) => setValue(newValue)}
                 sx={{
-                  padding: "4px",
+                  "& .MuiTabs-indicator": {
+                    display: "none",
+                  },
                 }}
               >
-                Clear all
-              </Typography>
-            </ButtonBase>
+                {tabData.map((tab, index) => (
+                  <Tab
+                    key={index}
+                    label={tab.label}
+                    sx={{
+                      alignItems: "flex-start",
+                      textAlign: "left",
+                      width: "100%",
+                      "&.Mui-selected": {
+                        color: "#1976d2",
+                        fontWeight: "bold",
+                        backgroundColor: "#E3F2FD",
+                        borderRadius: "4px",
+                      },
+                    }}
+                  />
+                ))}
+              </Tabs>
+            </Stack>
           </Grid>
-          <Grid container width={"100%"} borderBottom={"1px solid #E8EBEC"}>
-            <Grid
-              container
-              flexDirection={"column"}
-              width={"32%"}
-              borderRight={"1px solid #E8EBEC"}
-            >
-              <Stack direction="row" gap={2}>
-                <Tabs
-                  orientation="vertical"
-                  value={value}
-                  onChange={(_event, newValue) => setValue(newValue)}
-                  sx={{
-                    "& .MuiTabs-indicator": {
-                      display: "none",
-                    },
-                  }}
-                >
-                  {tabData.map((tab, index) => (
-                    <Tab
-                      key={index}
-                      label={tab.label}
-                      sx={{
-                        alignItems: "flex-start",
-                        textAlign: "left",
-                        width: "100%",
-                        "&.Mui-selected": {
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          backgroundColor: "#E3F2FD",
-                          borderRadius: "4px",
-                        },
-                      }}
-                    />
-                  ))}
-                </Tabs>
-              </Stack>
-            </Grid>
-            <Grid flexDirection={"column"} width={"68%"} p={1}>
-              {tabData.map((tab, index) => (
-                <TabPanel key={index} value={value} index={index}>
-                  <Typography variant="bodyMedium">{tab.content}</Typography>
-                </TabPanel>
-              ))}
-            </Grid>
+          <Grid flexDirection={"column"} width={"68%"} p={1}>
+            {tabData.map((tab, index) => (
+              <TabPanel key={index} value={value} index={index}>
+                <Typography variant="bodyMedium">{tab.content}</Typography>
+              </TabPanel>
+            ))}
           </Grid>
-          <Grid
-            container
-            p={2}
-            justifyContent={"flex-end"}
-            alignContent={"center"}
-            columnGap={1}
-          >
-            <Grid>
-              <Button
-                variant="outlined"
-                onClick={() => setIsFilterOpen(false)}
-                sx={{ background: "#F1F8FF" }}
-              >
-                <Typography variant="bodySmall">Cancel</Typography>
-              </Button>
-            </Grid>
-            <Grid>
-              <Button
-                variant="contained"
-                onClick={() => {}}
-                sx={{ background: "#106DCC" }}
-              >
-                <Typography variant="bodySmall">Apply</Typography>
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Modal>
+        </Grid>
+      </CustomFilters>
     </>
   );
 };
