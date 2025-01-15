@@ -23,7 +23,9 @@ const steps = [
 
 const InterpretationNoteStepper = () => {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [completed] = React.useState<{ [k: number]: boolean }>({});
+  const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>(
+    {},
+  );
 
   // const totalSteps = () => {
   //   return steps.length;
@@ -41,13 +43,30 @@ const InterpretationNoteStepper = () => {
   //   return completedSteps() === totalSteps();
   // };
 
+  // const handleNext = () => {
+  //   handleSubmit(
+  //     () => {
+  //       setValue("activeStep", (activeStep + 1).toString());
+  //       setActiveStep((prevStep) => prevStep + 1);
+  //     },
+  //     (errors) => {
+  //       errors;
+  //     },
+  //   )();
+  // };
+
   const handleNext = () => {
     handleSubmit(
       () => {
+        setCompleted({
+          ...completed,
+          [activeStep]: true,
+        });
         setValue("activeStep", (activeStep + 1).toString());
         setActiveStep((prevStep) => prevStep + 1);
       },
       (errors) => {
+        // console.error(errors);
         errors;
       },
     )();
@@ -158,6 +177,7 @@ const InterpretationNoteStepper = () => {
                                   : "#e0e0e0 !important", // Grey for inactive
                             },
                             "& .MuiStepIcon-text": {
+                              fontWeight: "500",
                               fill:
                                 index === activeStep
                                   ? "#2484AD !important"
