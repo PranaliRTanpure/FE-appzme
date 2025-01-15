@@ -56,7 +56,7 @@ const TopMenu = () => {
                     ? theme.palette.common.white
                     : alpha(theme.palette.common.white, 0.7),
                 display: "inline-block",
-                background: isActive ? theme.palette.primary.light : "inherit",
+                background: isActive ? alpha("#093D71", 0.5) : "inherit",
                 borderRadius: "6px 6px 0px 0px",
               })}
             >

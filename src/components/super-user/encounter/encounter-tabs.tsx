@@ -1,22 +1,22 @@
+import MainDrawer from "@/components/ui/MainDrawer";
+import { useDrawer } from "@/hooks/useDrawer";
+import { theme } from "@/utils/theme";
+import AddIcon from "@mui/icons-material/Add";
 import { Button, Tab, Tabs } from "@mui/material";
-import { Grid } from "@mui/system";
+import { alpha, Grid } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
-  CustomTabPanel,
   a11yProps,
+  CustomTabPanel,
 } from "../../../common-components/custom-tab/custom-tab";
-import EncounterList from "./encounters/encounter-list";
-import EncounterMillennium from "./millenium/encounter-millenium";
-import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impression";
-import EncounterHstEducation from "./hst_education/encounter_hst_education";
-import { theme } from "@/utils/theme";
-import AddIcon from "@mui/icons-material/Add";
 import CreateEncounterForm from "./encounters/create-encounter-form";
+import EncounterList from "./encounters/encounter-list";
+import EncounterHstEducation from "./hst_education/encounter_hst_education";
 import ScheduleAppointment from "./hst_education/schedule-appointment-form";
+import EncounterMillennium from "./millenium/encounter-millenium";
 import MilleniumScheduleAppointment from "./millenium/millenium-schedule-appointment-form";
-import { useDrawer } from "@/hooks/useDrawer";
-import MainDrawer from "@/components/ui/MainDrawer";
+import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impression";
 import SlScheduleAppointmentForm from "./sleep_impression/sl-schedule-appointment-form";
 
 const tabLabels = [
@@ -101,23 +101,44 @@ const SettingsTabs = () => {
         showSecondButton={true}
         anchor="right"
       />
-      <Grid width={"100%"} height={"100%"}>
+      <Grid width={"100%"} height={"100%"} p={2}>
         <Grid
           height={"100%"}
           borderRadius={"8px"}
           container
           flexDirection={"column"}
         >
-          <Grid width={"100%"}>
+          <Grid
+            width={"100%"}
+            height={"100%"}
+            container
+            flexDirection={"column"}
+          >
             <Grid
               container
               justifyContent={"space-between"}
               sx={{ borderBottom: 1, borderColor: "divider" }}
             >
-              <Tabs value={value} onChange={handleChange}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ padding: "0" }}
+                aria-label="simple tabs example"
+              >
                 {tabLabels?.map((item, index) => (
                   <Tab
-                    sx={{ textTransform: "none", fontWeight: 550 }}
+                    sx={{
+                      textTransform: "none",
+                      ".css-1uuxvpa-MuiTabs-indicator ": {
+                        bottom: "0",
+                        position: "absolute",
+                      },
+                      fontWeight: 550,
+                      background:
+                        index === value
+                          ? alpha(theme.palette.secondary.main, 0.2)
+                          : "none",
+                    }}
                     key={index}
                     label={item}
                     {...a11yProps(0)}
@@ -172,7 +193,7 @@ const SettingsTabs = () => {
                       );
                     }}
                   >
-                    Schedule Appointment
+                    main Schedule Appointment
                   </Button>
                 )}
                 {value === 3 && (
@@ -193,7 +214,7 @@ const SettingsTabs = () => {
                 )}
               </Grid>
             </Grid>
-            <Grid flex={1}>
+            <Grid flex={1} width={"100%"}>
               {tabLabels.map((item, index) => (
                 <CustomTabPanel key={index} value={value} index={index}>
                   {item === "Encounters" && <EncounterList />}
