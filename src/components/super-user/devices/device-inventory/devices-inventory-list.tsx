@@ -4,11 +4,9 @@ import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Button,
-  // ButtonBase,
   Divider,
   IconButton,
   Link,
-  // Modal,
   Stack,
   Tab,
   Table,
@@ -319,6 +317,7 @@ const DevicesInventoryList = () => {
                 </Table>
               </TableContainer>
             </Grid>
+            {/* Paginator */}
             <Grid container sx={{ borderTop: "1px solid #E7E7E7" }}>
               <Paginator
                 page={0}
@@ -342,19 +341,20 @@ const DevicesInventoryList = () => {
         onOpen={isFilterOpen}
         style={{
           top: belowWidth1024
-            ? "50%"
+            ? "45%"
             : belowWidth1366
-              ? "43%"
+              ? "45%"
               : belowWidth1440
                 ? "37%"
                 : "35%",
           left: belowWidth1024
-            ? "28%"
+            ? "50%"
             : belowWidth1366
               ? "60%"
               : belowWidth1440
-                ? "60%"
-                : "70%",
+                ? "62%"
+                : "73%",
+          width: "600px",
         }}
         onClick={() => setIsFilterOpen(false)}
       >

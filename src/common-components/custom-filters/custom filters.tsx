@@ -33,13 +33,18 @@ const CustomFilters = (props: React.PropsWithChildren<customFiltersProps>) => {
           <Grid
             container
             justifyContent={"space-between"}
-            pt={1}
+            pt={2}
+            pb={1}
             pr={2}
             pl={2}
             borderBottom={"1px solid #E8EBEC"}
             width={"100%"}
           >
-            <Typography id="modal-modal-title" variant="bodyMedium">
+            <Typography
+              id="modal-modal-title"
+              variant="bodyMedium"
+              fontWeight={600}
+            >
               Filters
             </Typography>
             <ButtonBase onClick={() => {}}>
