@@ -1,10 +1,12 @@
-import { ButtonBase, Modal, Typography } from "@mui/material";
+import { Button, ButtonBase, Modal, Typography } from "@mui/material";
 import { Box, Grid } from "@mui/system";
 import React from "react";
 
 interface customFiltersProps {
   onOpen: boolean;
   style?: React.CSSProperties;
+  onClick?: () => void;
+  onApply?: () => void;
 }
 
 const CustomFilters = (props: React.PropsWithChildren<customFiltersProps>) => {
@@ -52,8 +54,35 @@ const CustomFilters = (props: React.PropsWithChildren<customFiltersProps>) => {
               </Typography>
             </ButtonBase>
           </Grid>
-          <Grid container width={"100%"}>
+          <Grid container width={"100%"} borderBottom={"1px solid #E8EBEC"}>
             {props.children}
+          </Grid>
+          <Grid
+            container
+            p={2}
+            justifyContent={"flex-end"}
+            alignContent={"center"}
+            columnGap={1}
+            width={"100%"}
+          >
+            <Grid>
+              <Button
+                variant="outlined"
+                onClick={props.onClick}
+                sx={{ background: "#F1F8FF" }}
+              >
+                <Typography variant="bodySmall">Cancel</Typography>
+              </Button>
+            </Grid>
+            <Grid>
+              <Button
+                variant="contained"
+                onClick={props.onApply}
+                sx={{ background: "#106DCC" }}
+              >
+                <Typography variant="bodySmall">Apply</Typography>
+              </Button>
+            </Grid>
           </Grid>
         </Box>
       </Modal>

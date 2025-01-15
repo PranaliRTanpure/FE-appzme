@@ -51,23 +51,17 @@ const DevicesInventoryList = () => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [value, setValue] = useState<number>(0);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowWidth1440 = useMediaQuery("(max-width:1440px)");
+  const belowWidth1366 = useMediaQuery("(max-width:1366px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   const navigate = useNavigate();
+
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
     READY: "#E1FCDE",
     IN_USE: "#E0EFFF",
     BROKEN: "#FFF2D2",
   };
-
-  // const style = {
-  //   position: "absolute",
-  //   top: "40%",
-  //   left: "60%",
-  //   transform: "translate(-50%, -50%)",
-  //   width: 550,
-  //   bgcolor: "background.paper",
-  //   borderRadius: "5px",
-  // };
 
   const tabData = [
     { label: "Patient Name", content: "Content for Item One" },
@@ -344,9 +338,27 @@ const DevicesInventoryList = () => {
       )}
 
       {/* Filter grid */}
-      <CustomFilters onOpen={isFilterOpen} style={{ top: "35%", left: "70%" }}>
-        {/* <Grid container width={"100%"}> */}
-        <Grid container width={"100%"} borderBottom={"1px solid #E8EBEC"}>
+      <CustomFilters
+        onOpen={isFilterOpen}
+        style={{
+          top: belowWidth1024
+            ? "50%"
+            : belowWidth1366
+              ? "43%"
+              : belowWidth1440
+                ? "37%"
+                : "35%",
+          left: belowWidth1024
+            ? "28%"
+            : belowWidth1366
+              ? "60%"
+              : belowWidth1440
+                ? "60%"
+                : "70%",
+        }}
+        onClick={() => setIsFilterOpen(false)}
+      >
+        <Grid container width={"100%"}>
           <Grid
             container
             flexDirection={"column"}
@@ -392,141 +404,7 @@ const DevicesInventoryList = () => {
             ))}
           </Grid>
         </Grid>
-        <Grid
-          container
-          p={2}
-          justifyContent={"flex-end"}
-          alignContent={"center"}
-          columnGap={1}
-          width={"100%"}
-        >
-          <Grid>
-            <Button
-              variant="outlined"
-              onClick={() => setIsFilterOpen(false)}
-              sx={{ background: "#F1F8FF" }}
-            >
-              <Typography variant="bodySmall">Cancel</Typography>
-            </Button>
-          </Grid>
-          <Grid>
-            <Button
-              variant="contained"
-              onClick={() => {}}
-              sx={{ background: "#106DCC" }}
-            >
-              <Typography variant="bodySmall">Apply</Typography>
-            </Button>
-          </Grid>
-        </Grid>
-        {/* </Grid> */}
       </CustomFilters>
-
-      {/* Filter grid */}
-      {/* <Modal
-        open={isFilterOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} component={Grid}>
-          <Grid
-            container
-            justifyContent={"space-between"}
-            pt={1}
-            pr={2}
-            pl={2}
-            borderBottom={"1px solid #E8EBEC"}
-            width={"100%"}
-          >
-            <Typography id="modal-modal-title" variant="bodyMedium">
-              Filters
-            </Typography>
-            <ButtonBase onClick={() => { }}>
-              <Typography
-                variant="bodySmall"
-                color="#106DCC"
-                sx={{
-                  padding: "4px",
-                }}
-              >
-                Clear all
-              </Typography>
-            </ButtonBase>
-          </Grid>
-          <Grid container width={"100%"} borderBottom={"1px solid #E8EBEC"}>
-            <Grid
-              container
-              flexDirection={"column"}
-              width={"32%"}
-              borderRight={"1px solid #E8EBEC"}
-            >
-              <Stack direction="row" gap={2}>
-                <Tabs
-                  orientation="vertical"
-                  value={value}
-                  onChange={(_event, newValue) => setValue(newValue)}
-                  sx={{
-                    "& .MuiTabs-indicator": {
-                      display: "none",
-                    },
-                  }}
-                >
-                  {tabData.map((tab, index) => (
-                    <Tab
-                      key={index}
-                      label={tab.label}
-                      sx={{
-                        alignItems: "flex-start",
-                        textAlign: "left",
-                        width: "100%",
-                        "&.Mui-selected": {
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          backgroundColor: "#E3F2FD",
-                          borderRadius: "4px",
-                        },
-                      }}
-                    />
-                  ))}
-                </Tabs>
-              </Stack>
-            </Grid>
-            <Grid flexDirection={"column"} width={"68%"} p={1}>
-              {tabData.map((tab, index) => (
-                <TabPanel key={index} value={value} index={index}>
-                  <Typography variant="bodyMedium">{tab.content}</Typography>
-                </TabPanel>
-              ))}
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            p={2}
-            justifyContent={"flex-end"}
-            alignContent={"center"}
-            columnGap={1}
-          >
-            <Grid>
-              <Button
-                variant="outlined"
-                onClick={() => setIsFilterOpen(false)}
-                sx={{ background: "#F1F8FF" }}
-              >
-                <Typography variant="bodySmall">Cancel</Typography>
-              </Button>
-            </Grid>
-            <Grid>
-              <Button
-                variant="contained"
-                onClick={() => { }}
-                sx={{ background: "#106DCC" }}
-              >
-                <Typography variant="bodySmall">Apply</Typography>
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Modal> */}
     </>
   );
 };
