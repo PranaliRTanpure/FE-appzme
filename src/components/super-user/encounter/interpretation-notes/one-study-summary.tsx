@@ -18,20 +18,23 @@ import {
 import { Grid } from "@mui/system";
 import { useState } from "react";
 
-export const Headers: TableHeaders[] = [
-  { header: "Parameters" },
-  { header: "Night 1" },
-  { header: "Night 2" },
-];
+type Data = {
+  startDate: string;
+  TST: string;
+  AHI: string;
+  TimeSleep: string;
+  averageHeartRate: string;
+  highestHeartRate: string;
+};
 
-export const parameterNames = [
-  "Start Date",
-  "TST (min)",
-  "AHI (#)",
-  "Total Sleep Time Below 88% (min)",
-  "Average Heart Rate During Sleep (bpm)",
-  "Highest Heart Rate During Sleep (bpm)",
-];
+const parameterMapping: { [key: string]: string } = {
+  "Start Date": "startDate",
+  "TST (min)": "TST",
+  "AHI (#)": "AHI",
+  "Total Sleep Time Below 88% (min)": "TimeSleep",
+  "Average Heart Rate During Sleep (bpm)": "averageHeartRate",
+  "Highest Heart Rate During Sleep (bpm)": "highestHeartRate",
+};
 
 export const data1 = [
   {
@@ -43,12 +46,12 @@ export const data1 = [
     highestHeartRate: "110",
   },
   {
-    startDate: "2024-11-15",
+    startDate: "2024-11-10",
     TST: "321",
     AHI: "27.86",
-    TimeSleep: "35.03",
-    averageHeartRate: "81",
-    highestHeartRate: "110",
+    TimeSleep: "34.03",
+    averageHeartRate: "87",
+    highestHeartRate: "180",
   },
   {
     startDate: "2024-11-15",
@@ -97,16 +100,22 @@ export const data1 = [
     TimeSleep: "35.03",
     averageHeartRate: "81",
     highestHeartRate: "110",
+  },
+  {
+    startDate: "2024-11-15",
+    TST: "321",
+    AHI: "27.86",
+    TimeSleep: "35.03",
+    averageHeartRate: "81",
+    highestHeartRate: "789",
   },
 ];
 
-export const data = [
-  { night1: "2024-11-15", night2: "2024-11-28" },
-  { night1: 321, night2: 154 },
-  { night1: 27.86, night2: 22.71 },
-  { night1: 35.03, night2: 20.12 },
-  { night1: 86, night2: 68 },
-  { night1: 110, night2: 84 },
+export const Headers: TableHeaders[] = [
+  { header: "Parameters" },
+  ...data1.map((_, index) => ({
+    header: `Night ${index + 1}`,
+  })),
 ];
 
 const OneStudySummary = () => {
@@ -151,7 +160,7 @@ const OneStudySummary = () => {
         </Grid>
       </Grid>
       {/* Grid 2 */}
-      <Grid container>
+      <Grid container width={"100%"}>
         <TableContainer
           sx={{
             maxHeight: "500px",
@@ -194,45 +203,28 @@ const OneStudySummary = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {parameterNames.map((name, index) => (
-                <TableRow key={name}>
-                  <TableCell sx={{ ...heading, width: "340px" }} align="left">
-                    <Grid container flexDirection={"column"}>
-                      <Grid container flexDirection={"column"}>
-                        <Typography
-                          fontWeight={500}
-                          color="#21262B"
-                          variant="bodySmall"
-                        >
-                          {name}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </TableCell>
+              {Object.keys(parameterMapping).map((parameter) => (
+                <TableRow key={parameter}>
                   <TableCell sx={{ ...heading }} align="left">
-                    <Grid container flexDirection={"column"}>
+                    <Typography variant="bodySmall" sx={typographyCss}>
+                      {parameter}
+                    </Typography>
+                  </TableCell>
+                  {data1.map((data, rowIndex) => (
+                    <TableCell key={rowIndex} sx={{ ...heading }} align="left">
                       <Typography
-                        sx={typographyCss}
                         variant="bodySmall"
-                        color="#21262B"
+                        sx={typographyCss}
                         fontWeight={400}
                       >
-                        {data[index].night1}
+                        {data[
+                          parameterMapping[
+                            parameter as keyof typeof parameterMapping
+                          ] as keyof Data
+                        ] ?? "-"}
                       </Typography>
-                    </Grid>
-                  </TableCell>
-                  <TableCell sx={{ ...heading }} align="left">
-                    <Grid container flexDirection={"column"}>
-                      <Typography
-                        sx={typographyCss}
-                        variant="bodySmall"
-                        color="#21262B"
-                        fontWeight={400}
-                      >
-                        {data[index].night2}
-                      </Typography>
-                    </Grid>
-                  </TableCell>
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))}
             </TableBody>

@@ -108,9 +108,6 @@ const InterpretationNoteStepper = () => {
         return <ThreeSignoff />;
     }
   };
-
-  renderStepComponent;
-
   return (
     <Grid
       container
@@ -124,11 +121,9 @@ const InterpretationNoteStepper = () => {
         <InterpretationNotesHeader />
       </Grid>
       {/* Stepper */}
-      <Grid container flexDirection={"column"} flex={1}>
+      <Grid container width={"100%"} flexDirection={"column"} flex={1}>
         <FormProvider {...method}>
-          <form
-            style={{ height: "100%", width: "100%", border: "1px solid red" }}
-          >
+          <form style={{ height: "100%", width: "100%" }}>
             <Grid
               flexDirection={"column"}
               bgcolor={"#F5F6F8"}
@@ -141,6 +136,7 @@ const InterpretationNoteStepper = () => {
                 flexDirection={"column"}
                 bgcolor={"#F5F6F8"}
                 flex={1}
+                width={"100%"}
               >
                 <Grid container width={"100%"}>
                   <Grid
@@ -205,7 +201,12 @@ const InterpretationNoteStepper = () => {
                   </Grid>
                 </Grid>
 
-                <Grid container justifyContent={"flex-start"} p={2}>
+                <Grid
+                  container
+                  justifyContent={"flex-start"}
+                  p={2}
+                  width={"100%"}
+                >
                   {renderStepComponent(activeStep)}
                 </Grid>
               </Grid>
