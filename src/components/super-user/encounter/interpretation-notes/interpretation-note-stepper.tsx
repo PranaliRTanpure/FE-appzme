@@ -108,9 +108,6 @@ const InterpretationNoteStepper = () => {
         return <ThreeSignoff />;
     }
   };
-
-  renderStepComponent;
-
   return (
     <Grid
       container
