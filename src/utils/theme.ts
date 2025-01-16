@@ -142,14 +142,14 @@ export const theme = createTheme({
             boxShadow: "none",
             color: "#2D7AE5",
             "&:hover": {
-              backgroundColor: alpha(palette.secondary.main, 0.3),
+              backgroundColor: alpha(palette.secondary.main, 0.2),
             },
           },
           "&:disabled": {
             cursor: "wait",
             pointerEvents: "auto",
             "&:hover": {
-              backgroundColor: palette.primary.main,
+              backgroundColor: alpha(palette.secondary.main, 0.2),
             },
           },
         },

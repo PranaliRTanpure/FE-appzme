@@ -1,13 +1,11 @@
 import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
-import { AlertSeverity } from "@/common-components/snackbar-alert/snackbar-alert";
 import {
   heading,
   tableCellCss,
   typographyCss,
 } from "@/common-components/table/common-table-widgets";
 import { TableHeaders } from "@/common-components/table/table-models";
-import { setSnackbarOn } from "@/redux/actions/snackbar-action";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import {
@@ -20,8 +18,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import Paginator from "../../../../common-components/paginator/paginator";
 
@@ -44,16 +40,6 @@ export const Headers: TableHeaders[] = [
 
 const EncounterList = () => {
   const belowHeight768 = useMediaQuery("(max-height:768px)");
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      setSnackbarOn({
-        severity: AlertSeverity.SUCCESS,
-        message: "successMessage",
-      }),
-    );
-  });
 
   return (
     <Grid height={"100%"} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
