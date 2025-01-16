@@ -65,6 +65,7 @@ const EncounterList = () => {
                 onDebounceCall={() => {}}
                 onInputEmpty={() => {}}
                 hasStartSearchIcon={true}
+                bgWhite
               />
             </Grid>
           </Grid>
@@ -101,6 +102,7 @@ const EncounterList = () => {
               maxHeight: belowHeight768 ? "63vh" : "72vh",
               maxWidth: "100%",
               overflowY: "auto",
+              bgcolor: "white",
             }}
           >
             <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
