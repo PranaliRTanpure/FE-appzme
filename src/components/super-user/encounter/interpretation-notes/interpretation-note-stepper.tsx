@@ -218,16 +218,18 @@ const InterpretationNoteStepper = () => {
                 borderTop={`1px solid ${theme.palette.grey[300]}`}
               >
                 <Grid container>
-                  <Button
-                    variant="outlined"
-                    color="inherit"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    sx={{ mr: 1 }}
-                    startIcon={<ArrowBackIcon />}
-                  >
-                    Previous
-                  </Button>
+                  {activeStep !== 0 && (
+                    <Button
+                      variant="outlined"
+                      color="inherit"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      startIcon={<ArrowBackIcon />}
+                      sx={{ bgcolor: "#F1F8FF", mr: 1 }}
+                    >
+                      Previous
+                    </Button>
+                  )}
                   <Box sx={{ flex: "1 1 auto" }} />
                   <Button
                     variant="contained"

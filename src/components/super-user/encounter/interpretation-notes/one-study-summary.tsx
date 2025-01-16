@@ -15,7 +15,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import { useState } from "react";
 
 type Data = {
@@ -112,14 +112,17 @@ export const data1 = [
 ];
 
 export const Headers: TableHeaders[] = [
-  { header: "Parameters" },
+  { header: "Parameters", minWidth: "318px" },
   ...data1.map((_, index) => ({
     header: `Night ${index + 1}`,
+    minWidth: "120px",
   })),
 ];
 
 const OneStudySummary = () => {
   const [selectedValue, setSelectedValue] = useState<string>("");
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
 
   const handleSelectChange = (e: SelectChangeEvent<string>): void => {
     const value = e.target.value;
@@ -140,7 +143,7 @@ const OneStudySummary = () => {
             Primary Night for Interpretation :
           </Typography>
         </Grid>
-        <Grid width={"12%"}>
+        <Grid width={belowWidth1024 ? "20%" : "12%"}>
           <CustomSelect
             enableDeselect
             placeholder={"Select Night"}
@@ -163,7 +166,7 @@ const OneStudySummary = () => {
       <Grid container width={"100%"}>
         <TableContainer
           sx={{
-            maxHeight: "500px",
+            maxHeight: belowHeight768 ? "225px" : "500px",
             maxWidth: "100%",
             overflow: "auto",
             display: "inline-block",
