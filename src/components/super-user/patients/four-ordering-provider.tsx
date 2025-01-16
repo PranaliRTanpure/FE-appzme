@@ -80,9 +80,7 @@ const FourOrderingProvider = () => {
           <Grid
             container
             height={"59px"}
-            border={2}
             justifyContent={"space-between"}
-            // pl={1}
             p={"0px 16px"}
             alignItems={"center"}
             borderBottom={`1px solid ${theme.palette.grey[300]}`}
