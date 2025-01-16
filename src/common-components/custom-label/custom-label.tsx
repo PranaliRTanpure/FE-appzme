@@ -7,16 +7,17 @@ import { customLabelStyles } from "./widgets/custom-label-styles";
 interface CustomFormLabelProps {
   label: string | React.ReactNode;
   isRequired?: boolean;
+  variant?: "bodySmall" | "bodyMedium";
 }
 
 function CustomLabel(props: CustomFormLabelProps) {
-  const { label, isRequired } = props;
+  const { label, isRequired, variant } = props;
 
   return (
     <Box mb={1}>
       <Typography
         sx={{ fontWeight: 600, letterSpacing: "inherit" }}
-        variant={"bodySmall"}
+        variant={variant || "bodyExtraSmall"}
         color={theme.palette.grey[700]}
       >
         {label}

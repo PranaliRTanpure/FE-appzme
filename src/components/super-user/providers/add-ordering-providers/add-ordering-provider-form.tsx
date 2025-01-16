@@ -82,10 +82,13 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
           {/* Main Grid */}
           <Grid width={"100%"}>
             {/* Grid One */}
-            <Grid container width={"100%"} rowGap={1}>
+            <Grid container width={"100%"} rowGap={2}>
               {/* Profile Image */}
               <Grid width={"100%"}>
-                <CustomLabel label={"Profile Information"} />
+                <CustomLabel
+                  variant={"bodySmall"}
+                  label={"Profile Information"}
+                />
               </Grid>
               <Grid width={"100%"} container>
                 <Grid mr={0.5} mt={0.5}>
@@ -333,7 +336,10 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
                 </Grid>
               </Grid>
               <Grid container width={"100%"}>
-                <CustomLabel label="Physician Portal Access" />
+                <CustomLabel
+                  variant={"bodySmall"}
+                  label="Physician Portal Access"
+                />
                 <Grid width={"100%"}>
                   <CustomRadioButton
                     optionsArray={["Yes", "No"]}
@@ -354,7 +360,10 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
                 variant="middle"
               />
               <Grid container width={"100%"}>
-                <CustomLabel label="Address Information" />
+                <CustomLabel
+                  variant={"bodySmall"}
+                  label="Address Information"
+                />
                 <Grid container justifyContent={"space-between"}>
                   <Grid width={"24%"}>
                     <CustomLabel label="Address Line 1" />
@@ -478,7 +487,10 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
               />
               <Grid container width={"100%"}>
                 <Grid width={"100%"}>
-                  <CustomLabel label="Preferred Provider Details" />
+                  <CustomLabel
+                    variant={"bodySmall"}
+                    label="Preferred Provider Details"
+                  />
                 </Grid>
                 <Grid container justifyContent={"space-between"} width={"100%"}>
                   <Grid width={"24.5%"}>
@@ -600,7 +612,10 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
               />
               <Grid container width={"100%"}>
                 <Grid width={"100%"}>
-                  <CustomLabel label="Provider Group Details" />
+                  <CustomLabel
+                    variant={"bodySmall"}
+                    label="Provider Group Details"
+                  />
                 </Grid>
                 <Grid container justifyContent={"space-between"} width={"100%"}>
                   <Grid width={"24.5%"}>
