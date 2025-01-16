@@ -156,7 +156,7 @@ const OneStudySummary = () => {
           />
         </Grid>
         <Grid>
-          <Typography variant="bodySmall">(2 night(s) recorded)</Typography>
+          <Typography variant="bodySmall">{`(2 night(s) recorded)`}</Typography>
         </Grid>
       </Grid>
       {/* Grid 2 */}
@@ -190,9 +190,7 @@ const OneStudySummary = () => {
                       pr={4}
                       container
                       flexDirection={"column"}
-                      alignContent={
-                        header.header === "Status" ? "flex-end" : "flex-start"
-                      }
+                      alignContent={"flex-start"}
                     >
                       <Typography variant="bodySmall">
                         {header.header}
@@ -202,7 +200,7 @@ const OneStudySummary = () => {
                 ))}
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody sx={{ background: "white" }}>
               {Object.keys(parameterMapping).map((parameter) => (
                 <TableRow key={parameter}>
                   <TableCell sx={{ ...heading }} align="left">

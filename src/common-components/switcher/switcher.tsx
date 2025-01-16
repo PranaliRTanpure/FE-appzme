@@ -43,7 +43,6 @@ const Switcher = (props: SwitcherProps) => {
     height: compactHeight ? "32px" : "40px",
     justifyContent: "center",
   }));
-
   return (
     <StyledGridContainer container gap={0} border={1}>
       {validOptions.length > 0 ? (
