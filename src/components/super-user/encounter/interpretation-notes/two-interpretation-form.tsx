@@ -12,6 +12,7 @@ import CustomLabel from "@/common-components/custom-label/custom-label";
 import CustomInput from "@/common-components/custom-input/custom-input";
 import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
 import React from "react";
+import CheckBox from "@/common-components/custom-checkbox/checkbox";
 
 export const studyData = [
   {
@@ -45,21 +46,53 @@ export const diagnosisData = [
     name: "Obstructive Sleep Apnea (Severe)",
     label: "Obstructive Sleep Apnea (Severe)",
   },
-  { name: "Central Sleep Apnea", label: "Central Sleep Apnea" },
+  {
+    name: "Central Sleep Apnea",
+    label: "Central Sleep Apnea",
+  },
   {
     name: "Periodic Limb Movement Disorder",
     label: "Periodic Limb Movement Disorder",
   },
-  { name: "Nocturnal Hypoxemia", label: "Nocturnal Hypoxemia" },
-  { name: "Insomnia", label: "Insomnia" },
-  { name: "Narcolepsy", label: "Narcolepsy" },
-  { name: "Restless Leg Syndrome", label: "Restless Leg Syndrome" },
-  { name: "REM Sleep Behavior Disorder", label: "REM Sleep Behavior Disorder" },
-  { name: "Normal Sleep Study", label: "Normal Sleep Study" },
+  {
+    name: "Nocturnal Hypoxemia",
+    label: "Nocturnal Hypoxemia",
+  },
+  {
+    name: "Insomnia",
+    label: "Insomnia",
+  },
+  {
+    name: "Narcolepsy",
+    label: "Narcolepsy",
+  },
+  {
+    name: "Restless Leg Syndrome",
+    label: "Restless Leg Syndrome",
+  },
+  {
+    name: "REM Sleep Behavior Disorder",
+    label: "REM Sleep Behavior Disorder",
+  },
+  {
+    name: "Normal Sleep Study",
+    label: "Normal Sleep Study",
+  },
 ];
 
 const TwoInterpretationForm = () => {
   const { control, setValue } = useFormContext();
+  const [checkboxStates, setCheckboxStates] = useState<{
+    [key: string]: boolean;
+  }>(
+    diagnosisData.reduce(
+      (acc, item) => {
+        acc[item.label] = false;
+        return acc;
+      },
+      {} as { [key: string]: boolean },
+    ),
+  );
   const [data, setData] = useState<CheckboxData[]>([
     { name: "gilad", label: "Gilad" },
     { name: "antoine", label: "Antoine" },
@@ -72,6 +105,10 @@ const TwoInterpretationForm = () => {
     { name: "gaurav", label: "Gaurav" },
   ]);
 
+  const [diagnosisDataState, setDiagnosisDataState] = useState<CheckboxData[]>(
+    [],
+  );
+
   const addNewCheckbox = () => {
     const newCheckbox = {
       name: `checkbox_${data.length}`,
@@ -79,6 +116,22 @@ const TwoInterpretationForm = () => {
     };
     setData([...data, newCheckbox]);
   };
+
+  const addNewDiagnosisCheckbox = () => {
+    const newCheckbox = {
+      name: `diagnosis_${diagnosisDataState.length + 1}`,
+      label: `Diagnosis ${diagnosisDataState.length + 1}`,
+    };
+    setDiagnosisDataState([...diagnosisDataState, newCheckbox]);
+  };
+
+  const handleCheckboxChange = (label: string, isChecked: boolean) => {
+    setCheckboxStates((prev) => ({
+      ...prev,
+      [label]: isChecked,
+    }));
+  };
+
   return (
     <Grid
       container
@@ -165,7 +218,7 @@ const TwoInterpretationForm = () => {
           </Grid>
         </Grid>
         <Grid container width={"100%"}>
-          <CheckboxWithTextFields data={data} />
+          <CheckboxWithTextFields data={data} size={4} />
         </Grid>
       </Grid>
       {/* Diagnosis Grid */}
@@ -175,6 +228,7 @@ const TwoInterpretationForm = () => {
         width={"100%"}
         borderBottom={"1px solid #E7E7E7"}
         pb={2}
+        rowGap={2}
       >
         <Grid
           container
@@ -189,7 +243,7 @@ const TwoInterpretationForm = () => {
           </Grid>
           <Button
             variant="outlined"
-            onClick={() => {}}
+            onClick={addNewDiagnosisCheckbox}
             sx={{ bgcolor: "#F1F8FF" }}
             startIcon={
               <AddIcon
@@ -201,6 +255,23 @@ const TwoInterpretationForm = () => {
           >
             <Typography variant="bodySmall">Add Diagnosis</Typography>
           </Button>
+        </Grid>
+        <Grid container width={"100%"}>
+          {diagnosisData.map((item, index) => (
+            <Grid size={4}>
+              <CheckBox
+                key={index}
+                label={item.label}
+                checked={checkboxStates[item.label]}
+                handleChange={(e) =>
+                  handleCheckboxChange(item.label, e.target.checked)
+                }
+              />
+            </Grid>
+          ))}
+          <Grid width={"99.58%"}>
+            <CheckboxWithTextFields data={diagnosisDataState} size={4} />
+          </Grid>
         </Grid>
       </Grid>
       {/*Technical Report Grid*/}
