@@ -1,3 +1,4 @@
+import { theme } from "@/utils/theme";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
@@ -8,7 +9,7 @@ import * as React from "react";
 type CustomRadioButtonProps = {
   optionsArray: string[];
   selectedvalue: string;
-  // eslint-disable-next-line no-unused-vars
+
   onChange: (opt: string) => void;
 };
 
@@ -46,6 +47,10 @@ const CustomRadioButton = (props: CustomRadioButtonProps) => {
                   sx={{
                     "& .MuiSvgIcon-root": {
                       fontSize: 16,
+                      color:
+                        value === option
+                          ? theme.palette.secondary.main
+                          : "inherit",
                     },
                   }}
                 />
