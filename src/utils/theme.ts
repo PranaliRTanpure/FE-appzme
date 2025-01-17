@@ -148,6 +148,8 @@ export const theme = createTheme({
           "&:disabled": {
             cursor: "wait",
             pointerEvents: "auto",
+            backgroundColor: "#DBDBDB",
+            color: palette.common.white,
             "&:hover": {
               backgroundColor: alpha(palette.secondary.main, 0.2),
             },

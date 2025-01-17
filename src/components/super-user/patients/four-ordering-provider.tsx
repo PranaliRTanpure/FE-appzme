@@ -1,5 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import CustomRadioButton from "@/common-components/radio-button/radio-button";
+import MainDrawer from "@/components/ui/MainDrawer";
+import { useDrawer } from "@/hooks/useDrawer";
+import AddIcon from "@mui/icons-material/Add";
+import { Button, Divider, Typography } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
+import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import CustomAutoComplete from "../../../common-components/custom-auto-complete/custom-auto-complete";
 import CustomInputWithPrefix from "../../../common-components/custom-input-with-prefix/custom-input-with-prefix";
@@ -8,13 +13,13 @@ import CustomLabel from "../../../common-components/custom-label/custom-label";
 import CustomSelect from "../../../common-components/custom-select/customSelect";
 import { stateList } from "../../../utils/StateList";
 import { theme } from "../../../utils/theme";
-import AddIcon from "@mui/icons-material/Add";
-import { useDrawer } from "@/hooks/useDrawer";
 import AddOrderingProviderForm from "../providers/add-ordering-providers/add-ordering-provider-form";
-import MainDrawer from "@/components/ui/MainDrawer";
 
 const FourOrderingProvider = () => {
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
+  const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(
+    "HST Order",
+  );
 
   const {
     control,
@@ -85,9 +90,28 @@ const FourOrderingProvider = () => {
             alignItems={"center"}
             borderBottom={`1px solid ${theme.palette.grey[300]}`}
           >
-            <Typography variant="bodyMedium" fontWeight={"bold"}>
-              Ordering Provider
-            </Typography>
+            <Grid container height={"100%"} justifyContent={"center"}>
+              <Grid container alignContent={"center"}>
+                <Typography variant="bodyMedium" fontWeight={"bold"}>
+                  Ordering Provider
+                </Typography>
+              </Grid>
+              <Grid height={"100%"} container>
+                <Divider sx={{}} orientation="vertical" variant="inset" />
+              </Grid>
+              <Grid columnGap={2} container ml={2} alignItems={"center"}>
+                <CustomLabel label="Provider" />
+                <Grid minWidth={"250px"}>
+                  <CustomAutoComplete
+                    placeholder="Select Ordering Provider"
+                    options={[]}
+                    onChange={function (selectedValue: string | ""): void {
+                      selectedValue;
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
             <Button
               variant="outlined"
               startIcon={<AddIcon />}
@@ -98,251 +122,309 @@ const FourOrderingProvider = () => {
               Add Provider
             </Button>
           </Grid>
-          <Grid p={2} container flexDirection={"column"} rowGap={2}>
-            <Grid container width={"100%"} justifyContent={"space-between"}>
-              <Grid width={"24%"}>
-                <CustomLabel label="Provider" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderName"
-                  render={({ field }) => (
-                    <CustomAutoComplete
-                      value={field.value?.trim() || ""}
-                      placeholder={"Select Provider"}
-                      hasError={!!errors.orderingPoviderName}
-                      errorMessage={
-                        errors.orderingPoviderName?.message as string
-                      }
-                      onChange={(e) => setValue("orderingPoviderName", e)}
-                      options={[]}
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"24%"}>
-                <CustomLabel label="Specialty" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderSpeciality"
-                  render={({ field }) => (
-                    <CustomAutoComplete
-                      options={[]}
-                      {...field}
-                      onChange={(e) => setValue("orderingPoviderSpeciality", e)}
-                      value={field.value?.trim() || ""}
-                      placeholder={"Select Specialty"}
-                      hasError={!!errors.orderingPoviderSpeciality}
-                      errorMessage={
-                        errors.orderingPoviderSpeciality?.message as string
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"24%"}>
-                <CustomLabel label="Phone" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderPhone"
-                  render={({ field }) => (
-                    <CustomInputWithPrefix
-                      onChange={(e) =>
-                        setValue("orderingPoviderPhone", e.target.value)
-                      }
-                      prefix={`+1`}
-                      value={field.value?.trim() || ""}
-                      placeholder={"Enter Phone"}
-                      hasError={!!errors.orderingPoviderPhone}
-                      errorMessage={
-                        errors.orderingPoviderPhone?.message as string
-                      }
-                      name={field.name}
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"24%"}>
-                <CustomLabel label="Fax" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderFax"
-                  render={({ field }) => (
-                    <CustomInput
-                      value={field.value?.trim() || ""}
-                      placeholder={"Enter Fax Number"}
-                      hasError={!!errors.orderingPoviderFax}
-                      errorMessage={
-                        errors.orderingPoviderFaxl?.message as string
-                      }
-                      name={field.name}
-                      onChange={(e) =>
-                        setValue("orderingPoviderFax", e.target.value)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
+          {false && (
+            <Grid p={2} container flexDirection={"column"} rowGap={2}>
+              <Grid container width={"100%"} justifyContent={"space-between"}>
+                <Grid width={"24%"}>
+                  <CustomLabel label="Provider" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderName"
+                    render={({ field }) => (
+                      <CustomAutoComplete
+                        value={field.value?.trim() || ""}
+                        placeholder={"Select Provider"}
+                        hasError={!!errors.orderingPoviderName}
+                        errorMessage={
+                          errors.orderingPoviderName?.message as string
+                        }
+                        onChange={(e) => setValue("orderingPoviderName", e)}
+                        options={[]}
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"24%"}>
+                  <CustomLabel label="Specialty" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderSpeciality"
+                    render={({ field }) => (
+                      <CustomAutoComplete
+                        options={[]}
+                        {...field}
+                        onChange={(e) =>
+                          setValue("orderingPoviderSpeciality", e)
+                        }
+                        value={field.value?.trim() || ""}
+                        placeholder={"Select Specialty"}
+                        hasError={!!errors.orderingPoviderSpeciality}
+                        errorMessage={
+                          errors.orderingPoviderSpeciality?.message as string
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"24%"}>
+                  <CustomLabel label="Phone" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderPhone"
+                    render={({ field }) => (
+                      <CustomInputWithPrefix
+                        onChange={(e) =>
+                          setValue("orderingPoviderPhone", e.target.value)
+                        }
+                        prefix={`+1`}
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter Phone"}
+                        hasError={!!errors.orderingPoviderPhone}
+                        errorMessage={
+                          errors.orderingPoviderPhone?.message as string
+                        }
+                        name={field.name}
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"24%"}>
+                  <CustomLabel label="Fax" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderFax"
+                    render={({ field }) => (
+                      <CustomInput
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter Fax Number"}
+                        hasError={!!errors.orderingPoviderFax}
+                        errorMessage={
+                          errors.orderingPoviderFaxl?.message as string
+                        }
+                        name={field.name}
+                        onChange={(e) =>
+                          setValue("orderingPoviderFax", e.target.value)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+              </Grid>
+              <Grid container width={"100%"} columnGap={3}>
+                <Grid width={"24%"}>
+                  <CustomLabel label="Tax ID" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderTaxId"
+                    render={({ field }) => (
+                      <CustomInput
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter Tax ID"}
+                        hasError={!!errors.orderingPoviderTaxId}
+                        errorMessage={
+                          errors.orderingPoviderTaxId?.message as string
+                        }
+                        name={field.name}
+                        onChange={(e) =>
+                          setValue("orderingPoviderTaxId", e.target.value)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"24%"}>
+                  <CustomLabel label="NPI" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderNPI"
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        onChange={(e) =>
+                          setValue("orderingPoviderNPI", e.target.value)
+                        }
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter NPI"}
+                        hasError={!!errors.orderingPoviderNPI}
+                        errorMessage={
+                          errors.orderingPoviderNPI?.message as string
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+              </Grid>
+              <Grid container width={"100%"} justifyContent={"space-between"}>
+                <Grid width={"24%"}>
+                  <CustomLabel label="Address Line 1" isRequired />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderAddressLine1"
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter Address Line 1"}
+                        hasError={
+                          errors?.address &&
+                          !!errors?.orderingPoviderAddressLine1
+                        }
+                        errorMessage={
+                          errors?.orderingPoviderAddressLine1 &&
+                          (errors?.orderingPoviderAddressLine1
+                            ?.message as string)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"24%"}>
+                  <CustomLabel label="Address Line 2" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderAddressLine2"
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        value={field.value || ""}
+                        placeholder={"Enter Address Line 2"}
+                        hasError={
+                          errors?.orderingPoviderAddressLine2 &&
+                          !!errors?.orderingPoviderAddressLine2
+                        }
+                        errorMessage={
+                          errors?.orderingPoviderAddressLine2 &&
+                          (errors?.orderingPoviderAddressLine2
+                            ?.message as string)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"15.5%"}>
+                  <CustomLabel label="City" isRequired />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderAddressCity"
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        value={field.value || ""}
+                        placeholder={"Enter City"}
+                        hasError={
+                          errors?.orderingPoviderAddressCity &&
+                          !!(
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            (
+                              errors?.orderingPoviderAddressCity as unknown as any
+                            ).city
+                          )
+                        }
+                        errorMessage={
+                          errors?.orderingPoviderAddressCity &&
+                          (errors?.orderingPoviderAddressCity.message as string)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"15.5%"}>
+                  <CustomLabel isRequired label="State" />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderAddressState"
+                    render={({ field }) => (
+                      <CustomAutoComplete
+                        {...field}
+                        placeholder={"Search the state"}
+                        options={stateList}
+                        maxHeightForOptionsList={300}
+                        value={field.value || ""}
+                        hasError={
+                          errors?.orderingPoviderAddressState &&
+                          !!errors?.orderingPoviderAddressState
+                        }
+                        errorMessage={
+                          errors?.orderingPoviderAddressState &&
+                          (errors?.orderingPoviderAddressState
+                            ?.message as string)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+                <Grid width={"15.5%"}>
+                  <CustomLabel label="Zip Code" isRequired />
+                  <Controller
+                    control={control}
+                    name="orderingPoviderAddressZipcode"
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        value={field.value || ""}
+                        placeholder={"Enter Zip Code"}
+                        hasError={
+                          errors?.orderingPoviderAddressZipcode &&
+                          !!errors?.orderingPoviderAddressZipcode
+                        }
+                        errorMessage={
+                          errors?.orderingPoviderAddressZipcode &&
+                          (errors?.orderingPoviderAddressZipcode
+                            ?.message as string)
+                        }
+                      />
+                    )}
+                  />
+                </Grid>{" "}
+              </Grid>
             </Grid>
-            <Grid container width={"100%"} columnGap={3}>
-              <Grid width={"24%"}>
-                <CustomLabel label="Tax ID" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderTaxId"
-                  render={({ field }) => (
-                    <CustomInput
-                      value={field.value?.trim() || ""}
-                      placeholder={"Enter Tax ID"}
-                      hasError={!!errors.orderingPoviderTaxId}
-                      errorMessage={
-                        errors.orderingPoviderTaxId?.message as string
-                      }
-                      name={field.name}
-                      onChange={(e) =>
-                        setValue("orderingPoviderTaxId", e.target.value)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"24%"}>
-                <CustomLabel label="NPI" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderNPI"
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      onChange={(e) =>
-                        setValue("orderingPoviderNPI", e.target.value)
-                      }
-                      value={field.value?.trim() || ""}
-                      placeholder={"Enter NPI"}
-                      hasError={!!errors.orderingPoviderNPI}
-                      errorMessage={
-                        errors.orderingPoviderNPI?.message as string
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
+          )}
+          {
+            <Grid p={2} container flexDirection={"column"} rowGap={2}>
+              <Grid container width={"100%"} justifyContent={"space-between"}>
+                <Grid container columnGap={1}>
+                  <CustomLabel variant="bodySmall" label="Specialty :" />
+                  <Typography variant="bodySmall">Pediatrics</Typography>
+                </Grid>{" "}
+                <Grid container columnGap={1}>
+                  <CustomLabel variant="bodySmall" label="Phone :" />
+                  <Typography variant="bodySmall">(209) 555-0104</Typography>
+                </Grid>{" "}
+                <Grid container columnGap={1}>
+                  <CustomLabel variant="bodySmall" label="Fax :" />
+                  <Typography variant="bodySmall">031-3012-4567</Typography>
+                </Grid>{" "}
+                <Grid container columnGap={1}>
+                  <CustomLabel variant="bodySmall" label="tax ID :" />
+                  <Typography variant="bodySmall">44-3957294</Typography>
+                </Grid>{" "}
+                <Grid container columnGap={1}>
+                  <CustomLabel variant="bodySmall" label="NPI :" />
+                  <Typography variant="bodySmall">2323897539</Typography>
+                </Grid>{" "}
+                <Grid container columnGap={1}>
+                  <CustomLabel variant="bodySmall" label="Address :" />
+                  <Typography variant="bodySmall">
+                    6391 Elgin St. Celina, Delaware 10299
+                  </Typography>
+                </Grid>{" "}
+              </Grid>
             </Grid>
-            <Grid container width={"100%"} justifyContent={"space-between"}>
-              <Grid width={"24%"}>
-                <CustomLabel label="Address Line 1" isRequired />
-                <Controller
-                  control={control}
-                  name="orderingPoviderAddressLine1"
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      value={field.value?.trim() || ""}
-                      placeholder={"Enter Address Line 1"}
-                      hasError={
-                        errors?.address && !!errors?.orderingPoviderAddressLine1
-                      }
-                      errorMessage={
-                        errors?.orderingPoviderAddressLine1 &&
-                        (errors?.orderingPoviderAddressLine1?.message as string)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"24%"}>
-                <CustomLabel label="Address Line 2" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderAddressLine2"
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      value={field.value || ""}
-                      placeholder={"Enter Address Line 2"}
-                      hasError={
-                        errors?.orderingPoviderAddressLine2 &&
-                        !!errors?.orderingPoviderAddressLine2
-                      }
-                      errorMessage={
-                        errors?.orderingPoviderAddressLine2 &&
-                        (errors?.orderingPoviderAddressLine2?.message as string)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"15.5%"}>
-                <CustomLabel label="City" isRequired />
-                <Controller
-                  control={control}
-                  name="orderingPoviderAddressCity"
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      value={field.value || ""}
-                      placeholder={"Enter City"}
-                      hasError={
-                        errors?.orderingPoviderAddressCity &&
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        !!(errors?.orderingPoviderAddressCity as unknown as any)
-                          .city
-                      }
-                      errorMessage={
-                        errors?.orderingPoviderAddressCity &&
-                        (errors?.orderingPoviderAddressCity.message as string)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"15.5%"}>
-                <CustomLabel isRequired label="State" />
-                <Controller
-                  control={control}
-                  name="orderingPoviderAddressState"
-                  render={({ field }) => (
-                    <CustomAutoComplete
-                      {...field}
-                      placeholder={"Search the state"}
-                      options={stateList}
-                      maxHeightForOptionsList={300}
-                      value={field.value || ""}
-                      hasError={
-                        errors?.orderingPoviderAddressState &&
-                        !!errors?.orderingPoviderAddressState
-                      }
-                      errorMessage={
-                        errors?.orderingPoviderAddressState &&
-                        (errors?.orderingPoviderAddressState?.message as string)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-              <Grid width={"15.5%"}>
-                <CustomLabel label="Zip Code" isRequired />
-                <Controller
-                  control={control}
-                  name="orderingPoviderAddressZipcode"
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      value={field.value || ""}
-                      placeholder={"Enter Zip Code"}
-                      hasError={
-                        errors?.orderingPoviderAddressZipcode &&
-                        !!errors?.orderingPoviderAddressZipcode
-                      }
-                      errorMessage={
-                        errors?.orderingPoviderAddressZipcode &&
-                        (errors?.orderingPoviderAddressZipcode
-                          ?.message as string)
-                      }
-                    />
-                  )}
-                />
-              </Grid>{" "}
-            </Grid>
+          }
+          <Divider
+            variant="middle"
+            orientation="horizontal"
+            sx={{ width: "100%" }}
+          />
+          <Grid p={2}>
+            <CustomLabel label="Order Recieved" />
+            <CustomRadioButton
+              optionsArray={["HST Order", "OAT Order"]}
+              selectedvalue={orderType}
+              onChange={function (opt: string): void {
+                setOrderType(opt as "HST Order" | "OAT Order");
+              }}
+            />
           </Grid>
         </Grid>
         <Grid

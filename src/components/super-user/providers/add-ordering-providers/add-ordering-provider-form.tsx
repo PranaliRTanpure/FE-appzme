@@ -10,7 +10,7 @@ import { UploadImage } from "@/common-components/image-upload/custom-image-uploa
 import CustomRadioButton from "@/common-components/radio-button/radio-button";
 import { theme } from "@/utils/theme";
 import { Button, Divider, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { OrderngProviderSchema } from "./orderng-provider-schema";
 
@@ -21,9 +21,25 @@ interface AddOrderingProviderFormProps {
 
 const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
   const { handleDrawerClose, isEdit } = props;
-  const footerRef = useRef<HTMLDivElement>();
   const [physicianPortalAccess, setPhysicianPortalAccess] = useState("");
   const [fUTelemedValue, setFUTelemedValue] = useState<boolean>(false);
+
+  const [height, setHeight] = useState(0);
+
+  const footerRef = useCallback(
+    (
+      node: {
+        getBoundingClientRect: () => {
+          height: React.SetStateAction<number>;
+        };
+      } | null,
+    ) => {
+      if (node !== null) {
+        setHeight(node.getBoundingClientRect().height);
+      }
+    },
+    [],
+  );
 
   const initialValues = {
     avatar: "",
@@ -61,7 +77,7 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
     setValue,
     handleSubmit,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(OrderngProviderSchema),
@@ -73,7 +89,7 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
   };
 
   return (
-    <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
+    <DrawerBody padding={3} offset={height}>
       <Grid container width={"100%"} height={"100%"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -102,7 +118,7 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
                 <Grid flex={1} container flexDirection={"column"} rowGap={1}>
                   <Grid container justifyContent={"space-between"}>
                     <Grid width={"18%"}>
-                      <CustomLabel label="First Name" />
+                      <CustomLabel isRequired label="First Name" />
                       <Controller
                         control={control}
                         name="firstName"
@@ -144,7 +160,7 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
                       />
                     </Grid>{" "}
                     <Grid width={"18%"}>
-                      <CustomLabel label="Lats Name" />
+                      <CustomLabel isRequired label="Last Name" />
                       <Controller
                         control={control}
                         name="lastName"
@@ -165,7 +181,7 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
                       />
                     </Grid>{" "}
                     <Grid width={"24%"}>
-                      <CustomLabel label="Suffix" />
+                      <CustomLabel isRequired label="Suffix" />
                       <Controller
                         control={control}
                         name="suffix"
@@ -719,9 +735,10 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
                   onClick={handleDrawerClose}
                   variant="contained"
                   type="submit"
+                  disabled={isValid}
                 >
                   <Typography variant="bodySmall">
-                    {isEdit ? "Save Changes" : "Create Manufacturers"}
+                    {isEdit ? "Save Changes" : "Create Ordering Provider"}
                   </Typography>
                 </Button>
               </Grid>
