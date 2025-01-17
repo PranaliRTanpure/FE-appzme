@@ -104,25 +104,43 @@ const TwoInterpretationForm = () => {
     { name: "shiv", label: "Shiv" },
     { name: "gaurav", label: "Gaurav" },
   ]);
-
+  const [recommendationData, setRecommendationData] = useState<CheckboxData[]>([
+    { name: "gilad", label: "Gilad" },
+    { name: "antoine", label: "Antoine" },
+    { name: "sanskruti", label: "Sanskruti" },
+    { name: "Sujwal", label: "Sujwal" },
+    { name: "prachi", label: "Prachi" },
+    { name: "pranali", label: "Pranali" },
+    { name: "tejas", label: "Tejas" },
+    { name: "shiv", label: "Shiv" },
+    { name: "gaurav", label: "Gaurav" },
+  ]);
   const [diagnosisDataState, setDiagnosisDataState] = useState<CheckboxData[]>(
     [],
   );
 
   const addNewCheckbox = () => {
     const newCheckbox = {
-      name: `checkbox_${data.length}`,
-      label: `Checkbox ${data.length + 1}`,
+      name: ``,
+      label: ``,
     };
     setData([...data, newCheckbox]);
   };
 
   const addNewDiagnosisCheckbox = () => {
     const newCheckbox = {
-      name: `diagnosis_${diagnosisDataState.length + 1}`,
-      label: `Diagnosis ${diagnosisDataState.length + 1}`,
+      name: ``,
+      label: ``,
     };
     setDiagnosisDataState([...diagnosisDataState, newCheckbox]);
+  };
+
+  const addNewRecommendationCheckbox = () => {
+    const newCheckbox = {
+      name: ``,
+      label: ``,
+    };
+    setRecommendationData([...recommendationData, newCheckbox]);
   };
 
   const handleCheckboxChange = (label: string, isChecked: boolean) => {
@@ -272,6 +290,45 @@ const TwoInterpretationForm = () => {
           <Grid width={"99.58%"}>
             <CheckboxWithTextFields data={diagnosisDataState} size={4} />
           </Grid>
+        </Grid>
+      </Grid>
+      {/* Recommendation: Grid*/}
+      <Grid
+        container
+        width={"100%"}
+        flexDirection={"column"}
+        borderBottom={"1px solid #E7E7E7"}
+        rowGap={1}
+        pb={2}
+      >
+        <Grid
+          container
+          width={"100%"}
+          justifyContent={"space-between"}
+          alignContent={"center"}
+        >
+          <Grid alignContent={"center"}>
+            <Typography variant="bodySmall" fontWeight={600}>
+              Recommendation:
+            </Typography>
+          </Grid>
+          <Button
+            variant="outlined"
+            onClick={addNewRecommendationCheckbox}
+            sx={{ bgcolor: "#F1F8FF" }}
+            startIcon={
+              <AddIcon
+                sx={{
+                  color: "#106DCC",
+                }}
+              />
+            }
+          >
+            <Typography variant="bodySmall">Add Recommendation</Typography>
+          </Button>
+        </Grid>
+        <Grid container width={"100%"}>
+          <CheckboxWithTextFields data={recommendationData} size={12} />
         </Grid>
       </Grid>
       {/*Technical Report Grid*/}

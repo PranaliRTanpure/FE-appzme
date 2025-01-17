@@ -84,6 +84,7 @@ export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
                 id="outlined-basic"
                 variant="outlined"
                 defaultValue={item.label}
+                placeholder="Enter"
               />
             </Grid>
           </Grid>
