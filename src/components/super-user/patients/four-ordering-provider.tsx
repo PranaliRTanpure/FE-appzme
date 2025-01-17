@@ -15,7 +15,11 @@ import { stateList } from "../../../utils/StateList";
 import { theme } from "../../../utils/theme";
 import AddOrderingProviderForm from "../providers/add-ordering-providers/add-ordering-provider-form";
 
-const FourOrderingProvider = () => {
+type FourOrderingProviderProps = {
+  handleSelectedOrderType: (selectedOrder: "HST Order" | "OAT Order") => void;
+};
+const FourOrderingProvider = (props: FourOrderingProviderProps) => {
+  const { handleSelectedOrderType } = props;
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(
     "HST Order",
@@ -87,6 +91,7 @@ const FourOrderingProvider = () => {
             height={"59px"}
             justifyContent={"space-between"}
             p={"0px 16px"}
+            width={"100%"}
             alignItems={"center"}
             borderBottom={`1px solid ${theme.palette.grey[300]}`}
           >
@@ -122,8 +127,14 @@ const FourOrderingProvider = () => {
               Add Provider
             </Button>
           </Grid>
-          {false && (
-            <Grid p={2} container flexDirection={"column"} rowGap={2}>
+          {true && (
+            <Grid
+              p={2}
+              container
+              flexDirection={"column"}
+              rowGap={2}
+              width={"100%"}
+            >
               <Grid container width={"100%"} justifyContent={"space-between"}>
                 <Grid width={"24%"}>
                   <CustomLabel label="Provider" />
@@ -313,12 +324,7 @@ const FourOrderingProvider = () => {
                         placeholder={"Enter City"}
                         hasError={
                           errors?.orderingPoviderAddressCity &&
-                          !!(
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            (
-                              errors?.orderingPoviderAddressCity as unknown as any
-                            ).city
-                          )
+                          !!errors?.orderingPoviderAddressCity
                         }
                         errorMessage={
                           errors?.orderingPoviderAddressCity &&
@@ -380,7 +386,13 @@ const FourOrderingProvider = () => {
             </Grid>
           )}
           {
-            <Grid p={2} container flexDirection={"column"} rowGap={2}>
+            <Grid
+              p={2}
+              width={"100%"}
+              container
+              flexDirection={"column"}
+              rowGap={2}
+            >
               <Grid container width={"100%"} justifyContent={"space-between"}>
                 <Grid container columnGap={1}>
                   <CustomLabel variant="bodySmall" label="Specialty :" />
@@ -411,18 +423,22 @@ const FourOrderingProvider = () => {
               </Grid>
             </Grid>
           }
-          <Divider
-            variant="middle"
-            orientation="horizontal"
-            sx={{ width: "100%" }}
-          />
+          <Grid width={"100%"}>
+            <Divider
+              variant="middle"
+              orientation="horizontal"
+              // sx={{ width: "100%" }}
+            />
+          </Grid>
           <Grid p={2}>
             <CustomLabel label="Order Recieved" />
             <CustomRadioButton
               optionsArray={["HST Order", "OAT Order"]}
               selectedvalue={orderType}
               onChange={function (opt: string): void {
-                setOrderType(opt as "HST Order" | "OAT Order");
+                const selectedOrder = opt as "HST Order" | "OAT Order";
+                handleSelectedOrderType(selectedOrder);
+                setOrderType(selectedOrder);
               }}
             />
           </Grid>

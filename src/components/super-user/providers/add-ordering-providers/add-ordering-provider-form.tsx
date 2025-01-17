@@ -6,7 +6,7 @@ import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-
 import CheckBox from "@/common-components/custom-checkbox/checkbox";
 import CustomInput from "@/common-components/custom-input/custom-input";
 import CustomLabel from "@/common-components/custom-label/custom-label";
-import { UploadImage } from "@/common-components/image-upload/custom-image-upload2";
+import UploadLogo from "@/common-components/image-upload/custom-image-upload";
 import CustomRadioButton from "@/common-components/radio-button/radio-button";
 import { theme } from "@/utils/theme";
 import { Button, Divider, Typography } from "@mui/material";
@@ -14,6 +14,10 @@ import React, { useCallback, useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { OrderngProviderSchema } from "./orderng-provider-schema";
 
+export const customStyle = {
+  height: "8rem",
+  width: "8rem",
+};
 interface AddOrderingProviderFormProps {
   handleDrawerClose: () => void;
   isEdit: boolean;
@@ -76,7 +80,6 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
     control,
     setValue,
     handleSubmit,
-    getValues,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: initialValues,
@@ -108,12 +111,7 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
               </Grid>
               <Grid width={"100%"} container>
                 <Grid mr={0.5} mt={0.5}>
-                  <UploadImage
-                    name={"profile"}
-                    defaultImage={getValues("avatar")}
-                    isLoading={false}
-                    width={"90px"}
-                  />
+                  <UploadLogo customStyle={customStyle} />
                 </Grid>
                 <Grid flex={1} container flexDirection={"column"} rowGap={1}>
                   <Grid container justifyContent={"space-between"}>
