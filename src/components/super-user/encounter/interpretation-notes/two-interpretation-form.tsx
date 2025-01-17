@@ -7,11 +7,11 @@ import {
   CheckboxData,
   CheckboxWithTextFields,
 } from "./interpretation-checkbox";
+import { useState } from "react";
 
 const TwoInterpretationForm = () => {
   const { control, setValue } = useFormContext();
-
-  const data: CheckboxData[] = [
+  const [data, setData] = useState<CheckboxData[]>([
     { name: "gilad", label: "Gilad Gray" },
     { name: "antoine", label: "Antoine Llorca" },
     { name: "sanskruti", label: "Sanskruti Kujir" },
@@ -21,14 +21,22 @@ const TwoInterpretationForm = () => {
     { name: "tejas", label: "Tejas" },
     { name: "shiv", label: "Shiv" },
     { name: "gaurav", label: "Gaurav" },
-  ];
+  ]);
+
+  const addNewCheckbox = () => {
+    const newCheckbox = {
+      name: `checkbox_${data.length}`,
+      label: `Checkbox ${data.length + 1}`,
+    };
+    setData([...data, newCheckbox]);
+  };
 
   return (
     <Grid
       container
       width={"100%"}
-      height={"100%"}
-      maxHeight={"100%"}
+      height={"60vh"}
+      maxHeight={"60vh"}
       overflow={"auto"}
       flexDirection={"column"}
       bgcolor={"white"}
@@ -58,7 +66,7 @@ const TwoInterpretationForm = () => {
           </Grid>
           <Button
             variant="outlined"
-            onClick={() => {}}
+            onClick={addNewCheckbox}
             sx={{ bgcolor: "#F1F8FF" }}
             startIcon={
               <AddIcon
@@ -139,7 +147,6 @@ const TwoInterpretationForm = () => {
         </Button>
       </Grid>
     </Grid>
-    // </Grid >
   );
 };
 export default TwoInterpretationForm;

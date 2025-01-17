@@ -36,16 +36,11 @@ export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
   };
 
   return (
-    <FormGroup>
-      <Grid
-        container
-        width={"100%"}
-        justifyContent={"space-between"}
-        rowGap={1}
-      >
+    <FormGroup sx={{ width: "100%" }}>
+      <Grid container width={"100%"} spacing={1}>
         {data.map((item) => (
-          <Grid size={3.9} display={"flex"} alignItems="center" key={item.name}>
-            <Grid>
+          <Grid size={4} display={"flex"} alignItems="center" key={item.name}>
+            <Grid container>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -61,13 +56,14 @@ export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
                 sx={{ marginRight: 0 }}
               />
             </Grid>
-            <Grid flex={1}>
+            <Grid container width={"100%"} flex={1}>
               <TextField
                 fullWidth
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "8px",
                     height: "30px",
+                    width: "100%",
                   },
                 }}
                 id="outlined-basic"
