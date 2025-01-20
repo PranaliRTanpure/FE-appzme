@@ -7,10 +7,10 @@ import CustomInput from "../../../common-components/custom-input/custom-input";
 import CustomLabel from "../../../common-components/custom-label/custom-label";
 import CustomSelect from "../../../common-components/custom-select/customSelect";
 import DatePicker from "../../../common-components/date-picker-field/date-picker-field";
-import UploadLogo from "../../../common-components/image-upload/custom-image-upload";
 import CustomRadioButton from "../../../common-components/radio-button/radio-button";
 import { Gender, PrimaryLanguages } from "../../../constants/roles";
 import { theme } from "../../../utils/theme";
+import { CustomUploadImage } from "@/common-components/custom-image-upload/UploadImage";
 
 export const customStyle = {
   height: "8rem",
@@ -42,9 +42,14 @@ const OnePatientDetails = () => {
       borderRadius={"0px 0px 16px 16px"}
     >
       <Grid container>
-        <Grid width={"160px"} container justifyContent={"center"}>
-          <UploadLogo customStyle={customStyle} />
+        <Grid width={"132px"} p={1}>
+          <CustomUploadImage
+            name="avatar"
+            defaultImage={""}
+            isLoading={false}
+          />
         </Grid>
+
         <Grid flex={1} rowGap={2} container flexDirection={"column"}>
           <Grid
             container
