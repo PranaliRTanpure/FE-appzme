@@ -1,3 +1,4 @@
+import { theme } from "@/utils/theme";
 import { Button, SxProps } from "@mui/material";
 import { Theme } from "@mui/system";
 import { ReactJSXElement } from "node_modules/@emotion/react/dist/declarations/types/jsx-namespace";
@@ -39,7 +40,9 @@ const CustomButton = (props: CustomButtonProps) => {
         border: textAndBorderInGrey
           ? `1px solid #C9CBCC !important`
           : "inherit",
-        color: textAndBorderInGrey ? `#21262B !important` : "inherit",
+        color: textAndBorderInGrey
+          ? `#21262B !important`
+          : theme.palette.common.white,
       }}
     >
       {text}

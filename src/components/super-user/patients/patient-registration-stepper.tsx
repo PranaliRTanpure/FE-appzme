@@ -1,4 +1,4 @@
-import CustomButton from "@/common-components/button-outlined/button-outlined";
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -31,7 +31,7 @@ const steps = [
 ];
 
 const PatientRegistrationStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(3);
 
   const [completed] = React.useState<{ [k: number]: boolean }>({});
   const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(

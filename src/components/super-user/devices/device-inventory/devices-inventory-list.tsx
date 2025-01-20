@@ -1,4 +1,4 @@
-import CustomButton from "@/common-components/button-outlined/button-outlined";
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import CustomFilters from "@/common-components/custom-filters/custom filters";
 import AddIcon from "@mui/icons-material/Add";

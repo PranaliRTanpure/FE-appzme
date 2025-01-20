@@ -2,7 +2,7 @@ import { theme } from "@/utils/theme";
 import { ButtonBase, Modal, Typography } from "@mui/material";
 import { Box, Grid } from "@mui/system";
 import React from "react";
-import CustomButton from "../button-outlined/button-outlined";
+import CustomButton from "../button-outlined/custom-button";
 
 interface customFiltersProps {
   onOpen: boolean;

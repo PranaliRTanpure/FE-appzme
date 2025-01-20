@@ -30,7 +30,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { Provider } from "../../sdk/requests";
 import { GetTenantId } from "../../services/common/get-tenant-id";
 import { theme } from "../../utils/theme";
-import CustomButton from "../button-outlined/button-outlined";
+import CustomButton from "../button-outlined/custom-button";
 import TopMenu from "./top-menu";
 
 export const toolBarContainer = {

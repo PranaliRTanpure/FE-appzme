@@ -1,4 +1,4 @@
-import CustomButtonOutlined from "@/common-components/button-outlined/button-outlined";
+import CustomButtonOutlined from "@/common-components/button-outlined/custom-button";
 import MainDrawer from "@/components/ui/MainDrawer";
 import { useDrawer } from "@/hooks/useDrawer";
 import { theme } from "@/utils/theme";

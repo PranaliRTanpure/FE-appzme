@@ -1,4 +1,4 @@
-import CustomButton from "@/common-components/button-outlined/button-outlined";
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AddIcon from "@mui/icons-material/Add";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";

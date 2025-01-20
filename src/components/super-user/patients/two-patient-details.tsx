@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-import CustomButton from "@/common-components/button-outlined/button-outlined";
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import {
   ButtonBase,
   Checkbox,

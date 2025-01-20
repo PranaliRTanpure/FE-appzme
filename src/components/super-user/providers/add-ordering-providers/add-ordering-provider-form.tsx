@@ -2,7 +2,7 @@ import DrawerBody from "@/components/ui/DrawerBody";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Grid } from "@mui/system";
 
-import CustomButtonOutlined from "@/common-components/button-outlined/button-outlined";
+import CustomButtonOutlined from "@/common-components/button-outlined/custom-button";
 import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
 import CheckBox from "@/common-components/custom-checkbox/checkbox";
 import CustomInput from "@/common-components/custom-input/custom-input";
