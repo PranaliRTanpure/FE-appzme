@@ -1,3 +1,4 @@
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -27,7 +28,6 @@ import {
   AppointmentStatusEnum,
   StatusBgColorMapping,
 } from "../../../../constants/appointments-status-const";
-import { theme } from "../../../../utils/theme";
 import ScheduleNewDeviceForm from "./schedule-new-device-form";
 
 const DeviceScheduling = () => {
@@ -173,22 +173,21 @@ const DeviceScheduling = () => {
               </Grid>
             </Grid>
             <Grid container columnGap={2} alignItems={"center"}>
-              <Button
+              <CustomButton
                 onClick={handlePrevious7Days}
+                text="Previous 7 Days"
+                sx={{ height: "28px" }}
+                variant="outlined"
                 startIcon={<ArrowBackIosIcon sx={{ width: "12px" }} />}
-                variant="outlined"
-                sx={{ height: "28px" }}
-              >
-                Previous 7 Days
-              </Button>
-              <Button
+              />
+
+              <CustomButton
                 onClick={handleNext7Days}
-                endIcon={<ArrowForwardIosIcon sx={{ width: "12px" }} />}
-                variant="outlined"
+                text="Next 7 Days"
                 sx={{ height: "28px" }}
-              >
-                Next 7 Days
-              </Button>
+                variant="outlined"
+                endIcon={<ArrowForwardIosIcon sx={{ width: "12px" }} />}
+              />
             </Grid>
             <Grid
               container
@@ -257,19 +256,17 @@ const DeviceScheduling = () => {
               <Button variant="outlined">
                 <FilterAltOutlinedIcon />
               </Button>
-              <Button variant="outlined">Today</Button>
-              <Button
-                startIcon={<AddIcon />}
+              <CustomButton
+                text="Today"
+                variant="outlined"
+                onClick={() => undefined}
+              />
+              <CustomButton
+                text="Add New Schedule"
+                variant="contained"
                 onClick={() => SetIsFormOpen(true)}
-                sx={{
-                  p: "0px 10px",
-                  bgcolor: theme.palette.secondary.main,
-                  borderRadius: "12px",
-                  color: theme.palette.common.white,
-                }}
-              >
-                Add New Schedule
-              </Button>
+                startIcon={<AddIcon />}
+              />
             </Grid>
           </Grid>
           <Grid width={"100%"}>
@@ -295,7 +292,6 @@ const DeviceScheduling = () => {
                             ? header.maxWidth
                             : "inherit",
                           width: header.width ? header.width : "inherit",
-                          // width: "80px",
                           border: "1px solid #E7E7E7",
                         }}
                         key={index}

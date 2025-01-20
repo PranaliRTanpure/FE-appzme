@@ -45,7 +45,7 @@ const CustomButton = (props: CustomButtonProps) => {
           : theme.palette.common.white,
       }}
     >
-      {text}
+      {text ? text : ""}
     </Button>
   );
 };
