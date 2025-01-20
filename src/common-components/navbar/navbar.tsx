@@ -1,10 +1,9 @@
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -20,18 +19,19 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import { Grid } from "@mui/system";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileImage from "../../assets/image_svg/icons/account_circle.svg";
 import Logo from "../../assets/image_svg/logo/navbar_logo.svg";
 import useLogout from "../../hooks/use-logout";
-import { theme } from "../../utils/theme";
-import TopMenu from "./top-menu";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { GetTenantId } from "../../services/common/get-tenant-id";
 import { setIsLoading } from "../../redux/actions/loader-action";
-import { Provider } from "../../sdk/requests";
 import { fetchProfileData } from "../../redux/actions/profile-async-actions";
+import { AppDispatch, RootState } from "../../redux/store";
+import { Provider } from "../../sdk/requests";
+import { GetTenantId } from "../../services/common/get-tenant-id";
+import { theme } from "../../utils/theme";
+import CustomButton from "../button-outlined/custom-button";
+import TopMenu from "./top-menu";
 
 export const toolBarContainer = {
   maxHeight: "40px",
@@ -207,37 +207,18 @@ const Navbar = () => {
                         }}
                       >
                         <Grid>
-                          <Button
+                          <CustomButton
+                            variant={"outlined"}
+                            text={"Cancel"}
                             onClick={handleLogoutDialogClose}
-                            sx={{
-                              width: "78px",
-                              border: "1px solid grey",
-                              height: "37px",
-                              borderRadius: "8px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            <Typography
-                              color={theme.palette.common.black}
-                              textTransform={"none"}
-                            >
-                              Cancel
-                            </Typography>
-                          </Button>
+                          />
                         </Grid>
                         <Grid>
-                          <Button
-                            variant="contained"
+                          <CustomButton
+                            variant={"contained"}
+                            text={"Yes"}
                             onClick={logoutHandler}
-                            sx={{
-                              width: "78px",
-                              borderRadius: "8px",
-
-                              fontWeight: "bold",
-                            }}
-                          >
-                            <Typography textTransform={"none"}>Yes</Typography>
-                          </Button>
+                          />
                         </Grid>
                       </DialogActions>
                     </Dialog>

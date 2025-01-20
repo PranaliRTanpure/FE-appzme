@@ -1,8 +1,9 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Grid } from "@mui/system";
+import CustomButton from "../button-outlined/custom-button";
 
 export interface SuccessDialogProps {
   open: boolean;
@@ -36,13 +37,12 @@ export function SuccessDialog(props: SuccessDialogProps) {
             </Typography>
           </Grid>
         </DialogTitle>
-        <Button
-          fullWidth
-          variant="contained"
-          onClick={() => handleListItemClick()}
-        >
-          <Typography variant="bodyMedium">Continue</Typography>
-        </Button>
+        <CustomButton
+          variant={"contained"}
+          text={"Continue"}
+          onClick={handleListItemClick}
+          sx={{ width: "100%" }}
+        />
       </Grid>
     </Dialog>
   );

@@ -309,7 +309,7 @@ const DevicesInventoryList = () => {
                     {paginatedData.length > 0 ? (
                       paginatedData.map((list, index) => (
                         <TableRow hover key={index}>
-                          <TableCell>
+                          <TableCell sx={{ border: "1px solid red" }}>
                             <Checkbox
                               checked={selectedRows.includes(index)}
                               handleChange={() => handleCheckboxChange(index)}

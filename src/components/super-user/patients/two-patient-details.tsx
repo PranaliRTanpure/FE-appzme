@@ -1,8 +1,8 @@
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import {
-  Button,
   ButtonBase,
   Checkbox,
   Divider,
@@ -370,10 +370,10 @@ const TwoPatientContacts = () => {
             </Grid>
           ))}
           <Grid p={"0px 0px 20px 20px"}>
-            <Button
+            <CustomButton
+              variant={"outlined"}
               startIcon={<AddIcon />}
-              variant="outlined"
-              sx={{ background: "#F5F6F8" }}
+              text={"Add Emergency Contact"}
               onClick={() =>
                 appendEmergencyContact({
                   relationshipWithPatient: "",
@@ -381,9 +381,8 @@ const TwoPatientContacts = () => {
                   mobile: "",
                 })
               }
-            >
-              Add Emergency Contact
-            </Button>
+              sx={{ bgcolor: theme.palette.common.white }}
+            />
           </Grid>
         </Grid>
 

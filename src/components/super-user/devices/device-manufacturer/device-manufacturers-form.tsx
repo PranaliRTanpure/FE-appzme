@@ -1,7 +1,8 @@
+import CustomButton from "@/common-components/button-outlined/custom-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import {
   Button,
   Divider,
@@ -454,8 +455,9 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                   </Grid>
                 ))}
                 <Grid mt={1}>
-                  <Button
-                    variant="outlined"
+                  <CustomButton
+                    variant={"outlined"}
+                    text={"Add New Model"}
                     startIcon={<AddIcon />}
                     onClick={() =>
                       appendmodleDetails({
@@ -463,9 +465,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                         modelName: "",
                       })
                     }
-                  >
-                    Add New Model
-                  </Button>
+                  />
                 </Grid>
               </Grid>
             </Grid>

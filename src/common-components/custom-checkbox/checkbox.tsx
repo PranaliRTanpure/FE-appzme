@@ -10,7 +10,7 @@ type CheckBoxType = {
   showLabel?: boolean;
   indeterminate?: boolean;
 };
-const CheckBox = (props: CheckBoxType) => {
+const CustomSingleCheckBox = (props: CheckBoxType) => {
   const { checked, handleChange, label, showLabel, indeterminate } = props;
   const checkboxRef = useRef<HTMLInputElement | null>(null);
 
@@ -33,10 +33,10 @@ const CheckBox = (props: CheckBoxType) => {
           />
         }
         // label={label || "Label"}
-        label={showLabel ? label : null}
+        label={showLabel ? label : "Label"}
       />
     </FormGroup>
   );
 };
 
-export default CheckBox;
+export default CustomSingleCheckBox;
