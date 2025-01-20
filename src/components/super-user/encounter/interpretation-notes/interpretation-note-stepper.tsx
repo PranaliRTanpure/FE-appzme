@@ -26,6 +26,7 @@ const InterpretationNoteStepper = () => {
   const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>(
     {},
   );
+  const totalSteps = steps.length;
 
   // const totalSteps = () => {
   //   return steps.length;
@@ -231,16 +232,25 @@ const InterpretationNoteStepper = () => {
                     </Button>
                   )}
                   <Box sx={{ flex: "1 1 auto" }} />
-                  <Button
-                    variant="contained"
-                    endIcon={<ArrowForwardIcon />}
-                    onClick={() => {
-                      handleNext();
-                    }}
-                    sx={{ mr: 1 }}
-                  >
-                    Next
-                  </Button>
+                  {activeStep < totalSteps - 1 ? (
+                    <Button
+                      variant="contained"
+                      endIcon={<ArrowForwardIcon />}
+                      onClick={() => handleNext()}
+                      sx={{ mr: 1 }}
+                    >
+                      Next
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      endIcon={<ArrowForwardIcon />}
+                      onClick={() => {}}
+                      sx={{ mr: 1 }}
+                    >
+                      Sign Off Interpretation
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
