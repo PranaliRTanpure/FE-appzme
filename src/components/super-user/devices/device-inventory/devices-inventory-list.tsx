@@ -38,11 +38,11 @@ import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import Checkbox from "@/common-components/custom-checkbox/checkbox";
 
 export const Headers: TableHeaders[] = [
-  { header: "Device Name" },
+  { header: "Device Name", width: "550px", maxWidth: "500px" },
   { header: "Serial Number" },
   { header: "Pool" },
-  { header: "Status" },
-  { header: "Action" },
+  { header: "Status", width: "10px", maxWidth: "100px" },
+  { header: "Action", width: "10px", maxWidth: "100px" },
 ];
 
 const DevicesInventoryList = () => {
@@ -259,15 +259,14 @@ const DevicesInventoryList = () => {
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ ...heading }} align="left">
+                      <TableCell
+                        sx={{ ...heading, width: "5px", maxWidth: "10px" }}
+                        align="left"
+                      >
                         <Checkbox
                           checked={
                             selectedRows.length === paginatedData.length &&
                             paginatedData.length > 0
-                          }
-                          indeterminate={
-                            selectedRows.length > 0 &&
-                            selectedRows.length < paginatedData.length
                           }
                           handleChange={handleSelectAllChange}
                         />
@@ -276,6 +275,7 @@ const DevicesInventoryList = () => {
                         <TableCell
                           sx={{
                             ...heading,
+                            width: header.width ? header.width : "inherit",
                             minWidth: header.minWidth
                               ? header.minWidth
                               : "inherit",
@@ -309,7 +309,7 @@ const DevicesInventoryList = () => {
                     {paginatedData.length > 0 ? (
                       paginatedData.map((list, index) => (
                         <TableRow hover key={index}>
-                          <TableCell sx={{ border: "1px solid red" }}>
+                          <TableCell>
                             <Checkbox
                               checked={selectedRows.includes(index)}
                               handleChange={() => handleCheckboxChange(index)}

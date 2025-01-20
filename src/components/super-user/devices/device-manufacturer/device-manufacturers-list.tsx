@@ -116,7 +116,7 @@ const DeviceManufacturersList = () => {
         >
           <Grid container p={2} justifyContent={"space-between"} rowGap={2}>
             <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
-              <Typography variant="bodyLarge" fontWeight={"bold"}>
+              <Typography variant="bodyLarge" fontWeight={600}>
                 Manufacturers
               </Typography>
 
