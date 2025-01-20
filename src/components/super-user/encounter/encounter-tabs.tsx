@@ -1,8 +1,9 @@
+import CustomButtonOutlined from "@/common-components/button-outlined/button-outlined";
 import MainDrawer from "@/components/ui/MainDrawer";
 import { useDrawer } from "@/hooks/useDrawer";
 import { theme } from "@/utils/theme";
 import AddIcon from "@mui/icons-material/Add";
-import { Button, Tab, Tabs } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { alpha, Grid } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -146,72 +147,24 @@ const SettingsTabs = () => {
                 ))}
               </Tabs>
               <Grid pt={1} pb={1}>
-                {value === 0 && (
-                  <Button
-                    startIcon={<AddIcon />}
-                    sx={{
-                      p: "0px 10px",
-                      bgcolor: theme.palette.secondary.main,
-                      borderRadius: "12px",
-                      color: theme.palette.common.white,
-                    }}
-                    onClick={() => {
-                      handleDrawer.createEncounterForm("Create");
-                    }}
-                  >
-                    Create Encounter
-                  </Button>
-                )}
-                {value === 1 && (
-                  <Button
-                    startIcon={<AddIcon />}
-                    sx={{
-                      p: "0px 10px",
-                      bgcolor: theme.palette.secondary.main,
-                      borderRadius: "12px",
-                      color: theme.palette.common.white,
-                    }}
-                    onClick={() => {
+                <CustomButtonOutlined
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  text={
+                    value === 0 ? "Create Encounter" : "Schedule Appointment"
+                  }
+                  onClick={() => {
+                    value === 0 && handleDrawer.createEncounterForm("Create");
+                    value === 1 &&
                       handleDrawer.createMilleniumForm("Schedule Millennium");
-                    }}
-                  >
-                    Schedule Appointment
-                  </Button>
-                )}
-                {value === 2 && (
-                  <Button
-                    startIcon={<AddIcon />}
-                    sx={{
-                      p: "0px 10px",
-                      bgcolor: theme.palette.secondary.main,
-                      borderRadius: "12px",
-                      color: theme.palette.common.white,
-                    }}
-                    onClick={() => {
+                    value === 2 &&
                       handleDrawer.createSleepImpressionForm(
                         "Schedule Sleep Impression",
                       );
-                    }}
-                  >
-                    main Schedule Appointment
-                  </Button>
-                )}
-                {value === 3 && (
-                  <Button
-                    startIcon={<AddIcon />}
-                    sx={{
-                      p: "0px 10px",
-                      bgcolor: theme.palette.secondary.main,
-                      borderRadius: "12px",
-                      color: theme.palette.common.white,
-                    }}
-                    onClick={() => {
+                    value === 3 &&
                       handleDrawer.createHSTForm("Schedule HST Education");
-                    }}
-                  >
-                    Schedule Appointment
-                  </Button>
-                )}
+                  }}
+                />
               </Grid>
             </Grid>
             <Grid flex={1} width={"100%"}>

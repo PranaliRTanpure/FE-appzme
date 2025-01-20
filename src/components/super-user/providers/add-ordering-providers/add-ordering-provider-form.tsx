@@ -2,6 +2,7 @@ import DrawerBody from "@/components/ui/DrawerBody";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Grid } from "@mui/system";
 
+import CustomButtonOutlined from "@/common-components/button-outlined/button-outlined";
 import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
 import CheckBox from "@/common-components/custom-checkbox/checkbox";
 import CustomInput from "@/common-components/custom-input/custom-input";
@@ -9,7 +10,7 @@ import CustomLabel from "@/common-components/custom-label/custom-label";
 import UploadLogo from "@/common-components/image-upload/custom-image-upload";
 import CustomRadioButton from "@/common-components/radio-button/radio-button";
 import { theme } from "@/utils/theme";
-import { Button, Divider, Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { OrderngProviderSchema } from "./orderng-provider-schema";
@@ -722,23 +723,20 @@ const AddOrderingProviderForm = (props: AddOrderingProviderFormProps) => {
               justifyContent={isEdit ? "space-between" : "flex-end"}
             >
               <Grid container columnGap={1}>
-                <Button
+                <CustomButtonOutlined
+                  startIcon={undefined}
+                  variant={"outlined"}
+                  text={"Cancel"}
                   onClick={handleDrawerClose}
-                  variant="outlined"
-                  type="button"
-                >
-                  <Typography variant="bodySmall">Cancel</Typography>
-                </Button>
-                <Button
+                />
+
+                <CustomButtonOutlined
+                  startIcon={undefined}
+                  variant={"contained"}
+                  text={isEdit ? "Save Changes" : "Create Ordering Provider"}
                   onClick={handleDrawerClose}
-                  variant="contained"
-                  type="submit"
-                  disabled={isValid}
-                >
-                  <Typography variant="bodySmall">
-                    {isEdit ? "Save Changes" : "Create Ordering Provider"}
-                  </Typography>
-                </Button>
+                  isDisabled={isValid}
+                />
               </Grid>
             </Grid>
           </Box>
