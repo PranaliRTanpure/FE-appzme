@@ -1,8 +1,8 @@
+import CustomButton from "@/common-components/button-outlined/button-outlined";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
-  Button,
   ButtonBase,
   Step,
   StepButton,
@@ -41,7 +41,6 @@ const PatientRegistrationStepper = () => {
   const handleNext = () => {
     if (activeStep === 3 && orderType === "HST Order") {
       orderType;
-      // console.log("orderType", orderType);
     }
 
     handleSubmit(
@@ -203,27 +202,20 @@ const PatientRegistrationStepper = () => {
               minHeight={"70px"}
               borderTop={`1px solid ${theme.palette.grey[300]}`}
             >
-              <Grid container>
-                <Button
-                  variant="outlined"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
+              <Grid container columnGap={1}>
+                <CustomButton
+                  variant={"outlined"}
+                  text={"Previous"}
                   startIcon={<ArrowBackIcon />}
-                >
-                  Previous
-                </Button>
-                <Box sx={{ flex: "1 1 auto" }} />
-                <Button
-                  variant="contained"
+                  onClick={handleBack}
+                />
+                <CustomButton
+                  variant={"contained"}
+                  text={"Next"}
                   endIcon={<ArrowForwardIcon />}
-                  onClick={() => {
-                    handleNext();
-                  }}
-                  sx={{ mr: 1 }}
-                >
-                  Next
-                </Button>
+                  onClick={handleNext}
+                />
+                <Box sx={{ flex: "1 1 auto" }} />
               </Grid>
             </Grid>
           </Grid>

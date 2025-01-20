@@ -1,6 +1,8 @@
-import { Button, ButtonBase, Modal, Typography } from "@mui/material";
+import { theme } from "@/utils/theme";
+import { ButtonBase, Modal, Typography } from "@mui/material";
 import { Box, Grid } from "@mui/system";
 import React from "react";
+import CustomButton from "../button-outlined/button-outlined";
 
 interface customFiltersProps {
   onOpen: boolean;
@@ -71,22 +73,19 @@ const CustomFilters = (props: React.PropsWithChildren<customFiltersProps>) => {
             width={"100%"}
           >
             <Grid>
-              <Button
+              <CustomButton
                 variant="outlined"
-                onClick={props.onClick}
-                sx={{ background: "#F1F8FF" }}
-              >
-                <Typography variant="bodySmall">Cancel</Typography>
-              </Button>
+                onClick={() => (props.onClick ? props.onClick() : undefined)}
+                text="Cancel"
+                sx={{ bgcolor: theme.palette.common.white }}
+              />
             </Grid>
             <Grid>
-              <Button
+              <CustomButton
                 variant="contained"
-                onClick={props.onApply}
-                sx={{ background: "#106DCC" }}
-              >
-                <Typography variant="bodySmall">Apply</Typography>
-              </Button>
+                onClick={() => (props.onApply ? props.onApply() : undefined)}
+                text="Apply"
+              />
             </Grid>
           </Grid>
         </Box>

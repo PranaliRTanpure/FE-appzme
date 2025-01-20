@@ -1,10 +1,10 @@
+import CustomButton from "@/common-components/button-outlined/button-outlined";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import CustomFilters from "@/common-components/custom-filters/custom filters";
 import AddIcon from "@mui/icons-material/Add";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import {
-  Button,
   Divider,
   IconButton,
   Stack,
@@ -173,20 +173,12 @@ const DevicesInventoryList = () => {
                   />
                 </Grid>
                 <Grid>
-                  <Button
+                  <CustomButton
                     variant="contained"
+                    text="Add New Device"
+                    startIcon={<AddIcon />}
                     onClick={() => SetIsFormOpen(true)}
-                    startIcon={
-                      <AddIcon
-                        sx={{
-                          color: "white",
-                        }}
-                      />
-                    }
-                    sx={{ background: "#106DCC" }}
-                  >
-                    <Typography variant="bodySmall">Add New Device</Typography>
-                  </Button>
+                  />
                 </Grid>
               </Grid>
             </Grid>
