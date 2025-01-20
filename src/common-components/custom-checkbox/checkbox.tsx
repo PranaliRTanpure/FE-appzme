@@ -8,7 +8,7 @@ type CheckBoxType = {
   label: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-const CheckBox = (props: CheckBoxType) => {
+const CustomSingleCheckBox = (props: CheckBoxType) => {
   const { checked, handleChange, label } = props;
   return (
     <FormGroup>
@@ -29,4 +29,4 @@ const CheckBox = (props: CheckBoxType) => {
   );
 };
 
-export default CheckBox;
+export default CustomSingleCheckBox;
