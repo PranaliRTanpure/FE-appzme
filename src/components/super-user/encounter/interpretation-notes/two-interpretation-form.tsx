@@ -1,5 +1,5 @@
 import { Button, SelectChangeEvent, Typography } from "@mui/material";
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { Controller, useFormContext } from "react-hook-form";
 import CustomSelect from "@/common-components/custom-select/customSelect";
@@ -118,6 +118,8 @@ const TwoInterpretationForm = () => {
   const [diagnosisDataState, setDiagnosisDataState] = useState<CheckboxData[]>(
     [],
   );
+  const belowHeight768 = useMediaQuery("(max-height:768px)");
+  const belowHeight900 = useMediaQuery("(max-height:900px)");
 
   const addNewCheckbox = () => {
     const newCheckbox = {
@@ -154,7 +156,7 @@ const TwoInterpretationForm = () => {
     <Grid
       container
       width={"100%"}
-      height={"60vh"}
+      height={belowHeight768 ? "36vh" : belowHeight900 ? "57vh" : "60vh"}
       maxHeight={"60vh"}
       flexDirection={"column"}
       bgcolor={"white"}

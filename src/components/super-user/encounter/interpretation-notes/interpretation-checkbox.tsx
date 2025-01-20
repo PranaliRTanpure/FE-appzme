@@ -56,8 +56,15 @@ export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
                     checkedIcon={<img src={CheckboxCheckedLogo} />}
                     checked={state[item.name]}
                     icon={<img src={CheckboxLogo} />}
-                    onChange={handleChange}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleChange(e)
+                    }
+                    name={item.name}
+                    sx={{
+                      transform: "scale(1)",
+                    }}
                   />
+
                   // <Checkbox
                   //   checked={state[item.name]}
                   //   onChange={handleChange}
