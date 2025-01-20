@@ -34,12 +34,15 @@ import { TableHeaders } from "../../../../common-components/table/table-models";
 import deviceInventoryList from "../../../../mock-data/device-inventory.json";
 import { theme } from "../../../../utils/theme";
 import AddDeviceInventory from "./add-device-inventory";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import Checkbox from "@/common-components/custom-checkbox/checkbox";
 
 export const Headers: TableHeaders[] = [
   { header: "Device Name" },
   { header: "Serial Number" },
   { header: "Pool" },
   { header: "Status" },
+  { header: "Action" },
 ];
 
 const DevicesInventoryList = () => {
@@ -47,11 +50,50 @@ const DevicesInventoryList = () => {
   const [isFormOpen, SetIsFormOpen] = useState<boolean>(false);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [value, setValue] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const belowHeight768 = useMediaQuery("(max-height:768px)");
   const belowWidth1440 = useMediaQuery("(max-width:1440px)");
   const belowWidth1366 = useMediaQuery("(max-width:1366px)");
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   const navigate = useNavigate();
+
+  const handleSelectAllChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (event.target.checked) {
+      setSelectedRows(paginatedData.map((_, index) => index));
+    } else {
+      setSelectedRows([]);
+    }
+  };
+
+  const handleCheckboxChange = (index: number) => {
+    setSelectedRows((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
+    );
+  };
+
+  const totalRecords = deviceInventoryList.length;
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown> | null,
+    newPage: number,
+  ) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleRecordsPerPageChange = (newSize: number) => {
+    setRecordsPerPage(newSize);
+    setCurrentPage(0);
+  };
+
+  const paginatedData = deviceInventoryList.slice(
+    currentPage * recordsPerPage,
+    currentPage * recordsPerPage + recordsPerPage,
+  );
 
   const statusBgColorMapping: Record<string, string> = {
     LOST: "#FFF2F3",
@@ -98,7 +140,7 @@ const DevicesInventoryList = () => {
           >
             <Grid container p={2} justifyContent={"space-between"} rowGap={2}>
               <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
-                <Typography variant="bodyLarge" fontWeight={"bold"}>
+                <Typography variant="bodyLarge" fontWeight={600}>
                   Inventory
                 </Typography>
 
@@ -159,7 +201,6 @@ const DevicesInventoryList = () => {
                     />
                   </IconButton>
                 </Grid>
-
                 <Grid>
                   <CustomInput
                     placeholder={"Serach Patient"}
@@ -171,6 +212,21 @@ const DevicesInventoryList = () => {
                     hasStartSearchIcon={true}
                     bgWhite
                   />
+                </Grid>
+                <Grid>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {}}
+                    sx={{ background: "#FFFFFF" }}
+                  >
+                    <Typography
+                      variant="bodySmall"
+                      color="black"
+                      fontWeight={500}
+                    >
+                      Import CSV
+                    </Typography>
+                  </Button>
                 </Grid>
                 <Grid>
                   <Button
@@ -190,11 +246,11 @@ const DevicesInventoryList = () => {
                 </Grid>
               </Grid>
             </Grid>
+            {/* Table Grid */}
             <Grid width={"100%"}>
               <TableContainer
                 sx={{
                   maxHeight: belowHeight768 ? "63vh" : "76vh",
-                  // overflowY: "auto",
                   border: "1px solid #E6EAED",
                   borderRadius: "12px",
                   boxShadow: "0px 4px 8px -2px #1018281A",
@@ -203,6 +259,19 @@ const DevicesInventoryList = () => {
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
                   <TableHead>
                     <TableRow>
+                      <TableCell sx={{ ...heading }} align="left">
+                        <Checkbox
+                          checked={
+                            selectedRows.length === paginatedData.length &&
+                            paginatedData.length > 0
+                          }
+                          indeterminate={
+                            selectedRows.length > 0 &&
+                            selectedRows.length < paginatedData.length
+                          }
+                          handleChange={handleSelectAllChange}
+                        />
+                      </TableCell>
                       {Headers.map((header, index) => (
                         <TableCell
                           sx={{
@@ -222,6 +291,7 @@ const DevicesInventoryList = () => {
                             container
                             flexDirection={"column"}
                             alignContent={
+                              header.header === "Action" ||
                               header.header === "Status"
                                 ? "flex-end"
                                 : "flex-start"
@@ -236,9 +306,15 @@ const DevicesInventoryList = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody sx={{ bgcolor: "white" }}>
-                    {deviceInventoryList.length > 0 ? (
-                      deviceInventoryList.map((list, index) => (
+                    {paginatedData.length > 0 ? (
+                      paginatedData.map((list, index) => (
                         <TableRow hover key={index}>
+                          <TableCell>
+                            <Checkbox
+                              checked={selectedRows.includes(index)}
+                              handleChange={() => handleCheckboxChange(index)}
+                            />
+                          </TableCell>
                           <TableCell>
                             <CustomClickableLink
                               text={list?.deviceName}
@@ -274,7 +350,7 @@ const DevicesInventoryList = () => {
                               container
                               flexDirection={"column"}
                               alignContent={"flex-end"}
-                              pr={2}
+                              pr={1}
                             >
                               <Status
                                 status={`${list.status}`}
@@ -283,6 +359,19 @@ const DevicesInventoryList = () => {
                                   statusBgColorMapping[list?.status] || "gray"
                                 }
                               />
+                            </Grid>
+                          </TableCell>
+                          <TableCell>
+                            <Grid
+                              container
+                              flexDirection={"column"}
+                              alignContent={"flex-end"}
+                            >
+                              <IconButton onClick={() => {}} disableRipple>
+                                <ArchiveOutlinedIcon
+                                  sx={{ marginInline: "27px" }}
+                                />
+                              </IconButton>
                             </Grid>
                           </TableCell>
                         </TableRow>
@@ -303,12 +392,12 @@ const DevicesInventoryList = () => {
             {/* Paginator */}
             <Grid container sx={{ borderTop: "1px solid #E7E7E7" }}>
               <Paginator
-                page={0}
-                totalPages={5}
-                totalRecord={5}
-                onPageChange={() => {}}
-                onRecordsPerPageChange={() => {}}
-                defaultSize={10}
+                page={currentPage}
+                totalPages={totalPages}
+                totalRecord={totalRecords}
+                onPageChange={handlePageChange}
+                onRecordsPerPageChange={handleRecordsPerPageChange}
+                defaultSize={recordsPerPage}
               />
             </Grid>
           </Grid>
