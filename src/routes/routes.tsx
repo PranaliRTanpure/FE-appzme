@@ -21,6 +21,7 @@ import DeviceManufacturersPage from "../pages/super-user-portal/devices/device-m
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 import EncounterPage from "../pages/super-user-portal/encounter/encounter-page";
 import InterpretationNotePage from "@/pages/super-user-portal/encounter/interpretation-note-page";
+import ProviderSettingsPage from "@/pages/super-user-portal/settings/settings-page";
 
 export const router = createBrowserRouter([
   { path: "", element: <Navigate to={"auth/login"} /> },
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
           { path: "manufacturers", element: <DeviceManufacturersPage /> },
         ],
       },
+      { path: "settings", element: <ProviderSettingsPage /> },
     ],
   },
 

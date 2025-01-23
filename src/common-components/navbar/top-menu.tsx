@@ -24,7 +24,6 @@ const TopMenu = () => {
     setOpenMenu(null);
     setAnchorEl(null);
   };
-
   return (
     <Grid container columnGap={5}>
       {menuItems
@@ -70,49 +69,53 @@ const TopMenu = () => {
                 >
                   {item.title}
                 </Typography>
-                <KeyboardArrowDownIcon
-                  fontSize="small"
-                  sx={{ color: "white" }}
-                />
+                {item.menuList && item.menuList.length > 0 && (
+                  <KeyboardArrowDownIcon
+                    fontSize="small"
+                    sx={{ color: "white" }}
+                  />
+                )}
               </ButtonBase>
             </NavLink>
-            <Menu
-              id={item.title}
-              anchorEl={openMenu === item.title ? anchorEl : null}
-              open={openMenu === item.title}
-              onClose={handleMouseLeave}
-              MenuListProps={{
-                onMouseLeave: handleMouseLeave,
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-            >
-              {item.menuList.map((menu) => (
-                <MenuItem key={menu.name} onClick={() => setOpenMenu(null)}>
-                  <Link
-                    style={{
-                      color: theme.palette.common.black,
-                      textDecoration: "none",
-                      cursor: "pointer",
-                      width: "100%",
-                    }}
-                    to={menu.path}
-                  >
-                    <Typography variant="bodySmall">{menu.name}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
+
+            {item.menuList && item.menuList.length > 0 && (
+              <Menu
+                id={item.title}
+                anchorEl={openMenu === item.title ? anchorEl : null}
+                open={openMenu === item.title}
+                onClose={handleMouseLeave}
+                MenuListProps={{
+                  onMouseLeave: handleMouseLeave,
+                }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                {item.menuList.map((menu) => (
+                  <MenuItem key={menu.name} onClick={() => setOpenMenu(null)}>
+                    <Link
+                      style={{
+                        color: theme.palette.common.black,
+                        textDecoration: "none",
+                        cursor: "pointer",
+                        width: "100%",
+                      }}
+                      to={menu.path}
+                    >
+                      <Typography variant="bodySmall">{menu.name}</Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            )}
           </div>
         ))}
     </Grid>
   );
 };
-
 export default TopMenu;
