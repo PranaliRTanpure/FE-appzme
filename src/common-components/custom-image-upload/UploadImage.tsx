@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-
 import { Avatar, Box, Button, Skeleton, Stack } from "@mui/material";
-
 import CameraIcon from "@/assets/image_svg/icons/camera-circle.svg";
 import DefaultAvatarImage from "@/assets/image_svg/placeholder/default-avatar.png";
 

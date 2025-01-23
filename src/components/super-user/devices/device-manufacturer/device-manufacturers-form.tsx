@@ -78,7 +78,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
 
   const onSubmit = (data: FieldValues) => {
     data;
-    props.handleDrawerClose;
+    handleDrawerClose;
   };
   return (
     <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
@@ -503,7 +503,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                     <Typography variant="bodySmall">Cancel</Typography>
                   </Button>
                   <Button
-                    onClick={handleDrawerClose}
+                    // onClick={handleDrawerClose}
                     variant="contained"
                     type="submit"
                   >
