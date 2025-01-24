@@ -41,7 +41,6 @@ const MainDrawer = ({
       open={isOpen}
       PaperProps={{
         sx: {
-          border: 2,
           width: drawerWidth ? drawerWidth : belowLg ? "50vw" : "40vw",
         },
       }}

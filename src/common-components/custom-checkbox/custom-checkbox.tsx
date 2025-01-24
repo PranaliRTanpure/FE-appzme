@@ -22,10 +22,18 @@ type CustomCheckBoxType = {
   sx?: SxProps;
   enableSelectAll?: boolean;
   width?: string; //e.g. 50%
+  size?: number;
 };
 
 const CustomCheckBox = (props: CustomCheckBoxType) => {
-  const { options, onChange, sx, oriantation = "vertical", width } = props;
+  const {
+    options,
+    onChange,
+    sx,
+    oriantation = "vertical",
+    width,
+    size,
+  } = props;
   const [updatedArray, setUpdatedArray] = useState(options);
 
   const handleChange = (
@@ -59,9 +67,8 @@ const CustomCheckBox = (props: CustomCheckBoxType) => {
           justifyContent={"flex-start"}
           flexDirection={oriantation === "vertical" ? "column" : "row"}
           columnGap={"4px"}
-          width={
-            width ? width : oriantation === "vertical" ? "100%" : "fit-content"
-          }
+          width={width ? width : oriantation === "vertical" ? "100%" : width}
+          size={size}
           key={val.key}
         >
           <FormControlLabel

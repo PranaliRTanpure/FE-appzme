@@ -17,11 +17,13 @@ export interface CheckboxData {
 interface CheckboxWithTextFieldsProps {
   data: CheckboxData[];
   size?: number;
+  label?: string;
 }
 
 export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
   data,
   size,
+  label,
 }) => {
   const [state, setState] = useState(
     data.reduce(
@@ -65,7 +67,7 @@ export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
                     }}
                   />
                 }
-                label={null}
+                label={label ? label : ""}
                 sx={{ marginRight: 0 }}
               />
             </Grid>
