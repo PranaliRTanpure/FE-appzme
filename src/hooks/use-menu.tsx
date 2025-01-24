@@ -42,6 +42,21 @@ const useMenu = () => {
       ],
     },
     {
+      title: "Communications",
+      route: "/super-user/communications",
+      icon: <GridViewIcon />,
+      hide: false,
+      disabled: false,
+      menuList: [
+        { name: "Tasks", path: "/super-user/communications/tasks" },
+        { name: "Fax", path: "/super-user/communications/fax" },
+        {
+          name: "Messages",
+          path: "/super-user/communications/messages",
+        },
+      ],
+    },
+    {
       title: "Settings",
       route: "/super-user/settings",
       icon: <GridViewIcon />,
