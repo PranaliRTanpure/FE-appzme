@@ -60,7 +60,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
 
   const onSubmit = (data: FieldValues) => {
     data;
-    handleDrawerClose;
+    handleDrawerClose();
   };
   return (
     <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
@@ -123,13 +123,18 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="firstName"
                             render={({ field }) => (
                               <CustomInput
+                                value={field.value?.trim() || ""}
                                 placeholder={"Enter First Name"}
                                 hasError={!!errors.firstName}
                                 errorMessage={
                                   errors.firstName?.message as string
                                 }
                                 name={field.name}
-                                value={field.value.trim() || ""}
+                                onChange={(e) =>
+                                  setValue("firstName", e.target.value, {
+                                    shouldValidate: true,
+                                  })
+                                }
                               />
                             )}
                           />
@@ -141,9 +146,14 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="middleInitial"
                             render={({ field }) => (
                               <CustomInput
+                                value={field.value?.trim() || ""}
                                 placeholder={"Enter"}
                                 name={field.name}
-                                value={field.value || ""}
+                                onChange={(e) =>
+                                  setValue("middleInitial", e.target.value, {
+                                    shouldValidate: true,
+                                  })
+                                }
                               />
                             )}
                           />
@@ -155,13 +165,18 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="lastName"
                             render={({ field }) => (
                               <CustomInput
+                                value={field.value?.trim() || ""}
+                                name={field.name}
                                 placeholder={"Enter Last Name"}
                                 hasError={!!errors.lastName}
                                 errorMessage={
                                   errors.lastName?.message as string
                                 }
-                                name={field.name}
-                                value={field.value.trim() || ""}
+                                onChange={(e) =>
+                                  setValue("lastName", e.target.value, {
+                                    shouldValidate: true,
+                                  })
+                                }
                               />
                             )}
                           />
@@ -173,6 +188,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="organization"
                             render={({ field }) => (
                               <CustomSelect
+                                value={field.value?.trim() || ""}
                                 placeholder={"Select"}
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
@@ -184,7 +200,6 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                                   });
                                 }}
                                 name={field.name}
-                                value={field.value?.trim() || ""}
                               />
                             )}
                           ></Controller>
@@ -202,6 +217,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="role"
                             render={({ field }) => (
                               <CustomSelect
+                                value={field.value?.trim() || ""}
                                 placeholder={"Select"}
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
@@ -213,7 +229,6 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                                   });
                                 }}
                                 name={field.name}
-                                value={field.value?.trim() || ""}
                               />
                             )}
                           ></Controller>
@@ -225,11 +240,16 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="email"
                             render={({ field }) => (
                               <CustomInput
-                                value={field.value.trim() || ""}
+                                value={field.value?.trim() || ""}
                                 placeholder={"Enter Email"}
                                 hasError={!!errors.email}
                                 errorMessage={errors.email?.message as string}
                                 name={field.name}
+                                onChange={(e) =>
+                                  setValue("email", e.target.value, {
+                                    shouldValidate: true,
+                                  })
+                                }
                               />
                             )}
                           />

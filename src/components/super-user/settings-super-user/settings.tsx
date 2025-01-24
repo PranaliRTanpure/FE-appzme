@@ -33,45 +33,12 @@ const ProviderUserSettings = () => {
         return <AddStaffForm handleDrawerClose={closeDrawer} />;
 
       case "drawer-oat-order-form":
-        return <OatOrderForm />;
+        return <OatOrderForm handleDrawerClose={closeDrawer} />;
 
       default:
         return <div />;
     }
   };
-
-  // const getDrawerProps = (): {
-  //   drawerWidth: string;
-  //   anchor: "right" | "left" | "top" | "bottom";
-  //   showSecondButton: boolean;
-  //   showMandatoryIndicator: boolean;
-  // } => {
-  //   switch (contentDrawer.identifier) {
-  //     case "drawer-settings-add-staff-form":
-  //       return {
-  //         drawerWidth: "1000px",
-  //         anchor: "right",
-  //         showSecondButton: false,
-  //         showMandatoryIndicator: true,
-  //       };
-
-  //     case "drawer-oat-order-form":
-  //       return {
-  //         drawerWidth: "1000px",
-  //         anchor: "right",
-  //         showSecondButton: false,
-  //         showMandatoryIndicator: false,
-  //       };
-
-  //     default:
-  //       return {
-  //         drawerWidth: "800px",
-  //         anchor: "right",
-  //         showSecondButton: false,
-  //         showMandatoryIndicator: false,
-  //       };
-  //   }
-  // };
 
   const getDrawerProps = () => {
     switch (contentDrawer.identifier) {

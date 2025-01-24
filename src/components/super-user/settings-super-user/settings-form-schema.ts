@@ -3,14 +3,14 @@ import {
   alternatePhoneRequiredErrorMsg,
   cityMax64ErrorMsg,
   cityStateRegexErrorMsg,
-  emailRequiredErrorMsg,
+  // emailRequiredErrorMsg,
   lessThan255ErrorMsg,
   phoneRegexErrorMsg,
   zipCodeRegexErrorMsg,
 } from "@/constants/error-messages";
 import {
   cityStateRgex,
-  emailRegExp,
+  // emailRegExp,
   phoneRegex,
   zipCodeRegex,
 } from "@/utils/regex";
@@ -31,10 +31,11 @@ export const addStaffFormSchema = yup.object().shape({
     .string()
     // .required(phoneRequiredErrorMsg)
     .matches(phoneRegex, phoneRegexErrorMsg),
-  email: yup
-    .string()
-    .required(emailRequiredErrorMsg)
-    .matches(emailRegExp, phoneRegexErrorMsg),
+  email: yup.string().required("email required"),
+  // email: yup
+  //   .string()
+  //   .required(emailRequiredErrorMsg)
+  //   .matches(emailRegExp, phoneRegexErrorMsg),
   address: yup.object().shape({
     line1: yup
       .string()
