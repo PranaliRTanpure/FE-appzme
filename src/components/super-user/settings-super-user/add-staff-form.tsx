@@ -62,7 +62,6 @@ const AddStaffForm = (props: AddStaffFormProps) => {
     data;
     handleDrawerClose;
   };
-
   return (
     <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
       <Grid width={"100%"} height={"100%"}>
