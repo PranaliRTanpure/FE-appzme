@@ -1,10 +1,8 @@
 import AddIcon from "@mui/icons-material/Add";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SearchIcon from "@mui/icons-material/Search";
-
 import {
   Dialog,
   DialogActions,
@@ -103,9 +101,9 @@ const Navbar = () => {
           <Grid ml={10}>
             <TopMenu />
           </Grid>
-          <Grid flex={1} container justifyContent={"flex-end"} mb={0.5}>
-            <Grid columnGap={3.5} container>
-              <Grid maxHeight={"90%"}>
+          <Grid flex={1} container justifyContent={"flex-end"}>
+            <Grid columnGap={1.5} container>
+              <Grid maxHeight={"100%"}>
                 <InputBase
                   fullWidth
                   className="popper-area"
@@ -114,7 +112,7 @@ const Navbar = () => {
                   placeholder={"Search Patient"}
                   value={inputValue}
                   sx={{
-                    maxHeight: "90%",
+                    maxHeight: "80%",
                     background: "#274059",
                     height: "40px",
                     ...inputStyles.textFieldRoot,
@@ -147,34 +145,16 @@ const Navbar = () => {
                   }}
                 ></CustomButton>
               </Grid>
-              <Grid container columnGap={4}>
-                <IconButton
-                  sx={{
-                    padding: "0px",
-                    color: theme.palette.common.white,
-                  }}
-                >
-                  <SearchIcon sx={{ height: "20px", width: "20px" }} />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    padding: "0px",
-                    color: theme.palette.common.white,
-                  }}
-                >
-                  <HelpOutlineOutlinedIcon
-                    sx={{ height: "20px", width: "20px" }}
-                  />
-                </IconButton>
-                <IconButton
-                  sx={{ padding: "0px", color: theme.palette.common.white }}
-                >
-                  <NotificationsNoneIcon
-                    sx={{ height: "20px", width: "20px" }}
-                  />
-                </IconButton>
-              </Grid>
 
+              <IconButton sx={{ height: "80%" }}>
+                <MenuBookIcon
+                  sx={{
+                    color: theme.palette.common.white,
+                    width: "18px",
+                    height: "18px",
+                  }}
+                />
+              </IconButton>
               <Grid container columnGap={1.5}>
                 <Grid
                   container
