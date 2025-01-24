@@ -6,7 +6,7 @@ import CustomSelect from "@/common-components/custom-select/customSelect";
 import {
   CheckboxData,
   CheckboxWithTextFields,
-} from "./interpretation-checkbox";
+} from "../../../../common-components/custom-checkbox/checkbox-with-input";
 import { useState } from "react";
 import CustomLabel from "@/common-components/custom-label/custom-label";
 import CustomInput from "@/common-components/custom-input/custom-input";

@@ -9,4 +9,10 @@ export const HSTOrderFormSchema = yup.object().shape({
   billingPartner: yup.string(),
   teleMedFollowUp: yup.boolean(),
   reasonForTest: yup.string(),
+  night1: yup.string(),
+  night2: yup.string(),
+  night3: yup.string(),
+  previousTest: yup.string(),
+  AHI: yup.string(),
+  additionalConditions: yup.string(),
 });

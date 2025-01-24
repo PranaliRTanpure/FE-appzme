@@ -316,6 +316,7 @@ const EncounterMillennium = () => {
                 sx={{ fontSize: "14px" }}
                 options={EncounterType}
                 onChange={handleCheckedEncounter}
+                oriantation={"vertical"}
               />
             </Grid>
           </AccordionDetails>
@@ -340,6 +341,7 @@ const EncounterMillennium = () => {
                 sx={{ fontSize: "14px" }}
                 options={MillenniumAppointmentStatus}
                 onChange={handleCheckedStatus}
+                oriantation={"vertical"}
               />
             </Grid>
           </AccordionDetails>

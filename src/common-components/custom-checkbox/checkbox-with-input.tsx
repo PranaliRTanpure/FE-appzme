@@ -6,8 +6,8 @@ import {
   TextField,
 } from "@mui/material";
 import { Grid } from "@mui/system";
-import CheckboxCheckedLogo from "../../../../assets/image_svg/icons/_Checkbox base.svg";
-import CheckboxLogo from "../../../../assets/image_svg/icons/check_box_outline_blank_24dp_9B9D9F_FILL1_wght400_GRAD0_opsz24.svg";
+import CheckboxCheckedLogo from "../../assets/image_svg/icons/_Checkbox base.svg";
+import CheckboxLogo from "../../assets/image_svg/icons/check_box_outline_blank_24dp_9B9D9F_FILL1_wght400_GRAD0_opsz24.svg";
 
 export interface CheckboxData {
   name: string;
@@ -64,15 +64,6 @@ export const CheckboxWithTextFields: React.FC<CheckboxWithTextFieldsProps> = ({
                       transform: "scale(1)",
                     }}
                   />
-
-                  // <Checkbox
-                  //   checked={state[item.name]}
-                  //   onChange={handleChange}
-                  //   name={item.name}
-                  //   sx={{
-                  //     transform: "scale(1)",
-                  //   }}
-                  // />
                 }
                 label={null}
                 sx={{ marginRight: 0 }}

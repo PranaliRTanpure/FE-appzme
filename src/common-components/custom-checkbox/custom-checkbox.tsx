@@ -15,15 +15,17 @@ export type CheckedArray = {
 };
 
 type CustomCheckBoxType = {
+  oriantation: "horizontal" | "vertical";
   options: CheckedArray[];
 
   onChange: (updatedArray: CheckedArray[]) => void;
   sx?: SxProps;
   enableSelectAll?: boolean;
+  width?: string; //e.g. 50%
 };
 
 const CustomCheckBox = (props: CustomCheckBoxType) => {
-  const { options, onChange, sx } = props;
+  const { options, onChange, sx, oriantation = "vertical", width } = props;
   const [updatedArray, setUpdatedArray] = useState(options);
 
   const handleChange = (
@@ -46,49 +48,54 @@ const CustomCheckBox = (props: CustomCheckBoxType) => {
   };
 
   return (
-    <div>
-      <Grid>
-        {updatedArray.map((val) => (
-          <Grid
-            container
-            justifyContent={"flex-start"}
-            alignItems={"center"}
-            columnGap={"4px"}
-            key={val.key}
-          >
-            <FormControlLabel
-              control={
-                <CheckBox
-                  checked={val.checked}
-                  val={val}
-                  handleChange={function (e, val): void {
-                    handleChange(e, val);
-                  }}
-                />
-              }
-              label={
-                <Grid container alignItems={"center"} columnGap={1}>
-                  {StatusColorMap[val.key] && (
-                    <Grid
-                      width={"10px"}
-                      height={"10px"}
-                      borderRadius={"50%"}
-                      bgcolor={
-                        StatusColorMap[val.key] || theme.palette.common.white
-                      }
-                      border={`1px solid ${val.borderColor || "transparent"}`}
-                    ></Grid>
-                  )}
-                  <Typography sx={sx}>
-                    {toCamelCase(val.key || "Undefined")}
-                  </Typography>
-                </Grid>
-              }
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+    <Grid
+      width={"100%"}
+      container
+      flexDirection={oriantation === "vertical" ? "column" : "row"}
+    >
+      {updatedArray.map((val) => (
+        <Grid
+          container
+          justifyContent={"flex-start"}
+          flexDirection={oriantation === "vertical" ? "column" : "row"}
+          columnGap={"4px"}
+          width={
+            width ? width : oriantation === "vertical" ? "100%" : "fit-content"
+          }
+          key={val.key}
+        >
+          <FormControlLabel
+            control={
+              <CheckBox
+                checked={val.checked}
+                val={val}
+                handleChange={function (e, val): void {
+                  handleChange(e, val);
+                }}
+              />
+            }
+            label={
+              <Grid container alignItems={"center"} columnGap={1}>
+                {StatusColorMap[val.key] && (
+                  <Grid
+                    width={"10px"}
+                    height={"10px"}
+                    borderRadius={"50%"}
+                    bgcolor={
+                      StatusColorMap[val.key] || theme.palette.common.white
+                    }
+                    border={`1px solid ${val.borderColor || "transparent"}`}
+                  ></Grid>
+                )}
+                <Typography sx={sx}>
+                  {toCamelCase(val.key || "Undefined")}
+                </Typography>
+              </Grid>
+            }
+          />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 
@@ -102,6 +109,7 @@ type CheckBoxType = {
     val?: CheckedArray,
   ) => void;
 };
+
 const CheckBox = (props: CheckBoxType) => {
   const { checked, handleChange, val } = props;
   return (

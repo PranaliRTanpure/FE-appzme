@@ -1,4 +1,3 @@
-import { PropsWithChildren, ReactNode, useRef } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import {
   Box,
@@ -8,11 +7,12 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { PropsWithChildren, ReactNode, useRef } from "react";
 
+import { customLabelStyles } from "@/common-components/custom-label/widgets/custom-label-styles";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useDrawer } from "../../hooks/useDrawer";
 import { theme } from "../../utils/theme";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { customLabelStyles } from "@/common-components/custom-label/widgets/custom-label-styles";
 
 interface MainDrawerProps {
   drawerWidth?: string;
@@ -41,7 +41,7 @@ const MainDrawer = ({
       open={isOpen}
       PaperProps={{
         sx: {
-          // width: belowLg ? "100%" : drawerWidth,
+          border: 2,
           width: drawerWidth ? drawerWidth : belowLg ? "50vw" : "40vw",
         },
       }}
@@ -66,9 +66,6 @@ const MainDrawer = ({
           }}
         >
           <Grid container columnGap={1.5}>
-            {/* <IconButton onClick={close}>
-              <ArrowBackIcon />
-            </IconButton> */}
             {showSecondButton ? (
               <IconButton onClick={close}>
                 <CloseOutlinedIcon sx={{ fontSize: "18px" }} />
@@ -88,10 +85,6 @@ const MainDrawer = ({
           </Grid>
 
           <Grid>
-            {/* <IconButton onClick={close} size="small">
-              <CloseOutlinedIcon />
-            </IconButton> */}
-
             {showCloseButton && (
               <Grid>
                 <IconButton onClick={close}>
