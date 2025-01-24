@@ -254,6 +254,7 @@ const EncounterHstEducation = () => {
                 sx={{ fontSize: "14px" }}
                 options={HstEducationAppointmentStatus}
                 onChange={handleCheckedStatus}
+                oriantation={"horizontal"}
               />
             </Grid>
           </AccordionDetails>

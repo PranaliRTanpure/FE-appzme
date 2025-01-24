@@ -318,6 +318,7 @@ const EncounterSleepImpression = () => {
               <CustomCheckBox
                 sx={{ fontSize: "14px" }}
                 options={EncounterType}
+                oriantation={"vertical"}
                 onChange={handleCheckedEncounter}
               />
             </Grid>
@@ -340,6 +341,7 @@ const EncounterSleepImpression = () => {
           <AccordionDetails>
             <Grid>
               <CustomCheckBox
+                oriantation={"vertical"}
                 sx={{ fontSize: "14px" }}
                 options={SleepImpressionAppointmentStatus}
                 onChange={handleCheckedStatus}

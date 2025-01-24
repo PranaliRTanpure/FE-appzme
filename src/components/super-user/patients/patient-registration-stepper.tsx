@@ -9,7 +9,7 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import { Box, Grid } from "@mui/system";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { customLabelStyles } from "../../../common-components/custom-label/widgets/custom-label-styles";
@@ -22,6 +22,9 @@ import {
 } from "./patient-registration-schema";
 import ThreePatientInsurance from "./three-patient-insurance";
 import TwoPatientContacts from "./two-patient-details";
+import MainDrawer from "@/components/ui/MainDrawer";
+import { useDrawer } from "@/hooks/useDrawer";
+import AddOrderingProviderForm from "../providers/add-ordering-providers/add-ordering-provider-form";
 
 const steps = [
   "Patient Details",
@@ -31,7 +34,7 @@ const steps = [
 ];
 
 const PatientRegistrationStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(3);
 
   const [completed] = React.useState<{ [k: number]: boolean }>({});
   const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(
@@ -41,6 +44,8 @@ const PatientRegistrationStepper = () => {
   const handleNext = () => {
     if (activeStep === 3 && orderType === "HST Order") {
       orderType;
+      handleDrawer.HSTForm("Add");
+      return;
     }
 
     handleSubmit(
@@ -85,8 +90,46 @@ const PatientRegistrationStepper = () => {
     }
   };
 
+  const belowWidth1024 = useMediaQuery("(max-width:1024px)");
+
+  const {
+    open: openDrawer,
+    close: closeDrawer,
+    content: contentDrawer,
+  } = useDrawer();
+
+  const handleDrawer = {
+    HSTForm: (action: string) => {
+      openDrawer({
+        title: `${action} Ordering Provider`,
+        identifier: "drawer-HST",
+      });
+    },
+  };
+
+  const DrawerContent = () => {
+    switch (contentDrawer.identifier) {
+      case "drawer-HST":
+        return (
+          <AddOrderingProviderForm
+            isEdit={false}
+            handleDrawerClose={closeDrawer}
+          />
+        );
+      default:
+        return <div />;
+    }
+  };
+
   return (
     <>
+      <MainDrawer
+        content={<DrawerContent />}
+        drawerWidth={belowWidth1024 ? "95%" : "1000px"}
+        anchor="right"
+        showSecondButton={false}
+        showMandatoryIndicator={true}
+      />
       <FormProvider {...method}>
         <form style={{ height: "100%", width: "100%" }}>
           <Grid
