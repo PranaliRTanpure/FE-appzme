@@ -3,6 +3,7 @@ import { useDrawer } from "@/hooks/useDrawer";
 import { Grid } from "@mui/system";
 import AddStaffForm from "./add-staff-form";
 import MainDrawer from "@/components/ui/MainDrawer";
+import OatOrderForm from "../orders/OAT-orders/oat-order-form";
 
 const ProviderUserSettings = () => {
   const {
@@ -12,6 +13,12 @@ const ProviderUserSettings = () => {
   } = useDrawer();
 
   const handleDrawer = {
+    addOatOrdersForm: (action: string) => {
+      openDrawer({
+        title: `${action} Form`,
+        identifier: "drawer-oat-order-form",
+      });
+    },
     addStaffForm: (action: string) => {
       openDrawer({
         title: `${action} Staff`,
@@ -24,18 +31,84 @@ const ProviderUserSettings = () => {
     switch (contentDrawer.identifier) {
       case "drawer-settings-add-staff-form":
         return <AddStaffForm handleDrawerClose={closeDrawer} />;
+
+      case "drawer-oat-order-form":
+        return <OatOrderForm />;
+
       default:
         return <div />;
+    }
+  };
+
+  // const getDrawerProps = (): {
+  //   drawerWidth: string;
+  //   anchor: "right" | "left" | "top" | "bottom";
+  //   showSecondButton: boolean;
+  //   showMandatoryIndicator: boolean;
+  // } => {
+  //   switch (contentDrawer.identifier) {
+  //     case "drawer-settings-add-staff-form":
+  //       return {
+  //         drawerWidth: "1000px",
+  //         anchor: "right",
+  //         showSecondButton: false,
+  //         showMandatoryIndicator: true,
+  //       };
+
+  //     case "drawer-oat-order-form":
+  //       return {
+  //         drawerWidth: "1000px",
+  //         anchor: "right",
+  //         showSecondButton: false,
+  //         showMandatoryIndicator: false,
+  //       };
+
+  //     default:
+  //       return {
+  //         drawerWidth: "800px",
+  //         anchor: "right",
+  //         showSecondButton: false,
+  //         showMandatoryIndicator: false,
+  //       };
+  //   }
+  // };
+
+  const getDrawerProps = () => {
+    switch (contentDrawer.identifier) {
+      case "drawer-settings-add-staff-form":
+        return {
+          drawerWidth: "1000px",
+          anchor: "right" as "right",
+          showSecondButton: false,
+          showMandatoryIndicator: true,
+        };
+
+      case "drawer-oat-order-form":
+        return {
+          drawerWidth: "1000px",
+          anchor: "right" as "right",
+          showSecondButton: false,
+          showMandatoryIndicator: false,
+        };
+
+      default:
+        return {
+          drawerWidth: "800px",
+          anchor: "right" as "right",
+          showSecondButton: false,
+          showMandatoryIndicator: false,
+        };
     }
   };
   return (
     <>
       <MainDrawer
         content={<DrawerContent />}
-        drawerWidth={"1000px"}
-        anchor="right"
-        showSecondButton={false}
-        showMandatoryIndicator={true}
+        // drawerWidth={"1000px"}
+        // anchor="right"
+        // showSecondButton={false}
+        // showMandatoryIndicator={true}
+        {...getDrawerProps()}
       />
       <Grid
         container
@@ -44,6 +117,7 @@ const ProviderUserSettings = () => {
         border={1}
         alignItems={"center"}
         justifyContent={"center"}
+        columnGap={2}
       >
         <Grid>
           <CustomButton
@@ -51,6 +125,15 @@ const ProviderUserSettings = () => {
             text={"Add Staff"}
             onClick={() => {
               handleDrawer.addStaffForm("Add");
+            }}
+          />
+        </Grid>
+        <Grid>
+          <CustomButton
+            variant={"contained"}
+            text={"Has OAT Order"}
+            onClick={() => {
+              handleDrawer.addOatOrdersForm("OAT Order");
             }}
           />
         </Grid>
