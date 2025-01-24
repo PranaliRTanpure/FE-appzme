@@ -32,9 +32,9 @@ const useMenu = () => {
       icon: <GridViewIcon />,
       hide: false,
       disabled: false,
-      menuList: [
-        { name: "Patients", path: "/super-user/patient-registration" },
-      ],
+      // menuList: [
+      //   { name: "Patients", path: "/super-user/patient-registration" },
+      // ],
     },
     {
       title: "Devices",
@@ -50,6 +50,16 @@ const useMenu = () => {
           path: "/super-user/devices/manufacturers",
         },
       ],
+    },
+    {
+      title: "Settings",
+      route: "/super-user/settings",
+      icon: <GridViewIcon />,
+      hide: false,
+      disabled: false,
+      // menuList: [
+      //   { name: "Patients", path: "/super-user/patient-registration" },
+      // ],
     },
   ];
 

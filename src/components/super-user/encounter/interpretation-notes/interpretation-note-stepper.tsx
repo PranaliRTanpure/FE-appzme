@@ -14,6 +14,7 @@ import { theme } from "@/utils/theme";
 import { Button, Step, StepButton, Stepper } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CustomButton from "@/common-components/button-outlined/custom-button";
 
 const steps = [
   "Study Summary",
@@ -233,23 +234,19 @@ const InterpretationNoteStepper = () => {
                   )}
                   <Box sx={{ flex: "1 1 auto" }} />
                   {activeStep < totalSteps - 1 ? (
-                    <Button
-                      variant="contained"
+                    <CustomButton
+                      variant={"contained"}
+                      text={"Next"}
                       endIcon={<ArrowForwardIcon />}
-                      onClick={() => handleNext()}
-                      sx={{ mr: 1 }}
-                    >
-                      Next
-                    </Button>
+                      onClick={handleNext}
+                    />
                   ) : (
-                    <Button
-                      variant="contained"
+                    <CustomButton
+                      variant={"contained"}
+                      text={"Sign Off Interpretation"}
                       endIcon={<ArrowForwardIcon />}
                       onClick={() => {}}
-                      sx={{ mr: 1 }}
-                    >
-                      Sign Off Interpretation
-                    </Button>
+                    />
                   )}
                 </Grid>
               </Grid>
