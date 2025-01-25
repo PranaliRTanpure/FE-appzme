@@ -7,4 +7,6 @@ export const oatOrderFormSchema = yup.object().shape({
   fax: yup.string(),
   dentistProvider: yup.string(),
   medicalNecessity: yup.string(),
+  ahi: yup.string(),
+  testingProvider: yup.string(),
 });

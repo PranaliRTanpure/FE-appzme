@@ -24,6 +24,24 @@ export const DiagnosisICD = [
   { key: "Nocturnal Hypoxemia (G47.36)", checked: false },
 ];
 
+export const AHIcheckbox = [
+  { key: "Excessive daytime sleepiness", checked: false },
+  { key: "Impaired cognition", checked: false },
+  { key: "Mood disorders", checked: false },
+  { key: "Insomnia", checked: false },
+  { key: "Hypertension", checked: false },
+  { key: "Ischemic heart disease", checked: false },
+  { key: "History of stroke", checked: false },
+];
+
+export const BaseEquipmentscheckbox = [
+  {
+    key: "E0486 Custom fabricated Mandibular Advancement Device Referral for consult and follow up",
+    checked: false,
+  },
+  { key: "D8210/S8262 Realignment appliance", checked: false },
+];
+
 interface OatOrderFormProps {
   handleDrawerClose: () => void;
 }
@@ -38,6 +56,8 @@ const OatOrderForm = (props: OatOrderFormProps) => {
     fax: "",
     dentistProvider: "",
     medicalNecessity: "",
+    ahi: "",
+    testingProvider: "",
   };
 
   const [otherReason, setOtherReason] = useState<number[]>([]);
@@ -56,6 +76,14 @@ const OatOrderForm = (props: OatOrderFormProps) => {
   };
 
   const handleSelectionDiagnosisSymptom = (updatedArray: CheckedArray[]) => {
+    updatedArray;
+  };
+
+  const handleSelectionAhiSystem = (updatedArray: CheckedArray[]) => {
+    updatedArray;
+  };
+
+  const handleSelectionBaseEquipmentSystem = (updatedArray: CheckedArray[]) => {
     updatedArray;
   };
 
@@ -231,6 +259,159 @@ const OatOrderForm = (props: OatOrderFormProps) => {
                     onChange={function (updatedArray: CheckedArray[]): void {
                       handleSelectionDiagnosisSymptom(updatedArray);
                     }}
+                  />
+                </Grid>
+              </Grid>
+              {/* Grid 3 */}
+              <Grid container width={"100%"} justifyContent={"space-between"}>
+                <Grid width={"32%"}>
+                  <CustomLabel label="AHI" />
+                  <Controller
+                    control={control}
+                    name="ahi"
+                    render={({ field }) => (
+                      <CustomInput
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter "}
+                        name={field.name}
+                        onChange={(e) =>
+                          setValue("ahi", e.target.value, {
+                            shouldValidate: true,
+                          })
+                        }
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid width={"32%"}>
+                  <CustomLabel label="Testing Provider" />
+                  <Controller
+                    control={control}
+                    name="testingProvider"
+                    render={({ field }) => (
+                      <CustomInput
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter Testing Provider "}
+                        name={field.name}
+                        onChange={(e) =>
+                          setValue("testingProvider", e.target.value, {
+                            shouldValidate: true,
+                          })
+                        }
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid
+                  container
+                  mt={3}
+                  width={"20%"}
+                  alignContent={"center"}
+                  columnGap={0.7}
+                >
+                  <Typography
+                    textAlign={"center"}
+                    variant="bodySmall"
+                    fontWeight={500}
+                  >
+                    Study Type :
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    variant="bodySmall"
+                    fontWeight={400}
+                  >
+                    Follow up
+                  </Typography>
+                </Grid>
+                <Grid
+                  container
+                  mt={3}
+                  width={"15%"}
+                  alignContent={"center"}
+                  columnGap={0.7}
+                >
+                  <Typography
+                    textAlign={"center"}
+                    variant="bodySmall"
+                    fontWeight={500}
+                  >
+                    Date :
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    variant="bodySmall"
+                    fontWeight={400}
+                  >
+                    12/12/2025
+                  </Typography>
+                </Grid>
+              </Grid>
+              {/* Grid 4 */}
+              <Grid
+                container
+                flexDirection={"column"}
+                width={"100%"}
+                rowGap={1}
+              >
+                <Typography variant="bodySmall" fontWeight={600}>
+                  If the AHI is from 5 to 14 events/hour, one of the following
+                  is documented :
+                </Typography>
+                <Grid container width={"100%"}>
+                  <CustomCheckBox
+                    sx={{ fontSize: "14px" }}
+                    oriantation={"horizontal"}
+                    size={4}
+                    options={AHIcheckbox}
+                    onChange={function (updatedArray: CheckedArray[]): void {
+                      handleSelectionAhiSystem(updatedArray);
+                    }}
+                  />
+                </Grid>
+              </Grid>
+              {/* Grid 5 */}
+              <Grid
+                container
+                width={"100%"}
+                flexDirection={"column"}
+                rowGap={1}
+              >
+                <Typography variant="bodySmall" fontWeight={600}>
+                  Base Equipment : Length of Need for Items Listed Below: 99
+                  months (99-lifetime)
+                </Typography>
+                <Grid width={"100%"}>
+                  <CustomCheckBox
+                    sx={{ fontSize: "14px" }}
+                    oriantation={"horizontal"}
+                    size={12}
+                    options={BaseEquipmentscheckbox}
+                    onChange={function (updatedArray: CheckedArray[]): void {
+                      handleSelectionBaseEquipmentSystem(updatedArray);
+                    }}
+                  />
+                </Grid>
+              </Grid>
+              {/* Medical Necessity */}
+              <Grid container width={"100%"}>
+                <Grid width={"100%"}>
+                  <CustomLabel label="Medical Necessity" />
+                  <Controller
+                    control={control}
+                    name="medicalNecessity"
+                    render={({ field }) => (
+                      <CustomInput
+                        value={field.value?.trim() || ""}
+                        placeholder={"Enter Medical Necessity"}
+                        name={field.name}
+                        onChange={(e) =>
+                          setValue("medicalNecessity", e.target.value, {
+                            shouldValidate: true,
+                          })
+                        }
+                      />
+                    )}
                   />
                 </Grid>
               </Grid>
