@@ -1,8 +1,9 @@
+import Checkbox from "@/common-components/custom-checkbox/checkbox";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import CustomFilters from "@/common-components/custom-filters/custom filters";
 import AddIcon from "@mui/icons-material/Add";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import {
   Button,
   Divider,
@@ -34,8 +35,6 @@ import { TableHeaders } from "../../../../common-components/table/table-models";
 import deviceInventoryList from "../../../../mock-data/device-inventory.json";
 import { theme } from "../../../../utils/theme";
 import AddDeviceInventory from "./add-device-inventory";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-import Checkbox from "@/common-components/custom-checkbox/checkbox";
 
 export const Headers: TableHeaders[] = [
   { header: "Device Name", width: "550px", maxWidth: "500px" },
@@ -172,19 +171,6 @@ const DevicesInventoryList = () => {
               </Grid>
 
               <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
-                <Grid
-                  container
-                  border={"1px solid #C9CBCC"}
-                  borderRadius={3}
-                  width={35}
-                  height={35}
-                  alignContent={"center"}
-                  justifyContent={"center"}
-                  bgcolor={"white"}
-                >
-                  <FilterListIcon sx={{ height: "19px", width: "19px" }} />
-                </Grid>
-
                 <Grid
                   container
                   border={"1px solid #C9CBCC"}

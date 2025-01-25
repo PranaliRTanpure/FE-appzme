@@ -2,7 +2,6 @@ import CustomClickableLink from "@/common-components/custom-clickable-link/custo
 import AddIcon from "@mui/icons-material/Add";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
@@ -126,18 +125,6 @@ const DeviceManufacturersList = () => {
             </Grid>
 
             <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
-              <Grid
-                container
-                border={"1px solid #C9CBCC"}
-                borderRadius={3}
-                width={35}
-                height={35}
-                alignContent={"center"}
-                justifyContent={"center"}
-              >
-                <FilterListIcon sx={{ height: "19px", width: "19px" }} />
-              </Grid>
-
               <Grid
                 container
                 border={"1px solid #C9CBCC"}

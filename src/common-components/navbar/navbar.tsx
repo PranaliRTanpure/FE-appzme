@@ -1,13 +1,14 @@
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import AddIcon from "@mui/icons-material/Add";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Dialog,
   DialogActions,
   DialogContent,
-  // Divider,
+  InputAdornment,
+  InputBase,
   Menu,
   MenuItem,
   Typography,
@@ -17,8 +18,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import { Grid } from "@mui/system";
-import { useEffect, useState } from "react";
+import { alpha, Grid } from "@mui/system";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileImage from "../../assets/image_svg/icons/account_circle.svg";
@@ -41,6 +42,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [inputValue, setInputValue] = useState<string>();
+
   const handleProfileClick = () => {
     navigate("settings/profile");
   };
@@ -71,6 +74,10 @@ const Navbar = () => {
     dispatch(setIsLoading(isLoading));
   }, [dispatch, isLoading]);
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+  };
   return (
     <AppBar
       position="sticky"
@@ -94,44 +101,60 @@ const Navbar = () => {
           <Grid ml={10}>
             <TopMenu />
           </Grid>
-          <Grid flex={1} container justifyContent={"flex-end"} mb={0.5}>
-            <Grid columnGap={3.5} container>
-              <Grid container columnGap={4}>
-                <IconButton
+          <Grid flex={1} container justifyContent={"flex-end"}>
+            <Grid columnGap={1.5} container>
+              <Grid maxHeight={"100%"}>
+                <InputBase
+                  fullWidth
+                  className="popper-area"
+                  name={"search"}
+                  type={"text"}
+                  placeholder={"Search Patient"}
+                  value={inputValue}
                   sx={{
-                    padding: "0px",
-                    color: theme.palette.common.white,
+                    maxHeight: "80%",
+                    background: "#274059",
+                    height: "40px",
+                    ...inputStyles.textFieldRoot,
+                    ...inputStyles.textFieldInput,
                   }}
-                >
-                  <SearchIcon sx={{ height: "20px", width: "20px" }} />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    padding: "0px",
-                    color: theme.palette.common.white,
+                  onChange={handleInputChange}
+                  autoComplete="false"
+                  classes={{
+                    root: `${inputStyles.textFieldRoot}`,
+                    input: `${inputStyles.textFieldInput}`,
+                    error: `${inputStyles.textFieldError}`,
                   }}
-                >
-                  <HelpOutlineOutlinedIcon
-                    sx={{ height: "20px", width: "20px" }}
-                  />
-                </IconButton>
-                <IconButton
-                  sx={{ padding: "0px", color: theme.palette.common.white }}
-                >
-                  <NotificationsNoneIcon
-                    sx={{ height: "20px", width: "20px" }}
-                  />
-                </IconButton>
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon
+                        sx={{ color: theme.palette.common.white, ml: "10px" }}
+                      />
+                    </InputAdornment>
+                  }
+                />
               </Grid>
-              {/* <Divider
-                sx={{
-                  margin: "2px",
-                  background: theme.palette.common.white,
-                }}
-                orientation="vertical"
-                variant="middle"
-                flexItem
-              /> */}
+              <Grid>
+                <CustomButton
+                  sx={{ height: "80%" }}
+                  variant="contained"
+                  text={"Add Patient"}
+                  startIcon={<AddIcon />}
+                  onClick={function (): void {
+                    navigate(`/super-user/patient-registration`);
+                  }}
+                ></CustomButton>
+              </Grid>
+
+              <IconButton sx={{ height: "80%" }}>
+                <MenuBookIcon
+                  sx={{
+                    color: theme.palette.common.white,
+                    width: "18px",
+                    height: "18px",
+                  }}
+                />
+              </IconButton>
               <Grid container columnGap={1.5}>
                 <Grid
                   container
@@ -247,3 +270,28 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const inputStyles = {
+  textFieldRoot: {
+    border: `1px solid ${alpha(theme.palette.grey[500], 0.3)}`,
+    borderRadius: "12px",
+  },
+  textFieldInput: {
+    color: theme.palette.common.white,
+    fontSize: "15px",
+    fontStyle: "normal",
+    fontWeight: "500",
+    lineHeight: "130%",
+    letterSpacing: "0.12px",
+
+    "&::placeholder": {
+      fontSize: "10px",
+      fontStyle: "inter sans-serif",
+      fontWeight: "400",
+    },
+  },
+
+  textFieldError: {
+    border: `1px solid red`,
+  },
+};

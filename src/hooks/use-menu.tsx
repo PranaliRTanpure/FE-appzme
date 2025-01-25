@@ -27,16 +27,6 @@ const useMenu = () => {
       ],
     },
     {
-      title: "Patients",
-      route: "/super-user/patient-registration",
-      icon: <GridViewIcon />,
-      hide: false,
-      disabled: false,
-      // menuList: [
-      //   { name: "Patients", path: "/super-user/patient-registration" },
-      // ],
-    },
-    {
       title: "Devices",
       route: "/super-user/devices",
       icon: <GridViewIcon />,
@@ -48,6 +38,21 @@ const useMenu = () => {
         {
           name: "Manufacturers",
           path: "/super-user/devices/manufacturers",
+        },
+      ],
+    },
+    {
+      title: "Communications",
+      route: "/super-user/communications",
+      icon: <GridViewIcon />,
+      hide: false,
+      disabled: false,
+      menuList: [
+        { name: "Tasks", path: "/super-user/communications/tasks" },
+        { name: "Fax", path: "/super-user/communications/fax" },
+        {
+          name: "Messages",
+          path: "/super-user/communications/messages",
         },
       ],
     },

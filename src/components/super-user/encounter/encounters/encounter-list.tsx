@@ -7,7 +7,6 @@ import {
 } from "@/common-components/table/common-table-widgets";
 import { TableHeaders } from "@/common-components/table/table-models";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import {
   Table,
   TableBody,
@@ -71,18 +70,6 @@ const EncounterList = () => {
           </Grid>
 
           <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
-            <Grid
-              container
-              border={"1px solid #C9CBCC"}
-              borderRadius={3}
-              width={35}
-              height={35}
-              alignContent={"center"}
-              justifyContent={"center"}
-            >
-              <FilterListIcon sx={{ height: "19px", width: "19px" }} />
-            </Grid>
-
             <Grid
               container
               border={"1px solid #C9CBCC"}
