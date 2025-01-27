@@ -24,7 +24,7 @@ import ThreePatientInsurance from "./three-patient-insurance";
 import TwoPatientContacts from "./two-patient-details";
 import MainDrawer from "@/components/ui/MainDrawer";
 import { useDrawer } from "@/hooks/useDrawer";
-import AddOrderingProviderForm from "../providers/add-ordering-providers/add-ordering-provider-form";
+import HSTOrderForm from "../orders/hst-order-form";
 
 const steps = [
   "Patient Details",
@@ -35,16 +35,16 @@ const steps = [
 
 const PatientRegistrationStepper = () => {
   const [activeStep, setActiveStep] = React.useState(3);
-
   const [completed] = React.useState<{ [k: number]: boolean }>({});
   const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(
     "HST Order",
   );
 
   const handleNext = () => {
+    // console.log("Active Step:", activeStep, "Order Type:", orderType);
     if (activeStep === 3 && orderType === "HST Order") {
       orderType;
-      handleDrawer.HSTForm("Add");
+      handleDrawer.addHSTForm("Add");
       return;
     }
 
@@ -99,23 +99,21 @@ const PatientRegistrationStepper = () => {
   } = useDrawer();
 
   const handleDrawer = {
-    HSTForm: (action: string) => {
+    addHSTForm: (action: string) => {
+      // console.log("Opening Drawer for:", action);
       openDrawer({
-        title: `${action} Ordering Provider`,
-        identifier: "drawer-HST",
+        title: `${action} HST Provider`,
+        identifier: "drawer-hst-allform",
       });
     },
   };
 
   const DrawerContent = () => {
+    // console.log("Current contentDrawer:", contentDrawer);
     switch (contentDrawer.identifier) {
-      case "drawer-HST":
-        return (
-          <AddOrderingProviderForm
-            isEdit={false}
-            handleDrawerClose={closeDrawer}
-          />
-        );
+      case "drawer-hst-allform":
+        // console.log("Rendering HSTOrderForm...");
+        return <HSTOrderForm isEdit={false} handleDrawerClose={closeDrawer} />;
       default:
         return <div />;
     }

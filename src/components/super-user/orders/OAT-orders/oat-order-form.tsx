@@ -1,7 +1,7 @@
 import DrawerBody from "@/components/ui/DrawerBody";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Grid } from "@mui/system";
-import { useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { oatOrderFormSchema } from "./oat-order-schema";
 import { theme } from "@/utils/theme";
@@ -47,7 +47,24 @@ interface OatOrderFormProps {
 }
 
 const OatOrderForm = (props: OatOrderFormProps) => {
-  const footerRef = useRef<HTMLDivElement>();
+  // const footerRef = useRef<HTMLDivElement>();
+  const [otherReason, setOtherReason] = useState<number[]>([]);
+  const [height, setHeight] = useState(0);
+
+  const footerRef = useCallback(
+    (
+      node: {
+        getBoundingClientRect: () => {
+          height: React.SetStateAction<number>;
+        };
+      } | null,
+    ) => {
+      if (node !== null) {
+        setHeight(node.getBoundingClientRect().height);
+      }
+    },
+    [],
+  );
 
   const initialValues = {
     orderDate: "",
@@ -59,8 +76,6 @@ const OatOrderForm = (props: OatOrderFormProps) => {
     ahi: "",
     testingProvider: "",
   };
-
-  const [otherReason, setOtherReason] = useState<number[]>([]);
 
   const handleSelectOther = (
     _e: React.ChangeEvent<HTMLInputElement>,
@@ -102,7 +117,7 @@ const OatOrderForm = (props: OatOrderFormProps) => {
     props.handleDrawerClose();
   };
   return (
-    <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
+    <DrawerBody padding={3} offset={height}>
       <Grid width={"100%"} height={"100%"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -121,6 +136,7 @@ const OatOrderForm = (props: OatOrderFormProps) => {
               flexDirection={"column"}
               rowGap={3}
               border={0}
+              pb={1.5}
             >
               {/* Grid 1 */}
               <Grid container width={"100%"} justifyContent={"space-between"}>

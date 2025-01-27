@@ -55,7 +55,6 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
             handleDrawerClose={closeDrawer}
           />
         );
-      // <HSTOrderForm isEdit={false} handleDrawerClose={closeDrawer} />;
       default:
         return <div />;
     }
@@ -438,6 +437,7 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
               selectedvalue={orderType}
               onChange={function (opt: string): void {
                 const selectedOrder = opt as "HST Order" | "OAT Order";
+                // console.log("Selected Order:", selectedOrder);
                 handleSelectedOrderType(selectedOrder);
                 setOrderType(selectedOrder);
               }}

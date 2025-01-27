@@ -69,14 +69,7 @@ const ProviderUserSettings = () => {
   };
   return (
     <>
-      <MainDrawer
-        content={<DrawerContent />}
-        // drawerWidth={"1000px"}
-        // anchor="right"
-        // showSecondButton={false}
-        // showMandatoryIndicator={true}
-        {...getDrawerProps()}
-      />
+      <MainDrawer content={<DrawerContent />} {...getDrawerProps()} />
       <Grid
         container
         width={"100%"}
