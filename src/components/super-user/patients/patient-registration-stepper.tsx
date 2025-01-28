@@ -1,4 +1,6 @@
 import CustomButton from "@/common-components/button-outlined/custom-button";
+import MainDrawer from "@/components/ui/MainDrawer";
+import { useDrawer } from "@/hooks/useDrawer";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -10,10 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Grid, useMediaQuery } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { customLabelStyles } from "../../../common-components/custom-label/widgets/custom-label-styles";
 import { theme } from "../../../utils/theme";
+import HSTOrderForm from "../orders/hst-order-form";
 import FourOrderingProvider from "./four-ordering-provider";
 import OnePatientDetails from "./One-patient-details";
 import {
@@ -22,9 +25,6 @@ import {
 } from "./patient-registration-schema";
 import ThreePatientInsurance from "./three-patient-insurance";
 import TwoPatientContacts from "./two-patient-details";
-import MainDrawer from "@/components/ui/MainDrawer";
-import { useDrawer } from "@/hooks/useDrawer";
-import HSTOrderForm from "../orders/hst-order-form";
 
 const steps = [
   "Patient Details",
@@ -39,12 +39,11 @@ const PatientRegistrationStepper = () => {
   const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(
     "HST Order",
   );
+  const [openOrderForm, setOpenOrderForm] = useState(false);
 
   const handleNext = () => {
-    // console.log("Active Step:", activeStep, "Order Type:", orderType);
     if (activeStep === 3 && orderType === "HST Order") {
-      orderType;
-      handleDrawer.addHSTForm("Add");
+      setOpenOrderForm(true);
       return;
     }
 
@@ -58,6 +57,10 @@ const PatientRegistrationStepper = () => {
       },
     )();
   };
+
+  useEffect(() => {
+    openOrderForm && handleDrawer.addHSTForm("Add");
+  }, [openOrderForm]);
 
   const handleBack = () => {
     setValue("activeStep", (activeStep - 1).toString());
@@ -100,7 +103,6 @@ const PatientRegistrationStepper = () => {
 
   const handleDrawer = {
     addHSTForm: (action: string) => {
-      // console.log("Opening Drawer for:", action);
       openDrawer({
         title: `${action} HST Provider`,
         identifier: "drawer-hst-allform",
@@ -109,25 +111,34 @@ const PatientRegistrationStepper = () => {
   };
 
   const DrawerContent = () => {
-    // console.log("Current contentDrawer:", contentDrawer);
     switch (contentDrawer.identifier) {
       case "drawer-hst-allform":
-        // console.log("Rendering HSTOrderForm...");
-        return <HSTOrderForm isEdit={false} handleDrawerClose={closeDrawer} />;
+        return (
+          <HSTOrderForm
+            isEdit={false}
+            handleDrawerClose={() => {
+              setOpenOrderForm(false);
+              closeDrawer();
+            }}
+          />
+        );
       default:
-        return <div />;
+        setOpenOrderForm(false);
+        return undefined;
     }
   };
 
   return (
     <>
-      <MainDrawer
-        content={<DrawerContent />}
-        drawerWidth={belowWidth1024 ? "95%" : "1000px"}
-        anchor="right"
-        showSecondButton={false}
-        showMandatoryIndicator={true}
-      />
+      {openOrderForm && (
+        <MainDrawer
+          content={<DrawerContent />}
+          drawerWidth={belowWidth1024 ? "95%" : "1000px"}
+          anchor="right"
+          showSecondButton={false}
+          showMandatoryIndicator={true}
+        />
+      )}
       <FormProvider {...method}>
         <form style={{ height: "100%", width: "100%" }}>
           <Grid
