@@ -27,12 +27,13 @@ type CustomAutoCompleteProps = {
     hide?: boolean;
   }[];
   value?: string;
+  name?: string;
   loading?: boolean;
   loadingText?: boolean;
-  // eslint-disable-next-line no-unused-vars
+
   onChange: (selectedValue: string | "") => void;
   onClick?: () => void;
-  // eslint-disable-next-line no-unused-vars
+
   onDebounceCall?: (selectedValue: string | "") => void;
   onInputEmpty?: () => void;
   width?: string;

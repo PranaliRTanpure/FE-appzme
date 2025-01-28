@@ -261,7 +261,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="phone"
                             render={({ field }) => (
                               <CustomInputWithPrefix
-                                {...field}
+                                name={field.name}
                                 onChange={(e) =>
                                   setValue("phone", e.target.value)
                                 }
@@ -279,7 +279,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             name="alternatePhone"
                             render={({ field }) => (
                               <CustomInputWithPrefix
-                                {...field}
+                                name={field.name}
                                 onChange={(e) =>
                                   setValue("alternatePhone", e.target.value)
                                 }
@@ -305,19 +305,15 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                   <Typography fontWeight={600} variant="bodySmall">
                     Address Information
                   </Typography>
-                  <Grid
-                    container
-                    columnGap={0}
-                    justifyContent={"space-between"}
-                  >
-                    <Grid width={"19.8%"}>
+                  <Grid container justifyContent={"space-between"}>
+                    <Grid width={"19.2%"}>
                       <CustomLabel label="Address Line 1" />
                       <Controller
                         control={control}
                         name="address.line1"
                         render={({ field }) => (
                           <CustomInput
-                            {...field}
+                            name={field.name}
                             value={field.value || ""}
                             placeholder={"Enter Address Line 1"}
                             hasError={!!errors?.address?.line1}
@@ -328,14 +324,14 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                         )}
                       />
                     </Grid>
-                    <Grid width={"19.8%"}>
+                    <Grid width={"19.2%"}>
                       <CustomLabel label="Address Line 2" />
                       <Controller
                         control={control}
                         name="address.line2"
                         render={({ field }) => (
                           <CustomInput
-                            {...field}
+                            name={field.name}
                             value={field.value || ""}
                             placeholder={"Enter Address Line 2"}
                             hasError={!!errors.address?.line2}
@@ -346,14 +342,14 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                         )}
                       />
                     </Grid>
-                    <Grid width={"19.8%"}>
+                    <Grid width={"19.2%"}>
                       <CustomLabel label="City" />
                       <Controller
                         control={control}
                         name="address.city"
                         render={({ field }) => (
                           <CustomInput
-                            {...field}
+                            name={field.name}
                             value={field.value || ""}
                             placeholder={"Enter City"}
                             hasError={!!errors.address?.city}
@@ -364,15 +360,16 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                         )}
                       />
                     </Grid>
-                    <Grid width={"19.8%"}>
+                    <Grid width={"19.2%"}>
                       <CustomLabel label="State" />
                       <Controller
                         control={control}
                         name="address.state"
                         render={({ field }) => (
                           <CustomAutoComplete
-                            {...field}
-                            placeholder={"Search the state"}
+                            // {...field}
+                            name={field.name}
+                            placeholder={"Select state"}
                             options={stateList}
                             maxHeightForOptionsList={300}
                             value={field.value || ""}
@@ -380,11 +377,14 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             errorMessage={
                               errors.address?.state?.message as string
                             }
+                            onChange={(selectedValue: string | "") =>
+                              field.onChange(selectedValue)
+                            }
                           />
                         )}
                       />
                     </Grid>
-                    <Grid width={"19.8%"}>
+                    <Grid width={"19.2%"}>
                       <CustomLabel label="Zip Code" />
                       <Controller
                         control={control}

@@ -41,7 +41,7 @@ const ProviderUserSettings = () => {
       case "drawer-oat-order-form":
         return <OatOrderForm handleDrawerClose={closeDrawer} />;
       case "drawer-settings-add-provider-form":
-        return <ProviderForm />;
+        return <ProviderForm handleDrawerClose={closeDrawer} />;
       default:
         return <div />;
     }
@@ -66,7 +66,7 @@ const ProviderUserSettings = () => {
 
       case "drawer-settings-add-provider-form":
         return {
-          drawerWidth: "1000px",
+          drawerWidth: "1187px",
           anchor: "right" as "right",
           showSecondButton: false,
           showMandatoryIndicator: true,
@@ -114,7 +114,7 @@ const ProviderUserSettings = () => {
         <Grid>
           <CustomButton
             variant={"contained"}
-            text={"Add"}
+            text={"Add Provider"}
             onClick={() => {
               handleDrawer.addProviderForm("Add");
             }}
