@@ -24,6 +24,7 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
   const [orderType, setOrderType] = useState<"HST Order" | "OAT Order">(
     "HST Order",
   );
+  const [open, setOpen] = useState<boolean>(false);
 
   const {
     control,
@@ -52,23 +53,29 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
         return (
           <AddOrderingProviderForm
             isEdit={false}
-            handleDrawerClose={closeDrawer}
+            handleDrawerClose={() => {
+              setOpen(false);
+              closeDrawer();
+            }}
           />
         );
       default:
+        setOpen(false);
         return <div />;
     }
   };
 
   return (
     <>
-      <MainDrawer
-        content={<DrawerContent />}
-        drawerWidth={belowWidth1024 ? "95%" : "1000px"}
-        anchor="right"
-        showSecondButton={false}
-        showMandatoryIndicator={true}
-      />
+      {open && (
+        <MainDrawer
+          content={<DrawerContent />}
+          drawerWidth={belowWidth1024 ? "95%" : "1000px"}
+          anchor="right"
+          showSecondButton={false}
+          showMandatoryIndicator={true}
+        />
+      )}
       <Grid
         container
         flexDirection={"column"}
@@ -122,6 +129,7 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
               startIcon={<AddIcon />}
               onClick={() => {
                 handleDrawer.orderingProviderForm("Add");
+                setOpen(true);
               }}
             >
               Add Provider
