@@ -8,13 +8,14 @@ import { Options2 } from "../../constants/options";
 type ColoredCustomSelectProps = {
   value: string;
   bgColor?: string;
-  // eslint-disable-next-line no-unused-vars
+
   onChange: (val: string) => void;
   options: Options2;
+  border?: string;
 };
 
 export default function ColoredCustomSelect(props: ColoredCustomSelectProps) {
-  const { value, bgColor, onChange, options } = props;
+  const { value, bgColor, onChange, options, border } = props;
   const [selectedValue, setSelectedValue] = React.useState(value);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -37,6 +38,7 @@ export default function ColoredCustomSelect(props: ColoredCustomSelectProps) {
           height: "20px",
           fontSize: "12px",
           fontWeight: "500 !important",
+          border: border ? border : "none",
           ".MuiOutlinedInput-notchedOutline": {
             border: 0,
             color: "black",

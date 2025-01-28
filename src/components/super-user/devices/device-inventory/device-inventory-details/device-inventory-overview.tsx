@@ -595,7 +595,11 @@ const DeviceInventoryOverview = ({
                                 color="#21262B"
                                 fontWeight={400}
                               >
-                                <Chip label={list?.action} variant="outlined" />
+                                <Chip
+                                  label={list?.action}
+                                  variant="outlined"
+                                  sx={{ height: "22px" }}
+                                />
                               </Typography>
                             </Grid>
                           </TableCell>

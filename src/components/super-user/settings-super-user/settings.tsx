@@ -86,15 +86,6 @@ const ProviderUserSettings = () => {
             }}
           />
         </Grid>
-        {/* <Grid>
-          <CustomButton
-            variant={"contained"}
-            text={"Has OAT Order"}
-            onClick={() => {
-              handleDrawer.addOatOrdersForm("OAT Order");
-            }}
-          />
-        </Grid> */}
         <Grid>
           <CustomButton
             variant={"contained"}

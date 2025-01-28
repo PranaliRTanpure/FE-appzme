@@ -13,11 +13,10 @@ import CustomInput from "../../../../../common-components/custom-input/custom-in
 import DatePicker from "../../../../../common-components/date-picker-field/date-picker-field";
 
 enum DeviceDetailsType {
-  // eslint-disable-next-line no-unused-vars
   OVERVIEW = "Overview",
-  // eslint-disable-next-line no-unused-vars
+
   ACTIVE_PATIENT_SCHEDULE = "Active Patients Schedule",
-  // eslint-disable-next-line no-unused-vars
+
   ACTIVITY_LOG = "Activity Log",
 }
 

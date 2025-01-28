@@ -295,23 +295,27 @@ const DevicesInventoryList = () => {
                     {paginatedData.length > 0 ? (
                       paginatedData.map((list, index) => (
                         <TableRow hover key={index}>
-                          <TableCell>
-                            <Checkbox
-                              checked={selectedRows.includes(index)}
-                              handleChange={() => handleCheckboxChange(index)}
-                            />
+                          <TableCell sx={{ ...heading }}>
+                            <Grid container flexDirection={"column"}>
+                              <Checkbox
+                                checked={selectedRows.includes(index)}
+                                handleChange={() => handleCheckboxChange(index)}
+                              />
+                            </Grid>
                           </TableCell>
-                          <TableCell>
-                            <CustomClickableLink
-                              text={list?.deviceName}
-                              onClick={function (): void {
-                                navigate(
-                                  `/super-user/devices/${list.serialNumber.replace("#", "")}`,
-                                );
-                              }}
-                            />
+                          <TableCell sx={heading}>
+                            <Grid container flexDirection={"column"}>
+                              <CustomClickableLink
+                                text={list?.deviceName}
+                                onClick={function (): void {
+                                  navigate(
+                                    `/super-user/devices/${list.serialNumber.replace("#", "")}`,
+                                  );
+                                }}
+                              />
+                            </Grid>
                           </TableCell>
-                          <TableCell>
+                          <TableCell sx={{ ...heading }}>
                             <Grid container flexDirection={"column"}>
                               <Typography
                                 sx={typographyCss}
@@ -321,7 +325,7 @@ const DevicesInventoryList = () => {
                               </Typography>
                             </Grid>
                           </TableCell>
-                          <TableCell>
+                          <TableCell sx={{ ...heading }}>
                             <Grid container flexDirection={"column"}>
                               <Typography
                                 sx={typographyCss}
@@ -331,7 +335,7 @@ const DevicesInventoryList = () => {
                               </Typography>
                             </Grid>
                           </TableCell>
-                          <TableCell>
+                          <TableCell sx={{ ...heading }}>
                             <Grid
                               container
                               flexDirection={"column"}
@@ -347,7 +351,7 @@ const DevicesInventoryList = () => {
                               />
                             </Grid>
                           </TableCell>
-                          <TableCell>
+                          <TableCell sx={{ ...heading }}>
                             <Grid
                               container
                               flexDirection={"column"}
