@@ -4,13 +4,20 @@ import {
   Controller,
   FieldValues,
   FormProvider,
+  useFieldArray,
   useForm,
 } from "react-hook-form";
 import { addProviderFormSchema } from "./settings-form-schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DrawerBody from "@/components/ui/DrawerBody";
 import { theme } from "@/utils/theme";
-import { Button, SelectChangeEvent, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  IconButton,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import { CustomUploadImage } from "@/common-components/custom-image-upload/UploadImage";
 import CustomLabel from "@/common-components/custom-label/custom-label";
 import CustomInput from "@/common-components/custom-input/custom-input";
@@ -20,6 +27,10 @@ import { stateList } from "@/utils/StateList";
 import CustomCheckBox, {
   CheckedArray,
 } from "@/common-components/custom-checkbox/custom-checkbox";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import CustomButton from "@/common-components/button-outlined/custom-button";
+import CustomDatePicker from "@/common-components/date-picker-field/date-picker-field";
 
 interface AddProviderFormProps {
   handleDrawerClose: () => void;
@@ -74,6 +85,13 @@ const ProviderForm = (props: AddProviderFormProps) => {
     preferredDme: "",
     defaultPreferredLab: "",
     preferredHstDevice: "",
+    licenseDetails: [
+      {
+        licensedNumber: "",
+        licensedState: "",
+        licenseExpiry: "",
+      },
+    ],
   };
 
   const method = useForm({
@@ -87,6 +105,12 @@ const ProviderForm = (props: AddProviderFormProps) => {
     handleSubmit,
     formState: { errors },
   } = method;
+
+  const {
+    fields: modleDetailsArray,
+    append: appendmodleDetails,
+    remove: removemodleDetails,
+  } = useFieldArray({ name: "licenseDetails", control });
 
   const onSubmit = (data: FieldValues) => {
     data;
@@ -717,13 +741,148 @@ const ProviderForm = (props: AddProviderFormProps) => {
                   <Grid
                     container
                     flexDirection={"column"}
-                    width={"62%"}
+                    width={"65%"}
                     p={1}
                     borderRadius={3}
                     rowGap={1.5}
                     bgcolor={"#F2F4FA"}
                   >
-                    <Typography>Hello America</Typography>
+                    {modleDetailsArray.map((model, index) => (
+                      <Grid
+                        container
+                        width={"100%"}
+                        key={model.licensedNumber}
+                        columnGap={1}
+                      >
+                        <Grid width={"25%"}>
+                          <CustomLabel label="License Number" isRequired />
+                          <Controller
+                            control={control}
+                            name={`licenseDetails.${index}.licensedNumber`}
+                            render={({ field }) => (
+                              <CustomInput
+                                value={field.value?.trim() || ""}
+                                placeholder={"Enter License Number"}
+                                bgWhite
+                                hasError={
+                                  !!errors?.licenseDetails?.[index]
+                                    ?.licensedNumber
+                                }
+                                errorMessage={
+                                  errors?.licenseDetails?.[index]
+                                    ?.licensedNumber?.message as string
+                                }
+                                name={field.name}
+                                onChange={(e) =>
+                                  setValue(
+                                    `licenseDetails.${index}.licensedNumber`,
+                                    e.target.value,
+                                    {
+                                      shouldValidate: true,
+                                    },
+                                  )
+                                }
+                              />
+                            )}
+                          />
+                        </Grid>
+                        <Grid width={"25%"}>
+                          <CustomLabel label="Licensed State" isRequired />
+                          <Controller
+                            control={control}
+                            name={`licenseDetails.${index}.licensedState`}
+                            render={({ field }) => (
+                              <CustomAutoComplete
+                                bgWhite
+                                name={field.name}
+                                placeholder={"Select state"}
+                                options={stateList}
+                                maxHeightForOptionsList={300}
+                                value={field.value || ""}
+                                hasError={
+                                  !!errors?.licenseDetails?.[index]
+                                    ?.licensedState
+                                }
+                                errorMessage={
+                                  errors?.licenseDetails?.[index]?.licensedState
+                                    ?.message as string
+                                }
+                                onChange={(selectedValue: string | "") =>
+                                  field.onChange(selectedValue)
+                                }
+                              />
+                            )}
+                          />
+                        </Grid>
+                        <Grid width={"25%"}>
+                          <CustomLabel label="License Expiry" isRequired />
+                          <Controller
+                            control={control}
+                            name={`licenseDetails.${index}.licenseExpiry`}
+                            render={({ field }) => (
+                              <CustomDatePicker
+                                onDateChange={function (
+                                  selectedDate: string,
+                                ): void {
+                                  selectedDate;
+                                }}
+                                value={field.value?.trim() || ""}
+                                hasError={
+                                  !!errors?.licenseDetails?.[index]
+                                    ?.licenseExpiry
+                                }
+                                errorMessage={
+                                  errors?.licenseDetails?.[index]?.licenseExpiry
+                                    ?.message as string
+                                }
+                                bgWhite={true}
+                              />
+                            )}
+                          />
+                        </Grid>
+                        <Grid>
+                          <Divider orientation="vertical" variant="inset" />
+                        </Grid>
+                        <Grid
+                          container
+                          sx={{
+                            border: "1px solid #C9CBCC",
+                            background: "white",
+                            borderRadius: "12px",
+                            height: "38px",
+                            width: "38px",
+                          }}
+                          justifyContent={"center"}
+                          mt={4}
+                          ml={2}
+                        >
+                          <IconButton
+                            sx={{ pt: "3px" }}
+                            onClick={() => removemodleDetails(index)}
+                            disabled={modleDetailsArray.length <= 1}
+                          >
+                            <DeleteOutlineOutlinedIcon
+                              sx={{ color: "black" }}
+                            />
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                    ))}
+                    <Grid mt={1}>
+                      <CustomButton
+                        variant={"outlined"}
+                        text={"Add New Model"}
+                        startIcon={<AddIcon />}
+                        sx={{ bgcolor: "white" }}
+                        onClick={() =>
+                          appendmodleDetails({
+                            licensedNumber: "",
+                            licensedState: "",
+                            licenseExpiry: "",
+                          })
+                        }
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>

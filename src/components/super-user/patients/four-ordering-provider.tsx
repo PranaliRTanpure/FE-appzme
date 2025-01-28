@@ -64,7 +64,6 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
         return <div />;
     }
   };
-
   return (
     <>
       {open && (
@@ -432,11 +431,7 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
             </Grid>
           }
           <Grid width={"100%"}>
-            <Divider
-              variant="middle"
-              orientation="horizontal"
-              // sx={{ width: "100%" }}
-            />
+            <Divider variant="middle" orientation="horizontal" />
           </Grid>
           <Grid p={2}>
             <CustomLabel label="Order Recieved" />
@@ -445,7 +440,6 @@ const FourOrderingProvider = (props: FourOrderingProviderProps) => {
               selectedvalue={orderType}
               onChange={function (opt: string): void {
                 const selectedOrder = opt as "HST Order" | "OAT Order";
-                // console.log("Selected Order:", selectedOrder);
                 handleSelectedOrderType(selectedOrder);
                 setOrderType(selectedOrder);
               }}

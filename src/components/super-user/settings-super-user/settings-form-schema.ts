@@ -64,6 +64,19 @@ export const addStaffFormSchema = yup.object().shape({
 });
 
 export const addProviderFormSchema = yup.object().shape({
+  licenseDetails: yup
+    .array()
+    .of(
+      yup.object().shape({
+        licensedNumber: yup.string().required("Licensed Number reruired"),
+        licenseExpiry: yup
+          .string()
+          .typeError("License expiry date is required")
+          .required("License expiry date is required"),
+        licensedState: yup.string().required("Licensed State reruired"),
+      }),
+    )
+    .min(1, "At least one Liscense detail is required"),
   firstName: yup.string().required("First Name required"),
   middleInitial: yup.string(),
   lastName: yup.string().required("Last Name required"),
