@@ -3,7 +3,6 @@ import { useDrawer } from "@/hooks/useDrawer";
 import { Grid, useMediaQuery } from "@mui/system";
 import AddStaffForm from "./add-staff-form";
 import MainDrawer from "@/components/ui/MainDrawer";
-import OatOrderForm from "../orders/OAT-orders/oat-order-form";
 import ProviderForm from "./add-provider-form";
 
 const ProviderUserSettings = () => {
@@ -15,12 +14,6 @@ const ProviderUserSettings = () => {
   } = useDrawer();
 
   const handleDrawer = {
-    addOatOrdersForm: (action: string) => {
-      openDrawer({
-        title: `${action} Form`,
-        identifier: "drawer-oat-order-form",
-      });
-    },
     addStaffForm: (action: string) => {
       openDrawer({
         title: `${action} Staff`,
@@ -39,8 +32,6 @@ const ProviderUserSettings = () => {
     switch (contentDrawer.identifier) {
       case "drawer-settings-add-staff-form":
         return <AddStaffForm handleDrawerClose={closeDrawer} />;
-      case "drawer-oat-order-form":
-        return <OatOrderForm handleDrawerClose={closeDrawer} />;
       case "drawer-settings-add-provider-form":
         return <ProviderForm handleDrawerClose={closeDrawer} />;
       default:
@@ -57,14 +48,6 @@ const ProviderUserSettings = () => {
           showSecondButton: false,
           showMandatoryIndicator: true,
         };
-      case "drawer-oat-order-form":
-        return {
-          drawerWidth: "1000px",
-          anchor: "right" as "right",
-          showSecondButton: false,
-          showMandatoryIndicator: false,
-        };
-
       case "drawer-settings-add-provider-form":
         return {
           drawerWidth: below1024 ? "1023px" : "1000px",
@@ -103,7 +86,7 @@ const ProviderUserSettings = () => {
             }}
           />
         </Grid>
-        <Grid>
+        {/* <Grid>
           <CustomButton
             variant={"contained"}
             text={"Has OAT Order"}
@@ -111,7 +94,7 @@ const ProviderUserSettings = () => {
               handleDrawer.addOatOrdersForm("OAT Order");
             }}
           />
-        </Grid>
+        </Grid> */}
         <Grid>
           <CustomButton
             variant={"contained"}

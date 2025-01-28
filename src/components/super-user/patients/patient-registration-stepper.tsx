@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { customLabelStyles } from "../../../common-components/custom-label/widgets/custom-label-styles";
 import { theme } from "../../../utils/theme";
-import HSTOrderForm from "../orders/hst-order-form";
+import HSTOrderForm from "../orders/HST-orders/hst-order-form";
 import FourOrderingProvider from "./four-ordering-provider";
 import OnePatientDetails from "./One-patient-details";
 import {
@@ -25,6 +25,7 @@ import {
 } from "./patient-registration-schema";
 import ThreePatientInsurance from "./three-patient-insurance";
 import TwoPatientContacts from "./two-patient-details";
+import OatOrderForm from "../orders/OAT-orders/oat-order-form";
 
 const steps = [
   "Patient Details",
@@ -42,7 +43,7 @@ const PatientRegistrationStepper = () => {
   const [openOrderForm, setOpenOrderForm] = useState(false);
 
   const handleNext = () => {
-    if (activeStep === 3 && orderType === "HST Order") {
+    if (activeStep === 3) {
       setOpenOrderForm(true);
       return;
     }
@@ -59,7 +60,12 @@ const PatientRegistrationStepper = () => {
   };
 
   useEffect(() => {
-    openOrderForm && handleDrawer.addHSTForm("Add");
+    openOrderForm &&
+      orderType === "HST Order" &&
+      handleDrawer.addHSTForm("Add");
+    openOrderForm &&
+      orderType === "OAT Order" &&
+      handleDrawer.addOATForm("Add");
   }, [openOrderForm]);
 
   const handleBack = () => {
@@ -108,6 +114,12 @@ const PatientRegistrationStepper = () => {
         identifier: "drawer-hst-allform",
       });
     },
+    addOATForm: (action: string) => {
+      openDrawer({
+        title: `${action} OAT Provider`,
+        identifier: "drawer-oat-allform",
+      });
+    },
   };
 
   const DrawerContent = () => {
@@ -122,12 +134,20 @@ const PatientRegistrationStepper = () => {
             }}
           />
         );
+      case "drawer-oat-allform":
+        return (
+          <OatOrderForm
+            handleDrawerClose={() => {
+              setOpenOrderForm(false);
+              closeDrawer();
+            }}
+          />
+        );
       default:
         setOpenOrderForm(false);
         return undefined;
     }
   };
-
   return (
     <>
       {openOrderForm && (
@@ -241,12 +261,10 @@ const PatientRegistrationStepper = () => {
                   </Stepper>
                 </Grid>
               </Grid>
-
               <Grid container justifyContent={"flex-start"}>
                 {renderStepComponent(activeStep)}
               </Grid>
             </Grid>
-
             <Grid
               container
               alignItems={"center"}
@@ -276,5 +294,4 @@ const PatientRegistrationStepper = () => {
     </>
   );
 };
-
 export default PatientRegistrationStepper;
