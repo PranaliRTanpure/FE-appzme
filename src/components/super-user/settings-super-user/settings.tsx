@@ -1,12 +1,13 @@
 import CustomButton from "@/common-components/button-outlined/custom-button";
 import { useDrawer } from "@/hooks/useDrawer";
-import { Grid } from "@mui/system";
+import { Grid, useMediaQuery } from "@mui/system";
 import AddStaffForm from "./add-staff-form";
 import MainDrawer from "@/components/ui/MainDrawer";
 import OatOrderForm from "../orders/OAT-orders/oat-order-form";
 import ProviderForm from "./add-provider-form";
 
 const ProviderUserSettings = () => {
+  const below1024 = useMediaQuery("(max-width:1024px)");
   const {
     open: openDrawer,
     close: closeDrawer,
@@ -66,7 +67,7 @@ const ProviderUserSettings = () => {
 
       case "drawer-settings-add-provider-form":
         return {
-          drawerWidth: "1187px",
+          drawerWidth: below1024 ? "1023px" : "1000px",
           anchor: "right" as "right",
           showSecondButton: false,
           showMandatoryIndicator: true,

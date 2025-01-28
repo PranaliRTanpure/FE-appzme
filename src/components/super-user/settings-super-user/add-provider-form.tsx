@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Box, Grid } from "@mui/system";
+import { Box, Grid, useMediaQuery } from "@mui/system";
 import {
   Controller,
   FieldValues,
@@ -38,6 +38,7 @@ interface AddProviderFormProps {
 
 const ProviderForm = (props: AddProviderFormProps) => {
   const [height, setHeight] = useState(0);
+  const below1024 = useMediaQuery("(max-width:1024px)");
 
   const footerRef = useCallback(
     (
@@ -137,7 +138,6 @@ const ProviderForm = (props: AddProviderFormProps) => {
                 width={"100%"}
                 flexDirection={"column"}
                 rowGap={2}
-                border={0}
                 pb={1.5}
               >
                 {/* Profile Information */}
@@ -150,11 +150,21 @@ const ProviderForm = (props: AddProviderFormProps) => {
                   <Typography fontWeight={600} variant="bodySmall">
                     Profile Information
                   </Typography>
-                  <Grid container width={"100%"}>
-                    <Grid width={"11%"}>
-                      <Grid width={"96%"} p={1}>
+                  <Grid
+                    container
+                    width={"100%"}
+                    flexDirection={below1024 ? "column" : "row"}
+                  >
+                    <Grid width={below1024 ? "100%" : "11%"}>
+                      <Grid
+                        width={"96%"}
+                        p={1}
+                        container
+                        justifyContent={"center"}
+                      >
                         <CustomUploadImage
                           name="avatar"
+                          width="100px"
                           defaultImage={""}
                           isLoading={false}
                         />
@@ -162,11 +172,15 @@ const ProviderForm = (props: AddProviderFormProps) => {
                     </Grid>
                     <Grid
                       container
-                      width={"89%"}
+                      width={below1024 ? "100%" : "89%"}
                       flexDirection={"column"}
                       rowGap={2}
                     >
-                      <Grid container width={"100%"} columnGap={1}>
+                      <Grid
+                        container
+                        width={"100%"}
+                        justifyContent={"space-between"}
+                      >
                         <Grid width={"20%"}>
                           <CustomLabel label="First Name" isRequired />
                           <Controller
@@ -308,7 +322,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                           ></Controller>
                         </Grid>
                       </Grid>
-                      <Grid container width={"100%"} columnGap={1.65}>
+                      <Grid
+                        container
+                        width={"100%"}
+                        justifyContent={"space-between"}
+                      >
                         <Grid width={"24%"}>
                           <CustomLabel label="Provider Type" isRequired />
                           <Controller
@@ -406,7 +424,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                           />
                         </Grid>
                       </Grid>
-                      <Grid container width={"100%"} columnGap={1.65}>
+                      <Grid
+                        container
+                        width={"100%"}
+                        justifyContent={"space-between"}
+                      >
                         <Grid width={"24%"}>
                           <CustomLabel label="Specialty" />
                           <Controller
@@ -751,10 +773,10 @@ const ProviderForm = (props: AddProviderFormProps) => {
                       <Grid
                         container
                         width={"100%"}
-                        key={model.licensedNumber}
+                        key={model.id}
                         columnGap={1}
                       >
-                        <Grid width={"25%"}>
+                        <Grid width={"30%"}>
                           <CustomLabel label="License Number" isRequired />
                           <Controller
                             control={control}
@@ -786,7 +808,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             )}
                           />
                         </Grid>
-                        <Grid width={"25%"}>
+                        <Grid width={"28%"}>
                           <CustomLabel label="Licensed State" isRequired />
                           <Controller
                             control={control}
@@ -814,7 +836,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             )}
                           />
                         </Grid>
-                        <Grid width={"25%"}>
+                        <Grid width={"28%"}>
                           <CustomLabel label="License Expiry" isRequired />
                           <Controller
                             control={control}
@@ -840,9 +862,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             )}
                           />
                         </Grid>
-                        <Grid>
-                          <Divider orientation="vertical" variant="inset" />
-                        </Grid>
+                        <Divider orientation="vertical" variant="middle" />
                         <Grid
                           container
                           sx={{
@@ -854,7 +874,6 @@ const ProviderForm = (props: AddProviderFormProps) => {
                           }}
                           justifyContent={"center"}
                           mt={4}
-                          ml={2}
                         >
                           <IconButton
                             sx={{ pt: "3px" }}
