@@ -1,36 +1,27 @@
 import React, { useCallback, useState } from "react";
-import { Box, Grid, useMediaQuery } from "@mui/system";
-import {
-  Controller,
-  FieldValues,
-  FormProvider,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
-import { addProviderFormSchema } from "./settings-form-schema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import DrawerBody from "@/components/ui/DrawerBody";
-import { theme } from "@/utils/theme";
-import {
-  Button,
-  Divider,
-  IconButton,
-  SelectChangeEvent,
-  Typography,
-} from "@mui/material";
-import { CustomUploadImage } from "@/common-components/custom-image-upload/UploadImage";
-import CustomLabel from "@/common-components/custom-label/custom-label";
-import CustomInput from "@/common-components/custom-input/custom-input";
-import CustomSelect from "@/common-components/custom-select/customSelect";
-import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
-import { stateList } from "@/utils/StateList";
-import CustomCheckBox, {
-  CheckedArray,
-} from "@/common-components/custom-checkbox/custom-checkbox";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { Controller, FieldValues, FormProvider, useFieldArray, useForm } from "react-hook-form";
+
 import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { Button, Divider, IconButton, SelectChangeEvent, Typography } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/system";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import CustomButton from "@/common-components/button-outlined/custom-button";
+import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
+import CustomCheckBox, { CheckedArray } from "@/common-components/custom-checkbox/custom-checkbox";
+import { CustomUploadImage } from "@/common-components/custom-image-upload/UploadImage";
+import CustomInput from "@/common-components/custom-input/custom-input";
+import CustomLabel from "@/common-components/custom-label/custom-label";
+import CustomSelect from "@/common-components/custom-select/customSelect";
 import CustomDatePicker from "@/common-components/date-picker-field/date-picker-field";
+
+import DrawerBody from "@/components/ui/DrawerBody";
+import { stateList } from "@/utils/StateList";
+import { theme } from "@/utils/theme";
+
+import { addProviderFormSchema } from "./settings-form-schema";
 
 interface AddProviderFormProps {
   handleDrawerClose: () => void;
@@ -46,13 +37,13 @@ const ProviderForm = (props: AddProviderFormProps) => {
         getBoundingClientRect: () => {
           height: React.SetStateAction<number>;
         };
-      } | null,
+      } | null
     ) => {
       if (node !== null) {
         setHeight(node.getBoundingClientRect().height);
       }
     },
-    [],
+    []
   );
 
   const handleSelectionFollowUp = (updatedArray: CheckedArray[]) => {
@@ -122,65 +113,23 @@ const ProviderForm = (props: AddProviderFormProps) => {
     <DrawerBody padding={3} offset={height}>
       <Grid width={"100%"} height={"100%"}>
         <FormProvider {...method}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <Grid
-              container
-              width={"100%"}
-              height={"100%"}
-              flexDirection={"column"}
-            >
+          <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%", width: "100%" }}>
+            <Grid container width={"100%"} height={"100%"} flexDirection={"column"}>
               {/* Form */}
-              <Grid
-                container
-                width={"100%"}
-                flexDirection={"column"}
-                rowGap={2}
-                pb={1.5}
-              >
+              <Grid container width={"100%"} flexDirection={"column"} rowGap={2} pb={1.5}>
                 {/* Profile Information */}
-                <Grid
-                  container
-                  width={"100%"}
-                  flexDirection={"column"}
-                  rowGap={1.5}
-                >
+                <Grid container width={"100%"} flexDirection={"column"} rowGap={1.5}>
                   <Typography fontWeight={600} variant="bodySmall">
                     Profile Information
                   </Typography>
-                  <Grid
-                    container
-                    width={"100%"}
-                    flexDirection={below1024 ? "column" : "row"}
-                  >
+                  <Grid container width={"100%"} flexDirection={below1024 ? "column" : "row"}>
                     <Grid width={below1024 ? "100%" : "11%"}>
-                      <Grid
-                        width={"96%"}
-                        p={1}
-                        container
-                        justifyContent={"center"}
-                      >
-                        <CustomUploadImage
-                          name="avatar"
-                          width="100px"
-                          defaultImage={""}
-                          isLoading={false}
-                        />
+                      <Grid width={"96%"} p={1} container justifyContent={"center"}>
+                        <CustomUploadImage name="avatar" width="100px" defaultImage={""} isLoading={false} />
                       </Grid>
                     </Grid>
-                    <Grid
-                      container
-                      width={below1024 ? "100%" : "89%"}
-                      flexDirection={"column"}
-                      rowGap={2}
-                    >
-                      <Grid
-                        container
-                        width={"100%"}
-                        justifyContent={"space-between"}
-                      >
+                    <Grid container width={below1024 ? "100%" : "89%"} flexDirection={"column"} rowGap={2}>
+                      <Grid container width={"100%"} justifyContent={"space-between"}>
                         <Grid width={"20%"}>
                           <CustomLabel label="First Name" isRequired />
                           <Controller
@@ -191,9 +140,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 value={field.value?.trim() || ""}
                                 placeholder={"Enter First Name"}
                                 hasError={!!errors.firstName}
-                                errorMessage={
-                                  errors.firstName?.message as string
-                                }
+                                errorMessage={errors.firstName?.message as string}
                                 name={field.name}
                                 onChange={(e) =>
                                   setValue("firstName", e.target.value, {
@@ -234,9 +181,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 name={field.name}
                                 placeholder={"Enter Last Name"}
                                 hasError={!!errors.lastName}
-                                errorMessage={
-                                  errors.lastName?.message as string
-                                }
+                                errorMessage={errors.lastName?.message as string}
                                 onChange={(e) =>
                                   setValue("lastName", e.target.value, {
                                     shouldValidate: true,
@@ -279,12 +224,8 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
                                 hasError={!!errors.organization}
-                                errorMessage={
-                                  errors.organization?.message as string
-                                }
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
+                                errorMessage={errors.organization?.message as string}
+                                onChange={function (e: SelectChangeEvent<string>): void {
                                   setValue("organization", e.target.value, {
                                     shouldValidate: true,
                                   });
@@ -306,12 +247,8 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
                                 hasError={!!errors.clinicLocation}
-                                errorMessage={
-                                  errors.clinicLocation?.message as string
-                                }
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
+                                errorMessage={errors.clinicLocation?.message as string}
+                                onChange={function (e: SelectChangeEvent<string>): void {
                                   setValue("clinicLocation", e.target.value, {
                                     shouldValidate: true,
                                   });
@@ -322,11 +259,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                           ></Controller>
                         </Grid>
                       </Grid>
-                      <Grid
-                        container
-                        width={"100%"}
-                        justifyContent={"space-between"}
-                      >
+                      <Grid container width={"100%"} justifyContent={"space-between"}>
                         <Grid width={"24%"}>
                           <CustomLabel label="Provider Type" isRequired />
                           <Controller
@@ -339,12 +272,8 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
                                 hasError={!!errors.providerType}
-                                errorMessage={
-                                  errors.providerType?.message as string
-                                }
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
+                                errorMessage={errors.providerType?.message as string}
+                                onChange={function (e: SelectChangeEvent<string>): void {
                                   setValue("providerType", e.target.value, {
                                     shouldValidate: true,
                                   });
@@ -365,16 +294,10 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 placeholder={"Select Provider"}
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
-                                  setValue(
-                                    "supervisingProvider",
-                                    e.target.value,
-                                    {
-                                      shouldValidate: true,
-                                    },
-                                  );
+                                onChange={function (e: SelectChangeEvent<string>): void {
+                                  setValue("supervisingProvider", e.target.value, {
+                                    shouldValidate: true,
+                                  });
                                 }}
                                 name={field.name}
                               />
@@ -424,11 +347,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                           />
                         </Grid>
                       </Grid>
-                      <Grid
-                        container
-                        width={"100%"}
-                        justifyContent={"space-between"}
-                      >
+                      <Grid container width={"100%"} justifyContent={"space-between"}>
                         <Grid width={"24%"}>
                           <CustomLabel label="Specialty" />
                           <Controller
@@ -440,9 +359,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 placeholder={"Select Specciality"}
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
+                                onChange={function (e: SelectChangeEvent<string>): void {
                                   setValue("speciality", e.target.value, {
                                     shouldValidate: true,
                                   });
@@ -516,12 +433,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                   </Grid>
                 </Grid>
                 {/* Address Information */}
-                <Grid
-                  container
-                  width={"100%"}
-                  flexDirection={"column"}
-                  rowGap={1.5}
-                >
+                <Grid container width={"100%"} flexDirection={"column"} rowGap={1.5}>
                   <Typography fontWeight={600} variant="bodySmall">
                     Address Information
                   </Typography>
@@ -537,9 +449,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter Address Line 1"}
                             hasError={!!errors?.address?.line1}
-                            errorMessage={
-                              errors.address?.line1?.message as string
-                            }
+                            errorMessage={errors.address?.line1?.message as string}
                           />
                         )}
                       />
@@ -569,9 +479,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter City"}
                             hasError={!!errors.address?.city}
-                            errorMessage={
-                              errors.address?.city?.message as string
-                            }
+                            errorMessage={errors.address?.city?.message as string}
                           />
                         )}
                       />
@@ -589,12 +497,8 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             maxHeightForOptionsList={300}
                             value={field.value || ""}
                             hasError={!!errors.address?.state}
-                            errorMessage={
-                              errors.address?.state?.message as string
-                            }
-                            onChange={(selectedValue: string | "") =>
-                              field.onChange(selectedValue)
-                            }
+                            errorMessage={errors.address?.state?.message as string}
+                            onChange={(selectedValue: string | "") => field.onChange(selectedValue)}
                           />
                         )}
                       />
@@ -610,9 +514,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter Zip Code"}
                             hasError={!!errors.address?.zipcode}
-                            errorMessage={
-                              errors.address?.zipcode?.message as string
-                            }
+                            errorMessage={errors.address?.zipcode?.message as string}
                           />
                         )}
                       />
@@ -620,20 +522,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                   </Grid>
                 </Grid>
                 {/* Preferred Provider Details */}
-                <Grid
-                  container
-                  width={"100%"}
-                  flexDirection={"column"}
-                  rowGap={1.5}
-                >
+                <Grid container width={"100%"} flexDirection={"column"} rowGap={1.5}>
                   <Typography fontWeight={600} variant="bodySmall">
                     Preferred Provider Details
                   </Typography>
-                  <Grid
-                    container
-                    width={"100%"}
-                    justifyContent={"space-between"}
-                  >
+                  <Grid container width={"100%"} justifyContent={"space-between"}>
                     <Grid width={"19.2%"}>
                       <CustomLabel label="Default Dental Provider" />
                       <Controller
@@ -645,16 +538,10 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             placeholder={"Select Dental Provider"}
                             enableDeselect
                             items={[{ value: "active", label: "Active" }]}
-                            onChange={function (
-                              e: SelectChangeEvent<string>,
-                            ): void {
-                              setValue(
-                                "defaultDentalProvider",
-                                e.target.value,
-                                {
-                                  shouldValidate: true,
-                                },
-                              );
+                            onChange={function (e: SelectChangeEvent<string>): void {
+                              setValue("defaultDentalProvider", e.target.value, {
+                                shouldValidate: true,
+                              });
                             }}
                             name={field.name}
                           />
@@ -672,9 +559,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             placeholder={"Select Preferred DME"}
                             enableDeselect
                             items={[{ value: "active", label: "Active" }]}
-                            onChange={function (
-                              e: SelectChangeEvent<string>,
-                            ): void {
+                            onChange={function (e: SelectChangeEvent<string>): void {
                               setValue("preferredDme", e.target.value, {
                                 shouldValidate: true,
                               });
@@ -695,9 +580,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             placeholder={"Select Preferred Lab"}
                             enableDeselect
                             items={[{ value: "active", label: "Active" }]}
-                            onChange={function (
-                              e: SelectChangeEvent<string>,
-                            ): void {
+                            onChange={function (e: SelectChangeEvent<string>): void {
                               setValue("defaultPreferredLab", e.target.value, {
                                 shouldValidate: true,
                               });
@@ -718,9 +601,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             placeholder={"Select Preferred Device"}
                             enableDeselect
                             items={[{ value: "active", label: "Active" }]}
-                            onChange={function (
-                              e: SelectChangeEvent<string>,
-                            ): void {
+                            onChange={function (e: SelectChangeEvent<string>): void {
                               setValue("preferredHstDevice", e.target.value, {
                                 shouldValidate: true,
                               });
@@ -730,20 +611,13 @@ const ProviderForm = (props: AddProviderFormProps) => {
                         )}
                       ></Controller>
                     </Grid>
-                    <Grid
-                      container
-                      mt={3}
-                      alignContent={"center"}
-                      width={"19.2%"}
-                    >
+                    <Grid container mt={3} alignContent={"center"} width={"19.2%"}>
                       <CustomCheckBox
                         sx={{ fontSize: "14px" }}
                         oriantation={"horizontal"}
                         size={12}
                         options={[{ key: "F/U Telemed", checked: false }]}
-                        onChange={function (
-                          updatedArray: CheckedArray[],
-                        ): void {
+                        onChange={function (updatedArray: CheckedArray[]): void {
                           handleSelectionFollowUp(updatedArray);
                         }}
                       />
@@ -751,12 +625,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                   </Grid>
                 </Grid>
                 {/* License Details */}
-                <Grid
-                  container
-                  width={"100%"}
-                  flexDirection={"column"}
-                  rowGap={1.5}
-                >
+                <Grid container width={"100%"} flexDirection={"column"} rowGap={1.5}>
                   <Typography fontWeight={600} variant="bodySmall">
                     License Details
                   </Typography>
@@ -770,12 +639,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                     bgcolor={"#F2F4FA"}
                   >
                     {modleDetailsArray.map((model, index) => (
-                      <Grid
-                        container
-                        width={"100%"}
-                        key={model.id}
-                        columnGap={1}
-                      >
+                      <Grid container width={"100%"} key={model.id} columnGap={1}>
                         <Grid width={"30%"}>
                           <CustomLabel label="License Number" isRequired />
                           <Controller
@@ -786,23 +650,13 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 value={field.value?.trim() || ""}
                                 placeholder={"Enter License Number"}
                                 bgWhite
-                                hasError={
-                                  !!errors?.licenseDetails?.[index]
-                                    ?.licensedNumber
-                                }
-                                errorMessage={
-                                  errors?.licenseDetails?.[index]
-                                    ?.licensedNumber?.message as string
-                                }
+                                hasError={!!errors?.licenseDetails?.[index]?.licensedNumber}
+                                errorMessage={errors?.licenseDetails?.[index]?.licensedNumber?.message as string}
                                 name={field.name}
                                 onChange={(e) =>
-                                  setValue(
-                                    `licenseDetails.${index}.licensedNumber`,
-                                    e.target.value,
-                                    {
-                                      shouldValidate: true,
-                                    },
-                                  )
+                                  setValue(`licenseDetails.${index}.licensedNumber`, e.target.value, {
+                                    shouldValidate: true,
+                                  })
                                 }
                               />
                             )}
@@ -821,17 +675,9 @@ const ProviderForm = (props: AddProviderFormProps) => {
                                 options={stateList}
                                 maxHeightForOptionsList={300}
                                 value={field.value || ""}
-                                hasError={
-                                  !!errors?.licenseDetails?.[index]
-                                    ?.licensedState
-                                }
-                                errorMessage={
-                                  errors?.licenseDetails?.[index]?.licensedState
-                                    ?.message as string
-                                }
-                                onChange={(selectedValue: string | "") =>
-                                  field.onChange(selectedValue)
-                                }
+                                hasError={!!errors?.licenseDetails?.[index]?.licensedState}
+                                errorMessage={errors?.licenseDetails?.[index]?.licensedState?.message as string}
+                                onChange={(selectedValue: string | "") => field.onChange(selectedValue)}
                               />
                             )}
                           />
@@ -843,20 +689,12 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             name={`licenseDetails.${index}.licenseExpiry`}
                             render={({ field }) => (
                               <CustomDatePicker
-                                onDateChange={function (
-                                  selectedDate: string,
-                                ): void {
+                                onDateChange={function (selectedDate: string): void {
                                   selectedDate;
                                 }}
                                 value={field.value?.trim() || ""}
-                                hasError={
-                                  !!errors?.licenseDetails?.[index]
-                                    ?.licenseExpiry
-                                }
-                                errorMessage={
-                                  errors?.licenseDetails?.[index]?.licenseExpiry
-                                    ?.message as string
-                                }
+                                hasError={!!errors?.licenseDetails?.[index]?.licenseExpiry}
+                                errorMessage={errors?.licenseDetails?.[index]?.licenseExpiry?.message as string}
                                 bgWhite={true}
                               />
                             )}
@@ -880,9 +718,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             onClick={() => removemodleDetails(index)}
                             disabled={modleDetailsArray.length <= 1}
                           >
-                            <DeleteOutlineOutlinedIcon
-                              sx={{ color: "black" }}
-                            />
+                            <DeleteOutlineOutlinedIcon sx={{ color: "black" }} />
                           </IconButton>
                         </Grid>
                       </Grid>
@@ -920,11 +756,7 @@ const ProviderForm = (props: AddProviderFormProps) => {
               >
                 <Grid container justifyContent={"flex-end"}>
                   <Grid container columnGap={1}>
-                    <Button
-                      onClick={props.handleDrawerClose}
-                      variant="outlined"
-                      type="button"
-                    >
+                    <Button onClick={props.handleDrawerClose} variant="outlined" type="button">
                       <Typography variant="bodySmall">Cancel</Typography>
                     </Button>
                     <Button variant="contained" type="submit">
