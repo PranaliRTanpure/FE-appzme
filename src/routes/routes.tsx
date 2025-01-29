@@ -4,7 +4,6 @@ import TasksPage from "@/pages/super-user-portal/communication/tasks-page";
 import InterpretationNotePage from "@/pages/super-user-portal/encounter/interpretation-note-page";
 import ProviderSettingsPage from "@/pages/super-user-portal/settings/settings-page";
 import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
-import PatientProfile from "../components/provider-portal/patients/patient-charting/patient-profile";
 import DeviceInventoryDetails from "../components/super-user/devices/device-inventory/device-inventory-details/device-inventory-details";
 import DeviceSchedulling from "../components/super-user/devices/device-scheduling/device-scheduling";
 import AuthLayout from "../layouts/auth-layout";
@@ -15,10 +14,6 @@ import VerifyEmailPage from "../pages/auth/verify-email";
 import VerifyOtpPage from "../pages/auth/verify-otp";
 import NotAuthorized from "../pages/errors/not-authorised";
 import NotFound from "../pages/errors/not-found";
-import ProviderPatientsPage from "../pages/provider-portal/patients/provider-patients-page";
-import ProfilePage from "../pages/provider-portal/settings/profile-page";
-import ProviderSettingsMaster from "../pages/provider-portal/settings/provider-settings-master";
-import ProviderListPage from "../pages/provider-portal/users/provider-list-page";
 import DeviceManufacturersPage from "../pages/super-user-portal/devices/device-manufacturers-page";
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 import EncounterPage from "../pages/super-user-portal/encounter/encounter-page";
@@ -87,39 +82,6 @@ export const router = createBrowserRouter([
     ],
   },
 
-  {
-    path: "provider",
-    element: (
-      <PrivateRoute>
-        <MainLayout>
-          <Outlet />
-        </MainLayout>
-      </PrivateRoute>
-    ),
-    children: [
-      {
-        path: "patients",
-        element: <Outlet />,
-        children: [
-          { path: "", element: <ProviderPatientsPage /> },
-          { path: ":patientId", element: <PatientProfile /> },
-        ],
-      },
-      { path: "users", element: <ProviderListPage /> },
-      { path: "settings", element: <ProviderSettingsMaster /> },
-      {
-        path: "settings",
-        element: <Outlet />,
-        children: [
-          { path: "", element: <ProviderSettingsMaster /> },
-          {
-            path: "profile",
-            element: <ProfilePage />,
-          },
-        ],
-      },
-    ],
-  },
   {
     path: "/not-authorized",
     element: <NotAuthorized />,
