@@ -1,4 +1,5 @@
-import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
+import React, { useState } from "react";
+
 import AddIcon from "@mui/icons-material/Add";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
@@ -20,15 +21,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Grid, useMediaQuery } from "@mui/system";
-import React, { useState } from "react";
+
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
+
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import Paginator from "../../../../common-components/paginator/paginator";
 import Status from "../../../../common-components/status/status";
-import {
-  heading,
-  tableCellCss,
-  typographyCss,
-} from "../../../../common-components/table/common-table-widgets";
+import { heading, tableCellCss, typographyCss } from "../../../../common-components/table/common-table-widgets";
 import { TableHeaders } from "../../../../common-components/table/table-models";
 import { useDrawer } from "../../../../hooks/useDrawer";
 import deviceManufacturersList from "../../../../mock-data/device-manufacturers-list.json";
@@ -55,11 +54,7 @@ const DeviceManufacturersList = () => {
     setAnchorEl(null);
   };
 
-  const {
-    open: openDrawer,
-    close: closeDrawer,
-    content: contentDrawer,
-  } = useDrawer();
+  const { open: openDrawer, close: closeDrawer, content: contentDrawer } = useDrawer();
 
   const handleDrawer = {
     deviceManufacturersForm: (action: string) => {
@@ -74,12 +69,7 @@ const DeviceManufacturersList = () => {
   const DrawerContent = () => {
     switch (contentDrawer.identifier) {
       case "drawer-device-manufacturers-form":
-        return (
-          <DeviceManufacturersForm
-            isEdit={isEdit}
-            handleDrawerClose={closeDrawer}
-          />
-        );
+        return <DeviceManufacturersForm isEdit={isEdit} handleDrawerClose={closeDrawer} />;
       default:
         return <div />;
     }
@@ -98,13 +88,7 @@ const DeviceManufacturersList = () => {
         showMandatoryIndicator={true}
       />
 
-      <Grid
-        height={"100%"}
-        p={2}
-        width={"100%"}
-        maxWidth={"100%"}
-        overflow={"auto"}
-      >
+      <Grid height={"100%"} p={2} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
         <Grid
           border={`1px solid ${theme.palette.grey[300]}`}
           boxShadow={`0px 0px 16px 0px #021D2614`}
@@ -163,9 +147,7 @@ const DeviceManufacturersList = () => {
                   }
                   sx={{ background: "#106DCC" }}
                 >
-                  <Typography variant="bodySmall">
-                    Add New Manufacturer
-                  </Typography>
+                  <Typography variant="bodySmall">Add New Manufacturer</Typography>
                 </Button>
               </Grid>
             </Grid>
@@ -185,12 +167,8 @@ const DeviceManufacturersList = () => {
                       <TableCell
                         sx={{
                           ...heading,
-                          minWidth: header.minWidth
-                            ? header.minWidth
-                            : "inherit",
-                          maxWidth: header.maxWidth
-                            ? header.maxWidth
-                            : "inherit",
+                          minWidth: header.minWidth ? header.minWidth : "inherit",
+                          maxWidth: header.maxWidth ? header.maxWidth : "inherit",
                         }}
                         align="left"
                         key={index}
@@ -199,13 +177,9 @@ const DeviceManufacturersList = () => {
                           pr={4}
                           container
                           flexDirection={"column"}
-                          alignContent={
-                            header.header === "Action" ? "center" : "flex-start"
-                          }
+                          alignContent={header.header === "Action" ? "center" : "flex-start"}
                         >
-                          <Typography variant="bodySmall">
-                            {header.header}
-                          </Typography>
+                          <Typography variant="bodySmall">{header.header}</Typography>
                         </Grid>
                       </TableCell>
                     ))}
@@ -216,50 +190,32 @@ const DeviceManufacturersList = () => {
                     deviceManufacturersList.map((list, index) => (
                       <TableRow key={index} hover>
                         <TableCell sx={{ ...heading }} align="left">
-                          <CustomClickableLink
-                            text={list?.company}
-                            onClick={function (): void {}}
-                          />
+                          <CustomClickableLink text={list?.company} onClick={function (): void {}} />
                         </TableCell>
                         <TableCell sx={{ ...heading }} align="left">
                           <Grid container flexDirection={"column"}>
-                            <Typography
-                              sx={typographyCss}
-                              variant="bodySmall"
-                              color="#21262B"
-                              fontWeight={400}
-                            >
+                            <Typography sx={typographyCss} variant="bodySmall" color="#21262B" fontWeight={400}>
                               {list?.contact}
                             </Typography>
                           </Grid>
                         </TableCell>
                         <TableCell sx={{ ...heading }} align="left">
                           <Grid container flexDirection={"column"}>
-                            <Typography
-                              sx={typographyCss}
-                              variant="bodySmall"
-                              color="#21262B"
-                              fontWeight={400}
-                            >
+                            <Typography sx={typographyCss} variant="bodySmall" color="#21262B" fontWeight={400}>
                               {list?.phone}
                             </Typography>
                           </Grid>
                         </TableCell>
                         <TableCell sx={{ ...heading }} align="left">
                           <Grid container flexDirection={"column"}>
-                            <Typography
-                              sx={typographyCss}
-                              variant="bodySmall"
-                              color="#21262B"
-                              fontWeight={400}
-                            >
+                            <Typography sx={typographyCss} variant="bodySmall" color="#21262B" fontWeight={400}>
                               {list?.email}
                             </Typography>
                           </Grid>
                         </TableCell>
                         <TableCell sx={heading} align="center">
-                          <Grid pr={6}>
-                            <IconButton onClick={handleMenuClick}>
+                          <Grid pr={6} height={"100%"}>
+                            <IconButton onClick={handleMenuClick} sx={{ p: 0 }}>
                               <MoreVertIcon fontSize="small" />
                             </IconButton>
                           </Grid>
@@ -296,19 +252,13 @@ const DeviceManufacturersList = () => {
                                     handleMenuClose();
                                     v === "Archive";
                                     if (v === "Edit") {
-                                      handleDrawer.deviceManufacturersForm(
-                                        "Edit",
-                                      );
+                                      handleDrawer.deviceManufacturersForm("Edit");
                                     }
                                   }}
                                 >
                                   <ListItemIcon>
-                                    {v === "Edit" && (
-                                      <ModeEditOutlineOutlinedIcon fontSize="small" />
-                                    )}
-                                    {v === "Archive" && (
-                                      <ArchiveOutlinedIcon fontSize="small" />
-                                    )}
+                                    {v === "Edit" && <ModeEditOutlineOutlinedIcon fontSize="small" />}
+                                    {v === "Archive" && <ArchiveOutlinedIcon fontSize="small" />}
                                   </ListItemIcon>
                                   {v}
                                 </MenuItem>
