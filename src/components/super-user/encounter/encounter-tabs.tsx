@@ -1,16 +1,15 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import AddIcon from "@mui/icons-material/Add";
+import { Grid } from "@mui/system";
+
 import CustomButtonOutlined from "@/common-components/button-outlined/custom-button";
+import Switcher from "@/common-components/switcher/switcher";
+
 import MainDrawer from "@/components/ui/MainDrawer";
 import { useDrawer } from "@/hooks/useDrawer";
-import { theme } from "@/utils/theme";
-import AddIcon from "@mui/icons-material/Add";
-import { Tab, Tabs } from "@mui/material";
-import { alpha, Grid } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  a11yProps,
-  CustomTabPanel,
-} from "../../../common-components/custom-tab/custom-tab";
+
 import CreateEncounterForm from "./encounters/create-encounter-form";
 import EncounterList from "./encounters/encounter-list";
 import EncounterHstEducation from "./hst_education/encounter_hst_education";
@@ -20,23 +19,13 @@ import MilleniumScheduleAppointment from "./millenium/millenium-schedule-appoint
 import EncounterSleepImpression from "./sleep_impression/encounter_sleep_impression";
 import SlScheduleAppointmentForm from "./sleep_impression/sl-schedule-appointment-form";
 
-const tabLabels = [
-  "Encounters",
-  "Millennium",
-  "Sleep Impression",
-  "HST Education",
-];
+const tabLabels = ["Encounters", "Millennium", "Sleep Impression", "HST Education"];
 
 const SettingsTabs = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState<string>(tabLabels[0]);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
-  const {
-    open: openDrawer,
-    close: closeDrawer,
-    content: contentDrawer,
-  } = useDrawer();
+  const { open: openDrawer, close: closeDrawer, content: contentDrawer } = useDrawer();
 
   const handleDrawer = {
     createEncounterForm: (action: string) => {
@@ -80,102 +69,60 @@ const SettingsTabs = () => {
     }
   };
 
-  useEffect(() => {
-    const tab = searchParams.get("tab");
-    if (tab) {
-      setValue(+tab);
-    }
-  }, [searchParams]);
-
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    if (location.pathname === "/admin/settings") {
-      navigate("/admin/settings?tab=" + newValue);
-    }
-
+  const handleChange = (newValue: string) => {
     setValue(newValue);
+    if (location.pathname === "/admin/settings") {
+      navigate("/admin/settings?" + newValue);
+    }
+  };
+
+  const renderComponents = () => {
+    if (value === tabLabels[0]) {
+      return <EncounterList />;
+    }
+    if (value === tabLabels[1]) {
+      return <EncounterMillennium />;
+    }
+    if (value === tabLabels[2]) {
+      return <EncounterSleepImpression />;
+    }
+    if (value === tabLabels[3]) {
+      return <EncounterHstEducation />;
+    }
+    return <></>;
   };
   return (
     <>
-      <MainDrawer
-        content={<DrawerContent />}
-        drawerWidth={"730px"}
-        showSecondButton={true}
-        anchor="right"
-      />
+      <MainDrawer content={<DrawerContent />} drawerWidth={"730px"} showSecondButton={true} anchor="right" />
       <Grid width={"100%"} height={"100%"} p={2}>
-        <Grid
-          height={"100%"}
-          borderRadius={"8px"}
-          container
-          flexDirection={"column"}
-        >
-          <Grid
-            width={"100%"}
-            height={"100%"}
-            container
-            flexDirection={"column"}
-          >
-            <Grid
-              container
-              justifyContent={"space-between"}
-              sx={{ borderBottom: 1, borderColor: "divider" }}
-            >
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                sx={{ padding: "0" }}
-                aria-label="simple tabs example"
-              >
-                {tabLabels?.map((item, index) => (
-                  <Tab
-                    sx={{
-                      textTransform: "none",
-                      ".css-1uuxvpa-MuiTabs-indicator ": {
-                        bottom: "0",
-                        position: "absolute",
-                      },
-                      fontWeight: 550,
-                      background:
-                        index === value
-                          ? alpha(theme.palette.secondary.main, 0.2)
-                          : "none",
-                    }}
-                    key={index}
-                    label={item}
-                    {...a11yProps(0)}
-                  />
-                ))}
-              </Tabs>
-              <Grid pt={1} pb={1}>
+        <Grid height={"100%"} borderRadius={"8px"} container flexDirection={"column"}>
+          <Grid width={"100%"} height={"100%"} container flexDirection={"column"}>
+            <Grid container pb={1.5} justifyContent={"space-between"} sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Switcher
+                options={tabLabels}
+                buttonWidth={"170px"}
+                variant={"dark"}
+                onChange={(option: string) => {
+                  handleChange(option);
+                }}
+              />
+
+              <Grid>
                 <CustomButtonOutlined
                   variant="contained"
                   startIcon={<AddIcon />}
-                  text={
-                    value === 0 ? "Create Encounter" : "Schedule Appointment"
-                  }
+                  text={value === tabLabels[0] ? "Create Encounter" : "Schedule Appointment"}
                   onClick={() => {
-                    value === 0 && handleDrawer.createEncounterForm("Create");
-                    value === 1 &&
-                      handleDrawer.createMilleniumForm("Schedule Millennium");
-                    value === 2 &&
-                      handleDrawer.createSleepImpressionForm(
-                        "Schedule Sleep Impression",
-                      );
-                    value === 3 &&
-                      handleDrawer.createHSTForm("Schedule HST Education");
+                    value === tabLabels[0] && handleDrawer.createEncounterForm("Create");
+                    value === tabLabels[1] && handleDrawer.createMilleniumForm("Schedule Millennium");
+                    value === tabLabels[2] && handleDrawer.createSleepImpressionForm("Schedule Sleep Impression");
+                    value === tabLabels[3] && handleDrawer.createHSTForm("Schedule HST Education");
                   }}
                 />
               </Grid>
             </Grid>
             <Grid flex={1} width={"100%"}>
-              {tabLabels.map((item, index) => (
-                <CustomTabPanel key={index} value={value} index={index}>
-                  {item === "Encounters" && <EncounterList />}
-                  {item === "Millennium" && <EncounterMillennium />}
-                  {item === "Sleep Impression" && <EncounterSleepImpression />}
-                  {item === "HST Education" && <EncounterHstEducation />}
-                </CustomTabPanel>
-              ))}
+              {renderComponents()}
             </Grid>
           </Grid>
         </Grid>

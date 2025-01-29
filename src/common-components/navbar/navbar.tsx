@@ -87,7 +87,7 @@ const Navbar = () => {
       }}
     >
       <Toolbar variant="dense" sx={toolBarContainer}>
-        <Grid container width={"100%"}>
+        <Grid container alignItems={"center"} width={"100%"}>
           <Grid
             width={"fit-content"}
             container
