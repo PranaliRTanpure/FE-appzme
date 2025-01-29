@@ -1,6 +1,9 @@
-import { Box, Typography } from "@mui/material";
-import PropTypes from "prop-types";
 import React from "react";
+
+import { Box, Typography } from "@mui/material";
+
+import PropTypes from "prop-types";
+
 import { theme } from "../../utils/theme";
 import { customLabelStyles } from "./widgets/custom-label-styles";
 

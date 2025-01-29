@@ -1,6 +1,6 @@
-import Checkbox from "@/common-components/custom-checkbox/checkbox";
-import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
-import CustomFilters from "@/common-components/custom-filters/custom filters";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import AddIcon from "@mui/icons-material/Add";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
@@ -20,17 +20,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Grid, useMediaQuery } from "@mui/system";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import Checkbox from "@/common-components/custom-checkbox/checkbox";
+import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
+import CustomFilters from "@/common-components/custom-filters/custom filters";
+
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import CustomSelect from "../../../../common-components/custom-select/customSelect";
 import Paginator from "../../../../common-components/paginator/paginator";
 import Status from "../../../../common-components/status/status";
-import {
-  heading,
-  tableCellCss,
-  typographyCss,
-} from "../../../../common-components/table/common-table-widgets";
+import { heading, tableCellCss, typographyCss } from "../../../../common-components/table/common-table-widgets";
 import { TableHeaders } from "../../../../common-components/table/table-models";
 import deviceInventoryList from "../../../../mock-data/device-inventory.json";
 import { theme } from "../../../../utils/theme";
@@ -58,9 +57,7 @@ const DevicesInventoryList = () => {
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
   const navigate = useNavigate();
 
-  const handleSelectAllChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleSelectAllChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       setSelectedRows(paginatedData.map((_, index) => index));
     } else {
@@ -69,18 +66,13 @@ const DevicesInventoryList = () => {
   };
 
   const handleCheckboxChange = (index: number) => {
-    setSelectedRows((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
-    );
+    setSelectedRows((prev) => (prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]));
   };
 
   const totalRecords = deviceInventoryList.length;
   const totalPages = Math.ceil(totalRecords / recordsPerPage);
 
-  const handlePageChange = (
-    _event: React.ChangeEvent<unknown> | null,
-    newPage: number,
-  ) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown> | null, newPage: number) => {
     setCurrentPage(newPage);
   };
 
@@ -91,7 +83,7 @@ const DevicesInventoryList = () => {
 
   const paginatedData = deviceInventoryList.slice(
     currentPage * recordsPerPage,
-    currentPage * recordsPerPage + recordsPerPage,
+    currentPage * recordsPerPage + recordsPerPage
   );
 
   const statusBgColorMapping: Record<string, string> = {
@@ -123,20 +115,8 @@ const DevicesInventoryList = () => {
   return (
     <>
       {!isFormOpen && (
-        <Grid
-          height={"100%"}
-          pl={2}
-          pr={2}
-          width={"100%"}
-          maxWidth={"100%"}
-          overflow={"auto"}
-        >
-          <Grid
-            height={"100%"}
-            borderRadius={"8px"}
-            container
-            flexDirection={"column"}
-          >
+        <Grid height={"100%"} pl={2} pr={2} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
+          <Grid height={"100%"} borderRadius={"8px"} container flexDirection={"column"}>
             <Grid container p={2} justifyContent={"space-between"} rowGap={2}>
               <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
                 <Typography variant="bodyLarge" fontWeight={600}>
@@ -182,9 +162,7 @@ const DevicesInventoryList = () => {
                   bgcolor={"white"}
                 >
                   <IconButton onClick={() => setIsFilterOpen(true)}>
-                    <FilterAltOutlinedIcon
-                      sx={{ height: "19px", width: "19px" }}
-                    />
+                    <FilterAltOutlinedIcon sx={{ height: "19px", width: "19px" }} />
                   </IconButton>
                 </Grid>
                 <Grid>
@@ -200,16 +178,8 @@ const DevicesInventoryList = () => {
                   />
                 </Grid>
                 <Grid>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {}}
-                    sx={{ background: "#FFFFFF" }}
-                  >
-                    <Typography
-                      variant="bodySmall"
-                      color="black"
-                      fontWeight={500}
-                    >
+                  <Button variant="outlined" onClick={() => {}} sx={{ background: "#FFFFFF" }}>
+                    <Typography variant="bodySmall" color="black" fontWeight={500}>
                       Import CSV
                     </Typography>
                   </Button>
@@ -245,15 +215,9 @@ const DevicesInventoryList = () => {
                 <Table stickyHeader aria-label="sticky table" sx={tableCellCss}>
                   <TableHead>
                     <TableRow>
-                      <TableCell
-                        sx={{ ...heading, width: "5px", maxWidth: "10px" }}
-                        align="left"
-                      >
+                      <TableCell sx={{ ...heading, width: "5px", maxWidth: "10px" }} align="left">
                         <Checkbox
-                          checked={
-                            selectedRows.length === paginatedData.length &&
-                            paginatedData.length > 0
-                          }
+                          checked={selectedRows.length === paginatedData.length && paginatedData.length > 0}
                           handleChange={handleSelectAllChange}
                         />
                       </TableCell>
@@ -262,12 +226,8 @@ const DevicesInventoryList = () => {
                           sx={{
                             ...heading,
                             width: header.width ? header.width : "inherit",
-                            minWidth: header.minWidth
-                              ? header.minWidth
-                              : "inherit",
-                            maxWidth: header.maxWidth
-                              ? header.maxWidth
-                              : "inherit",
+                            minWidth: header.minWidth ? header.minWidth : "inherit",
+                            maxWidth: header.maxWidth ? header.maxWidth : "inherit",
                           }}
                           align="left"
                           key={index}
@@ -277,15 +237,10 @@ const DevicesInventoryList = () => {
                             container
                             flexDirection={"column"}
                             alignContent={
-                              header.header === "Action" ||
-                              header.header === "Status"
-                                ? "flex-end"
-                                : "flex-start"
+                              header.header === "Action" || header.header === "Status" ? "flex-end" : "flex-start"
                             }
                           >
-                            <Typography variant="bodyExtraSmall">
-                              {header.header}
-                            </Typography>
+                            <Typography variant="bodyExtraSmall">{header.header}</Typography>
                           </Grid>
                         </TableCell>
                       ))}
@@ -298,6 +253,7 @@ const DevicesInventoryList = () => {
                           <TableCell sx={{ ...heading }}>
                             <Grid container flexDirection={"column"}>
                               <Checkbox
+                                sx={{ width: "10px", height: "10px" }}
                                 checked={selectedRows.includes(index)}
                                 handleChange={() => handleCheckboxChange(index)}
                               />
@@ -308,59 +264,38 @@ const DevicesInventoryList = () => {
                               <CustomClickableLink
                                 text={list?.deviceName}
                                 onClick={function (): void {
-                                  navigate(
-                                    `/super-user/devices/${list.serialNumber.replace("#", "")}`,
-                                  );
+                                  navigate(`/super-user/devices/${list.serialNumber.replace("#", "")}`);
                                 }}
                               />
                             </Grid>
                           </TableCell>
                           <TableCell sx={{ ...heading }}>
                             <Grid container flexDirection={"column"}>
-                              <Typography
-                                sx={typographyCss}
-                                variant="bodySmall"
-                              >
+                              <Typography sx={typographyCss} variant="bodySmall">
                                 {list?.serialNumber}
                               </Typography>
                             </Grid>
                           </TableCell>
                           <TableCell sx={{ ...heading }}>
                             <Grid container flexDirection={"column"}>
-                              <Typography
-                                sx={typographyCss}
-                                variant="bodySmall"
-                              >
+                              <Typography sx={typographyCss} variant="bodySmall">
                                 {list?.pool}
                               </Typography>
                             </Grid>
                           </TableCell>
                           <TableCell sx={{ ...heading }}>
-                            <Grid
-                              container
-                              flexDirection={"column"}
-                              alignContent={"flex-end"}
-                              pr={1}
-                            >
+                            <Grid container flexDirection={"column"} alignContent={"flex-end"} pr={1}>
                               <Status
                                 status={`${list.status}`}
                                 width="74px"
-                                bgColor={
-                                  statusBgColorMapping[list?.status] || "gray"
-                                }
+                                bgColor={statusBgColorMapping[list?.status] || "gray"}
                               />
                             </Grid>
                           </TableCell>
                           <TableCell sx={{ ...heading }}>
-                            <Grid
-                              container
-                              flexDirection={"column"}
-                              alignContent={"flex-end"}
-                            >
-                              <IconButton onClick={() => {}} disableRipple>
-                                <ArchiveOutlinedIcon
-                                  sx={{ marginInline: "27px" }}
-                                />
+                            <Grid container flexDirection={"column"} alignContent={"flex-end"}>
+                              <IconButton onClick={() => {}} disableRipple sx={{ p: 0 }}>
+                                <ArchiveOutlinedIcon sx={{ marginInline: "27px" }} />
                               </IconButton>
                             </Grid>
                           </TableCell>
@@ -394,39 +329,20 @@ const DevicesInventoryList = () => {
         </Grid>
       )}
 
-      {isFormOpen && (
-        <AddDeviceInventory onClose={() => SetIsFormOpen(false)} />
-      )}
+      {isFormOpen && <AddDeviceInventory onClose={() => SetIsFormOpen(false)} />}
 
       {/* Filter grid */}
       <CustomFilters
         onOpen={isFilterOpen}
         style={{
-          top: belowWidth1024
-            ? "45%"
-            : belowWidth1366
-              ? "45%"
-              : belowWidth1440
-                ? "37%"
-                : "35%",
-          left: belowWidth1024
-            ? "50%"
-            : belowWidth1366
-              ? "60%"
-              : belowWidth1440
-                ? "62%"
-                : "73%",
+          top: belowWidth1024 ? "45%" : belowWidth1366 ? "45%" : belowWidth1440 ? "37%" : "35%",
+          left: belowWidth1024 ? "50%" : belowWidth1366 ? "60%" : belowWidth1440 ? "62%" : "73%",
           width: "600px",
         }}
         onClick={() => setIsFilterOpen(false)}
       >
         <Grid container width={"100%"}>
-          <Grid
-            container
-            flexDirection={"column"}
-            width={"32%"}
-            borderRight={"1px solid #E8EBEC"}
-          >
+          <Grid container flexDirection={"column"} width={"32%"} borderRight={"1px solid #E8EBEC"}>
             <Stack direction="row" gap={2}>
               <Tabs
                 orientation="vertical"
