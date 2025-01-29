@@ -62,7 +62,7 @@ const SettingsTab = () => {
         />
       </Grid>
       {/* Pages Grid */}
-      <Grid container width={"100%"} bgcolor={"white"} borderRadius={3} border={1}>
+      <Grid container width={"100%"}>
         {detailType === SettingDetailsType.ORGANIZATION && (
           <Grid container width={"100%"}>
             <OrganizationList />
