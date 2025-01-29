@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Grid } from "@mui/system";
 import Switcher from "@/common-components/switcher/switcher";
+import { useNavigate } from "react-router-dom";
+import { toCamelCase } from "@/utils/toCamelCase";
 
 enum SettingDetailsType {
   ORGANIZATION = "Organization ",
@@ -25,9 +27,9 @@ enum SettingDetailsType {
 }
 
 const SettingsTab = () => {
+  const navigate = useNavigate();
   const [detailType, setDetailType] = useState(SettingDetailsType.ORGANIZATION);
   detailType;
-
   return (
     <Grid container width={"100%"} p={2} flexDirection={"column"} rowGap={2}>
       {/* Switcher Grid */}
@@ -49,6 +51,9 @@ const SettingsTab = () => {
           variant={"light"}
           onChange={(option: string): void => {
             setDetailType(option as SettingDetailsType);
+            navigate(
+              `/super-user/settings?${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`,
+            );
           }}
         />
       </Grid>
