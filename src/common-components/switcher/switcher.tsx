@@ -1,8 +1,9 @@
+import React, { useState } from "react";
+
 import { Typography, styled } from "@mui/material";
-import { useState } from "react";
-import { theme } from "../../utils/theme";
 import { Grid } from "@mui/system";
-import React from "react";
+
+import { theme } from "../../utils/theme";
 
 type SwitcherProps = {
   options: string[];
@@ -30,10 +31,7 @@ const Switcher = (props: SwitcherProps) => {
     width: "fit-content",
     borderRadius: customBorderRadius,
     border: "1px solid #DBDBDB",
-    color:
-      variant === "dark"
-        ? theme.palette.common.white
-        : theme.palette.common.black,
+    color: variant === "dark" ? theme.palette.common.white : theme.palette.common.black,
   }));
 
   const StyledGridButton = styled(Grid)(() => ({
@@ -60,19 +58,9 @@ const Switcher = (props: SwitcherProps) => {
                 : index === validOptions.length - 1
                   ? "1px solid #DBDBDB"
                   : "1px solid #DBDBDB",
-            borderTopRightRadius:
-              index === 0
-                ? "none"
-                : index === validOptions.length - 1
-                  ? "16px"
-                  : "none",
+            borderTopRightRadius: index === 0 ? "none" : index === validOptions.length - 1 ? "16px" : "none",
 
-            borderEndEndRadius:
-              index === 0
-                ? "none"
-                : index === validOptions.length - 1
-                  ? "16px"
-                  : "none",
+            borderEndEndRadius: index === 0 ? "none" : index === validOptions.length - 1 ? "16px" : "none",
           };
 
           if (index === 0) {
