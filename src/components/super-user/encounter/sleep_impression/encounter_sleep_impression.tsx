@@ -1,35 +1,32 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  Checkbox,
+  FormControlLabel,
   IconButton,
   Typography,
-  Box,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Grid } from "@mui/system";
 import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import dayjs, { Dayjs } from "dayjs";
-import { Calendar, globalizeLocalizer } from "react-big-calendar";
-import globalize from "globalize";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Grid } from "@mui/system";
-import "./calender.css";
-import moment from "moment";
+
+import CustomCheckBox, { CheckedArray } from "@/common-components/custom-checkbox/custom-checkbox";
 import CustomInput from "@/common-components/custom-input/custom-input";
-import CustomCheckBox, {
-  CheckedArray,
-} from "@/common-components/custom-checkbox/custom-checkbox";
-import {
-  EncounterType,
-  SleepImpressionAppointmentStatus,
-} from "./checkbox_list";
+import CustomReactBigCalendar from "@/common-components/custom-react-big-calender/custom-react-big-calendar";
+
+import { accordionCss } from "../encounter.styles";
+import "./calender.css";
+import { EncounterType, SleepImpressionAppointmentStatus } from "./checkbox_list";
 
 const calenderEvents = [
   {
@@ -88,17 +85,12 @@ const calenderEvents = [
   },
 ];
 
-const localizer = globalizeLocalizer(globalize);
-
 const EncounterSleepImpression = () => {
   const [currentMonth, setCurrentMonth] = useState<Dayjs>(dayjs());
   const [expanded, setExpanded] = useState(false);
-  const [updatedArray, setUpdatedArray] = useState<CheckedArray[]>(
-    SleepImpressionAppointmentStatus,
-  );
+  const [updatedArray, setUpdatedArray] = useState<CheckedArray[]>(SleepImpressionAppointmentStatus);
   updatedArray;
-  const [updatedArrayEncounter, setUpdatedArrayEncounter] =
-    useState<CheckedArray[]>(EncounterType);
+  const [updatedArrayEncounter, setUpdatedArrayEncounter] = useState<CheckedArray[]>(EncounterType);
   updatedArrayEncounter;
 
   const handleCheckedStatus = (value: CheckedArray[]) => {
@@ -116,38 +108,21 @@ const EncounterSleepImpression = () => {
   };
 
   const handleMonthChange = (direction: "previous" | "next") => {
-    setCurrentMonth((prev: Dayjs) =>
-      direction === "previous"
-        ? prev.subtract(1, "month")
-        : prev.add(1, "month"),
-    );
+    setCurrentMonth((prev: Dayjs) => (direction === "previous" ? prev.subtract(1, "month") : prev.add(1, "month")));
   };
 
   return (
-    <Grid container minHeight={"90vh"} bgcolor={"white"}>
+    <Grid container height={"100%"}>
       {/* Accordion */}
-      <Grid
-        width={"20%"}
-        maxHeight={"90vh"}
-        sx={{ overflowY: "auto" }}
-        borderRight={"1px solid #E7E7E7"}
-      >
-        <Accordion
-          sx={{ boxShadow: "none" }}
-          expanded={expanded}
-          onChange={() => {}}
-        >
+      <Grid width={"20%"} maxHeight={"90vh"} sx={{ overflowY: "auto" }} borderRight={"1px solid #E7E7E7"}>
+        <Accordion sx={accordionCss} expanded={expanded} onChange={() => {}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon sx={{ fontSize: "18px" }} />}
             aria-controls="panel1-content"
             id="panel1-header"
             onClick={handleSummaryClick}
           >
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
+            <Box display="flex" alignItems="center" justifyContent="space-between">
               <IconButton
                 onClick={(e) => {
                   e.stopPropagation();
@@ -189,17 +164,9 @@ const EncounterSleepImpression = () => {
             </LocalizationProvider>
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ boxShadow: "none" }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <Typography
-              variant="bodySmall"
-              component="span"
-              fontWeight={"bold"}
-            >
+        <Accordion sx={accordionCss}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
+            <Typography variant="bodySmall" component="span" fontWeight={"bold"}>
               Search by Provider
             </Typography>
           </AccordionSummary>
@@ -244,17 +211,9 @@ const EncounterSleepImpression = () => {
             </Grid>
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ boxShadow: "none" }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <Typography
-              variant="bodySmall"
-              component="span"
-              fontWeight={"bold"}
-            >
+        <Accordion sx={accordionCss}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
+            <Typography variant="bodySmall" component="span" fontWeight={"bold"}>
               Search by Clinic
             </Typography>
           </AccordionSummary>
@@ -299,17 +258,9 @@ const EncounterSleepImpression = () => {
             </Grid>
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ boxShadow: "none" }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <Typography
-              variant="bodySmall"
-              component="span"
-              fontWeight={"bold"}
-            >
+        <Accordion sx={accordionCss}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
+            <Typography variant="bodySmall" component="span" fontWeight={"bold"}>
               Encounter Type
             </Typography>
           </AccordionSummary>
@@ -324,17 +275,9 @@ const EncounterSleepImpression = () => {
             </Grid>
           </AccordionDetails>
         </Accordion>
-        <Accordion sx={{ boxShadow: "none" }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <Typography
-              variant="bodySmall"
-              component="span"
-              fontWeight={"bold"}
-            >
+        <Accordion sx={accordionCss}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
+            <Typography variant="bodySmall" component="span" fontWeight={"bold"}>
               Status
             </Typography>
           </AccordionSummary>
@@ -351,38 +294,11 @@ const EncounterSleepImpression = () => {
         </Accordion>
       </Grid>
       {/* Calendar Section */}
-      <Grid
-        container
-        flexDirection={"column"}
-        maxHeight={"90vh"}
-        width={"80%"}
-        rowGap={2}
-        sx={{ overflowY: "auto" }}
-      >
-        <Grid sx={{ flexGrow: 1 }}>
-          <Calendar
-            views={["month", "week", "day"]}
-            events={calenderEvents}
-            startAccessor="start"
-            endAccessor="end"
-            showMultiDayTimes={true}
-            defaultDate={new Date()}
-            localizer={localizer}
-            step={15}
-            timeslots={1}
-            formats={{
-              timeGutterFormat: "HH:mm",
-            }}
-            components={{
-              event: ({ event }) => (
-                <span>
-                  | {moment(event.start).format("HH:mm")} - {event.title}
-                </span>
-              ),
-            }}
-          />
+      <Box flex={1} rowGap={2} sx={{ overflowY: "auto", display: "flex", flexDirection: "column" }}>
+        <Grid height={"100%"} sx={{ flex: 1 }}>
+          <CustomReactBigCalendar calenderEvents={calenderEvents} />
         </Grid>
-      </Grid>
+      </Box>
     </Grid>
   );
 };

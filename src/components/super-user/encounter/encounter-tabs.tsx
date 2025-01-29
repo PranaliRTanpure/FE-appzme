@@ -9,6 +9,7 @@ import Switcher from "@/common-components/switcher/switcher";
 
 import MainDrawer from "@/components/ui/MainDrawer";
 import { useDrawer } from "@/hooks/useDrawer";
+import { toCamelCase } from "@/utils/toCamelCase";
 
 import CreateEncounterForm from "./encounters/create-encounter-form";
 import EncounterList from "./encounters/encounter-list";
@@ -71,9 +72,7 @@ const SettingsTabs = () => {
 
   const handleChange = (newValue: string) => {
     setValue(newValue);
-    if (location.pathname === "/admin/settings") {
-      navigate("/admin/settings?" + newValue);
-    }
+    navigate("/super-user/encounter?" + toCamelCase(newValue.trim().replace(" ", "-")));
   };
 
   const renderComponents = () => {

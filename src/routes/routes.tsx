@@ -1,9 +1,11 @@
+import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
+
 import FaxPage from "@/pages/super-user-portal/communication/fax-page";
 import MessagesPage from "@/pages/super-user-portal/communication/messages-page";
 import TasksPage from "@/pages/super-user-portal/communication/tasks-page";
 import InterpretationNotePage from "@/pages/super-user-portal/encounter/interpretation-note-page";
 import ProviderSettingsPage from "@/pages/super-user-portal/settings/settings-page";
-import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
+
 import DeviceInventoryDetails from "../components/super-user/devices/device-inventory/device-inventory-details/device-inventory-details";
 import DeviceSchedulling from "../components/super-user/devices/device-scheduling/device-scheduling";
 import AuthLayout from "../layouts/auth-layout";
@@ -55,7 +57,7 @@ export const router = createBrowserRouter([
         path: "encounter",
         element: <Outlet />,
         children: [
-          { path: "encounters", element: <EncounterPage /> },
+          { path: "", element: <EncounterPage /> },
           { path: "interpretation-note", element: <InterpretationNotePage /> },
         ],
       },

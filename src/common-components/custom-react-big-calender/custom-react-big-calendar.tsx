@@ -1,3 +1,11 @@
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+
+import { Box } from "@mui/system";
+
+import { format, getDay, parse, startOfWeek } from "date-fns";
+import { enUS } from "date-fns/locale";
+
+const customStyles = () => `
 /* SchedulingCalendarView Styles */
 
 /* General Calendar container */
@@ -73,11 +81,9 @@
 }
 
 .rbc-row-content {
-  min-height: 100px !important;
 }
 
 .rbc-month-row {
-  max-height: 200px;
   overflow: visible !important;
 }
 
@@ -149,6 +155,7 @@
 .rbc-toolbar {
   padding: 10px;
   margin-bottom: 0px;
+  background-color:"#F5F6F8 !important"
 }
 
 /* Toolbar button  */
@@ -178,3 +185,62 @@
   background-color: #e6e6e6;
   border-color: #adadad;
 }
+
+`;
+
+type calenderEvents = {
+  id: number;
+  title: string;
+  start: Date;
+  end: Date;
+};
+
+type CustomReactBigCalendarProps = {
+  calenderEvents: calenderEvents[];
+};
+
+const CustomReactBigCalendar = (props: CustomReactBigCalendarProps) => {
+  const { calenderEvents } = props;
+  const locales = {
+    "en-US": enUS,
+  };
+
+  const localizer = dateFnsLocalizer({
+    format,
+    parse,
+    startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }),
+    getDay,
+    locales,
+  });
+
+  return (
+    <Box bgcolor={"pink"} height={"100%"}>
+      <Calendar
+        views={["month", "week", "day"]}
+        events={calenderEvents}
+        startAccessor="start"
+        endAccessor="end"
+        showMultiDayTimes={true}
+        defaultDate={new Date()}
+        localizer={localizer}
+        step={15}
+        timeslots={1}
+        formats={{
+          timeGutterFormat: "HH:mm",
+        }}
+        components={{
+          event: ({ event }) => (
+            <span
+            // onClick={ApptDetails(event)}
+            >
+              {event.title}
+            </span>
+          ),
+        }}
+      />
+      <style>{customStyles()}</style>
+    </Box>
+  );
+};
+
+export default CustomReactBigCalendar;

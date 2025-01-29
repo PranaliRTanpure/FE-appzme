@@ -1,5 +1,7 @@
-import GridViewIcon from "@mui/icons-material/GridView";
 import { useLocation } from "react-router-dom";
+
+import GridViewIcon from "@mui/icons-material/GridView";
+
 import { SUPER_USER } from "../constants/constants";
 
 const useMenu = () => {
@@ -19,7 +21,7 @@ const useMenu = () => {
       hide: false,
       disabled: false,
       menuList: [
-        { name: "Encounter", path: "/super-user/encounter/encounters" },
+        { name: "Encounter", path: "/super-user/encounter" },
         {
           name: "Interpretation Note",
           path: "/super-user/encounter/interpretation-note",
