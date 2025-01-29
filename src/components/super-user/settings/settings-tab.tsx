@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { Grid } from "@mui/system";
-import Switcher from "@/common-components/switcher/switcher";
 import { useNavigate } from "react-router-dom";
+
+import { Grid } from "@mui/system";
+
+import Switcher from "@/common-components/switcher/switcher";
+
 import { toCamelCase } from "@/utils/toCamelCase";
 
+import OrganizationList from "./organization/organization-list";
+import SiClinicsList from "./si-clinics/si-clinics-list";
+
 enum SettingDetailsType {
-  ORGANIZATION = "Organization ",
+  ORGANIZATION = "Organization",
 
   SI_CLINICS = "SI Clinics",
 
@@ -29,11 +35,11 @@ enum SettingDetailsType {
 const SettingsTab = () => {
   const navigate = useNavigate();
   const [detailType, setDetailType] = useState(SettingDetailsType.ORGANIZATION);
-  detailType;
+
   return (
     <Grid container width={"100%"} p={2} flexDirection={"column"} rowGap={2}>
       {/* Switcher Grid */}
-      <Grid container width={"100%"} border={0}>
+      <Grid container width={"100%"} minWidth={"100%"} overflow={"auto"} border={0}>
         <Switcher
           options={[
             "Organization",
@@ -51,21 +57,22 @@ const SettingsTab = () => {
           variant={"light"}
           onChange={(option: string): void => {
             setDetailType(option as SettingDetailsType);
-            navigate(
-              `/super-user/settings?${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`,
-            );
+            navigate(`/super-user/settings?${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`);
           }}
         />
       </Grid>
       {/* Pages Grid */}
-      <Grid
-        container
-        width={"100%"}
-        bgcolor={"white"}
-        borderRadius={3}
-        border={1}
-      >
-        hello
+      <Grid container width={"100%"} bgcolor={"white"} borderRadius={3} border={1}>
+        {detailType === SettingDetailsType.ORGANIZATION && (
+          <Grid container width={"100%"}>
+            <OrganizationList />
+          </Grid>
+        )}
+        {detailType === SettingDetailsType.SI_CLINICS && (
+          <Grid container width={"100%"}>
+            <SiClinicsList />
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

@@ -1,3 +1,5 @@
+import * as yup from "yup";
+
 import {
   addressLine1Max128ErrorMsg,
   addressLine1RequiredErrorMsg,
@@ -12,13 +14,7 @@ import {
   zipCodeRegexErrorMsg,
   zipCodeRequiredErrorMsg,
 } from "@/constants/error-messages";
-import {
-  cityStateRgex,
-  emailRegExp,
-  phoneRegex,
-  zipCodeRegex,
-} from "@/utils/regex";
-import * as yup from "yup";
+import { cityStateRgex, emailRegExp, phoneRegex, zipCodeRegex } from "@/utils/regex";
 
 export const addStaffFormSchema = yup.object().shape({
   firstName: yup.string().required("First Name required"),
@@ -27,10 +23,7 @@ export const addStaffFormSchema = yup.object().shape({
   organization: yup.string(),
   role: yup.string(),
   avatar: yup.string(),
-  alternatePhone: yup
-    .string()
-    .required(alternatePhoneRequiredErrorMsg)
-    .matches(phoneRegex, phoneRegexErrorMsg),
+  alternatePhone: yup.string().required(alternatePhoneRequiredErrorMsg).matches(phoneRegex, phoneRegexErrorMsg),
   phone: yup
     .string()
     // .required(phoneRequiredErrorMsg)
@@ -74,7 +67,7 @@ export const addProviderFormSchema = yup.object().shape({
           .typeError("License expiry date is required")
           .required("License expiry date is required"),
         licensedState: yup.string().required("Licensed State reruired"),
-      }),
+      })
     )
     .min(1, "At least one Liscense detail is required"),
   firstName: yup.string().required("First Name required"),
@@ -89,23 +82,11 @@ export const addProviderFormSchema = yup.object().shape({
   npi: yup.string().required("Npi required"),
   speciality: yup.string(),
   fax: yup.string(),
-  alternatePhone: yup
-    .string()
-    .required(alternatePhoneRequiredErrorMsg)
-    .matches(phoneRegex, phoneRegexErrorMsg),
-  phone: yup
-    .string()
-    .required(phoneRequiredErrorMsg)
-    .matches(phoneRegex, phoneRegexErrorMsg),
-  email: yup
-    .string()
-    .required(emailRequiredErrorMsg)
-    .matches(emailRegExp, phoneRegexErrorMsg),
+  alternatePhone: yup.string().required(alternatePhoneRequiredErrorMsg).matches(phoneRegex, phoneRegexErrorMsg),
+  phone: yup.string().required(phoneRequiredErrorMsg).matches(phoneRegex, phoneRegexErrorMsg),
+  email: yup.string().required(emailRequiredErrorMsg).matches(emailRegExp, phoneRegexErrorMsg),
   address: yup.object().shape({
-    line1: yup
-      .string()
-      .required(addressLine1RequiredErrorMsg)
-      .max(128, addressLine1Max128ErrorMsg),
+    line1: yup.string().required(addressLine1RequiredErrorMsg).max(128, addressLine1Max128ErrorMsg),
     line2: yup.string().max(128, addressLine1Max128ErrorMsg),
     city: yup
       .string()
@@ -117,10 +98,7 @@ export const addProviderFormSchema = yup.object().shape({
       .max(50, lessThan255ErrorMsg)
       .required(stateRequiredErrorMsg)
       .matches(cityStateRgex, cityStateRegexErrorMsg),
-    zipcode: yup
-      .string()
-      .required(zipCodeRequiredErrorMsg)
-      .matches(zipCodeRegex, zipCodeRegexErrorMsg),
+    zipcode: yup.string().required(zipCodeRequiredErrorMsg).matches(zipCodeRegex, zipCodeRegexErrorMsg),
   }),
   defaultDentalProvider: yup.string(),
   preferredDme: yup.string(),

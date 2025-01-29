@@ -1,23 +1,23 @@
-import { CustomUploadImage } from "@/common-components/custom-image-upload/UploadImage";
-import DrawerBody from "@/components/ui/DrawerBody";
-import { theme } from "@/utils/theme";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useRef } from "react";
+import { Controller, FieldValues, FormProvider, useForm } from "react-hook-form";
+
 import { Button, SelectChangeEvent, Typography } from "@mui/material";
 import { Box, Grid } from "@mui/system";
-import { useRef } from "react";
-import {
-  Controller,
-  FieldValues,
-  FormProvider,
-  useForm,
-} from "react-hook-form";
-import { addStaffFormSchema } from "./settings-form-schema";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
+import { CustomUploadImage } from "@/common-components/custom-image-upload/UploadImage";
+import CustomInputWithPrefix from "@/common-components/custom-input-with-prefix/custom-input-with-prefix";
 import CustomInput from "@/common-components/custom-input/custom-input";
 import CustomLabel from "@/common-components/custom-label/custom-label";
 import CustomSelect from "@/common-components/custom-select/customSelect";
-import CustomInputWithPrefix from "@/common-components/custom-input-with-prefix/custom-input-with-prefix";
-import CustomAutoComplete from "@/common-components/custom-auto-complete/custom-auto-complete";
+
+import DrawerBody from "@/components/ui/DrawerBody";
 import { stateList } from "@/utils/StateList";
+import { theme } from "@/utils/theme";
+
+import { addStaffFormSchema } from "./settings-form-schema";
 
 interface AddStaffFormProps {
   handleDrawerClose: () => void;
@@ -66,56 +66,23 @@ const AddStaffForm = (props: AddStaffFormProps) => {
     <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
       <Grid width={"100%"} height={"100%"}>
         <FormProvider {...method}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <Grid
-              container
-              width={"100%"}
-              height={"100%"}
-              flexDirection={"column"}
-            >
+          <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%", width: "100%" }}>
+            <Grid container width={"100%"} height={"100%"} flexDirection={"column"}>
               {/* Form */}
-              <Grid
-                container
-                width={"100%"}
-                flexDirection={"column"}
-                rowGap={3}
-              >
+              <Grid container width={"100%"} flexDirection={"column"} rowGap={3}>
                 {/* Profile Information Grid */}
-                <Grid
-                  container
-                  width={"100%"}
-                  flexBasis={"column"}
-                  rowGap={1.5}
-                  border={0}
-                >
+                <Grid container width={"100%"} flexBasis={"column"} rowGap={1.5} border={0}>
                   <Typography fontWeight={600} variant="bodySmall">
                     Profile Information
                   </Typography>
                   <Grid container width={"100%"}>
                     <Grid width={"13%"} border={"0px solid red"}>
                       <Grid width={"95%"} p={1}>
-                        <CustomUploadImage
-                          name="avatar"
-                          defaultImage={""}
-                          isLoading={false}
-                        />
+                        <CustomUploadImage name="avatar" defaultImage={""} isLoading={false} />
                       </Grid>
                     </Grid>
-                    <Grid
-                      container
-                      width={"87%"}
-                      flexDirection={"column"}
-                      rowGap={2}
-                      border={"0px solid red"}
-                    >
-                      <Grid
-                        container
-                        width={"100%"}
-                        justifyContent={"space-between"}
-                      >
+                    <Grid container width={"87%"} flexDirection={"column"} rowGap={2} border={"0px solid red"}>
+                      <Grid container width={"100%"} justifyContent={"space-between"}>
                         <Grid width={"25%"}>
                           <CustomLabel label="First Name" isRequired />
                           <Controller
@@ -126,9 +93,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                                 value={field.value?.trim() || ""}
                                 placeholder={"Enter First Name"}
                                 hasError={!!errors.firstName}
-                                errorMessage={
-                                  errors.firstName?.message as string
-                                }
+                                errorMessage={errors.firstName?.message as string}
                                 name={field.name}
                                 onChange={(e) =>
                                   setValue("firstName", e.target.value, {
@@ -169,9 +134,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                                 name={field.name}
                                 placeholder={"Enter Last Name"}
                                 hasError={!!errors.lastName}
-                                errorMessage={
-                                  errors.lastName?.message as string
-                                }
+                                errorMessage={errors.lastName?.message as string}
                                 onChange={(e) =>
                                   setValue("lastName", e.target.value, {
                                     shouldValidate: true,
@@ -192,9 +155,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                                 placeholder={"Select"}
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
+                                onChange={function (e: SelectChangeEvent<string>): void {
                                   setValue("organization", e.target.value, {
                                     shouldValidate: true,
                                   });
@@ -205,11 +166,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                           ></Controller>
                         </Grid>
                       </Grid>
-                      <Grid
-                        container
-                        width={"100%"}
-                        justifyContent={"space-between"}
-                      >
+                      <Grid container width={"100%"} justifyContent={"space-between"}>
                         <Grid width={"24%"}>
                           <CustomLabel label="Role" />
                           <Controller
@@ -221,9 +178,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                                 placeholder={"Select"}
                                 enableDeselect
                                 items={[{ value: "active", label: "Active" }]}
-                                onChange={function (
-                                  e: SelectChangeEvent<string>,
-                                ): void {
+                                onChange={function (e: SelectChangeEvent<string>): void {
                                   setValue("role", e.target.value, {
                                     shouldValidate: true,
                                   });
@@ -262,9 +217,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             render={({ field }) => (
                               <CustomInputWithPrefix
                                 name={field.name}
-                                onChange={(e) =>
-                                  setValue("phone", e.target.value)
-                                }
+                                onChange={(e) => setValue("phone", e.target.value)}
                                 prefix={`+1`}
                                 value={field.value || ""}
                                 placeholder={"Enter Phone"}
@@ -280,9 +233,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             render={({ field }) => (
                               <CustomInputWithPrefix
                                 name={field.name}
-                                onChange={(e) =>
-                                  setValue("alternatePhone", e.target.value)
-                                }
+                                onChange={(e) => setValue("alternatePhone", e.target.value)}
                                 prefix={`+1`}
                                 value={field.value || ""}
                                 placeholder={"Enter Alt. Phone"}
@@ -295,13 +246,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                   </Grid>
                 </Grid>
                 {/* Address Grid */}
-                <Grid
-                  container
-                  width={"100%"}
-                  flexDirection={"column"}
-                  rowGap={1.5}
-                  border={0}
-                >
+                <Grid container width={"100%"} flexDirection={"column"} rowGap={1.5} border={0}>
                   <Typography fontWeight={600} variant="bodySmall">
                     Address Information
                   </Typography>
@@ -317,9 +262,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter Address Line 1"}
                             hasError={!!errors?.address?.line1}
-                            errorMessage={
-                              errors.address?.line1?.message as string
-                            }
+                            errorMessage={errors.address?.line1?.message as string}
                           />
                         )}
                       />
@@ -335,9 +278,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter Address Line 2"}
                             hasError={!!errors.address?.line2}
-                            errorMessage={
-                              errors.address?.line2?.message as string
-                            }
+                            errorMessage={errors.address?.line2?.message as string}
                           />
                         )}
                       />
@@ -353,9 +294,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter City"}
                             hasError={!!errors.address?.city}
-                            errorMessage={
-                              errors.address?.city?.message as string
-                            }
+                            errorMessage={errors.address?.city?.message as string}
                           />
                         )}
                       />
@@ -374,12 +313,8 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             maxHeightForOptionsList={300}
                             value={field.value || ""}
                             hasError={!!errors.address?.state}
-                            errorMessage={
-                              errors.address?.state?.message as string
-                            }
-                            onChange={(selectedValue: string | "") =>
-                              field.onChange(selectedValue)
-                            }
+                            errorMessage={errors.address?.state?.message as string}
+                            onChange={(selectedValue: string | "") => field.onChange(selectedValue)}
                           />
                         )}
                       />
@@ -395,9 +330,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
                             value={field.value || ""}
                             placeholder={"Enter Zip Code"}
                             hasError={!!errors.address?.zipcode}
-                            errorMessage={
-                              errors.address?.zipcode?.message as string
-                            }
+                            errorMessage={errors.address?.zipcode?.message as string}
                           />
                         )}
                       />
@@ -419,11 +352,7 @@ const AddStaffForm = (props: AddStaffFormProps) => {
               >
                 <Grid container justifyContent={"flex-end"}>
                   <Grid container columnGap={1}>
-                    <Button
-                      onClick={handleDrawerClose}
-                      variant="outlined"
-                      type="button"
-                    >
+                    <Button onClick={handleDrawerClose} variant="outlined" type="button">
                       <Typography variant="bodySmall">Cancel</Typography>
                     </Button>
                     <Button variant="contained" type="submit">

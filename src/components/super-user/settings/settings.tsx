@@ -1,17 +1,17 @@
-import CustomButton from "@/common-components/button-outlined/custom-button";
-import { useDrawer } from "@/hooks/useDrawer";
 import { Grid, useMediaQuery } from "@mui/system";
-import AddStaffForm from "./add-staff-form";
-import MainDrawer from "@/components/ui/MainDrawer";
-import ProviderForm from "./add-provider-form";
 
+import CustomButton from "@/common-components/button-outlined/custom-button";
+
+import MainDrawer from "@/components/ui/MainDrawer";
+import { useDrawer } from "@/hooks/useDrawer";
+
+import ProviderForm from "./add-provider-form";
+import AddStaffForm from "./add-staff-form";
+
+//TODO: Delete this file later
 const ProviderUserSettings = () => {
   const below1024 = useMediaQuery("(max-width:1024px)");
-  const {
-    open: openDrawer,
-    close: closeDrawer,
-    content: contentDrawer,
-  } = useDrawer();
+  const { open: openDrawer, close: closeDrawer, content: contentDrawer } = useDrawer();
 
   const handleDrawer = {
     addStaffForm: (action: string) => {
