@@ -1,3 +1,7 @@
+import { ChangeEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import AddIcon from "@mui/icons-material/Add";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -18,10 +22,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import { alpha, Grid } from "@mui/system";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Grid, alpha } from "@mui/system";
+
 import ProfileImage from "../../assets/image_svg/icons/account_circle.svg";
 import Logo from "../../assets/image_svg/logo/navbar_logo.svg";
 import useLogout from "../../hooks/use-logout";
@@ -60,9 +62,7 @@ const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const xTenantIdVal = GetTenantId();
 
-  const { data, isLoading } = useSelector(
-    (state: RootState) => state.profileReducer,
-  );
+  const { data, isLoading } = useSelector((state: RootState) => state.profileReducer);
 
   useEffect(() => {
     dispatch(fetchProfileData(xTenantIdVal));
@@ -127,9 +127,7 @@ const Navbar = () => {
                   }}
                   startAdornment={
                     <InputAdornment position="start">
-                      <SearchIcon
-                        sx={{ color: theme.palette.common.white, ml: "10px" }}
-                      />
+                      <SearchIcon sx={{ color: theme.palette.common.white, ml: "10px" }} />
                     </InputAdornment>
                   }
                 />
@@ -155,12 +153,8 @@ const Navbar = () => {
                   }}
                 />
               </IconButton>
-              <Grid container columnGap={1.5}>
-                <Grid
-                  container
-                  justifyContent={"center"}
-                  alignContent={"center"}
-                >
+              <Grid container columnGap={1.5} height={"80%"}>
+                <Grid container justifyContent={"center"} alignContent={"center"}>
                   <Grid>
                     <Avatar
                       src={profileData?.avatar}
@@ -199,10 +193,7 @@ const Navbar = () => {
                         <Typography ml={1}>Logout</Typography>
                       </MenuItem>
                     </Menu>
-                    <Dialog
-                      open={logoutDialogOpen}
-                      onClose={handleLogoutDialogClose}
-                    >
+                    <Dialog open={logoutDialogOpen} onClose={handleLogoutDialogClose}>
                       <DialogContent
                         style={{
                           width: "400px",
@@ -210,12 +201,7 @@ const Navbar = () => {
                         }}
                       >
                         <Grid container flexDirection={"column"}>
-                          <Typography
-                            textAlign={"left"}
-                            variant="h5"
-                            fontWeight={550}
-                            mt={2}
-                          >
+                          <Typography textAlign={"left"} variant="h5" fontWeight={550} mt={2}>
                             Logging Out
                           </Typography>
                           <Typography variant="bodyMedium" mt={1}>
@@ -230,18 +216,10 @@ const Navbar = () => {
                         }}
                       >
                         <Grid>
-                          <CustomButton
-                            variant={"outlined"}
-                            text={"Cancel"}
-                            onClick={handleLogoutDialogClose}
-                          />
+                          <CustomButton variant={"outlined"} text={"Cancel"} onClick={handleLogoutDialogClose} />
                         </Grid>
                         <Grid>
-                          <CustomButton
-                            variant={"contained"}
-                            text={"Yes"}
-                            onClick={logoutHandler}
-                          />
+                          <CustomButton variant={"contained"} text={"Yes"} onClick={logoutHandler} />
                         </Grid>
                       </DialogActions>
                     </Dialog>
@@ -256,9 +234,7 @@ const Navbar = () => {
                     color: theme.palette.common.white,
                   }}
                 >
-                  <KeyboardArrowDownOutlinedIcon
-                    sx={{ height: "20px", width: "20px" }}
-                  />
+                  <KeyboardArrowDownOutlinedIcon sx={{ height: "20px", width: "20px" }} />
                 </IconButton>
               </Grid>
             </Grid>
