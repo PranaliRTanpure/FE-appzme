@@ -7,6 +7,7 @@ import Switcher from "@/common-components/switcher/switcher";
 
 import { toCamelCase } from "@/utils/toCamelCase";
 
+import MacrosList from "./macros/macros-list";
 import OrganizationList from "./organization/organization-list";
 import SiClinicsList from "./si-clinics/si-clinics-list";
 
@@ -77,6 +78,11 @@ const SettingsTab = () => {
         {detailType === SettingDetailsType.SI_CLINICS && (
           <Grid container width={"100%"}>
             <SiClinicsList />
+          </Grid>
+        )}
+        {detailType === SettingDetailsType.MACROS && (
+          <Grid container width={"100%"}>
+            <MacrosList />
           </Grid>
         )}
       </Grid>

@@ -50,6 +50,7 @@ const SiClinicsList = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [isEdit, setIsEdit] = React.useState(false);
   const { open: openDrawer, close: closeDrawer, content: contentDrawer } = useDrawer();
 
   const totalRecords = dummyLocations.length;
@@ -71,6 +72,7 @@ const SiClinicsList = () => {
 
   const handleDrawer = {
     addSiClinicForm: (action: string) => {
+      setIsEdit(action === "Edit");
       openDrawer({
         title: `${action} Clinic`,
         identifier: "drawer-add-si-clinic-form",
@@ -81,7 +83,7 @@ const SiClinicsList = () => {
   const DrawerContent = () => {
     switch (contentDrawer.identifier) {
       case "drawer-add-si-clinic-form":
-        return <SiClinicDialog handleDrawerClose={closeDrawer} />;
+        return <SiClinicDialog isEdit={isEdit} handleDrawerClose={closeDrawer} />;
       default:
         return <div />;
     }
@@ -108,7 +110,7 @@ const SiClinicsList = () => {
         showMandatoryIndicator={false}
       />
 
-      <Grid container width={"100%"} flexDirection={"column"} rowGap={3} border={0}>
+      <Grid container width={"100%"} flexDirection={"column"} rowGap={3}>
         {/* Grid 1 */}
         <Grid container width={"100%"} justifyContent={"space-between"}>
           <Grid alignContent={"center"}>
@@ -278,14 +280,14 @@ const SiClinicsList = () => {
                               <MenuItem
                                 key={v}
                                 selected={v === selectedAction}
-                                // onClick={() => {
-                                //     setSelectedAction(v);
-                                //     handleMenuClose();
-                                //     v === "Archive";
-                                //     if (v === "Edit") {
-                                //         handleDrawer.deviceManufacturersForm("Edit");
-                                //     }
-                                // }}
+                                onClick={() => {
+                                  setSelectedAction(v);
+                                  handleMenuClose();
+                                  v === "Archive";
+                                  if (v === "Edit") {
+                                    handleDrawer.addSiClinicForm("Edit");
+                                  }
+                                }}
                               >
                                 <Typography variant="bodySmall">{v}</Typography>
                               </MenuItem>
