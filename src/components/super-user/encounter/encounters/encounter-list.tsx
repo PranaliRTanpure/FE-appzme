@@ -4,7 +4,8 @@ import { Grid, useMediaQuery } from "@mui/system";
 
 import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
-import { heading, tableCellCss, typographyCss } from "@/common-components/table/common-table-widgets";
+import { heading, tableCellCss } from "@/common-components/table/common-table-widgets";
+import CustomTableRow from "@/common-components/table/custom-table-row";
 import { TableHeaders } from "@/common-components/table/table-models";
 
 import CustomInput from "../../../../common-components/custom-input/custom-input";
@@ -101,26 +102,14 @@ const EncounterList = () => {
                 {tableDataEncounter.length > 0 ? (
                   tableDataEncounter.map((list, index) => (
                     <TableRow hover key={index}>
-                      <TableCell sx={{ ...heading }} align="left">
-                        <CustomClickableLink text={list?.patientName} onClick={function (): void {}} />
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.openDate}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.type}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.stage}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
+                      <CustomTableRow
+                        children={<CustomClickableLink text={list?.patientName} onClick={function (): void {}} />}
+                      />
+                      <CustomTableRow value={list?.openDate} />
+                      <CustomTableRow value={list?.type} />
+                      <CustomTableRow value={list?.stage} />
+                      <CustomTableRow
+                        children={
                           <ColoredCustomSelect
                             value={list.schedulingStatus}
                             onChange={function (val: string): void {
@@ -132,70 +121,36 @@ const EncounterList = () => {
                               { label: "Scans sent", value: "Scans sent" },
                             ]}
                           />
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.aging}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <ColoredCustomSelect
-                          value={list.nextActionBy}
-                          onChange={function (val: string): void {
-                            val;
-                          }}
-                          options={[
-                            { label: "R. Bellow", value: "R. Bellow" },
-                            { label: "A. Torres", value: "A. Torres" },
-                            { label: "E. Enerique", value: "E. Enerique" },
-                          ]}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.actionDate}
-                        </Typography>
-                      </TableCell>{" "}
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.scheduleDate}
-                        </Typography>
-                      </TableCell>{" "}
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.orderingProvider}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.siPractice}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.stage}
-                        </Typography>
-                      </TableCell>{" "}
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.primaryInsurance}
-                        </Typography>
-                      </TableCell>{" "}
-                      <TableCell>
-                        <Typography sx={typographyCss} variant="bodySmall">
-                          {list?.action}
-                        </Typography>
-                      </TableCell>
+                        }
+                      />
+                      <CustomTableRow value={list?.aging} />
+                      <CustomTableRow
+                        children={
+                          <ColoredCustomSelect
+                            value={list.nextActionBy}
+                            onChange={function (val: string): void {
+                              val;
+                            }}
+                            options={[
+                              { label: "R. Bellow", value: "R. Bellow" },
+                              { label: "A. Torres", value: "A. Torres" },
+                              { label: "E. Enerique", value: "E. Enerique" },
+                            ]}
+                          />
+                        }
+                      />
+                      <CustomTableRow value={list?.actionDate} />
+                      <CustomTableRow value={list?.scheduleDate} />
+                      <CustomTableRow value={list?.orderingProvider} />
+                      <CustomTableRow value={list?.siPractice} />
+                      <CustomTableRow value={list?.stage} />
+                      <CustomTableRow value={list?.primaryInsurance} />
+                      <CustomTableRow value={list?.action} />
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={9} align="center">
-                      <Typography variant="bodySmall" fontWeight={550}>
-                        No records found
-                      </Typography>
-                    </TableCell>
+                    <CustomTableRow value="No records found" />
                   </TableRow>
                 )}
               </TableBody>
