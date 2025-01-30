@@ -1,9 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SearchIcon from "@mui/icons-material/Search";
@@ -38,13 +36,13 @@ export const toolBarContainer = {
 };
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
 
   const handleProfileClick = () => {
-    navigate("settings/profile");
+    // navigate("settings/profile");
   };
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const handleLogoutDialogOpen = () => {
@@ -223,14 +221,14 @@ const Navbar = () => {
                 <Grid container alignItems={"center"} justifyContent={"center"}>
                   <Typography sx={{ fontSize: "14px" }}>John Doe</Typography>
                 </Grid>
-                <IconButton
+                {/* <IconButton
                   sx={{
                     padding: "0px",
                     color: theme.palette.common.white,
                   }}
                 >
                   <KeyboardArrowDownOutlinedIcon sx={{ height: "20px", width: "20px" }} />
-                </IconButton>
+                </IconButton> */}
               </Grid>
             </Grid>
           </Grid>

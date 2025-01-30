@@ -1,28 +1,26 @@
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { ButtonBase, Menu, MenuItem, Typography } from "@mui/material";
-import { Grid, alpha } from "@mui/system";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+import { ButtonBase, Typography } from "@mui/material";
+import { Grid, alpha } from "@mui/system";
+
 import useMenu from "../../hooks/use-menu";
 import { theme } from "../../utils/theme";
 
 const TopMenu = () => {
   const menuItems = useMenu();
 
-  const [openMenu, setOpenMenu] = React.useState<string | null>(null);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  // const [openMenu, setOpenMenu] = React.useState<string | null>(null);
+  // const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
-  const handleMouseEnter = (
-    event: React.MouseEvent<HTMLButtonElement | HTMLElement>,
-    itemTitle: string,
-  ) => {
-    setOpenMenu(itemTitle);
-    setAnchorEl(event.currentTarget);
+  const handleMouseEnter = (_event: React.MouseEvent<HTMLButtonElement | HTMLElement>, _itemTitle: string) => {
+    // setOpenMenu(itemTitle);
+    // setAnchorEl(event.currentTarget);
   };
 
   const handleMouseLeave = () => {
-    setOpenMenu(null);
-    setAnchorEl(null);
+    // setOpenMenu(null);
+    // setAnchorEl(null);
   };
   return (
     <Grid container columnGap={5}>
@@ -69,16 +67,16 @@ const TopMenu = () => {
                 >
                   {item.title}
                 </Typography>
-                {item.menuList && item.menuList.length > 0 && (
+                {/* {item.menuList && item.menuList.length > 0 && (
                   <KeyboardArrowDownIcon
                     fontSize="small"
                     sx={{ color: "white" }}
                   />
-                )}
+                )} */}
               </ButtonBase>
             </NavLink>
 
-            {item.menuList && item.menuList.length > 0 && (
+            {/* {item.menuList && item.menuList.length > 0 && (
               <Menu
                 id={item.title}
                 anchorEl={openMenu === item.title ? anchorEl : null}
@@ -112,7 +110,7 @@ const TopMenu = () => {
                   </MenuItem>
                 ))}
               </Menu>
-            )}
+            )} */}
           </div>
         ))}
     </Grid>

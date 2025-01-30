@@ -14,20 +14,20 @@ const useMenu = () => {
   const pathPrefix = (pathArr && pathArr[0]) || "";
 
   const superUserSideMenu = [
-    {
-      title: "Encounter",
-      route: "/super-user/encounter",
-      icon: <GridViewIcon />,
-      hide: false,
-      disabled: false,
-      menuList: [
-        { name: "Encounter", path: "/super-user/encounter" },
-        {
-          name: "Interpretation Note",
-          path: "/super-user/encounter/interpretation-note",
-        },
-      ],
-    },
+    // {
+    //   title: "Encounter",
+    //   route: "/super-user/encounter",
+    //   icon: <GridViewIcon />,
+    //   hide: false,
+    //   disabled: false,
+    //   menuList: [
+    //     { name: "Encounter", path: "/super-user/encounter" },
+    //     {
+    //       name: "Interpretation Note",
+    //       path: "/super-user/encounter/interpretation-note",
+    //     },
+    //   ],
+    // },
     // {
     //   title: "Devices",
     //   route: "/super-user/devices",
