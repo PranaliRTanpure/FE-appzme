@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import CopyrightIcon from "@mui/icons-material/Copyright";
@@ -9,25 +7,18 @@ import { Button, Checkbox, FormControlLabel, Link, Typography } from "@mui/mater
 import { Box, Grid, useMediaQuery } from "@mui/system";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AxiosResponse } from "axios";
 import * as yup from "yup";
 
 import LoginImage from "../../assets/image_svg/auth/Login-Image.svg";
 import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomInput from "../../common-components/custom-input/custom-input";
 import CustomLabel from "../../common-components/custom-label/custom-label";
-import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
 import {
   emailRegexErrorMsg,
   emailRequiredErrorMsg,
   passwordIsRequired,
   passwordRegexErrorMsg,
 } from "../../constants/error-messages";
-import useStoreLoginData from "../../hooks/use-store-login-data";
-import { ErrorResponseEntity } from "../../models/response/error-response";
-import { setSnackbarOn } from "../../redux/actions/snackbar-action";
-import { useUserControllerServiceGetAccessToken } from "../../sdk/queries";
-import { GetTenantId } from "../../services/common/get-tenant-id";
 import { emailRegExp, passwordRegx } from "../../utils/regex";
 import { theme } from "../../utils/theme";
 
@@ -40,8 +31,8 @@ export const loginSchema = yup.object().shape({
 const LoginPage = () => {
   const below1024 = useMediaQuery("(max-width:1024px)");
   const navigate = useNavigate();
-  const storeLoginDataInStore = useStoreLoginData();
-  const dispatch = useDispatch();
+  // const storeLoginDataInStore = useStoreLoginData();
+  // const dispatch = useDispatch();
   const location = useLocation();
 
   const initialValues = {
@@ -62,45 +53,45 @@ const LoginPage = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const { data, mutateAsync, isSuccess, isError, error } = useUserControllerServiceGetAccessToken();
+  // const { data, mutateAsync, isSuccess, isError, error } = useUserControllerServiceGetAccessToken();
 
   const onSubmit = async (values: typeof initialValues) => {
-    const xTenantId = GetTenantId();
-
-    await mutateAsync({
-      requestBody: { username: values.email, password: values.password },
-      xTenantId: xTenantId,
-    });
+    values;
+    // const xTenantId = GetTenantId();
+    // await mutateAsync({
+    //   requestBody: { username: values.email, password: values.password },
+    //   xTenantId: xTenantId,
+    // });
   };
 
-  useEffect(() => {
-    if (isSuccess && data) {
-      const loginResponse = (data as unknown as AxiosResponse).data;
-      storeLoginDataInStore(loginResponse);
-      //   const role = storageService.getRoles() || "";
+  // useEffect(() => {
+  //   if (isSuccess && data) {
+  //     const loginResponse = (data as unknown as AxiosResponse).data;
+  //     storeLoginDataInStore(loginResponse);
+  //     //   const role = storageService.getRoles() || "";
 
-      // const redirectURL = localStorage.getItem("redirectURL");
-      // if (redirectURL && !role) {
-      // 	navigate(redirectURL);
-      // 	localStorage.removeItem("redirectURL");
-      // } else {
-      // 	navigate(`/provider/patients`);
-      // }
-      navigate(`/super-user/patient-registration`);
-    }
-  }, [isSuccess, data]);
+  //     // const redirectURL = localStorage.getItem("redirectURL");
+  //     // if (redirectURL && !role) {
+  //     // 	navigate(redirectURL);
+  //     // 	localStorage.removeItem("redirectURL");
+  //     // } else {
+  //     // 	navigate(`/provider/patients`);
+  //     // }
+  //     navigate(`/super-user/patient-registration`);
+  //   }
+  // }, [isSuccess, data]);
 
-  useEffect(() => {
-    const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while logging in";
-    if (isError) {
-      dispatch(
-        setSnackbarOn({
-          severity: AlertSeverity.ERROR,
-          message: message as string,
-        })
-      );
-    }
-  }, [dispatch, isError, error]);
+  // useEffect(() => {
+  //   const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while logging in";
+  //   if (isError) {
+  //     dispatch(
+  //       setSnackbarOn({
+  //         severity: AlertSeverity.ERROR,
+  //         message: message as string,
+  //       })
+  //     );
+  //   }
+  // }, [dispatch, isError, error]);
 
   const handleOnClickLink = () => {
     const email = getValues("email");

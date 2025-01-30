@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -15,14 +14,7 @@ import Image from "../../assets/image_svg/auth/otp-verify.svg";
 import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomLabel from "../../common-components/custom-label/custom-label";
 import CustomOtp from "../../common-components/custom-otp/custom-otp";
-import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
 import { otpMax6DigitErrorMsg, otpRegexErrorMsg, otpRequiredErrorMsg } from "../../constants/error-messages";
-import useApiFeedback from "../../hooks/useApiFeedback";
-import { ResetLinkType } from "../../models/auth/reset-linktype";
-import { ErrorResponseEntity } from "../../models/response/error-response";
-import { setSnackbarOn } from "../../redux/actions/snackbar-action";
-import { useUserControllerServiceResendOtp, useUserControllerServiceVerifyOtp } from "../../sdk/queries";
-import { GetTenantId } from "../../services/common/get-tenant-id";
 import { widthOfInput } from "./login";
 
 export const setPasswordSchema = yup.object().shape({
@@ -35,18 +27,18 @@ export const setPasswordSchema = yup.object().shape({
 
 const VerifyOtpPage = () => {
   const [otp, setOtp] = useState("");
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const below1024 = useMediaQuery("(max-width:1024px)");
 
-  const {
-    mutateAsync,
-    isSuccess: isSuccessVerifyOtp,
-    isError: isErrorVerifyOtp,
-    error: errorVerifyOtp,
-    data,
-  } = useUserControllerServiceVerifyOtp();
+  // const {
+  //   mutateAsync,
+  //   isSuccess: isSuccessVerifyOtp,
+  //   isError: isErrorVerifyOtp,
+  //   error: errorVerifyOtp,
+  //   data,
+  // } = useUserControllerServiceVerifyOtp();
 
   const belowHeight768 = useMediaQuery("(max-height:768px)");
 
@@ -60,19 +52,19 @@ const VerifyOtpPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const message =
-      (errorVerifyOtp && (errorVerifyOtp as ErrorResponseEntity)?.body?.message) ||
-      "Error occurred while verifying OTP";
-    if (isErrorVerifyOtp) {
-      dispatch(
-        setSnackbarOn({
-          severity: AlertSeverity.ERROR,
-          message: message as string,
-        })
-      );
-    }
-  }, [dispatch, isErrorVerifyOtp, errorVerifyOtp]);
+  // useEffect(() => {
+  //   const message =
+  //     (errorVerifyOtp && (errorVerifyOtp as ErrorResponseEntity)?.body?.message) ||
+  //     "Error occurred while verifying OTP";
+  //   if (isErrorVerifyOtp) {
+  //     dispatch(
+  //       setSnackbarOn({
+  //         severity: AlertSeverity.ERROR,
+  //         message: message as string,
+  //       })
+  //     );
+  //   }
+  // }, [dispatch, isErrorVerifyOtp, errorVerifyOtp]);
 
   const {
     control,
@@ -85,68 +77,67 @@ const VerifyOtpPage = () => {
   });
 
   const onSubmit = async (values: unknown) => {
-    const xTenantId = GetTenantId();
-
-    await mutateAsync({
-      linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
-      email: location.state?.email,
-      otp: (values as { otp: string }).otp,
-      xTenantId: xTenantId,
-    });
+    values;
+    // const xTenantId = GetTenantId();
+    // await mutateAsync({
+    //   linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
+    //   email: location.state?.email,
+    //   otp: (values as { otp: string }).otp,
+    //   xTenantId: xTenantId,
+    // });
   };
 
-  useEffect(() => {
-    if (isSuccessVerifyOtp) {
-      if (data.data) {
-        navigate("/auth/set-password", {
-          state: {
-            emailVal: location.state ? location.state?.email : "",
-            otpVal: otp,
-            forgetPassword: location?.state?.forgetPassword ? true : false,
-          },
-        });
-      } else {
-        dispatch(
-          setSnackbarOn({
-            severity: AlertSeverity.ERROR,
-            message: "Invalid OTP. Please try again.",
-          })
-        );
-      }
-    }
-  }, [isSuccessVerifyOtp]);
+  // useEffect(() => {
+  //   if (isSuccessVerifyOtp) {
+  //     if (data.data) {
+  //       navigate("/auth/set-password", {
+  //         state: {
+  //           emailVal: location.state ? location.state?.email : "",
+  //           otpVal: otp,
+  //           forgetPassword: location?.state?.forgetPassword ? true : false,
+  //         },
+  //       });
+  //     } else {
+  //       dispatch(
+  //         setSnackbarOn({
+  //           severity: AlertSeverity.ERROR,
+  //           message: "Invalid OTP. Please try again.",
+  //         })
+  //       );
+  //     }
+  //   }
+  // }, [isSuccessVerifyOtp]);
 
-  const {
-    mutateAsync: resendOtpMutateAsync,
-    isError,
-    error,
-    isSuccess,
-    data: dataOtpResend,
-  } = useUserControllerServiceResendOtp();
+  // const {
+  //   mutateAsync: resendOtpMutateAsync,
+  //   isError,
+  //   error,
+  //   isSuccess,
+  //   data: dataOtpResend,
+  // } = useUserControllerServiceResendOtp();
 
-  useApiFeedback(isError, error, isSuccess, ((dataOtpResend?.message || "") as string) || "OTP sent successfully");
+  // useApiFeedback(isError, error, isSuccess, ((dataOtpResend?.message || "") as string) || "OTP sent successfully");
 
   const handleOnClickLink = async () => {
-    const xTenantId = GetTenantId();
-
-    await resendOtpMutateAsync({
-      email: location.state ? location.state?.email : "",
-      xTenantId: xTenantId,
-      linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
-    });
+    // const xTenantId = GetTenantId();
+    // await resendOtpMutateAsync({
+    //   email: location.state ? location.state?.email : "",
+    //   xTenantId: xTenantId,
+    //   linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
+    // });
   };
 
-  useEffect(() => {
-    const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while resending OTP";
-    if (isError) {
-      dispatch(
-        setSnackbarOn({
-          severity: AlertSeverity.ERROR,
-          message: message as string,
-        })
-      );
-    }
-  }, [dispatch, isError, error]);
+  // useEffect(() => {
+  //   const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while resending OTP";
+  //   if (isError) {
+  //     dispatch(
+  //       setSnackbarOn({
+  //         severity: AlertSeverity.ERROR,
+  //         message: message as string,
+  //       })
+  //     );
+  //   }
+  // }, [dispatch, isError, error]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", height: "100%" }}>
