@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 
+import AddIcon from "@mui/icons-material/Add";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/system";
@@ -11,10 +12,11 @@ import { theme } from "@/utils/theme";
 
 import { InfoRow } from "../msl/msl-details";
 import MSLProviderList from "../msl/msl-provider-list";
+import SiClinicsList from "./si-clinics/si-clinics-list";
 
 const SIDetails = () => {
-  const [selectedOpt, setSelectedOpt] = useState<"Providers" | "Staff">("Providers");
-  const handleSwitcherChange = useCallback((option: "Providers" | "Staff") => {
+  const [selectedOpt, setSelectedOpt] = useState<"Clinic" | "Staff">("Staff");
+  const handleSwitcherChange = useCallback((option: "Clinic" | "Staff") => {
     setSelectedOpt(option);
   }, []);
   return (
@@ -31,7 +33,7 @@ const SIDetails = () => {
       >
         <Grid container alignItems="center" justifyContent="space-between" width="100%">
           <Typography variant="bodyMedium" fontWeight={500}>
-            Millennium Sleep Labs
+            Sleep Impression Labs
           </Typography>
           <CustomButton
             variant="outlined"
@@ -43,7 +45,7 @@ const SIDetails = () => {
 
         <Grid container mt={1} spacing={2}>
           <Grid size={6} container flexDirection="column" rowGap={2}>
-            <InfoRow label="Organization Name" value="Millennium Sleep Labs" />
+            <InfoRow label="Organization Name" value="Sleep Impression Labs" />
             <InfoRow label="Contact Information" value="877-933-9470" />
             <InfoRow label="Physical Address" value="2715 Ash Dr. San Jose, South Dakota 83475" />
           </Grid>
@@ -55,15 +57,24 @@ const SIDetails = () => {
         </Grid>
       </Grid>
       <Grid container width={"100%"} flexDirection={"column"} rowGap={1}>
-        <Switcher
-          options={["Providers", "Staff"]}
-          buttonWidth={"100px"}
-          variant={"light"}
-          onChange={function (option: string): void {
-            handleSwitcherChange(option as "Providers" | "Staff");
-          }}
-        />
-        {selectedOpt === "Providers" && <MSLProviderList />}
+        <Grid container width={"100%"} justifyContent={"space-between"}>
+          <Switcher
+            options={["Staff", "Clinic"]}
+            buttonWidth={"100px"}
+            variant={"light"}
+            onChange={function (option: string): void {
+              handleSwitcherChange(option as "Clinic" | "Staff");
+            }}
+          />
+          <CustomButton
+            sx={{ width: "137px", mr: 1.5 }}
+            text={selectedOpt === "Clinic" ? "Add Clinic" : "Add Staff"}
+            onClick={() => undefined}
+            variant="contained"
+            startIcon={<AddIcon />}
+          />
+        </Grid>
+        {selectedOpt === "Clinic" && <SiClinicsList />}
         {selectedOpt === "Staff" && <MSLProviderList />}
       </Grid>
     </Grid>

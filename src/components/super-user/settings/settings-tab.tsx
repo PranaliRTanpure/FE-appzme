@@ -61,9 +61,7 @@ const SettingsTab = () => {
             "Availabillity",
             "Rate Chart",
           ]}
-          buttonWidth={"160px"}
           variant={"light"}
-          // visibleCount={7}
           onChange={(option: string): void => {
             setDetailType(option as SettingDetailsType);
             navigate(`/super-user/settings?tabs=${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`);

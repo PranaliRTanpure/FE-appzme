@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import AddIcon from "@mui/icons-material/Add";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   IconButton,
@@ -17,7 +16,6 @@ import {
 } from "@mui/material";
 import { Grid } from "@mui/system";
 
-import CustomButton from "@/common-components/button-outlined/custom-button";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
 import Paginator from "@/common-components/paginator/paginator";
 import Status from "@/common-components/status/status";
@@ -47,6 +45,8 @@ export const mockHeaders: TableHeaders[] = [
 const SiClinicsList = () => {
   const [selectedAction, setSelectedAction] = useState("Add");
   setSelectedAction;
+  const [maxHeight, setMaxHeight] = useState<number>(330);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
@@ -100,6 +100,19 @@ const SiClinicsList = () => {
     ACTIVE: "#E1FCDE",
     INACTIVE: "#FFF2F3",
   };
+
+  useEffect(() => {
+    const calculateHeight = () => {
+      const availableHeight = window.innerHeight - 490;
+      setMaxHeight(availableHeight);
+    };
+
+    calculateHeight();
+    window.addEventListener("resize", calculateHeight);
+
+    return () => window.removeEventListener("resize", calculateHeight);
+  }, []);
+
   return (
     <>
       <MainDrawer
@@ -111,29 +124,10 @@ const SiClinicsList = () => {
       />
 
       <Grid container width={"100%"} flexDirection={"column"} rowGap={3}>
-        {/* Grid 1 */}
-        <Grid container width={"100%"} justifyContent={"space-between"}>
-          <Grid alignContent={"center"}>
-            <Typography variant="bodyMedium" fontWeight={500}>
-              Sleep Impression Clinic
-            </Typography>
-          </Grid>
-          <Grid>
-            <CustomButton
-              text="Add SI Clinic"
-              onClick={() => {
-                handleDrawer.addSiClinicForm("Add SI");
-              }}
-              variant="contained"
-              startIcon={<AddIcon />}
-            />
-          </Grid>
-        </Grid>
-        {/* Grid 2 */}
         <Grid width={"100%"}>
           <TableContainer
             sx={{
-              maxHeight: "69vh",
+              maxHeight: maxHeight,
               overflowY: "auto",
               borderRadius: "12px",
               boxShadow: "0px 4px 8px -2px #1018281A",

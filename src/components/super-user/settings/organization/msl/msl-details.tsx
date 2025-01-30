@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 
+import AddIcon from "@mui/icons-material/Add";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/system";
@@ -67,14 +68,23 @@ const MSLDetails = () => {
         </Grid>
       </Grid>
       <Grid container width={"100%"} flexDirection={"column"} rowGap={1}>
-        <Switcher
-          options={["Providers", "Staff"]}
-          buttonWidth={"100px"}
-          variant={"light"}
-          onChange={function (option: string): void {
-            handleSwitcherChange(option as "Providers" | "Staff");
-          }}
-        />
+        <Grid width={"100%"} container justifyContent={"space-between"}>
+          <Switcher
+            options={["Providers", "Staff"]}
+            buttonWidth={"100px"}
+            variant={"light"}
+            onChange={function (option: string): void {
+              handleSwitcherChange(option as "Providers" | "Staff");
+            }}
+          />
+          <CustomButton
+            sx={{ minWidth: "137px", mr: 1.5 }}
+            onClick={() => undefined}
+            text={selectedOpt === "Providers" ? "Add Provider" : "Add Staff"}
+            variant="contained"
+            startIcon={<AddIcon />}
+          />
+        </Grid>
         {selectedOpt === "Providers" && <MSLProviderList />}
         {selectedOpt === "Staff" && <MSLStaffList />}
       </Grid>
