@@ -448,6 +448,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             name={field.name}
                             value={field.value || ""}
                             placeholder={"Enter Address Line 1"}
+                            onChange={(e) =>
+                              setValue("address.line1", e.target.value, {
+                                shouldValidate: true,
+                              })
+                            }
                             hasError={!!errors?.address?.line1}
                             errorMessage={errors.address?.line1?.message as string}
                           />
@@ -464,6 +469,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             name={field.name}
                             value={field.value || ""}
                             placeholder={"Enter Address Line 2"}
+                            onChange={(e) =>
+                              setValue("address.line2", e.target.value, {
+                                shouldValidate: true,
+                              })
+                            }
                           />
                         )}
                       />
@@ -480,6 +490,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             placeholder={"Enter City"}
                             hasError={!!errors.address?.city}
                             errorMessage={errors.address?.city?.message as string}
+                            onChange={(e) =>
+                              setValue("address.city", e.target.value, {
+                                shouldValidate: true,
+                              })
+                            }
                           />
                         )}
                       />
@@ -513,6 +528,11 @@ const ProviderForm = (props: AddProviderFormProps) => {
                             name={field.name}
                             value={field.value || ""}
                             placeholder={"Enter Zip Code"}
+                            onChange={(e) =>
+                              setValue("address.zipcode", e.target.value, {
+                                shouldValidate: true,
+                              })
+                            }
                             hasError={!!errors.address?.zipcode}
                             errorMessage={errors.address?.zipcode?.message as string}
                           />

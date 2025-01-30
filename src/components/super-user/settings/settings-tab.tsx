@@ -63,7 +63,7 @@ const SettingsTab = () => {
           variant={"light"}
           onChange={(option: string): void => {
             setDetailType(option as SettingDetailsType);
-            navigate(`/super-user/settings?${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`);
+            navigate(`/super-user/settings?tabs=${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`);
           }}
         />
       </Grid>
