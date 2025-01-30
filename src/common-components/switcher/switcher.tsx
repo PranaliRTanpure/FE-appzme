@@ -15,7 +15,7 @@ type SwitcherProps = {
 };
 
 const Switcher = (props: SwitcherProps) => {
-  const { options, buttonWidth, compactHeight, variant, onChange } = props;
+  const { options, compactHeight, variant, onChange } = props;
   const validOptions = options || [];
   const [selectedOption, setSelectedOption] = useState(validOptions[0] || "");
   const customBorderRadius = "18px";
@@ -36,8 +36,8 @@ const Switcher = (props: SwitcherProps) => {
 
   const StyledGridButton = styled(Grid)(() => ({
     cursor: "pointer",
-    padding: compactHeight ? "2px 5px" : "5px 5px",
-    width: buttonWidth || "120px",
+    padding: compactHeight ? "2px 20px" : "5px 20px",
+    width: "fit-content",
     height: compactHeight ? "32px" : "40px",
     justifyContent: "center",
   }));

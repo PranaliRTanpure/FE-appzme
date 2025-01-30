@@ -7,13 +7,13 @@ import Switcher from "@/common-components/switcher/switcher";
 
 import { toCamelCase } from "@/utils/toCamelCase";
 
-import OrganizationList from "./organization/organization-list";
+import MSLDetails from "./organization/msl-details";
 import SiClinicsList from "./si-clinics/si-clinics-list";
 
 enum SettingDetailsType {
-  ORGANIZATION = "Organization",
+  "MSL" = "MSL",
 
-  SI_CLINICS = "SI Clinics",
+  SI = "SI",
 
   ENCOUNTER_TYPES = "Encounter Types",
 
@@ -34,7 +34,7 @@ enum SettingDetailsType {
 
 const SettingsTab = () => {
   const navigate = useNavigate();
-  const [detailType, setDetailType] = useState(SettingDetailsType.ORGANIZATION);
+  const [detailType, setDetailType] = useState(SettingDetailsType.MSL);
 
   return (
     <Grid container width={"100%"} p={2} flexDirection={"column"} rowGap={1}>
@@ -48,8 +48,8 @@ const SettingsTab = () => {
       >
         <Switcher
           options={[
-            "Organization",
-            "SI Clinics",
+            "MSL",
+            "SI",
             "Encounter Types",
             "Practice Contacts",
             "Macros",
@@ -69,12 +69,12 @@ const SettingsTab = () => {
       </Grid>
       {/* Pages Grid */}
       <Grid container width={"100%"} borderRadius={3}>
-        {detailType === SettingDetailsType.ORGANIZATION && (
+        {detailType === SettingDetailsType.MSL && (
           <Grid container width={"100%"}>
-            <OrganizationList />
+            <MSLDetails />
           </Grid>
         )}
-        {detailType === SettingDetailsType.SI_CLINICS && (
+        {detailType === SettingDetailsType.SI && (
           <Grid container width={"100%"}>
             <SiClinicsList />
           </Grid>
