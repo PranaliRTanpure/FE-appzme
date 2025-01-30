@@ -10,6 +10,7 @@ import Switcher from "@/common-components/switcher/switcher";
 import { theme } from "@/utils/theme";
 
 import MSLProviderList from "./msl-provider-list";
+import MSLStaffList from "./msl-staff-list";
 
 const widthOfTitle = "180px";
 
@@ -48,7 +49,7 @@ const MSLDetails = () => {
             variant="outlined"
             startIcon={<EditOutlinedIcon />}
             text="Edit Details"
-            onClick={() => undefined} // Placeholder for actual function
+            onClick={() => undefined}
           />
         </Grid>
 
@@ -75,7 +76,7 @@ const MSLDetails = () => {
           }}
         />
         {selectedOpt === "Providers" && <MSLProviderList />}
-        {selectedOpt === "Staff" && <MSLProviderList />}
+        {selectedOpt === "Staff" && <MSLStaffList />}
       </Grid>
     </Grid>
   );
