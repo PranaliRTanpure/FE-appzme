@@ -8,8 +8,8 @@ import Switcher from "@/common-components/switcher/switcher";
 import { toCamelCase } from "@/utils/toCamelCase";
 
 import MacrosList from "./macros/macros-list";
-import MSLDetails from "./organization/msl-details";
-import SiClinicsList from "./si-clinics/si-clinics-list";
+import SIDetails from "./organization/SI/si-details";
+import MSLDetails from "./organization/msl/msl-details";
 
 enum SettingDetailsType {
   "MSL" = "MSL",
@@ -77,7 +77,7 @@ const SettingsTab = () => {
         )}
         {detailType === SettingDetailsType.SI && (
           <Grid container width={"100%"}>
-            <SiClinicsList />
+            <SIDetails />
           </Grid>
         )}
         {detailType === SettingDetailsType.MACROS && (

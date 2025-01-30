@@ -13,7 +13,7 @@ import MSLProviderList from "./msl-provider-list";
 
 const widthOfTitle = "180px";
 
-const InfoRow = ({ label, value }: { label: string; value: string }) => (
+export const InfoRow = ({ label, value }: { label: string; value: string }) => (
   <Grid container>
     <Typography width={widthOfTitle} color="#9B9D9F" variant="bodySmall">
       {label} &nbsp;&nbsp;:&nbsp;
