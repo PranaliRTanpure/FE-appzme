@@ -1,32 +1,29 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import { Button, Link, Typography } from "@mui/material";
-import { Box, Grid, useMediaQuery } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { Button, Link, Typography } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/system";
+
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 import Image from "../../assets/image_svg/auth/otp-verify.svg";
+import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomLabel from "../../common-components/custom-label/custom-label";
 import CustomOtp from "../../common-components/custom-otp/custom-otp";
 import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
+import { otpMax6DigitErrorMsg, otpRegexErrorMsg, otpRequiredErrorMsg } from "../../constants/error-messages";
+import useApiFeedback from "../../hooks/useApiFeedback";
 import { ResetLinkType } from "../../models/auth/reset-linktype";
 import { ErrorResponseEntity } from "../../models/response/error-response";
 import { setSnackbarOn } from "../../redux/actions/snackbar-action";
-import {
-  useUserControllerServiceResendOtp,
-  useUserControllerServiceVerifyOtp,
-} from "../../sdk/queries";
+import { useUserControllerServiceResendOtp, useUserControllerServiceVerifyOtp } from "../../sdk/queries";
 import { GetTenantId } from "../../services/common/get-tenant-id";
-import useApiFeedback from "../../hooks/useApiFeedback";
-import Logo from "../../assets/image_svg/logo/logo.svg";
-import {
-  otpMax6DigitErrorMsg,
-  otpRegexErrorMsg,
-  otpRequiredErrorMsg,
-} from "../../constants/error-messages";
+import { widthOfInput } from "./login";
 
 export const setPasswordSchema = yup.object().shape({
   otp: yup
@@ -65,15 +62,14 @@ const VerifyOtpPage = () => {
 
   useEffect(() => {
     const message =
-      (errorVerifyOtp &&
-        (errorVerifyOtp as ErrorResponseEntity)?.body?.message) ||
+      (errorVerifyOtp && (errorVerifyOtp as ErrorResponseEntity)?.body?.message) ||
       "Error occurred while verifying OTP";
     if (isErrorVerifyOtp) {
       dispatch(
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isErrorVerifyOtp, errorVerifyOtp]);
@@ -92,9 +88,7 @@ const VerifyOtpPage = () => {
     const xTenantId = GetTenantId();
 
     await mutateAsync({
-      linkType: location?.state?.forgetPassword
-        ? ResetLinkType.RESET
-        : ResetLinkType.SET,
+      linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
       email: location.state?.email,
       otp: (values as { otp: string }).otp,
       xTenantId: xTenantId,
@@ -116,7 +110,7 @@ const VerifyOtpPage = () => {
           setSnackbarOn({
             severity: AlertSeverity.ERROR,
             message: "Invalid OTP. Please try again.",
-          }),
+          })
         );
       }
     }
@@ -130,12 +124,7 @@ const VerifyOtpPage = () => {
     data: dataOtpResend,
   } = useUserControllerServiceResendOtp();
 
-  useApiFeedback(
-    isError,
-    error,
-    isSuccess,
-    ((dataOtpResend?.message || "") as string) || "OTP sent successfully",
-  );
+  useApiFeedback(isError, error, isSuccess, ((dataOtpResend?.message || "") as string) || "OTP sent successfully");
 
   const handleOnClickLink = async () => {
     const xTenantId = GetTenantId();
@@ -143,31 +132,24 @@ const VerifyOtpPage = () => {
     await resendOtpMutateAsync({
       email: location.state ? location.state?.email : "",
       xTenantId: xTenantId,
-      linkType: location?.state?.forgetPassword
-        ? ResetLinkType.RESET
-        : ResetLinkType.SET,
+      linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
     });
   };
 
   useEffect(() => {
-    const message =
-      (error && (error as ErrorResponseEntity)?.body?.message) ||
-      "Error occurred while resending OTP";
+    const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while resending OTP";
     if (isError) {
       dispatch(
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isError, error]);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ width: "100%", height: "100%" }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", height: "100%" }}>
       <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"} p={2}>
         {/* OTP verification Form */}
         <Grid
@@ -179,13 +161,7 @@ const VerifyOtpPage = () => {
           pb={4}
           flexDirection={"column"}
         >
-          <Grid
-            container
-            justifyContent={"flex-start"}
-            maxWidth={"100%"}
-            pt={4}
-            pl={6}
-          >
+          <Grid container justifyContent={"flex-start"} maxWidth={"100%"} pt={4} pl={6}>
             <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
           <Grid
@@ -200,19 +176,10 @@ const VerifyOtpPage = () => {
             rowGap={5}
           >
             <Grid container flexDirection={"column"} rowGap={0.5} mt={6}>
-              <Typography
-                fontWeight={600}
-                textAlign={"start"}
-                fontSize={"30px"}
-                lineHeight={"38px"}
-              >
+              <Typography fontWeight={600} textAlign={"start"} fontSize={"30px"} lineHeight={"38px"}>
                 OTP Verification
               </Typography>
-              <Typography
-                textAlign={"start"}
-                variant="bodyMedium"
-                color={"#717C7E"}
-              >
+              <Typography textAlign={"start"} variant="bodyMedium" color={"#717C7E"}>
                 Check the code in the invitation email sent{" "}
                 <span
                   style={{
@@ -226,11 +193,7 @@ const VerifyOtpPage = () => {
                 </span>
               </Typography>
             </Grid>
-            <Grid
-              container
-              flexDirection={"column"}
-              justifyContent={"flex-start"}
-            >
+            <Grid container flexDirection={"column"} justifyContent={"flex-start"}>
               <Grid container>
                 <CustomLabel label="Input Code" />
               </Grid>
@@ -252,13 +215,8 @@ const VerifyOtpPage = () => {
               ></Controller>
             </Grid>
 
-            <Grid width={"100%"}>
-              <Button
-                variant="contained"
-                fullWidth
-                type="submit"
-                style={{ background: "#106DCC" }}
-              >
+            <Grid width={widthOfInput}>
+              <Button variant="contained" fullWidth type="submit" style={{ background: "#106DCC" }}>
                 Confirm and Login
               </Button>
             </Grid>
@@ -293,21 +251,11 @@ const VerifyOtpPage = () => {
             flexWrap={"nowrap"}
             // padding={below800 ? "0px 10px" : "0px 50px"}
           >
-            <Grid
-              container
-              columnGap={0.5}
-              alignItems={"flex-end"}
-              flexWrap={"nowrap"}
-            >
+            <Grid container columnGap={0.5} alignItems={"flex-end"} flexWrap={"nowrap"}>
               <CopyrightIcon fontSize="small" />
               <Typography variant="bodySmall">ZCloud 2025</Typography>
             </Grid>
-            <Grid
-              container
-              flexWrap={"nowrap"}
-              columnGap={1}
-              alignItems={"flex-end"}
-            >
+            <Grid container flexWrap={"nowrap"} columnGap={1} alignItems={"flex-end"}>
               <MailOutlineIcon fontSize="small" sx={{ color: "#106DCC" }} />
               <Typography variant="bodySmall" color="#106DCC">
                 help@zcloud.technology

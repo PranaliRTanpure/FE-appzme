@@ -37,9 +37,15 @@ const SettingsTab = () => {
   const [detailType, setDetailType] = useState(SettingDetailsType.ORGANIZATION);
 
   return (
-    <Grid container width={"100%"} p={2} flexDirection={"column"} rowGap={2}>
+    <Grid container width={"100%"} p={2} flexDirection={"column"} rowGap={1}>
       {/* Switcher Grid */}
-      <Grid container width={"100%"} minWidth={"100%"} overflow={"auto"} border={0}>
+      <Grid
+        container
+        width={"100%"}
+        minWidth={"100%"}
+        overflow={"auto"}
+        sx={{ pb: 1, borderBottom: 1, borderColor: "divider" }}
+      >
         <Switcher
           options={[
             "Organization",
@@ -62,7 +68,7 @@ const SettingsTab = () => {
         />
       </Grid>
       {/* Pages Grid */}
-      <Grid container width={"100%"} bgcolor={"white"} borderRadius={3} border={1}>
+      <Grid container width={"100%"} borderRadius={3}>
         {detailType === SettingDetailsType.ORGANIZATION && (
           <Grid container width={"100%"}>
             <OrganizationList />

@@ -1,22 +1,12 @@
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/system";
+
 import ColoredCustomSelect from "@/common-components/colored-custom-select/colored-custom-select";
 import CustomClickableLink from "@/common-components/custom-clickable-link/custom-clickable-link";
-import {
-  heading,
-  tableCellCss,
-  typographyCss,
-} from "@/common-components/table/common-table-widgets";
+import { heading, tableCellCss, typographyCss } from "@/common-components/table/common-table-widgets";
 import { TableHeaders } from "@/common-components/table/table-models";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { Grid, useMediaQuery } from "@mui/system";
+
 import CustomInput from "../../../../common-components/custom-input/custom-input";
 import Paginator from "../../../../common-components/paginator/paginator";
 
@@ -42,18 +32,8 @@ const EncounterList = () => {
 
   return (
     <Grid height={"100%"} width={"100%"} maxWidth={"100%"} overflow={"auto"}>
-      <Grid
-        height={"100%"}
-        borderRadius={"8px"}
-        container
-        flexDirection={"column"}
-      >
-        <Grid
-          container
-          p={"16px 0px"}
-          justifyContent={"space-between"}
-          rowGap={2}
-        >
+      <Grid height={"100%"} borderRadius={"8px"} container flexDirection={"column"}>
+        <Grid container p={"16px 0px"} justifyContent={"space-between"} rowGap={2}>
           <Grid container alignItems={"center"} columnGap={1.5} rowGap={1}>
             <Grid>
               <CustomInput
@@ -109,13 +89,9 @@ const EncounterList = () => {
                         pr={4}
                         container
                         flexDirection={"column"}
-                        alignContent={
-                          header.header === "Status" ? "flex-end" : "flex-start"
-                        }
+                        alignContent={header.header === "Status" ? "flex-end" : "flex-start"}
                       >
-                        <Typography variant="bodySmall">
-                          {header.header}
-                        </Typography>
+                        <Typography variant="bodySmall">{header.header}</Typography>
                       </Grid>
                     </TableCell>
                   ))}
@@ -126,10 +102,7 @@ const EncounterList = () => {
                   tableDataEncounter.map((list, index) => (
                     <TableRow hover key={index}>
                       <TableCell sx={{ ...heading }} align="left">
-                        <CustomClickableLink
-                          text={list?.patientName}
-                          onClick={function (): void {}}
-                        />
+                        <CustomClickableLink text={list?.patientName} onClick={function (): void {}} />
                       </TableCell>
                       <TableCell>
                         <Typography sx={typographyCss} variant="bodySmall">

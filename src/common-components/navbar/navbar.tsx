@@ -134,7 +134,7 @@ const Navbar = () => {
               </Grid>
               <Grid>
                 <CustomButton
-                  sx={{ height: "80%" }}
+                  sx={{ maxHeight: "80%" }}
                   variant="contained"
                   text={"Add Patient"}
                   startIcon={<AddIcon />}

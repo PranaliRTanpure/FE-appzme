@@ -1,22 +1,28 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Link,
-  Typography,
-} from "@mui/material";
-import { Box, Grid, useMediaQuery } from "@mui/system";
-import { AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { Button, Checkbox, FormControlLabel, Link, Typography } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/system";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosResponse } from "axios";
 import * as yup from "yup";
+
 import LoginImage from "../../assets/image_svg/auth/Login-Image.svg";
+import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomInput from "../../common-components/custom-input/custom-input";
 import CustomLabel from "../../common-components/custom-label/custom-label";
 import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
+import {
+  emailRegexErrorMsg,
+  emailRequiredErrorMsg,
+  passwordIsRequired,
+  passwordRegexErrorMsg,
+} from "../../constants/error-messages";
 import useStoreLoginData from "../../hooks/use-store-login-data";
 import { ErrorResponseEntity } from "../../models/response/error-response";
 import { setSnackbarOn } from "../../redux/actions/snackbar-action";
@@ -24,25 +30,11 @@ import { useUserControllerServiceGetAccessToken } from "../../sdk/queries";
 import { GetTenantId } from "../../services/common/get-tenant-id";
 import { emailRegExp, passwordRegx } from "../../utils/regex";
 import { theme } from "../../utils/theme";
-import {
-  emailRegexErrorMsg,
-  emailRequiredErrorMsg,
-  passwordIsRequired,
-  passwordRegexErrorMsg,
-} from "../../constants/error-messages";
-import Logo from "../../assets/image_svg/logo/logo.svg";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
+export const widthOfInput = "400px";
 export const loginSchema = yup.object().shape({
-  password: yup
-    .string()
-    .required(passwordIsRequired)
-    .matches(passwordRegx, passwordRegexErrorMsg),
-  email: yup
-    .string()
-    .required(emailRequiredErrorMsg)
-    .matches(emailRegExp, emailRegexErrorMsg),
+  password: yup.string().required(passwordIsRequired).matches(passwordRegx, passwordRegexErrorMsg),
+  email: yup.string().required(emailRequiredErrorMsg).matches(emailRegExp, emailRegexErrorMsg),
 });
 
 const LoginPage = () => {
@@ -70,8 +62,7 @@ const LoginPage = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const { data, mutateAsync, isSuccess, isError, error } =
-    useUserControllerServiceGetAccessToken();
+  const { data, mutateAsync, isSuccess, isError, error } = useUserControllerServiceGetAccessToken();
 
   const onSubmit = async (values: typeof initialValues) => {
     const xTenantId = GetTenantId();
@@ -100,15 +91,13 @@ const LoginPage = () => {
   }, [isSuccess, data]);
 
   useEffect(() => {
-    const message =
-      (error && (error as ErrorResponseEntity)?.body?.message) ||
-      "Error occurred while logging in";
+    const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while logging in";
     if (isError) {
       dispatch(
         setSnackbarOn({
           severity: AlertSeverity.ERROR,
           message: message as string,
-        }),
+        })
       );
     }
   }, [dispatch, isError, error]);
@@ -123,10 +112,7 @@ const LoginPage = () => {
     });
   };
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ width: "100%", height: "100%" }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", height: "100%" }}>
       <Grid width={"100%"} height={"100%"} container flexWrap={"nowrap"} p={2}>
         {/* Login Form */}
         <Grid
@@ -138,13 +124,7 @@ const LoginPage = () => {
           pb={4}
           flexDirection={"column"}
         >
-          <Grid
-            container
-            justifyContent={"flex-start"}
-            maxWidth={"100%"}
-            pt={4}
-            pl={6}
-          >
+          <Grid container justifyContent={"flex-start"} maxWidth={"100%"} pt={4} pl={6}>
             <Box width={"fit-content"} component={"img"} src={Logo}></Box>
           </Grid>
           <Grid
@@ -158,13 +138,7 @@ const LoginPage = () => {
             flexDirection={"column"}
             rowGap={3.5}
           >
-            <Grid
-              container
-              flexDirection={"column"}
-              rowGap={0.5}
-              alignItems={"flex-start"}
-              pb={2}
-            >
+            <Grid container flexDirection={"column"} rowGap={0.5} alignItems={"flex-start"} pb={2}>
               <Typography fontWeight={600} fontSize={"30px"}>
                 Log in to your account
               </Typography>
@@ -172,7 +146,7 @@ const LoginPage = () => {
                 Welcome! Please enter your details.
               </Typography>
             </Grid>
-            <Grid container>
+            <Grid container width={widthOfInput}>
               <CustomLabel label="Email" />
               <Controller
                 control={control}
@@ -193,7 +167,7 @@ const LoginPage = () => {
                 )}
               ></Controller>
             </Grid>
-            <Grid container>
+            <Grid container width={widthOfInput}>
               <CustomLabel label="Password" />
               <Controller
                 control={control}
@@ -216,11 +190,7 @@ const LoginPage = () => {
                 )}
               ></Controller>
             </Grid>
-            <Grid
-              container
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Grid container justifyContent={"space-between"} alignItems={"center"} width={widthOfInput}>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -231,20 +201,13 @@ const LoginPage = () => {
                 }}
               />
 
-              <Link
-                sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => handleOnClickLink()}
-              >
-                <Typography
-                  fontWeight={550}
-                  variant="bodySmall"
-                  color="#106DCC"
-                >
+              <Link sx={{ textDecoration: "none", cursor: "pointer" }} onClick={() => handleOnClickLink()}>
+                <Typography fontWeight={550} variant="bodySmall" color="#106DCC">
                   {"Forgot password"}
                 </Typography>
               </Link>
             </Grid>
-            <Grid width={"100%"}>
+            <Grid width={widthOfInput}>
               <Button
                 // disabled
                 variant="contained"
@@ -266,21 +229,11 @@ const LoginPage = () => {
             flexWrap={"nowrap"}
             // padding={below800 ? "0px 10px" : "0px 50px"}
           >
-            <Grid
-              container
-              columnGap={0.5}
-              alignItems={"flex-end"}
-              flexWrap={"nowrap"}
-            >
+            <Grid container columnGap={0.5} alignItems={"flex-end"} flexWrap={"nowrap"}>
               <CopyrightIcon fontSize="small" />
               <Typography variant="bodySmall">ZCloud 2025</Typography>
             </Grid>
-            <Grid
-              container
-              flexWrap={"nowrap"}
-              columnGap={1}
-              alignItems={"flex-end"}
-            >
+            <Grid container flexWrap={"nowrap"} columnGap={1} alignItems={"flex-end"}>
               <MailOutlineIcon fontSize="small" sx={{ color: "#106DCC" }} />
               <Typography variant="bodySmall" color="#106DCC">
                 help@zcloud.technology
@@ -298,18 +251,8 @@ const LoginPage = () => {
           flexDirection={"column"}
           borderRadius={5}
         >
-          <Grid
-            container
-            alignItems={"center"}
-            justifyContent={"center"}
-            height={"100%"}
-          >
-            <Box
-              width={"100%"}
-              height={"100%"}
-              component={"img"}
-              src={LoginImage}
-            ></Box>
+          <Grid container alignItems={"center"} justifyContent={"center"} height={"100%"}>
+            <Box width={"100%"} height={"100%"} component={"img"} src={LoginImage}></Box>
           </Grid>
         </Grid>
       </Grid>

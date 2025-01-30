@@ -90,6 +90,7 @@ const SettingsTabs = () => {
     }
     return <></>;
   };
+
   return (
     <>
       <MainDrawer content={<DrawerContent />} drawerWidth={"730px"} showSecondButton={true} anchor="right" />
