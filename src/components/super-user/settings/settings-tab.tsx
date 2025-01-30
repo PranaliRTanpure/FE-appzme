@@ -10,9 +10,10 @@ import { toCamelCase } from "@/utils/toCamelCase";
 import MacrosList from "./macros/macros-list";
 import SIDetails from "./organization/SI/si-details";
 import MSLDetails from "./organization/msl/msl-details";
+import PracticeContactList from "./practice-contacts/practice-contacts-list";
 
 enum SettingDetailsType {
-  "MSL" = "MSL",
+  MSL = "MSL",
 
   SI = "SI",
 
@@ -62,6 +63,7 @@ const SettingsTab = () => {
           ]}
           buttonWidth={"160px"}
           variant={"light"}
+          // visibleCount={7}
           onChange={(option: string): void => {
             setDetailType(option as SettingDetailsType);
             navigate(`/super-user/settings?tabs=${toCamelCase(option.replace(" ", "-").replace(" ", "-"))}`);
@@ -83,6 +85,11 @@ const SettingsTab = () => {
         {detailType === SettingDetailsType.MACROS && (
           <Grid container width={"100%"}>
             <MacrosList />
+          </Grid>
+        )}
+        {detailType === SettingDetailsType.PRACTICE_CONTACTS && (
+          <Grid container width={"100%"}>
+            <PracticeContactList />
           </Grid>
         )}
       </Grid>
