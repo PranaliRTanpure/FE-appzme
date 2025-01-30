@@ -28,36 +28,36 @@ const useMenu = () => {
         },
       ],
     },
-    {
-      title: "Devices",
-      route: "/super-user/devices",
-      icon: <GridViewIcon />,
-      hide: false,
-      disabled: false,
-      menuList: [
-        { name: "Inventory", path: "/super-user/devices/inventory" },
-        { name: "Availability", path: "/super-user/devices/scheduling" },
-        {
-          name: "Manufacturers",
-          path: "/super-user/devices/manufacturers",
-        },
-      ],
-    },
-    {
-      title: "Communications",
-      route: "/super-user/communications",
-      icon: <GridViewIcon />,
-      hide: false,
-      disabled: false,
-      menuList: [
-        { name: "Tasks", path: "/super-user/communications/tasks" },
-        { name: "Fax", path: "/super-user/communications/fax" },
-        {
-          name: "Messages",
-          path: "/super-user/communications/messages",
-        },
-      ],
-    },
+    // {
+    //   title: "Devices",
+    //   route: "/super-user/devices",
+    //   icon: <GridViewIcon />,
+    //   hide: false,
+    //   disabled: false,
+    //   menuList: [
+    //     { name: "Inventory", path: "/super-user/devices/inventory" },
+    //     { name: "Availability", path: "/super-user/devices/scheduling" },
+    //     {
+    //       name: "Manufacturers",
+    //       path: "/super-user/devices/manufacturers",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Communications",
+    //   route: "/super-user/communications",
+    //   icon: <GridViewIcon />,
+    //   hide: false,
+    //   disabled: false,
+    //   menuList: [
+    //     { name: "Tasks", path: "/super-user/communications/tasks" },
+    //     { name: "Fax", path: "/super-user/communications/fax" },
+    //     {
+    //       name: "Messages",
+    //       path: "/super-user/communications/messages",
+    //     },
+    //   ],
+    // },
     {
       title: "Settings",
       route: "/super-user/settings",
