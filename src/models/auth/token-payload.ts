@@ -17,7 +17,7 @@ export type AccessTokenPayload = {
     account: {
       roles: string[];
     };
-    "bluesky-web-app": {
+    "apzeme-web-app": {
       roles: string[];
     };
   };

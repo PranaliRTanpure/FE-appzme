@@ -132,7 +132,7 @@ const Navbar = () => {
                   text={"Add Patient"}
                   startIcon={<AddIcon />}
                   onClick={function (): void {
-                    navigate(`/super-user/patient-registration`);
+                    // navigate(`/super-user/patient-registration`);
                   }}
                 ></CustomButton>
               </Grid>

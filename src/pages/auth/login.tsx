@@ -57,6 +57,7 @@ const LoginPage = () => {
 
   const onSubmit = async (values: typeof initialValues) => {
     values;
+    navigate(`/super-user/settings`);
     // const xTenantId = GetTenantId();
     // await mutateAsync({
     //   requestBody: { username: values.email, password: values.password },
