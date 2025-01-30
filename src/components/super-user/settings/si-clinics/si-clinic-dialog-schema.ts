@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { addressLine1Max128ErrorMsg, cityMax64ErrorMsg, lessThan255ErrorMsg } from "@/constants/error-messages";
 
 export const addSiClinicSchema = yup.object().shape({
-  locationId: yup.string(),
+  locationId: yup.string().required("Location Id required"),
   locationName: yup.string(),
   taxId: yup.string(),
   contactNumber: yup.string(),

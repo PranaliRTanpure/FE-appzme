@@ -1,23 +1,16 @@
-import CustomButton from "@/common-components/button-outlined/custom-button";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useRef } from "react";
+import { Controller, FieldValues, useFieldArray, useForm } from "react-hook-form";
+
 import AddIcon from "@mui/icons-material/Add";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import {
-  Button,
-  Divider,
-  IconButton,
-  SelectChangeEvent,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, IconButton, SelectChangeEvent, Typography } from "@mui/material";
 import { Box, Grid } from "@mui/system";
-import { useRef } from "react";
-import {
-  Controller,
-  FieldValues,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import CustomButton from "@/common-components/button-outlined/custom-button";
+
 import CustomAutoComplete from "../../../../common-components/custom-auto-complete/custom-auto-complete";
 import CustomInputWithPrefix from "../../../../common-components/custom-input-with-prefix/custom-input-with-prefix";
 import CustomInput from "../../../../common-components/custom-input/custom-input";
@@ -83,31 +76,12 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
   return (
     <DrawerBody padding={3} offset={footerRef?.current?.offsetHeight}>
       <Grid container width={"100%"} height={"100%"}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          style={{ height: "100%", width: "100%" }}
-        >
+        <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%", width: "100%" }}>
           {/* Main Grid */}
-          <Grid
-            container
-            width={"100%"}
-            height={"100%"}
-            flexDirection={"column"}
-          >
-            <Grid
-              container
-              width={"100%"}
-              sx={{ overflowY: "auto" }}
-              mt={2}
-              rowGap={3}
-            >
+          <Grid container width={"100%"} height={"100%"} flexDirection={"column"}>
+            <Grid container width={"100%"} sx={{ overflowY: "auto" }} mt={2} rowGap={3}>
               {/* Form */}
-              <Grid
-                container
-                width={"100%"}
-                flexDirection={"column"}
-                rowGap={3}
-              >
+              <Grid container width={"100%"} flexDirection={"column"} rowGap={3}>
                 <Grid container width={"100%"} justifyContent={"space-between"}>
                   <Grid width={"32%"}>
                     <CustomLabel label="Company" isRequired />
@@ -187,16 +161,12 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                       render={({ field }) => (
                         <CustomInputWithPrefix
                           {...field}
-                          onChange={(e) =>
-                            setValue("alternatePhone", e.target.value)
-                          }
+                          onChange={(e) => setValue("alternatePhone", e.target.value)}
                           prefix={`+1`}
                           value={field.value.trim() || ""}
                           placeholder={"Enter Alt. Phone"}
                           hasError={!!errors.alternatePhone}
-                          errorMessage={
-                            errors.alternatePhone?.message as string
-                          }
+                          errorMessage={errors.alternatePhone?.message as string}
                         />
                       )}
                     />
@@ -375,11 +345,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                   Model Details
                 </Typography>
                 {modleDetailsArray.map((model, index) => (
-                  <Grid
-                    container
-                    key={model.modelName}
-                    justifyContent={"space-between"}
-                  >
+                  <Grid container key={model.modelName} justifyContent={"space-between"}>
                     <Grid width={"44%"}>
                       <CustomLabel label="Name" />
                       <Controller
@@ -391,11 +357,7 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                             placeholder={"Enter Name"}
                             name={field.name}
                             onChange={(e) => {
-                              setValue(
-                                `modleDetails.${index}.modelName`,
-                                e.target.value,
-                                { shouldTouch: true },
-                              );
+                              setValue(`modleDetails.${index}.modelName`, e.target.value, { shouldTouch: true });
                             }}
                             bgWhite
                           />
@@ -411,16 +373,10 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                           <CustomSelect
                             placeholder={"Select"}
                             name={setValue.name}
-                            onChange={function (
-                              e: SelectChangeEvent<string>,
-                            ): void {
-                              setValue(
-                                `modleDetails.${index}.modelType`,
-                                e.target.value,
-                                {
-                                  shouldValidate: true,
-                                },
-                              );
+                            onChange={function (e: SelectChangeEvent<string>): void {
+                              setValue(`modleDetails.${index}.modelType`, e.target.value, {
+                                shouldValidate: true,
+                              });
                             }}
                             value={field.value || ""}
                             bgWhite={true}
@@ -481,16 +437,11 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                 padding: "20px 24px",
               }}
             >
-              <Grid
-                container
-                justifyContent={isEdit ? "space-between" : "flex-end"}
-              >
+              <Grid container justifyContent={isEdit ? "space-between" : "flex-end"}>
                 {isEdit && (
                   <Grid container alignItems="center" columnGap={1}>
                     <ArchiveOutlinedIcon />
-                    <Typography variant="bodySmall">
-                      Archive Manufacturer
-                    </Typography>
+                    <Typography variant="bodySmall">Archive Manufacturer</Typography>
                   </Grid>
                 )}
                 <Grid container columnGap={1}>
@@ -502,14 +453,8 @@ const DeviceManufacturersForm = (props: DeviceManufacturersFormProps) => {
                   >
                     <Typography variant="bodySmall">Cancel</Typography>
                   </Button>
-                  <Button
-                    // onClick={handleDrawerClose}
-                    variant="contained"
-                    type="submit"
-                  >
-                    <Typography variant="bodySmall">
-                      {isEdit ? "Save Changes" : "Create Manufacturers"}
-                    </Typography>
+                  <Button variant="contained" type="submit">
+                    <Typography variant="bodySmall">{isEdit ? "Save Changes" : "Create Manufacturers"}</Typography>
                   </Button>
                 </Grid>
               </Grid>

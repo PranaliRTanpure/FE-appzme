@@ -19,6 +19,7 @@ import { addSiClinicSchema } from "./si-clinic-dialog-schema";
 
 interface SiClinicProps {
   handleDrawerClose: () => void;
+  isEdit: boolean;
 }
 
 const SiClinicDialog = (props: SiClinicProps) => {
@@ -40,14 +41,19 @@ const SiClinicDialog = (props: SiClinicProps) => {
     },
   };
 
-  const { control, setValue, handleSubmit } = useForm({
+  const {
+    control,
+    setValue,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(addSiClinicSchema),
   });
 
   const onSubmit = (data: FieldValues) => {
     data;
-    props.handleDrawerClose;
+    props.handleDrawerClose();
   };
 
   const footerRef = useCallback(
@@ -73,7 +79,7 @@ const SiClinicDialog = (props: SiClinicProps) => {
             <Grid container width={"100%"} flexDirection={"column"} rowGap={2} pb={1.5}>
               <Grid container width={"100%"} justifyContent={"space-between"}>
                 <Grid width={"49%"}>
-                  <CustomLabel label="Location ID" />
+                  <CustomLabel label="Location ID" isRequired />
                   <Controller
                     control={control}
                     name="locationId"
@@ -82,6 +88,8 @@ const SiClinicDialog = (props: SiClinicProps) => {
                         value={field.value?.trim() || ""}
                         placeholder={"Enter Location ID"}
                         name={field.name}
+                        hasError={!!errors.locationId}
+                        errorMessage={errors.locationId?.message as string}
                         onChange={(e) =>
                           setValue("locationId", e.target.value, {
                             shouldValidate: true,
@@ -316,8 +324,8 @@ const SiClinicDialog = (props: SiClinicProps) => {
                   <Button onClick={props.handleDrawerClose} variant="outlined" type="button">
                     <Typography variant="bodySmall">Cancel</Typography>
                   </Button>
-                  <Button variant="contained" type="submit">
-                    <Typography variant="bodySmall">{"Add"}</Typography>
+                  <Button variant="contained" type="submit" disabled={!isValid}>
+                    <Typography variant="bodySmall">{props.isEdit ? "Save Changes" : "Add"}</Typography>
                   </Button>
                 </Grid>
               </Grid>
