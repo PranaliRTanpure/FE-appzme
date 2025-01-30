@@ -1,7 +1,4 @@
-import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
 
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -15,12 +12,7 @@ import EmailVerification from "../../assets/image_svg/auth/email_verification.sv
 import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomInput from "../../common-components/custom-input/custom-input";
 import CustomLabel from "../../common-components/custom-label/custom-label";
-import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
 import { emailRegexErrorMsg, emailRequiredErrorMsg } from "../../constants/error-messages";
-import { ErrorResponseEntity } from "../../models/response/error-response";
-import { setSnackbarOn } from "../../redux/actions/snackbar-action";
-import { useUserControllerServiceVerifyUser } from "../../sdk/queries";
-import { GetTenantId } from "../../services/common/get-tenant-id";
 import { emailRegExp } from "../../utils/regex";
 import { theme } from "../../utils/theme";
 import { widthOfInput } from "./login";
@@ -30,11 +22,11 @@ export const verifySchema = yup.object().shape({
 });
 
 const VerifyEmailPage = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const location = useLocation();
 
-  const { mutateAsync, isSuccess, isError, data, error } = useUserControllerServiceVerifyUser();
+  // const { mutateAsync, isSuccess, isError, data, error } = useUserControllerServiceVerifyUser();
 
   const initialValues = {
     email: "",
@@ -45,7 +37,7 @@ const VerifyEmailPage = () => {
     handleSubmit,
     // reset,
     // watch,
-    getValues,
+    // getValues,
     formState: { errors },
     setValue,
   } = useForm({
@@ -56,47 +48,48 @@ const VerifyEmailPage = () => {
   const belowWidth1024 = useMediaQuery("(max-width:1024px)");
 
   const onSubmit = async (values: typeof initialValues) => {
-    const xTenantId = GetTenantId();
+    values;
+    // const xTenantId = GetTenantId();
 
-    await mutateAsync({ email: values.email, xTenantId: xTenantId });
+    // await mutateAsync({ email: values.email, xTenantId: xTenantId });
   };
 
-  useEffect(() => {
-    const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while verifying email";
-    if (isError) {
-      dispatch(
-        setSnackbarOn({
-          severity: AlertSeverity.ERROR,
-          message: message as string,
-        })
-      );
-    }
-  }, [dispatch, isError, error]);
+  // useEffect(() => {
+  //   const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while verifying email";
+  //   if (isError) {
+  //     dispatch(
+  //       setSnackbarOn({
+  //         severity: AlertSeverity.ERROR,
+  //         message: message as string,
+  //       })
+  //     );
+  //   }
+  // }, [dispatch, isError, error]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      const emailVal = getValues("email");
-      if (!data.data) {
-        navigate("/auth/verify-otp", {
-          state: {
-            email: emailVal,
-            forgetPassword: location?.state?.forgetPassword ? true : false,
-          },
-        });
-      } else {
-        if (location?.state?.forgetPassword) {
-          navigate("/auth/verify-otp", {
-            state: {
-              email: emailVal,
-              forgetPassword: location?.state?.forgetPassword ? true : false,
-            },
-          });
-        } else {
-          navigate("/auth/login", { state: { email: emailVal } });
-        }
-      }
-    }
-  }, [isSuccess]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     const emailVal = getValues("email");
+  //     if (!data.data) {
+  //       navigate("/auth/verify-otp", {
+  //         state: {
+  //           email: emailVal,
+  //           forgetPassword: location?.state?.forgetPassword ? true : false,
+  //         },
+  //       });
+  //     } else {
+  //       if (location?.state?.forgetPassword) {
+  //         navigate("/auth/verify-otp", {
+  //           state: {
+  //             email: emailVal,
+  //             forgetPassword: location?.state?.forgetPassword ? true : false,
+  //           },
+  //         });
+  //       } else {
+  //         navigate("/auth/login", { state: { email: emailVal } });
+  //       }
+  //     }
+  //   }
+  // }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", height: "100%" }}>

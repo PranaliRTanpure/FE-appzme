@@ -20,7 +20,6 @@ import DeviceManufacturersPage from "../pages/super-user-portal/devices/device-m
 import DevicesRegistration from "../pages/super-user-portal/devices/devices";
 import EncounterPage from "../pages/super-user-portal/encounter/encounter-page";
 import PatientsRegistration from "../pages/super-user-portal/patients/patients-registration";
-import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
 
 export const router = createBrowserRouter([
@@ -45,11 +44,11 @@ export const router = createBrowserRouter([
   {
     path: "super-user",
     element: (
-      <PrivateRoute>
-        <MainLayout>
-          <Outlet />
-        </MainLayout>
-      </PrivateRoute>
+      // <PrivateRoute>
+      <MainLayout>
+        <Outlet />
+      </MainLayout>
+      // </PrivateRoute>
     ),
     children: [
       { path: "patient-registration", element: <PatientsRegistration /> },

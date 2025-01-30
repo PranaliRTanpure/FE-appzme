@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -15,20 +13,12 @@ import Image from "../../assets/image_svg/auth/set_password.svg";
 import Logo from "../../assets/image_svg/logo/logo.svg";
 import CustomInput from "../../common-components/custom-input/custom-input";
 import CustomLabel from "../../common-components/custom-label/custom-label";
-import { AlertSeverity } from "../../common-components/snackbar-alert/snackbar-alert";
 import {
   confirmNewPaswordErrorMsg,
   newPasswordRequiredErrorMsg,
   passwordMustMatchErrorMsg,
   passwordRegexErrorMsg,
 } from "../../constants/error-messages";
-import useApiFeedback from "../../hooks/useApiFeedback";
-// import { theme } from "../../utils/theme";
-import { ResetLinkType } from "../../models/auth/reset-linktype";
-import { ErrorResponseEntity } from "../../models/response/error-response";
-import { setSnackbarOn } from "../../redux/actions/snackbar-action";
-import { useUserControllerServiceSetPassword } from "../../sdk/queries";
-import { GetTenantId } from "../../services/common/get-tenant-id";
 import { passwordRegx } from "../../utils/regex";
 import { widthOfInput } from "./login";
 
@@ -42,45 +32,45 @@ export const setPasswordSchema = yup.object().shape({
 
 const SetPasswordPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
   const below1024 = useMediaQuery("(max-width:1024px)");
 
-  const {
-    mutateAsync,
-    isSuccess,
-    isError,
-    error,
-    // isPending,
-    data,
-  } = useUserControllerServiceSetPassword();
+  // const {
+  //   mutateAsync,
+  //   isSuccess,
+  //   isError,
+  //   error,
+  //   // isPending,
+  //   data,
+  // } = useUserControllerServiceSetPassword();
 
-  useApiFeedback(isError, error, isSuccess, (data?.message || "Password set successsfully") as string);
+  // useApiFeedback(isError, error, isSuccess, (data?.message || "Password set successsfully") as string);
 
   const initialValues = {
     newPassword: "",
     confirmNewPassword: "",
   };
 
-  useEffect(() => {
-    const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while setting password";
-    if (isError) {
-      dispatch(
-        setSnackbarOn({
-          severity: AlertSeverity.ERROR,
-          message: message as string,
-        })
-      );
-    }
-  }, [dispatch, isError, error]);
+  // useEffect(() => {
+  //   const message = (error && (error as ErrorResponseEntity)?.body?.message) || "Error occurred while setting password";
+  //   if (isError) {
+  //     dispatch(
+  //       setSnackbarOn({
+  //         severity: AlertSeverity.ERROR,
+  //         message: message as string,
+  //       })
+  //     );
+  //   }
+  // }, [dispatch, isError, error]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/auth/login", {
-        state: { email: location.state ? location.state?.emailVal : "" },
-      });
-    }
-  }, [isSuccess]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     navigate("/auth/login", {
+  //       state: { email: location.state ? location.state?.emailVal : "" },
+  //     });
+  //   }
+  // }, [isSuccess]);
 
   const {
     control,
@@ -95,17 +85,18 @@ const SetPasswordPage = () => {
   });
 
   const onSubmit = async (values: typeof initialValues) => {
-    const xTenantId = GetTenantId();
+    values;
+    // const xTenantId = GetTenantId();
 
-    await mutateAsync({
-      linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
-      requestBody: {
-        newPassword: values.newPassword,
-        email: location.state ? location.state?.emailVal : "",
-        otp: location.state ? location.state?.otpVal : "",
-      },
-      xTenantId: xTenantId,
-    });
+    // await mutateAsync({
+    //   linkType: location?.state?.forgetPassword ? ResetLinkType.RESET : ResetLinkType.SET,
+    //   requestBody: {
+    //     newPassword: values.newPassword,
+    //     email: location.state ? location.state?.emailVal : "",
+    //     otp: location.state ? location.state?.otpVal : "",
+    //   },
+    //   xTenantId: xTenantId,
+    // });
   };
 
   return (

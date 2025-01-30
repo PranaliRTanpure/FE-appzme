@@ -1,9 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import AddIcon from "@mui/icons-material/Add";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SearchIcon from "@mui/icons-material/Search";
@@ -27,10 +25,7 @@ import { Grid, alpha } from "@mui/system";
 import ProfileImage from "../../assets/image_svg/icons/account_circle.svg";
 import Logo from "../../assets/image_svg/logo/navbar_logo.svg";
 import useLogout from "../../hooks/use-logout";
-import { setIsLoading } from "../../redux/actions/loader-action";
-import { fetchProfileData } from "../../redux/actions/profile-async-actions";
-import { AppDispatch, RootState } from "../../redux/store";
-import { Provider } from "../../sdk/requests";
+import { AppDispatch } from "../../redux/store";
 import { GetTenantId } from "../../services/common/get-tenant-id";
 import { theme } from "../../utils/theme";
 import CustomButton from "../button-outlined/custom-button";
@@ -41,13 +36,13 @@ export const toolBarContainer = {
 };
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
 
   const handleProfileClick = () => {
-    navigate("settings/profile");
+    // navigate("settings/profile");
   };
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const handleLogoutDialogOpen = () => {
@@ -62,17 +57,13 @@ const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const xTenantIdVal = GetTenantId();
 
-  const { data, isLoading } = useSelector((state: RootState) => state.profileReducer);
+  // const { isLoading } = useSelector((state: RootState) => state.profileReducer);
 
   useEffect(() => {
-    dispatch(fetchProfileData(xTenantIdVal));
+    // dispatch(fetchProfileData(xTenantIdVal));
   }, [dispatch, xTenantIdVal]);
 
-  const profileData = data as Provider;
-
-  useEffect(() => {
-    dispatch(setIsLoading(isLoading));
-  }, [dispatch, isLoading]);
+  // const profileData = data as unknown;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -139,7 +130,7 @@ const Navbar = () => {
                   text={"Add Patient"}
                   startIcon={<AddIcon />}
                   onClick={function (): void {
-                    navigate(`/super-user/patient-registration`);
+                    // navigate(`/super-user/patient-registration`);
                   }}
                 ></CustomButton>
               </Grid>
@@ -157,7 +148,8 @@ const Navbar = () => {
                 <Grid container justifyContent={"center"} alignContent={"center"}>
                   <Grid>
                     <Avatar
-                      src={profileData?.avatar}
+                      // src={profileData?.avatar}
+                      src={""}
                       style={{
                         cursor: "pointer",
                         width: "20px",
@@ -179,7 +171,8 @@ const Navbar = () => {
                     >
                       <MenuItem onClick={handleProfileClick}>
                         <img
-                          src={profileData?.avatar || ProfileImage}
+                          // src={profileData?.avatar || ProfileImage}
+                          src={ProfileImage}
                           width={"20px"}
                           height={"20px"}
                           style={{ borderRadius: "20px" }}
@@ -228,14 +221,14 @@ const Navbar = () => {
                 <Grid container alignItems={"center"} justifyContent={"center"}>
                   <Typography sx={{ fontSize: "14px" }}>John Doe</Typography>
                 </Grid>
-                <IconButton
+                {/* <IconButton
                   sx={{
                     padding: "0px",
                     color: theme.palette.common.white,
                   }}
                 >
                   <KeyboardArrowDownOutlinedIcon sx={{ height: "20px", width: "20px" }} />
-                </IconButton>
+                </IconButton> */}
               </Grid>
             </Grid>
           </Grid>
