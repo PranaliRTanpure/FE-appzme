@@ -7,10 +7,8 @@ import Switcher from "@/common-components/switcher/switcher";
 
 import { toCamelCase } from "@/utils/toCamelCase";
 
-import MacrosList from "./macros/macros-list";
 import MSLDetails from "./organization/msl/msl-details";
 import SIDetails from "./organization/si/si-details";
-import PracticeContactList from "./practice-contacts/practice-contacts-list";
 
 enum SettingDetailsType {
   MSL = "MSL",
@@ -76,12 +74,14 @@ const SettingsTab = () => {
         )}
         {detailType === SettingDetailsType.MACROS && (
           <Grid container width={"100%"}>
-            <MacrosList />
+            {/* <MacrosList /> */}
+            <></>
           </Grid>
         )}
         {detailType === SettingDetailsType.PRACTICE_CONTACTS && (
           <Grid container width={"100%"}>
-            <PracticeContactList />
+            <></>
+            {/* <PracticeContactList /> */}
           </Grid>
         )}
       </Grid>
