@@ -209,10 +209,20 @@ const Navbar = () => {
                         }}
                       >
                         <Grid>
-                          <CustomButton variant={"outlined"} text={"Cancel"} onClick={handleLogoutDialogClose} />
+                          <CustomButton
+                            sx={{ width: "40px" }}
+                            variant={"outlined"}
+                            text={"Cancel"}
+                            onClick={handleLogoutDialogClose}
+                          />
                         </Grid>
                         <Grid>
-                          <CustomButton variant={"contained"} text={"Yes"} onClick={logoutHandler} />
+                          <CustomButton
+                            sx={{ width: "40px" }}
+                            variant={"contained"}
+                            text={"Yes"}
+                            onClick={logoutHandler}
+                          />
                         </Grid>
                       </DialogActions>
                     </Dialog>

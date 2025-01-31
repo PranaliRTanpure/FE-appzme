@@ -11,7 +11,7 @@ import Switcher from "@/common-components/switcher/switcher";
 import { theme } from "@/utils/theme";
 
 import { InfoRow } from "../msl/msl-details";
-import MSLProviderList from "../msl/msl-provider-list";
+import MSLStaffList from "../msl/msl-staff-list";
 import SiClinicsList from "./si-clinics/si-clinics-list";
 
 const SIDetails = () => {
@@ -19,6 +19,7 @@ const SIDetails = () => {
   const handleSwitcherChange = useCallback((option: "Clinic" | "Staff") => {
     setSelectedOpt(option);
   }, []);
+
   return (
     <Grid height="100%" container flexDirection="column" width="100%" rowGap={1}>
       <Grid
@@ -39,7 +40,7 @@ const SIDetails = () => {
             variant="outlined"
             startIcon={<EditOutlinedIcon />}
             text="Edit Details"
-            onClick={() => undefined} // Placeholder for actual function
+            onClick={() => undefined}
           />
         </Grid>
 
@@ -75,7 +76,7 @@ const SIDetails = () => {
           />
         </Grid>
         {selectedOpt === "Clinic" && <SiClinicsList />}
-        {selectedOpt === "Staff" && <MSLProviderList />}
+        {selectedOpt === "Staff" && <MSLStaffList />}
       </Grid>
     </Grid>
   );

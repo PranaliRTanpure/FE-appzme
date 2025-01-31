@@ -8,8 +8,8 @@ import Switcher from "@/common-components/switcher/switcher";
 import { toCamelCase } from "@/utils/toCamelCase";
 
 import MacrosList from "./macros/macros-list";
-import SIDetails from "./organization/SI/si-details";
 import MSLDetails from "./organization/msl/msl-details";
+import SIDetails from "./organization/si/si-details";
 import PracticeContactList from "./practice-contacts/practice-contacts-list";
 
 enum SettingDetailsType {
@@ -41,13 +41,7 @@ const SettingsTab = () => {
   return (
     <Grid container width={"100%"} p={2} flexDirection={"column"} rowGap={1}>
       {/* Switcher Grid */}
-      <Grid
-        container
-        width={"100%"}
-        minWidth={"100%"}
-        overflow={"auto"}
-        sx={{ pb: 1, borderBottom: 1, borderColor: "divider" }}
-      >
+      <Grid container width={"100%"} minWidth={"100%"} overflow={"auto"} sx={{ pb: 1 }}>
         <Switcher
           options={[
             "MSL",

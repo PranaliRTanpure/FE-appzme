@@ -8,6 +8,8 @@ import { Grid } from "@mui/system";
 import CustomButton from "@/common-components/button-outlined/custom-button";
 import Switcher from "@/common-components/switcher/switcher";
 
+import MainDrawer from "@/components/ui/MainDrawer";
+import { useDrawer } from "@/hooks/useDrawer";
 import { theme } from "@/utils/theme";
 
 import MSLProviderList from "./msl-provider-list";
@@ -30,6 +32,30 @@ const MSLDetails = () => {
     setSelectedOpt(option);
   }, []);
 
+  const { open: openDrawer, content: contentDrawer } = useDrawer();
+
+  const handleDrawer = {
+    deviceShippingForm: (action: string) => {
+      openDrawer({
+        title: `${action} MSL Details`,
+        identifier: "drawer-shipping-form",
+      });
+    },
+  };
+
+  const DrawerContent = () => {
+    switch (contentDrawer.identifier) {
+      case "drawer-shipping-form":
+        return <></>;
+      default:
+        return <div />;
+    }
+  };
+
+  const handleEditDetails = () => {
+    handleDrawer.deviceShippingForm("Edit");
+  };
+
   return (
     <Grid height="100%" container flexDirection="column" width="100%" rowGap={1}>
       <Grid
@@ -50,7 +76,7 @@ const MSLDetails = () => {
             variant="outlined"
             startIcon={<EditOutlinedIcon />}
             text="Edit Details"
-            onClick={() => undefined}
+            onClick={() => handleEditDetails()}
           />
         </Grid>
 
@@ -88,6 +114,13 @@ const MSLDetails = () => {
         {selectedOpt === "Providers" && <MSLProviderList />}
         {selectedOpt === "Staff" && <MSLStaffList />}
       </Grid>
+      <MainDrawer
+        content={<DrawerContent />}
+        drawerWidth={"950px"}
+        anchor="right"
+        showMandatoryIndicator={true}
+        showSecondButton={false}
+      />
     </Grid>
   );
 };
